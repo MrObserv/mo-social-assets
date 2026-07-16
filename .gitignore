@@ -1,6 +1,9 @@
 sync_log.txt
 .claude/
-
-# Raw source footage only - Riverside exports (some 400-600MB; GitHub rejects over 100MB).
-# Everything else, including the final clip shorts Buffer needs, is tracked and pushed.
-riverside_*
+*.mp4
+*.mov
+*.mkv
+*.avi
+*.wav
+*.aif
+*.aiff
