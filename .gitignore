@@ -1,2 +1,11 @@
 sync_log.txt
 .claude/
+
+# Source footage and audio - keep on disk, never push. 2026-07-14
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.wav
+*.aif
+*.aiff
