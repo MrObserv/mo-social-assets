@@ -1,11 +1,6 @@
 sync_log.txt
 .claude/
 
-# Source footage and audio - keep on disk, never push. 2026-07-14
-*.mp4
-*.mov
-*.avi
-*.mkv
-*.wav
-*.aif
-*.aiff
+# Raw source footage only - Riverside exports (some 400-600MB; GitHub rejects over 100MB).
+# Everything else, including the final clip shorts Buffer needs, is tracked and pushed.
+riverside_*
