@@ -2,6 +2,7 @@ sync_log.txt
 .claude/
 *.mp4
 *.mov
+*.m4v
 *.mkv
 *.avi
 *.wav
