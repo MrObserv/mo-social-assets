@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Signal Drop Intro (16:9)</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --navy:#0D2127; --teal:#2F9E8D; --mint:#74DDCD; --ink:#16282D; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;background:#000;overflow:hidden}
+  /* Stage is a true 16:9 frame that scales to fit the window. Record the window at 1920x1080 for a clean 1080p capture. */
+  .stage{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:100vw;height:56.25vw;max-height:100vh;max-width:177.78vh;
+    background:var(--navy);overflow:hidden;font-family:'Montserrat',sans-serif}
+  .grid{position:absolute;inset:0;
+    background-image:linear-gradient(rgba(47,158,141,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(47,158,141,.16) 1px,transparent 1px);
+    background-size:4.2vw 4.2vw;opacity:.55}
+  .centre{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+
+  /* Waveform */
+  .wave{position:absolute;display:flex;gap:.75vw;align-items:center;height:26vw;max-height:46vh;z-index:1}
+  .wave i{display:block;width:.85vw;height:100%;background:var(--teal);border-radius:6px;transform:scaleY(.15);transform-origin:center bottom;
+    animation:eq .8s ease-in-out infinite alternate}
+  .wave i:nth-child(2){animation-delay:.10s}.wave i:nth-child(3){animation-delay:.25s}.wave i:nth-child(4){animation-delay:.05s}
+  .wave i:nth-child(5){animation-delay:.30s}.wave i:nth-child(6){animation-delay:.15s}.wave i:nth-child(7){animation-delay:.35s}
+  .wave i:nth-child(8){animation-delay:.08s}.wave i:nth-child(9){animation-delay:.22s}.wave i:nth-child(10){animation-delay:.32s}
+  .wave i:nth-child(11){animation-delay:.12s}
+  @keyframes eq{from{transform:scaleY(.15)}to{transform:scaleY(1)}}
+
+  /* Lockup */
+  .lockup{position:relative;text-align:center;z-index:2;opacity:0}
+  .eyebrow{font-family:'Space Mono',monospace;color:var(--mint);letter-spacing:.5vw;text-transform:uppercase;
+    font-size:1.5vw;margin-bottom:1.6vw}
+  .title{font-weight:800;color:#fff;letter-spacing:.15vw;font-size:7.4vw;line-height:1}
+  .dot{width:.95vw;height:.95vw;border-radius:50%;background:var(--teal);margin:1.6vw auto 0}
+
+  /* Animation states driven by .play class */
+  .stage.play .wave{animation:waveCycle 3.05s ease-in forwards}
+  .stage.play .lockup{animation:lockIn 1.1s ease-out 2.7s forwards}
+  @keyframes waveCycle{
+    0%{opacity:0;transform:scaleX(1)}
+    8%{opacity:1}
+    72%{opacity:1;transform:scaleX(1)}
+    86%{opacity:1;transform:scaleX(.04)}
+    100%{opacity:0;transform:scaleX(.04)}}
+  @keyframes lockIn{from{opacity:0;transform:translateY(2.2vw)}to{opacity:1;transform:translateY(0)}}
+
+  .controls{position:absolute;bottom:14px;right:16px;z-index:10;font-family:'Space Mono',monospace;font-size:12px;color:#9fb7b3}
+  .controls button{font:inherit;color:var(--navy);background:var(--mint);border:0;border-radius:4px;padding:7px 14px;cursor:pointer;letter-spacing:1px}
+  .hint{opacity:.7;margin-right:10px}
+</style>
+</head>
+<body>
+  <div class="stage" id="stage">
+    <div class="grid"></div>
+    <div class="centre">
+      <div class="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="lockup">
+        <div class="eyebrow">Mastering Observability</div>
+        <div class="title">Signal Drop</div>
+        <div class="dot"></div>
+      </div>
+    </div>
+  </div>
+  <div class="controls"><span class="hint">press R to replay</span><button id="replay">Replay</button></div>
+<script>
+  const stage=document.getElementById('stage');
+  function play(){stage.classList.remove('play');void stage.offsetWidth;stage.classList.add('play');}
+  document.getElementById('replay').addEventListener('click',play);
+  document.addEventListener('keydown',e=>{if(e.key.toLowerCase()==='r')play();});
+  window.addEventListener('load',()=>setTimeout(play,300));
+</script>
+</body>
+</html>

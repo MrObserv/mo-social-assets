@@ -1,0 +1,19 @@
+{
+  "nodes": [
+    {"id": "db", "label": "DATABASE", "x": 0.08, "y": 0.08, "shape": "circle"},
+    {"id": "worker", "label": "STATELESS WORKER", "x": 0.08, "y": 0.32, "shape": "circle"},
+    {"id": "cachesvc", "label": "CACHE SERVICE", "x": 0.08, "y": 0.56, "shape": "circle"},
+    {"id": "redis", "label": "REDIS", "x": 0.08, "y": 0.80, "shape": "circle"},
+    {"id": "gate", "label": "HUMAN GATE", "x": 0.60, "y": 0.44, "shape": "diamond", "emphasis": true},
+    {"id": "cache", "label": "CACHE", "x": 0.94, "y": 0.18, "shape": "circle"},
+    {"id": "blast", "label": "BLAST RADIUS: HIGH", "x": 0.94, "y": 0.70, "shape": "bang"}
+  ],
+  "edges": [
+    ["db", "gate"],
+    ["worker", "gate"],
+    ["cachesvc", "gate"],
+    ["redis", "gate"],
+    ["gate", "cache"],
+    ["gate", "blast"]
+  ]
+}

@@ -1,0 +1,32 @@
+<!-- Mastering Observability: Gmail signature (no-photo, bulletproof). Built 2026-06-16.
+     Gmail strips base64 images from the signature box, so this version uses no embedded
+     photo: it renders identically for you and for every recipient, with no broken-image risk.
+     HOW TO USE: open this file in a browser, Ctrl+A, Ctrl+C, then paste into
+     Gmail > Settings (gear) > See all settings > General > Signature > (create/edit).
+     To add the headshot, see the note at the foot of this file. Links per Codex 26.1. -->
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;">
+  <tr>
+    <td style="padding:2px 16px 2px 0;border-right:3px solid #0d7377;"></td>
+    <td style="padding:0 0 0 16px;">
+      <div style="font-size:17px;font-weight:bold;color:#0f2b2d;">Allan Mann</div>
+      <div style="font-size:13px;font-weight:bold;color:#0d7377;padding-top:2px;">Author, Metrics &amp; Mayhem &nbsp;|&nbsp; Observability &amp; AIOps Strategist</div>
+      <div style="font-size:13px;color:#44595b;padding-top:2px;">Mobile: +44 7552 196185</div>
+      <div style="font-size:13px;font-style:italic;color:#5b7070;padding-top:6px;">Most teams can see everything and understand nothing. The work is the difference.</div>
+      <div style="font-size:12.5px;color:#0d7377;padding-top:8px;">
+        <a href="https://amzn.eu/d/0cAuR2K1" style="color:#0d7377;text-decoration:none;font-weight:bold;">The Book</a> &nbsp;&middot;&nbsp;
+        <a href="https://www.masteringobservability.com/metrics-and-mayhem/free-chapter" style="color:#0d7377;text-decoration:none;">Free Chapter</a> &nbsp;&middot;&nbsp;
+        <a href="https://www.masteringobservability.com/metrics-and-mayhem/podcast" style="color:#0d7377;text-decoration:none;">Podcast</a> &nbsp;&middot;&nbsp;
+        <a href="https://masteringobservability.com" style="color:#0d7377;text-decoration:none;">Newsletter</a> &nbsp;&middot;&nbsp;
+        <a href="https://www.linkedin.com/in/allanmann1/" style="color:#0d7377;text-decoration:none;">LinkedIn</a>
+      </div>
+    </td>
+  </tr>
+</table>
+<!--
+  TO ADD THE HEADSHOT (optional):
+  After pasting this signature into the Gmail signature box, place the cursor at the very
+  start (before "Allan Mann"), then use the Insert image button in the signature toolbar
+  (the mountain icon) and upload allan_mann_headshot_author_circle.png from 06_Brand_Assets.
+  Set it to ~80px. Gmail hosts it for you, so it will not break for recipients. The teal
+  divider bar stays to the left of the text either way.
+-->

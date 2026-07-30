@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mastering Observability — Logo Exploration</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0e17;
+    font-family: 'DM Sans', sans-serif;
+    color: #ccc;
+    padding: 60px 40px 80px;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 70px;
+  }
+  .page-header h1 {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #64ffda;
+    margin-bottom: 12px;
+  }
+  .page-header p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.35);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Direction sections */
+  .direction {
+    max-width: 1100px;
+    margin: 0 auto 80px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(100, 255, 218, 0.08);
+    border-radius: 8px;
+    padding: 50px;
+  }
+
+  .direction-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+  .direction-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #64ffda;
+  }
+  .direction-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .direction-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 40px;
+    line-height: 1.6;
+    max-width: 700px;
+  }
+
+  /* Size row */
+  .size-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 60px;
+    margin-bottom: 30px;
+  }
+
+  .size-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .size-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+  }
+
+  .logo-frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(100,255,218,0.06);
+    border-radius: 6px;
+  }
+
+  .logo-frame.hero { width: 260px; height: 260px; }
+  .logo-frame.medium { width: 120px; height: 120px; }
+  .logo-frame.small { width: 60px; height: 60px; }
+  .logo-frame.favicon { width: 36px; height: 36px; }
+
+  /* In-context preview */
+  .context-row {
+    display: flex;
+    gap: 30px;
+    margin-top: 40px;
+  }
+
+  .context-card {
+    flex: 1;
+    background: #0d1117;
+    border: 1px solid rgba(100,255,218,0.06);
+    border-radius: 6px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .context-card .label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+    margin-bottom: 4px;
+  }
+  .context-card .brand-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.5px;
+  }
+  .context-card .brand-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    margin-top: 2px;
+  }
+
+  /* Notes */
+  .design-notes {
+    margin-top: 30px;
+    padding: 20px 24px;
+    background: rgba(100,255,218,0.03);
+    border-left: 2px solid rgba(100,255,218,0.2);
+    border-radius: 0 4px 4px 0;
+  }
+  .design-notes p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.7;
+  }
+  .design-notes strong {
+    color: rgba(255,255,255,0.7);
+  }
+
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: rgba(100,255,218,0.15);
+    margin: 0 auto 80px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Logo Exploration</h1>
+  <p>Three directions. Each shown at hero, header, icon, and favicon scale — plus in-context with the brand name.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     DIRECTION 1 — REFINED EYE-IN-GEAR
+     ═══════════════════════════════════════════════ -->
+<div class="direction">
+  <div class="direction-header">
+    <span class="direction-number">Direction 01</span>
+    <span class="direction-title">Refined</span>
+  </div>
+  <p class="direction-desc">Same eye-in-gear concept, but simplified. Six teeth instead of eight, bolder geometry, thicker eye strokes. Reads cleanly at 32px.</p>
+
+  <div class="size-row">
+    <div class="size-group">
+      <div class="logo-frame hero">
+        <svg viewBox="0 0 200 200" width="200" height="200">
+          <!-- Gear body -->
+          <circle cx="100" cy="100" r="68" fill="#0d7377"/>
+          <!-- 6 teeth — cleaner, wider -->
+          <g fill="#0d7377">
+            <rect x="86" y="4" width="28" height="26" rx="5"/>
+            <rect x="86" y="170" width="28" height="26" rx="5"/>
+            <rect x="4" y="86" width="26" height="28" rx="5"/>
+            <rect x="170" y="86" width="26" height="28" rx="5"/>
+            <rect x="32" y="32" width="24" height="24" rx="5" transform="rotate(45 44 44)"/>
+            <rect x="144" y="144" width="24" height="24" rx="5" transform="rotate(45 156 156)"/>
+          </g>
+          <!-- Inner ring -->
+          <circle cx="100" cy="100" r="56" fill="#14a3a8"/>
+          <!-- Eye shape — bold, clean -->
+          <path d="M32 100 Q100 50 168 100 Q100 150 32 100 Z" fill="#ffffff"/>
+          <!-- Iris -->
+          <circle cx="100" cy="100" r="28" fill="#0a5c5e"/>
+          <!-- Pupil -->
+          <circle cx="100" cy="100" r="18" fill="#2dd4bf"/>
+          <!-- Highlight -->
+          <circle cx="110" cy="91" r="7" fill="#ffffff" opacity="0.5"/>
+        </svg>
+      </div>
+      <span class="size-label">Hero (200px)</span>
+    </div>
+    <div class="size-group">
+      <div class="logo-frame medium">
+        <svg viewBox="0 0 200 200" width="80" height="80">
+          <circle cx="100" cy="100" r="68" fill="#0d7377"/>
+          <g fill="#0d7377">
+            <rect x="86" y="4" width="28" height="26" rx="5"/>
+            <rect x="86" y="170" width="28" height="26" rx="5"/>
+            <rect x="4" y="86" width="26" height="28" rx="5"/>
+            <rect x="170" y="86" width="26" height="28" rx="5"/>
+            <rect x="32" y="32" width="24" height="24" rx="5" transform="rotate(45 44 44)"/>
+            <rect x="144" y="144" width="24" height="24" rx="5" transform="rotate(45 156 156)"/>
+          </g>
+          <circle cx="100" cy="100" r="56" fill="#14a3a8"/>
+          <path d="M32 100 Q100 50 168 100 Q100 150 32 100 Z" fill="#ffffff"/>
+          <circle cx="100" cy="100" r="28" fill="#0a5c5e"/>
+          <circle cx="100" cy="100" r="18" fill="#2dd4bf"/>
+          <circle cx="110" cy="91" r="7" fill="#ffffff" opacity="0.5"/>
+        </svg>
+      </div>
+      <span class="size-label">Header (80px)</span>
+    </div>
+    <div class="size-group">
+      <div class="logo-frame small">
+        <svg viewBox="0 0 200 200" width="40" height="40">
+          <circle cx="100" cy="100" r="68" fill="#0d7377"/>
+          <g fill="#0d7377">
+            <rect x="86" y="4" width="28" height="26" rx="5"/>
+            <rect x="86" y="170" width="28" height="26" rx="5"/>
+            <rect x="4" y="86" width="26" height="28" rx="5"/>
+            <rect x="170" y="86" width="26" height="28" rx="5"/>
+            <rect x="32" y="32" width="24" height="24" rx="5" transform="rotate(45 44 44)"/>
+            <rect x="144" y="144" width="24" height="24" rx="5" transform="rotate(45 156 156)"/>
+          </g>
+          <circle cx="100" cy="100" r="56" fill="#14a3a8"/>
+          <path d="M32 100 Q100 50 168 100 Q100 150 32 100 Z" fill="#ffffff"/>
+          <circle cx="100" cy="100" r="28" fill="#0a5c5e"/>
+          <circle cx="100" cy="100" r="18" fill="#2dd4bf"/>
+        </svg>
+      </div>
+      <span class="size-label">Icon (40px)</span>
+    </div>
+    <div class="size-group">
+      <div class="logo-frame favicon">
+        <svg viewBox="0 0 200 200" width="28" height="28">
+          <circle cx="100" cy="100" r="68" fill="#0d7377"/>
+          <g fill="#0d7377">
+            <rect x="86" y="4" width="28" height="26" rx="5"/>
+            <rect x="86" y="170" width="28" height="26" rx="5"/>
+            <rect x="4" y="86" width="26" height="28" rx="5"/>
+            <rect x="170" y="86" width="26" height="28" rx="5"/>
+          </g>
+          <circle cx="100" cy="100" r="56" fill="#14a3a8"/>
+          <path d="M32 100 Q100 50 168 100 Q100 150 32 100 Z" fill="#ffffff"/>
+          <circle cx="100" cy="100" r="28" fill="#0a5c5e"/>
+          <circle cx="100" cy="100" r="18" fill="#2dd4bf"/>
+        </svg>
+      </div>
+      <span class="size-label">Favicon (28px)</span>
+    </div>
+  </div>
+
+  <!-- In-context -->
+  <div class="context-row">
+    <div class="context-card">
+      <svg viewBox="0 0 200 200" width="44" height="44">
+        <circle cx="100" cy="100" r="68" fill="#0d7377"/>
+        <g fill="#0d7377"><rect x="86" y="4" width="28" height="26" rx="5"/><rect x="86" y="170" width="28" height="26" rx="5"/><rect x="4" y="86" width="26" height="28" rx="5"/><rect x="170" y="86" width="26" height="28" rx="5"/></g>
+        <circle cx="100" cy="100" r="56" fill="#14a3a8"/>
+        <path d="M32 100 Q100 50 168 100 Q100 150 32 100 Z" fill="#ffffff"/>
+        <circle cx="100" cy="100" r="28" fill="#0a5c5e"/>
+        <circle cx="100" cy="100" r="18" fill="#2dd4bf"/>
+      </svg>
+      <div>
+        <div class="label">Newsletter</div>
+        <div class="brand-name">Mastering Observability</div>
+        <div class="brand-sub">See what matters. Decide faster.</div>
+      </div>
+    </div>
+    <div class="context-card">
+      <svg viewBox="0 0 200 200" width="36" height="36">
+        <circle cx="100" cy="100" r="68" fill="#0d7377"/>
+        <g fill="#0d7377"><rect x="86" y="4" width="28" height="26" rx="5"/><rect x="86" y="170" width="28" height="26" rx="5"/><rect x="4" y="86" width="26" height="28" rx="5"/><rect x="170" y="86" width="26" height="28" rx="5"/></g>
+        <circle cx="100" cy="100" r="56" fill="#14a3a8"/>
+        <path d="M32 100 Q100 50 168 100 Q100 150 32 100 Z" fill="#ffffff"/>
+        <circle cx="100" cy="100" r="28" fill="#0a5c5e"/>
+        <circle cx="100" cy="100" r="18" fill="#2dd4bf"/>
+      </svg>
+      <div>
+        <div class="label">LinkedIn</div>
+        <div class="brand-name">Allan Mann</div>
+        <div class="brand-sub">Mastering Observability</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="design-notes">
+    <p><strong>What changed:</strong> Reduced from 8 teeth to 6 (drops the corner teeth that collapse at small sizes). Wider tooth geometry. Removed circuit lines — they were invisible below 80px. Bolder eye stroke. Same DNA, cleaner execution.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════
+     DIRECTION 2 — EVOLVED (EYE + LENS/SIGNAL)
+     ═══════════════════════════════════════════════ -->
+<div class="direction">
+  <div class="direction-header">
+    <span class="direction-number">Direction 02</span>
+    <span class="direction-title">Evolved</span>
+  </div>
+  <p class="direction-desc">Keeps the eye as the core symbol but replaces the gear with concentric lens rings — a nod to focus, clarity, and signal. Feels less industrial, more editorial. Maps to "see what matters."</p>
+
+  <div class="size-row">
+    <div class="size-group">
+      <div class="logo-frame hero">
+        <svg viewBox="0 0 200 200" width="200" height="200">
+          <!-- Outer lens ring -->
+          <circle cx="100" cy="100" r="92" fill="none" stroke="#0d7377" stroke-width="3"/>
+          <!-- Middle lens ring -->
+          <circle cx="100" cy="100" r="76" fill="none" stroke="#14a3a8" stroke-width="2"/>
+          <!-- Inner filled circle -->
+          <circle cx="100" cy="100" r="62" fill="#0f2b2d"/>
+          <!-- Focus marks — top, bottom, left, right -->
+          <g stroke="#64ffda" stroke-width="2.5" stroke-linecap="round">
+            <line x1="100" y1="2" x2="100" y2="18"/>
+            <line x1="100" y1="182" x2="100" y2="198"/>
+            <line x1="2" y1="100" x2="18" y2="100"/>
+            <line x1="182" y1="100" x2="198" y2="100"/>
+          </g>
+          <!-- Eye shape -->
+          <path d="M38 100 Q100 52 162 100 Q100 148 38 100 Z" fill="#ffffff"/>
+          <!-- Iris -->
+          <circle cx="100" cy="100" r="26" fill="#0a5c5e"/>
+          <!-- Pupil -->
+          <circle cx="100" cy="100" r="16" fill="#2dd4bf"/>
+          <!-- Highlight -->
+          <circle cx="109" cy="92" r="6" fill="#ffffff" opacity="0.45"/>
+          <!-- Subtle ring glow -->
+          <circle cx="100" cy="100" r="92" fill="none" stroke="#64ffda" stroke-width="1" opacity="0.15"/>
+        </svg>
+      </div>
+      <span class="size-label">Hero (200px)</span>
+    </div>
+    <div class="size-group">
+      <div class="logo-frame medium">
+        <svg viewBox="0 0 200 200" width="80" height="80">
+          <circle cx="100" cy="100" r="92" fill="none" stroke="#0d7377" stroke-width="4"/>
+          <circle cx="100" cy="100" r="76" fill="none" stroke="#14a3a8" stroke-width="3"/>
+          <circle cx="100" cy="100" r="62" fill="#0f2b2d"/>
+          <g stroke="#64ffda" stroke-width="3.5" stroke-linecap="round">
+            <line x1="100" y1="2" x2="100" y2="18"/>
+            <line x1="100" y1="182" x2="100" y2="198"/>
+            <line x1="2" y1="100" x2="18" y2="100"/>
+            <line x1="182" y1="100" x2="198" y2="100"/>
+          </g>
+          <path d="M38 100 Q100 52 162 100 Q100 148 38 100 Z" fill="#ffffff"/>
+          <circle cx="100" cy="100" r="26" fill="#0a5c5e"/>
+          <circle cx="100" cy="100" r="16" fill="#2dd4bf"/>
+        </svg>
+      </div>
+      <span class="size-label">Header (80px)</span>
+    </div>
+    <div class="size-group">
+      <div class="logo-frame small">
+        <svg viewBox="0 0 200 200" width="40" height="40">
+          <circle cx="100" cy="100" r="90" fill="none" stroke="#0d7377" stroke-width="6"/>
+          <circle cx="100" cy="100" r="62" fill="#0f2b2d"/>
+          <g stroke="#64ffda" stroke-width="5" stroke-linecap="round">
+            <line x1="100" y1="2" x2="100" y2="20"/>
+            <line x1="100" y1="180" x2="100" y2="198"/>
+            <line x1="2" y1="100" x2="20" y2="100"/>
+            <line x1="180" y1="100" x2="198" y2="100"/>
+          </g>
+          <path d="M38 100 Q100 52 162 100 Q100 148 38 100 Z" fill="#ffffff"/>
+          <circle cx="100" cy="100" r="26" fill="#0a5c5e"/>
+          <circle cx="100" cy="100" r="16" fill="#2dd4bf"/>
+        </svg>
+      </div>
+      <span class="size-label">Icon (40px)</span>
+    </div>
+    <div class="size-group">
+      <div class="logo-frame favicon">
+        <svg viewBox="0 0 200 200" width="28" height="28">
+          <circle cx="100" cy="100" r="88" fill="none" stroke="#0d7377" stroke-width="8"/>
+          <circle cx="100" cy="100" r="62" fill="#0f2b2d"/>
+          <g stroke="#64ffda" stroke-width="7" stroke-linecap="round">
+            <line x1="100" y1="2" x2="100" y2="22"/>
+            <line x1="100" y1="178" x2="100" y2="198"/>
+            <line x1="2" y1="100" x2="22" y2="100"/>
+            <line x1="178" y1="100" x2="198" y2="100"/>
+          </g>
+          <path d="M40 100 Q100 55 160 100 Q100 145 40 100 Z" fill="#ffffff"/>
+          <circle cx="100" cy="100" r="24" fill="#0a5c5e"/>
+          <circle cx="100" cy="100" r="15" fill="#2dd4bf"/>
+        </svg>
+      </div>
+      <span class="size-label">Favicon (28px)</span>
+    </div>
+  </div>
+
+  <!-- In-context -->
+  <div class="context-row">
+    <div class="context-card">
+      <svg viewBox="0 0 200 200" width="44" height="44">
+        <circle cx="100" cy="100" r="90" fill="none" stroke="#0d7377" stroke-width="5"/>
+        <circle cx="100" cy="100" r="62" fill="#0f2b2d"/>
+        <g stroke="#64ffda" stroke-width="4" stroke-linecap="round"><line x1="100" y1="2" x2="100" y2="18"/><line x1="100" y1="182" x2="100" y2="198"/><line x1="2" y1="100" x2="18" y2="100"/><line x1="182" y1="100" x2="198" y2="100"/></g>
+        <path d="M38 100 Q100 52 162 100 Q100 148 38 100 Z" fill="#ffffff"/>
+        <circle cx="100" cy="100" r="26" fill="#0a5c5e"/>
+        <circle cx="100" cy="100" r="16" fill="#2dd4bf"/>
+      </svg>
+      <div>
+        <div class="label">Newsletter</div>
+        <div class="brand-name">Mastering Observability</div>
+        <div class="brand-sub">See what matters. Decide faster.</div>
+      </div>
+    </div>
+    <div class="context-card">
+      <svg viewBox="0 0 200 200" width="36" height="36">
+        <circle cx="100" cy="100" r="90" fill="none" stroke="#0d7377" stroke-width="6"/>
+        <circle cx="100" cy="100" r="62" fill="#0f2b2d"/>
+        <g stroke="#64ffda" stroke-width="5" stroke-linecap="round"><line x1="100" y1="2" x2="100" y2="18"/><line x1="100" y1="182" x2="100" y2="198"/><line x1="2" y1="100" x2="18" y2="100"/><line x1="182" y1="100" x2="198" y2="100"/></g>
+        <path d="M38 100 Q100 52 162 100 Q100 148 38 100 Z" fill="#ffffff"/>
+        <circle cx="100" cy="100" r="26" fill="#0a5c5e"/>
+        <circle cx="100" cy="100" r="16" fill="#2dd4bf"/>
+      </svg>
+      <div>
+        <div class="label">LinkedIn</div>
+        <div class="brand-name">Allan Mann</div>
+        <div class="brand-sub">Mastering Observability</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="design-notes">
+    <p><strong>What changed:</strong> Gear replaced by concentric lens rings with four cardinal focus marks (crosshair/reticle motif). Reads as "focused clarity" rather than "mechanical." The crosshair ticks in accent teal (#64ffda) give it a distinctive silhouette even at favicon size. More editorial, less engineering-clip-art.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════
+     DIRECTION 3 — NEW (SIGNAL MARK)
+     ═══════════════════════════════════════════════ -->
+<div class="direction">
+  <div class="direction-header">
+    <span class="direction-number">Direction 03</span>
+    <span class="direction-title">New Ground</span>
+  </div>
+  <p class="direction-desc">Drops the eye entirely. An abstract signal mark — a stylised "pulse" emerging from a focal point — representing the moment noise becomes signal. Minimal, bold, typographic-grade.</p>
+
+  <div class="size-row">
+    <div class="size-group">
+      <div class="logo-frame hero">
+        <svg viewBox="0 0 200 200" width="200" height="200">
+          <!-- Central focal point -->
+          <circle cx="100" cy="100" r="14" fill="#64ffda"/>
+          <!-- Inner signal ring -->
+          <circle cx="100" cy="100" r="36" fill="none" stroke="#2dd4bf" stroke-width="3" opacity="0.7"/>
+          <!-- Middle signal ring -->
+          <circle cx="100" cy="100" r="60" fill="none" stroke="#14a3a8" stroke-width="2.5" opacity="0.5"/>
+          <!-- Outer signal ring -->
+          <circle cx="100" cy="100" r="86" fill="none" stroke="#0d7377" stroke-width="2" opacity="0.35"/>
+          <!-- Signal break — top-right arc cut -->
+          <path d="M100 14 A86 86 0 0 1 186 100" fill="none" stroke="#64ffda" stroke-width="3" stroke-linecap="round"/>
+          <!-- Signal break — bottom-left arc cut -->
+          <path d="M100 186 A86 86 0 0 1 14 100" fill="none" stroke="#64ffda" stroke-width="3" stroke-linecap="round"/>
+          <!-- Vertical pulse line -->
+          <line x1="100" y1="30" x2="100" y2="70" stroke="#64ffda" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+          <line x1="100" y1="130" x2="100" y2="170" stroke="#64ffda" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+        </svg>
+      </div>
+      <span class="size-label">Hero (200px)</span>
+    </div>
+    <div class="size-group">
+      <div class="logo-frame medium">
+        <svg viewBox="0 0 200 200" width="80" height="80">
+          <circle cx="100" cy="100" r="14" fill="#64ffda"/>
+          <circle cx="100" cy="100" r="36" fill="none" stroke="#2dd4bf" stroke-width="4" opacity="0.7"/>
+          <circle cx="100" cy="100" r="60" fill="none" stroke="#14a3a8" stroke-width="3" opacity="0.5"/>
+          <circle cx="100" cy="100" r="86" fill="none" stroke="#0d7377" stroke-width="3" opacity="0.35"/>
+          <path d="M100 14 A86 86 0 0 1 186 100" fill="none" stroke="#64ffda" stroke-width="4" stroke-linecap="round"/>
+          <path d="M100 186 A86 86 0 0 1 14 100" fill="none" stroke="#64ffda" stroke-width="4" stroke-linecap="round"/>
+          <line x1="100" y1="30" x2="100" y2="66" stroke="#64ffda" stroke-width="3.5" stroke-linecap="round" opacity="0.6"/>
+          <line x1="100" y1="134" x2="100" y2="170" stroke="#64ffda" stroke-width="3.5" stroke-linecap="round" opacity="0.6"/>
+        </svg>
+      </div>
+      <span class="size-label">Header (80px)</span>
+    </div>
+    <div class="size-group">
+      <div class="logo-frame small">
+        <svg viewBox="0 0 200 200" width="40" height="40">
+          <circle cx="100" cy="100" r="16" fill="#64ffda"/>
+          <circle cx="100" cy="100" r="40" fill="none" stroke="#2dd4bf" stroke-width="6" opacity="0.7"/>
+          <circle cx="100" cy="100" r="82" fill="none" stroke="#0d7377" stroke-width="5" opacity="0.35"/>
+          <path d="M100 18 A82 82 0 0 1 182 100" fill="none" stroke="#64ffda" stroke-width="6" stroke-linecap="round"/>
+          <path d="M100 182 A82 82 0 0 1 18 100" fill="none" stroke="#64ffda" stroke-width="6" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="size-label">Icon (40px)</span>
+    </div>
+    <div class="size-group">
+      <div class="logo-frame favicon">
+        <svg viewBox="0 0 200 200" width="28" height="28">
+          <circle cx="100" cy="100" r="20" fill="#64ffda"/>
+          <circle cx="100" cy="100" r="52" fill="none" stroke="#2dd4bf" stroke-width="8" opacity="0.6"/>
+          <path d="M100 18 A82 82 0 0 1 182 100" fill="none" stroke="#64ffda" stroke-width="9" stroke-linecap="round"/>
+          <path d="M100 182 A82 82 0 0 1 18 100" fill="none" stroke="#64ffda" stroke-width="9" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="size-label">Favicon (28px)</span>
+    </div>
+  </div>
+
+  <!-- In-context -->
+  <div class="context-row">
+    <div class="context-card">
+      <svg viewBox="0 0 200 200" width="44" height="44">
+        <circle cx="100" cy="100" r="14" fill="#64ffda"/>
+        <circle cx="100" cy="100" r="36" fill="none" stroke="#2dd4bf" stroke-width="4" opacity="0.7"/>
+        <circle cx="100" cy="100" r="60" fill="none" stroke="#14a3a8" stroke-width="3" opacity="0.5"/>
+        <circle cx="100" cy="100" r="86" fill="none" stroke="#0d7377" stroke-width="3" opacity="0.35"/>
+        <path d="M100 14 A86 86 0 0 1 186 100" fill="none" stroke="#64ffda" stroke-width="4" stroke-linecap="round"/>
+        <path d="M100 186 A86 86 0 0 1 14 100" fill="none" stroke="#64ffda" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <div class="label">Newsletter</div>
+        <div class="brand-name">Mastering Observability</div>
+        <div class="brand-sub">See what matters. Decide faster.</div>
+      </div>
+    </div>
+    <div class="context-card">
+      <svg viewBox="0 0 200 200" width="36" height="36">
+        <circle cx="100" cy="100" r="16" fill="#64ffda"/>
+        <circle cx="100" cy="100" r="40" fill="none" stroke="#2dd4bf" stroke-width="5" opacity="0.7"/>
+        <circle cx="100" cy="100" r="82" fill="none" stroke="#0d7377" stroke-width="4" opacity="0.35"/>
+        <path d="M100 18 A82 82 0 0 1 182 100" fill="none" stroke="#64ffda" stroke-width="5" stroke-linecap="round"/>
+        <path d="M100 182 A82 82 0 0 1 18 100" fill="none" stroke="#64ffda" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <div class="label">LinkedIn</div>
+        <div class="brand-name">Allan Mann</div>
+        <div class="brand-sub">Mastering Observability</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="design-notes">
+    <p><strong>What changed:</strong> Everything. Drops the eye metaphor entirely. Concentric signal rings radiating from a focal point — "the moment noise becomes signal." Two accent arcs on opposing quadrants create visual tension and a distinctive silhouette at any size. Abstract enough to age well, specific enough to own. Trades recognition (eye = seeing) for sophistication.</p>
+  </div>
+</div>
+
+</body>
+</html>

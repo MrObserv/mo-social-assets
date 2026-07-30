@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<title>Enterprise Observability and AIOps Strategy</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+@page {
+  size: A4;
+  margin: 14mm 14mm 16mm 14mm;
+  background: #0A0E17;
+  @bottom-left {
+    content: "ALLAN MANN \00B7 MASTERINGOBSERVABILITY.COM \00B7 PREPARED FOR [REDACTED CLIENT]";
+    font-family: 'Space Mono', monospace;
+    font-size: 7pt;
+    color: #7F94A8;
+    letter-spacing: 0.12em;
+    padding-top: 3mm;
+  }
+  @bottom-right {
+    content: "STRATEGY \00B7 " counter(page);
+    font-family: 'Space Mono', monospace;
+    font-size: 7pt;
+    color: #7F94A8;
+    letter-spacing: 0.12em;
+    padding-top: 3mm;
+  }
+  @top-right {
+    content: "+";
+    font-family: 'Space Mono', monospace;
+    font-size: 14pt;
+    color: #2DD4BF;
+    padding-right: 0;
+  }
+}
+
+@page :first {
+  margin: 0;
+  @bottom-left { content: ""; }
+  @bottom-right { content: ""; }
+  @top-right { content: ""; }
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  widows: 3;
+  orphans: 3;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10pt;
+  line-height: 1.45;
+  color: #E8E8E8;
+  background: #0A0E17;
+}
+
+/* COVER */
+.cover {
+  width: 210mm;
+  height: 297mm;
+  background: #0A0E17;
+  position: relative;
+  padding: 26mm 22mm 18mm 22mm;
+  page-break-after: always;
+  overflow: hidden;
+}
+
+.cover::before {
+  content: "";
+  position: absolute;
+  top: -120mm;
+  right: -120mm;
+  width: 280mm;
+  height: 280mm;
+  border-radius: 50%;
+  border: 1px solid rgba(45,212,191,0.10);
+  pointer-events: none;
+}
+.cover::after {
+  content: "";
+  position: absolute;
+  top: -90mm;
+  right: -90mm;
+  width: 220mm;
+  height: 220mm;
+  border-radius: 50%;
+  border: 1px solid rgba(45,212,191,0.06);
+  pointer-events: none;
+}
+
+.cover-corner {
+  position: absolute;
+  top: 14mm;
+  right: 14mm;
+  font-family: 'Space Mono', monospace;
+  font-size: 16pt;
+  color: #2DD4BF;
+  line-height: 1;
+}
+
+.cover-brand {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11pt;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.05em;
+  margin-bottom: 2mm;
+}
+.cover-brand .sub {
+  display: block;
+  font-family: 'Space Mono', monospace;
+  font-size: 7pt;
+  font-weight: 400;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-top: 2mm;
+}
+
+.cover-kicker {
+  font-family: 'Space Mono', monospace;
+  font-size: 8.5pt;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #14A3A8;
+  font-weight: 700;
+  margin-top: 28mm;
+  margin-bottom: 16mm;
+  position: relative;
+  padding-left: 16mm;
+}
+.cover-kicker::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 12mm;
+  height: 1px;
+  background: #14A3A8;
+}
+
+.cover-title {
+  font-family: 'Archivo Black', sans-serif;
+  font-weight: 400;
+  font-size: 42pt;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin-bottom: 4mm;
+  text-transform: none;
+}
+.cover-title .accent {
+  color: #64FFDA;
+}
+
+.cover-lede {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 12.5pt;
+  line-height: 1.5;
+  color: #A8D8EA;
+  max-width: 150mm;
+  margin-top: 8mm;
+}
+
+.cover-foot {
+  position: absolute;
+  bottom: 22mm;
+  left: 22mm;
+  right: 22mm;
+  border-top: 1px solid #0F3D3F;
+  padding-top: 6mm;
+}
+
+.cover-foot .author {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9.5pt;
+  font-weight: 500;
+  color: #E8E8E8;
+  margin-bottom: 3mm;
+}
+.cover-foot .author .dot { color: #14A3A8; margin: 0 6px; font-weight: 400; }
+.cover-foot .author .em { color: #64FFDA; font-weight: 600; }
+
+.cover-foot .note {
+  font-family: 'Space Mono', monospace;
+  font-size: 7pt;
+  line-height: 1.55;
+  color: #7F94A8;
+  letter-spacing: 0.04em;
+  max-width: 150mm;
+  margin-top: 4mm;
+}
+
+.cover-band {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 8mm;
+  height: 40mm;
+  background: #14A3A8;
+}
+
+/* BODY */
+.body { padding: 0; }
+
+.section {
+  margin-bottom: 8mm;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+.kicker {
+  page-break-after: avoid;
+  break-after: avoid;
+  font-family: 'Space Mono', monospace;
+  font-size: 7.5pt;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #14A3A8;
+  font-weight: 700;
+  margin-bottom: 2mm;
+}
+
+h2 {
+  page-break-after: avoid;
+  break-after: avoid;
+  font-family: 'Archivo Black', sans-serif;
+  font-weight: 400;
+  font-size: 18pt;
+  line-height: 1.15;
+  color: #ffffff;
+  margin-bottom: 4mm;
+  letter-spacing: -0.005em;
+}
+h2 .num {
+  color: #64FFDA;
+  margin-right: 4mm;
+  font-family: 'Space Mono', monospace;
+  font-size: 12pt;
+  vertical-align: middle;
+}
+
+h3 {
+  page-break-after: avoid;
+  break-after: avoid;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 10.5pt;
+  color: #ffffff;
+  margin-top: 4mm;
+  margin-bottom: 2mm;
+  letter-spacing: 0.005em;
+}
+
+p { margin-bottom: 3mm; color: #E8E8E8; }
+
+ul { padding-left: 5mm; margin-bottom: 4mm; list-style: none; }
+li {
+  margin-bottom: 1.5mm;
+  padding-left: 5mm;
+  position: relative;
+  color: #E8E8E8;
+}
+li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 2.5mm;
+  height: 1px;
+  background: #2DD4BF;
+}
+
+strong { color: #ffffff; font-weight: 700; }
+
+.pull {
+  background: #0F2B2D;
+  border-left: 2.5pt solid #2DD4BF;
+  padding: 5mm 6mm;
+  margin: 5mm 0;
+  color: #ffffff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11pt;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 4mm 0;
+  font-size: 9pt;
+  background: #0C1929;
+  border: 1px solid #0F3D3F;
+}
+
+th {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 7.5pt;
+  text-align: left;
+  background: #0F2B2D;
+  color: #64FFDA;
+  padding: 3mm 4mm;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border-bottom: 1px solid #0F3D3F;
+}
+
+td {
+  border-bottom: 1px solid #0F3D3F;
+  padding: 3mm 4mm;
+  vertical-align: top;
+  line-height: 1.45;
+  color: #E8E8E8;
+}
+td:last-child { border-right: none; }
+tr:last-child td { border-bottom: none; }
+
+td.label {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 8.5pt;
+  color: #64FFDA;
+  white-space: nowrap;
+  letter-spacing: 0.06em;
+}
+
+.three-year {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 3mm;
+  margin: 5mm 0 6mm 0;
+}
+
+.three-year .col {
+  background: #0F2B2D;
+  border-top: 2.5pt solid #2DD4BF;
+  border-bottom: 1px solid #0F3D3F;
+  border-left: 1px solid #0F3D3F;
+  border-right: 1px solid #0F3D3F;
+  padding: 5mm 5mm 6mm 5mm;
+}
+
+.three-year .yr {
+  font-family: 'Space Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #14A3A8;
+  margin-bottom: 3mm;
+}
+
+.three-year .txt {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9pt;
+  line-height: 1.5;
+  color: #E8E8E8;
+}
+
+.callout {
+  background: #0F2B2D;
+  border-left: 3pt solid #FFD166;
+  color: #ffffff;
+  padding: 5mm 6mm;
+  margin: 6mm 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11pt;
+  line-height: 1.5;
+  font-weight: 500;
+}
+.callout strong {
+  color: #FFD166;
+  font-weight: 700;
+}
+
+.gate-cell {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 8pt;
+  color: #FFD166;
+  letter-spacing: 0.08em;
+}
+
+.pagebreak { page-break-before: always; }
+
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-corner">+</div>
+
+  <div class="cover-brand">
+    Mastering Observability
+    <span class="sub">advisory &middot; strategy &middot; practice</span>
+  </div>
+
+  <div class="cover-kicker">[REDACTED CLIENT] &middot; Observability &amp; AIOps Strategy</div>
+
+  <div class="cover-title">Enterprise Observability<br>and AIOps:<br><span class="accent">the plan for the function.</span></div>
+
+  <div class="cover-lede">The strategy, the platform decision, the gated AIOps roadmap, the operating model and the budget shape, sequenced and costed for a multi-region banking group.</div>
+
+  <div class="cover-foot">
+    <div class="author">Allan Mann <span class="dot">&middot;</span> Author, <em>Metrics &amp; Mayhem</em> <span class="dot">&middot;</span> <span class="em">Prepared for [REDACTED CLIENT]</span></div>
+    <div class="note">CLIENT NAME REDACTED FOR CONFIDENTIALITY &middot; FIGURES AND DATES WITHHELD WHERE COMMERCIALLY SENSITIVE &middot; CAREER FIGURES REFERENCED ARE MY OWN AND VERIFIABLE</div>
+  </div>
+
+  <div class="cover-band"></div>
+</div>
+
+<div class="body">
+
+<div class="section">
+  <div class="kicker">Section 01 &middot; Outcomes</div>
+  <h2><span class="num">01</span>What success in this seat is</h2>
+  <p>Read as outcomes rather than responsibilities, a Principal-grade enterprise observability and AIOps mandate means six things are true within three years:</p>
+  <ul>
+    <li>One observability framework across infrastructure, platforms, applications, networks, cloud and third parties, with the group acting on a single version of operational truth.</li>
+    <li>A rationalised toolset with a defended platform decision, fewer overlapping tools, and a cost curve that bends down.</li>
+    <li>AIOps embedded in Major Incident Management with measurable P1 / P2 reduction and MTTD / MTTR improvement, governed so the second line and the regulator are comfortable.</li>
+    <li>SLI / SLO frameworks on the group's critical business services, jointly owned with engineering.</li>
+    <li>A high-performing team that runs this as a product, not a project.</li>
+    <li>Executive and risk-committee reporting that leadership can act on, and that stands up in front of auditors and the regulator.</li>
+  </ul>
+  <div class="pull">Year one: a single operational truth and a defended platform decision. Year two: the bank stops finding out about incidents from customers. Year three: the converged platform is the regulator's favourite exhibit, not its concern.</div>
+</div>
+
+<div class="section">
+  <div class="kicker">Section 02 &middot; Strategy</div>
+  <h2><span class="num">02</span>Three years, one sentence each</h2>
+  <div class="three-year">
+    <div class="col">
+      <div class="yr">Year 1 &middot; See</div>
+      <div class="txt">One telemetry estate, one platform decision, one version of operational truth, first SLI / SLOs on critical business services, exec dashboard live.</div>
+    </div>
+    <div class="col">
+      <div class="yr">Year 2 &middot; Understand</div>
+      <div class="txt">AIOps through the explainability gate: correlation and noise reduction at scale, AI-assisted root cause in MIM, SOC and Service Ops on a shared telemetry pipeline.</div>
+    </div>
+    <div class="col">
+      <div class="yr">Year 3 &middot; Act</div>
+      <div class="txt">Bounded autonomy in production for pre-approved, reversible actions; converged operational platform; the group passes the accountability gate with the regulator comfortable.</div>
+    </div>
+  </div>
+  <p>The arc follows the Trust-Gated AIOps Maturity Model: <strong>Reactive, Correlated, Assisted, Bounded autonomy</strong>, with a data-quality, explainability and accountability gate between stages. Each gate maps to a control the regulator already requires, so progress and defensibility are the same work. Most plans promise autonomy; this one earns it gate by gate and can say exactly why in front of a risk committee.</p>
+</div>
+
+<div class="section">
+  <div class="kicker">Section 03 &middot; Blueprint</div>
+  <h2><span class="num">03</span>The enterprise observability blueprint</h2>
+  <h3>Three layers</h3>
+  <ul>
+    <li><strong>Telemetry, own the pipes.</strong> OpenTelemetry as the strategic ingestion standard for new and migrating workloads, with a pipeline and governance tier (collection, routing, filtering, retention) so telemetry is an asset the group controls rather than per-vendor lock-in. Data residency applied at the pipeline.</li>
+    <li><strong>Intelligence.</strong> The platform decision plus the AIOps engine: correlation, anomaly detection, noise reduction, assisted RCA. Governed by the gates.</li>
+    <li><strong>Engagement.</strong> ServiceNow as the workflow spine: event-to-incident automation, MIM embedding, change correlation, CMDB / CSDM as the topology backbone. Executive and risk-committee reporting from one curated metrics store, not screenshots.</li>
+  </ul>
+</div>
+
+<div class="pagebreak"></div>
+
+<div class="section">
+  <div class="kicker">Section 04 &middot; Platform decision</div>
+  <h2><span class="num">04</span>Run the decision as tool rationalisation</h2>
+  <p>Run it on capability patterns, not logos, and presume a two-platform target state: one observability / AIOps platform plus ServiceNow as workflow spine, with everything else scheduled for decommission.</p>
+  <ul>
+    <li>Weight causal RCA and topology-aware correlation over feature checklists.</li>
+    <li>Score data sovereignty and deployability as hard gates given the regulatory posture.</li>
+    <li>Score exit cost: OTel-native ingestion reduces switching risk regardless of winner.</li>
+    <li>Criteria ratified before vendor conversations resume; procurement and the CISO co-own.</li>
+  </ul>
+  <div class="pull">RFP criteria ratified and shortlist tested by day 100, decision inside month six. Consolidation savings (industry pattern around 30%) part-fund the programme.</div>
+</div>
+
+<div class="section">
+  <div class="kicker">Section 05 &middot; Gated AIOps enablement</div>
+  <h2><span class="num">05</span>AIOps enablement, gated</h2>
+  <table>
+    <thead>
+      <tr><th style="width:18%">Gate</th><th style="width:42%">What you must pass</th><th style="width:40%">Regulatory expectation it maps to</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="gate-cell">G1 Data quality</td>
+        <td>Unified, trustworthy telemetry; CMDB / CSDM accuracy programme; event normalisation. No ML on dirty data.</td>
+        <td>Garbage in is worse with sophisticated models. Only around 46% of teams trust their own data.</td>
+      </tr>
+      <tr>
+        <td class="gate-cell">G2 Explainability</td>
+        <td>Every AI-flagged incident carries a "why" a commander and a validator can read. Vendor model cards on file.</td>
+        <td>Regulator transparency and explainability expectations.</td>
+      </tr>
+      <tr>
+        <td class="gate-cell">G3 Accountability</td>
+        <td>Named human owner per automated action class, override and audit trail, independent validation, tested non-AI fallback.</td>
+        <td>The gate most vendors skip and most regulators require.</td>
+      </tr>
+      <tr>
+        <td class="gate-cell">G4 Track record</td>
+        <td>Proven record of safe action, continuous drift monitoring, regulator comfort. Few banks pass this for major incidents.</td>
+        <td>Honest position: this is aspirational, not year-three.</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="callout">The regulator is not the brake on AIOps. It is the design spec. <strong>The gates that satisfy the second line are the same gates that make the automation safe to run.</strong></div>
+</div>
+
+<div class="pagebreak"></div>
+
+<div class="section">
+  <div class="kicker">Section 06 &middot; Operating model</div>
+  <h2><span class="num">06</span>Operating model and team</h2>
+  <p>Central platform team running observability as a product, federated champions in application teams, SLI / SLO ownership sitting with service owners. Inherit and uplift the existing tools-and-automation capability rather than build greenfield.</p>
+  <ul>
+    <li>Observability Platform lead plus engineers (telemetry pipeline, OTel adoption, platform ops, dashboards-as-code).</li>
+    <li>AIOps and Automation lead plus engineers (correlation, ML ops, automation workflows, ServiceNow EM integration).</li>
+    <li>SLI / SLO and Reporting; ITSM / CMDB integration; programme management.</li>
+    <li>A federated champion network: one named per critical application team.</li>
+  </ul>
+  <p><strong>Ramp:</strong> around 12 by day 100 (largely re-badged existing team), 20 by month 12, steady-state 22. Lean rather than padded for a multi-region banking estate.</p>
+</div>
+
+<div class="section">
+  <div class="kicker">Section 07 &middot; First 100 days</div>
+  <h2><span class="num">07</span>The first 100 days</h2>
+  <table>
+    <thead>
+      <tr><th style="width:20%">Phase</th><th style="width:22%">Focus</th><th style="width:58%">Output</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="label">Days 0 to 30</td>
+        <td>Listen and map</td>
+        <td>One-to-ones across I&amp;O, Security, EA, Cloud, app engineering and the second line. Inventory the estate: tools, contracts, renewals, coverage, team. Read the major-incident post-mortems cold.</td>
+      </tr>
+      <tr>
+        <td class="label">Days 31 to 60</td>
+        <td>Baseline and frame</td>
+        <td>Publish baseline metrics and coverage gaps. Stand up a joint design authority with Security. Ratify RFP criteria with procurement and the CISO. Noise-reduction sprint on the top three alert-storm sources.</td>
+      </tr>
+      <tr>
+        <td class="label">Days 61 to 100</td>
+        <td>Commit</td>
+        <td>Strategy paper to the exec sponsor and risk committee. Shortlist tested. First exec dashboard live on curated data. SLI / SLO pilot started on one critical service end-to-end. Team structure agreed.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p><strong>Day-100 exit criteria, stated up front:</strong> estate map and baseline published; strategy and budget ratified; RFP criteria locked and shortlist in evaluation; one visible noise-reduction win; one SLI / SLO pilot live; team org confirmed.</p>
+</div>
+
+<div class="pagebreak"></div>
+
+<div class="section">
+  <div class="kicker">Section 08 &middot; Budget</div>
+  <h2><span class="num">08</span>Budget envelope (illustrative)</h2>
+  <p>Three-year shape, modelled bottom-up from benchmark unit economics for a multi-region banking estate. Neutral currency, illustrative only.</p>
+  <ul>
+    <li><strong>People:</strong> ramp to around 21 FTE loaded, around $2.9m at steady state.</li>
+    <li><strong>Platform licences</strong> (consolidated target state): full-stack plus high log volume, around $3.6m per year after tier-one discount patterns, inside the independent banking-scale benchmark band. ServiceNow ITOM / EM retained.</li>
+    <li><strong>Net position:</strong> year 1 around $16m including transition overlap, falling to around $9m at steady state, marginally below the prior fragmented tooling spend even with the full function included.</li>
+  </ul>
+  <div class="pull">One avoided major-outage event carries the case. Vendor survey medians put high-impact outage cost at tens of millions a year for large enterprises.</div>
+</div>
+
+<div class="section">
+  <div class="kicker">Section 09 &middot; Receipts</div>
+  <h2><span class="num">09</span>The track record behind the method</h2>
+  <table>
+    <thead>
+      <tr><th style="width:22%">Engagement</th><th style="width:78%">What it proves</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="label">TAMM, Abu Dhabi</td>
+        <td>45% alert-noise reduction, 50% MTTR reduction, 99.99% uptime. Observability function and around 15-person team built from scratch. UN WSIS Prize 2025. The stage-2-done-well and GCC-delivery proof.</td>
+      </tr>
+      <tr>
+        <td class="label">Standard Chartered</td>
+        <td>Monitoring modernised across 40+ countries. Around &pound;8m operational savings, $1.7m downtime cost avoidance. ServiceNow Event Management across the estate. Zero MAS and ASIC audit findings. The correlation-at-scale and operating-model proof.</td>
+      </tr>
+      <tr>
+        <td class="label">Lloyds Banking Group</td>
+        <td>Important Business Services observability under PRA, FCA and Bank of England scrutiny. Metric methodology and Dynatrace business events on three of the bank's largest payment applications. The regulator-grade proof.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Signal Drop Intro (9:16)</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --navy:#0D2127; --teal:#2F9E8D; --mint:#74DDCD; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;background:#000;overflow:hidden}
+  /* True 9:16 frame sized off viewport height. Record at 1080x1920 for clean Shorts capture. */
+  .stage{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    height:100vh;width:56.25vh;max-width:100vw;max-height:177.78vw;
+    background:var(--navy);overflow:hidden;font-family:'Montserrat',sans-serif}
+  .grid{position:absolute;inset:0;
+    background-image:linear-gradient(rgba(47,158,141,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(47,158,141,.16) 1px,transparent 1px);
+    background-size:7vh 7vh;opacity:.55}
+  /* central 60% safe band: platform UI lives top/bottom */
+  .centre{position:absolute;left:0;right:0;top:20%;height:60%;display:flex;align-items:center;justify-content:center}
+
+  .wave{position:absolute;display:flex;gap:1.1vh;align-items:center;height:22vh;z-index:1}
+  .wave i{display:block;width:1.5vh;height:100%;background:var(--teal);border-radius:5px;transform:scaleY(.15);transform-origin:center bottom;
+    animation:eq .8s ease-in-out infinite alternate}
+  .wave i:nth-child(2){animation-delay:.10s}.wave i:nth-child(3){animation-delay:.25s}.wave i:nth-child(4){animation-delay:.05s}
+  .wave i:nth-child(5){animation-delay:.30s}.wave i:nth-child(6){animation-delay:.15s}.wave i:nth-child(7){animation-delay:.35s}.wave i:nth-child(8){animation-delay:.08s}
+  @keyframes eq{from{transform:scaleY(.15)}to{transform:scaleY(1)}}
+
+  .lockup{position:relative;text-align:center;z-index:2;opacity:0;padding:0 6vh}
+  .eyebrow{font-family:'Space Mono',monospace;color:var(--mint);letter-spacing:.6vh;text-transform:uppercase;font-size:2vh;margin-bottom:2.4vh}
+  .title{font-weight:800;color:#fff;letter-spacing:.2vh;font-size:8.4vh;line-height:1.02}
+  .dot{width:1.6vh;height:1.6vh;border-radius:50%;background:var(--teal);margin:2.6vh auto 0}
+
+  .stage.play .wave{animation:waveCycle 3.05s ease-in forwards}
+  .stage.play .lockup{animation:lockIn 1.1s ease-out 2.7s forwards}
+  @keyframes waveCycle{0%{opacity:0;transform:scaleX(1)}8%{opacity:1}72%{opacity:1;transform:scaleX(1)}86%{opacity:1;transform:scaleX(.05)}100%{opacity:0;transform:scaleX(.05)}}
+  @keyframes lockIn{from{opacity:0;transform:translateY(3vh)}to{opacity:1;transform:translateY(0)}}
+
+  .controls{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:10;font-family:'Space Mono',monospace;font-size:12px;color:#9fb7b3}
+  .controls button{font:inherit;color:var(--navy);background:var(--mint);border:0;border-radius:4px;padding:7px 14px;cursor:pointer;letter-spacing:1px}
+  .hint{opacity:.7;margin-right:10px}
+</style>
+</head>
+<body>
+  <div class="stage" id="stage">
+    <div class="grid"></div>
+    <div class="centre">
+      <div class="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="lockup">
+        <div class="eyebrow">Mastering Observability</div>
+        <div class="title">Signal Drop</div>
+        <div class="dot"></div>
+      </div>
+    </div>
+  </div>
+  <div class="controls"><span class="hint">press R to replay</span><button id="replay">Replay</button></div>
+<script>
+  const stage=document.getElementById('stage');
+  function play(){stage.classList.remove('play');void stage.offsetWidth;stage.classList.add('play');}
+  document.getElementById('replay').addEventListener('click',play);
+  document.addEventListener('keydown',e=>{if(e.key.toLowerCase()==='r')play();});
+  window.addEventListener('load',()=>setTimeout(play,300));
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Mastering Observability — Direction 02 "Evolved" (Lens + Crosshair) -->
+  <!-- Master mark. Use for hero placements, print, and sizes ≥80px -->
+
+  <!-- Outer lens ring -->
+  <circle cx="100" cy="100" r="90" fill="none" stroke="#0d7377" stroke-width="3"/>
+  <!-- Middle lens ring -->
+  <circle cx="100" cy="100" r="75" fill="none" stroke="#14a3a8" stroke-width="2" opacity="0.6"/>
+  <!-- Inner filled disc -->
+  <circle cx="100" cy="100" r="62" fill="#0f2b2d"/>
+
+  <!-- Crosshair ticks — the distinctive silhouette element -->
+  <g stroke="#64ffda" stroke-width="3" stroke-linecap="round">
+    <line x1="100" y1="0" x2="100" y2="20"/>
+    <line x1="100" y1="180" x2="100" y2="200"/>
+    <line x1="0" y1="100" x2="20" y2="100"/>
+    <line x1="180" y1="100" x2="200" y2="100"/>
+  </g>
+
+  <!-- Eye shape -->
+  <path d="M36 100 Q100 50 164 100 Q100 150 36 100 Z" fill="#ffffff"/>
+
+  <!-- Iris -->
+  <circle cx="100" cy="100" r="26" fill="#0a5c5e"/>
+  <!-- Pupil -->
+  <circle cx="100" cy="100" r="16" fill="#2dd4bf"/>
+  <!-- Highlight -->
+  <circle cx="109" cy="92" r="5.5" fill="#ffffff" opacity="0.45"/>
+</svg>

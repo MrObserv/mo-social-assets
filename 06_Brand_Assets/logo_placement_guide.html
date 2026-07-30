@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logo Placement Guide — Mastering Observability</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0e17; font-family: 'DM Sans', sans-serif; color: #ccc; padding: 60px 40px 80px; }
+
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .page-header { text-align: center; margin-bottom: 60px; }
+  .page-header h1 { font-family: 'Space Mono', monospace; font-size: 13px; letter-spacing: 5px; text-transform: uppercase; color: #64ffda; margin-bottom: 12px; }
+  .page-header p { font-size: 14px; color: rgba(255,255,255,0.35); max-width: 700px; margin: 0 auto; line-height: 1.6; }
+
+  /* Platform sections */
+  .platform { margin-bottom: 56px; }
+  .platform-header {
+    display: flex; align-items: center; gap: 14px;
+    padding-bottom: 14px; border-bottom: 1px solid rgba(100,255,218,0.08);
+    margin-bottom: 20px;
+  }
+  .platform-icon {
+    width: 40px; height: 40px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700; color: #fff;
+  }
+  .platform-icon.li { background: #0a66c2; }
+  .platform-icon.x { background: #000; border: 1px solid rgba(255,255,255,0.15); }
+  .platform-icon.bh { background: linear-gradient(135deg, #ff6719, #ff9500); }
+  .platform-icon.yt { background: #ff0000; }
+  .platform-icon.web { background: #0d7377; }
+  .platform-name { font-size: 20px; font-weight: 700; color: #fff; }
+  .platform-sub { font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 2px; }
+
+  /* Placement cards */
+  .placements { display: flex; flex-direction: column; gap: 3px; }
+
+  .placement {
+    display: grid;
+    grid-template-columns: 200px 100px 1fr 200px;
+    gap: 0;
+    background: rgba(255,255,255,0.02);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .placement:first-child { border-radius: 6px 6px 4px 4px; }
+  .placement:last-child { border-radius: 4px 4px 6px 6px; }
+
+  .placement .p-where {
+    padding: 16px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.75);
+    display: flex;
+    align-items: center;
+  }
+  .placement .p-size {
+    padding: 16px 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .placement .p-detail {
+    padding: 16px 18px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+  }
+  .placement .p-file {
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .file-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: rgba(100,255,218,0.06);
+    color: #64ffda;
+    white-space: nowrap;
+  }
+  .file-tag.png { background: rgba(255,209,102,0.08); color: #ffd166; }
+  .file-tag.custom { background: rgba(168,216,234,0.08); color: #a8d8ea; }
+
+  /* Header row */
+  .placement.header-row {
+    background: rgba(100,255,218,0.03);
+  }
+  .placement.header-row .p-where,
+  .placement.header-row .p-size,
+  .placement.header-row .p-detail,
+  .placement.header-row .p-file {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    font-weight: 400;
+    padding: 10px 18px;
+  }
+  .placement.header-row .p-size { padding: 10px 12px; }
+  .placement.header-row .p-file { justify-content: flex-end; padding: 10px 18px; }
+
+  /* Notes */
+  .platform-note {
+    margin-top: 12px;
+    padding: 14px 18px;
+    background: rgba(100,255,218,0.02);
+    border-left: 2px solid rgba(100,255,218,0.15);
+    border-radius: 0 6px 6px 0;
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.6;
+  }
+  .platform-note strong { color: rgba(255,255,255,0.6); }
+
+  /* Divider */
+  .divider { width: 60px; height: 1px; background: rgba(100,255,218,0.12); margin: 56px auto; }
+
+  /* Quick ref summary */
+  .summary {
+    background: rgba(100,255,218,0.03);
+    border: 1px solid rgba(100,255,218,0.1);
+    border-radius: 8px;
+    padding: 36px 40px;
+    margin-top: 60px;
+  }
+  .summary h2 {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 3px;
+    text-transform: uppercase; color: #64ffda;
+    margin-bottom: 20px;
+  }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .summary-card {
+    background: rgba(255,255,255,0.02);
+    border-radius: 6px;
+    padding: 20px 24px;
+  }
+  .summary-card h3 {
+    font-size: 14px; font-weight: 700; color: #fff;
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .summary-card h3 .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+  .summary-card p {
+    font-size: 13px; color: rgba(255,255,255,0.4);
+    line-height: 1.6;
+  }
+  .summary-card code {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; color: #64ffda;
+    background: rgba(100,255,218,0.06);
+    padding: 2px 6px; border-radius: 3px;
+  }
+
+  /* New files section */
+  .new-files {
+    margin-top: 40px;
+    padding: 28px 30px;
+    background: rgba(255,209,102,0.03);
+    border: 1px solid rgba(255,209,102,0.1);
+    border-radius: 8px;
+  }
+  .new-files h2 {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 3px;
+    text-transform: uppercase; color: #ffd166;
+    margin-bottom: 16px;
+  }
+  .new-files p {
+    font-size: 13px; color: rgba(255,255,255,0.5);
+    line-height: 1.6; margin-bottom: 12px;
+  }
+  .new-file-list {
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .new-file-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 4px;
+  }
+  .new-file-item .nf-name {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px; color: #ffd166; min-width: 200px;
+  }
+  .new-file-item .nf-spec {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; color: rgba(255,255,255,0.3); min-width: 120px;
+  }
+  .new-file-item .nf-use {
+    font-size: 13px; color: rgba(255,255,255,0.45);
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="page-header">
+  <h1>Logo Placement Guide</h1>
+  <p>Every touchpoint across your platforms, which file goes where, and at what size. This is the single reference for consistent branding across LinkedIn, X, beehiiv, YouTube, and your website.</p>
+</div>
+
+<!-- ═══════════════════════════════════════
+     LINKEDIN
+     ═══════════════════════════════════════ -->
+<div class="platform">
+  <div class="platform-header">
+    <div class="platform-icon li">in</div>
+    <div>
+      <div class="platform-name">LinkedIn</div>
+      <div class="platform-sub">Profile, company page, posts, featured section</div>
+    </div>
+  </div>
+
+  <div class="placements">
+    <div class="placement header-row">
+      <div class="p-where">Touchpoint</div>
+      <div class="p-size">Size</div>
+      <div class="p-detail">Notes</div>
+      <div class="p-file">File to use</div>
+    </div>
+    <div class="placement">
+      <div class="p-where">Profile picture</div>
+      <div class="p-size">400×400px</div>
+      <div class="p-detail">Cropped to a circle. The eye and crosshair ticks survive circular crop well — the four ticks break the circle edge distinctively.</div>
+      <div class="p-file"><span class="file-tag png">favicon-512x512.png</span></div>
+    </div>
+    <div class="placement">
+      <div class="p-where">Banner / cover image</div>
+      <div class="p-size">1584×396px</div>
+      <div class="p-detail">Safe zone is the centre — profile pic overlaps bottom-left on mobile. Use the mono mark at 30–40% opacity, bottom-right. Build a new banner with brand name + tagline in the safe zone.</div>
+      <div class="p-file"><span class="file-tag custom">New asset needed</span></div>
+    </div>
+    <div class="placement">
+      <div class="p-where">Featured card thumbnails</div>
+      <div class="p-size">1200×628px</div>
+      <div class="p-detail">Your three featured cards (newsletter, book, podcast). Use the mono mark as a watermark, bottom-right at 35% opacity. This matches §24.11 Nuclear Visual Guidance.</div>
+      <div class="p-file"><span class="file-tag">logo-mono.svg</span></div>
+    </div>
+    <div class="placement">
+      <div class="p-where">Post OG image (shared link)</div>
+      <div class="p-size">1200×628px</div>
+      <div class="p-detail">When you share a blog link, LinkedIn pulls the OG image. These are your beehiiv thumbnails — already spec'd at 1200×630px. Mono watermark, bottom-right.</div>
+      <div class="p-file"><span class="file-tag">logo-mono.svg</span></div>
+    </div>
+    <div class="placement">
+      <div class="p-where">Carousel / document slides</div>
+      <div class="p-size">1080×1080px</div>
+      <div class="p-detail">Each slide gets the mono mark, bottom-right, 40–50% opacity. Small enough not to compete with content.</div>
+      <div class="p-file"><span class="file-tag">logo-mono.svg</span></div>
+    </div>
+  </div>
+
+  <div class="platform-note">
+    <strong>Profile picture decision:</strong> This is a personal brand. Your headshot is probably still the right choice for the profile picture — people connect with faces, not logos. Use the logo mark in the banner, featured cards, and post images instead. If you ever create a LinkedIn Company Page for "Mastering Observability," then the logo mark becomes the profile picture.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     X / TWITTER
+     ═══════════════════════════════════════ -->
+<div class="platform">
+  <div class="platform-header">
+    <div class="platform-icon x">𝕏</div>
+    <div>
+      <div class="platform-name">X (Twitter)</div>
+      <div class="platform-sub">Profile, header, tweet cards</div>
+    </div>
+  </div>
+
+  <div class="placements">
+    <div class="placement header-row">
+      <div class="p-where">Touchpoint</div>
+      <div class="p-size">Size</div>
+      <div class="p-detail">Notes</div>
+      <div class="p-file">File to use</div>
+    </div>
+    <div class="placement">
+      <div class="p-where">Profile picture</div>
+      <div class="p-size">400×400px</div>
+      <div class="p-detail">Circular crop, same as LinkedIn. Use headshot for personal brand. If you create a separate @MasteringObs account, use the logo mark.</div>
+      <div class="p-file"><span class="file-tag png">favicon-512x512.png</span></div>
+    </div>
+    <div class="placement">
+      <div class="p-where">Header image</div>
+      <div class="p-size">1500×500px</div>
+      <div class="p-detail">Profile pic overlaps bottom-left. Keep brand name centred or right-aligned. Mono watermark at 30% opacity works here too.</div>
+      <div class="p-file"><span class="file-tag custom">New asset needed</span></div>
+    </div>
+    <div class="placement">
+      <div class="p-where">Tweet card (shared link)</div>
+      <div class="p-size">1200×628px</div>
+      <div class="p-detail">Pulled from beehiiv OG image settings. Your blog thumbnails already cover this — set in beehiiv's X dropdown (Summary with large image).</div>
+      <div class="p-file"><span class="file-tag">logo-mono.svg</span></div>
+    </div>
+  </div>
+
+  <div class="platform-note">
+    <strong>X is simpler:</strong> Your production pack already handles tweet cards via beehiiv's OG/X card settings. The main new work is the header image — create it once and it's done until a rebrand. Same dark palette, mono watermark approach as LinkedIn.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     BEEHIIV
+     ═══════════════════════════════════════ -->
+<div class="platform">
+  <div class="platform-header">
+    <div class="platform-icon bh">B</div>
+    <div>
+      <div class="platform-name">beehiiv</div>
+      <div class="platform-sub">Newsletter, website, email, OG images</div>
+    </div>
+  </div>
+
+  <div class="placements">
+    <div class="placement header-row">
+      <div class="p-where">Touchpoint</div>
+      <div class="p-size">Size</div>
+      <div class="p-detail">Notes</div>
+      <div class="p-file">File to use</div>
+    </div>
+    <div class="placement">
+      <div class="p-where">Publication logo</div>
+      <div class="p-size">800×800px</div>
+      <div class="p-detail">This is the big one — it appears in nav bar, favicon, footer, email sender avatar, and beehiiv Recommendations. Square crop. Use the on-dark variant on a dark background, exported as PNG.</div>
+      <div class="p-file"><span class="file-tag png">New 800×800 PNG</span></div>
+    </div>
+    <div class="placement">
+      <div class="p-where">Site favicon</div>
+      <div class="p-size">Auto from logo</div>
+      <div class="p-detail">beehiiv generates the favicon from your publication logo. If you want a custom favicon, you'd need to add it via custom code injection in the website builder head tag.</div>
+      <div class="p-file"><span class="file-tag">favicon.svg</span></div>
+    </div>
+    <div class="placement">
+      <div class="p-where">Website navbar</div>
+      <div class="p-size">~40–60px display</div>
+      <div class="p-detail">Pulled from publication logo. At this size, the header-optimised version (heavier strokes) renders cleanly. The crosshair ticks are visible.</div>
+      <div class="p-file"><span class="file-tag">Via publication logo</span></div>
+    </div>
+    <div class="placement">
+      <div class="p-where">Default post thumbnail</div>
+      <div class="p-size">1200×630px</div>
+      <div class="p-detail">Fallback when a post has no custom thumbnail. Set in Settings → General Info. Use the Nuclear palette with the mono watermark. This is what LinkedIn/X pull when you share a link.</div>
+      <div class="p-file"><span class="file-tag">logo-mono.svg</span></div>
+    </div>
+    <div class="placement">
+      <div class="p-where">Per-post thumbnails</div>
+      <div class="p-size">1200×630px</div>
+      <div class="p-detail">Each blog post gets a custom thumbnail (as per your production pack). Mono watermark bottom-right, 35–40% opacity. This is the OG image that propagates to LinkedIn and X.</div>
+      <div class="p-file"><span class="file-tag">logo-mono.svg</span></div>
+    </div>
+    <div class="placement">
+      <div class="p-where">Email header image</div>
+      <div class="p-size">1200×630px</div>
+      <div class="p-detail">Optional per-post email header. Same treatment as thumbnail if used. Consider whether the logo in the navbar is sufficient (less is more in email).</div>
+      <div class="p-file"><span class="file-tag">logo-on-dark.svg</span></div>
+    </div>
+  </div>
+
+  <div class="platform-note">
+    <strong>The 800×800 publication logo is priority #1.</strong> It cascades to more touchpoints than any other file — navbar, favicon, email avatar, Recommendations, and footer. Export <code>logo-on-dark.svg</code> as an 800×800 PNG on the brand dark background (#0a0e17) and upload it. Everything else flows from there.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     YOUTUBE
+     ═══════════════════════════════════════ -->
+<div class="platform">
+  <div class="platform-header">
+    <div class="platform-icon yt">▶</div>
+    <div>
+      <div class="platform-name">YouTube</div>
+      <div class="platform-sub">Metrics & Mayhem / Signal Drop channel</div>
+    </div>
+  </div>
+
+  <div class="placements">
+    <div class="placement header-row">
+      <div class="p-where">Touchpoint</div>
+      <div class="p-size">Size</div>
+      <div class="p-detail">Notes</div>
+      <div class="p-file">File to use</div>
+    </div>
+    <div class="placement">
+      <div class="p-where">Channel icon</div>
+      <div class="p-size">800×800px</div>
+      <div class="p-detail">Displays at 98×98px but upload at 800×800. Circular crop. Same file as beehiiv publication logo — consistent brand across both platforms.</div>
+      <div class="p-file"><span class="file-tag png">New 800×800 PNG</span></div>
+    </div>
+    <div class="placement">
+      <div class="p-where">Channel banner</div>
+      <div class="p-size">2560×1440px</div>
+      <div class="p-detail">Safe zone: 1546×423px centred. Brand name + "one idea, no theatre" tagline in safe zone. Mono watermark in right half. YouTube renders links bottom-right — leave space there.</div>
+      <div class="p-file"><span class="file-tag custom">New asset needed</span></div>
+    </div>
+    <div class="placement">
+      <div class="p-where">Video watermark</div>
+      <div class="p-size">150×150px</div>
+      <div class="p-detail">Semi-transparent mark that appears bottom-right during playback. Viewers can click it to subscribe. Upload via YouTube Studio → Branding → Video watermark.</div>
+      <div class="p-file"><span class="file-tag png">favicon-192x192.png</span></div>
+    </div>
+    <div class="placement">
+      <div class="p-where">Video thumbnails</div>
+      <div class="p-size">1280×720px</div>
+      <div class="p-detail">16:9 ratio. For Signal Drop episodes, use Nuclear palette with episode title. Logo mark bottom-right at 30% opacity. Create per-episode, not a template — but keep the watermark placement consistent.</div>
+      <div class="p-file"><span class="file-tag">logo-mono.svg</span></div>
+    </div>
+  </div>
+
+  <div class="platform-note">
+    <strong>YouTube transparency note:</strong> YouTube does not retain PNG transparency — transparent backgrounds show as white. Export the channel icon on the brand dark background (#0a0e17), same as beehiiv.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     WEBSITE
+     ═══════════════════════════════════════ -->
+<div class="platform">
+  <div class="platform-header">
+    <div class="platform-icon web">M</div>
+    <div>
+      <div class="platform-name">masteringobservability.com</div>
+      <div class="platform-sub">Powered by beehiiv — custom website</div>
+    </div>
+  </div>
+
+  <div class="placements">
+    <div class="placement header-row">
+      <div class="p-where">Touchpoint</div>
+      <div class="p-size">Size</div>
+      <div class="p-detail">Notes</div>
+      <div class="p-file">File to use</div>
+    </div>
+    <div class="placement">
+      <div class="p-where">Browser favicon</div>
+      <div class="p-size">SVG + 32px PNG</div>
+      <div class="p-detail">If beehiiv supports custom code injection in &lt;head&gt;, add the SVG favicon with PNG fallback. The SVG has dark mode CSS built in — it adapts automatically.</div>
+      <div class="p-file"><span class="file-tag">favicon.svg</span></div>
+    </div>
+    <div class="placement">
+      <div class="p-where">Apple touch icon</div>
+      <div class="p-size">180×180px</div>
+      <div class="p-detail">For iOS "Add to Home Screen." Add via custom &lt;head&gt; code if available. Otherwise beehiiv generates from publication logo.</div>
+      <div class="p-file"><span class="file-tag png">apple-touch-icon.png</span></div>
+    </div>
+    <div class="placement">
+      <div class="p-where">Google search results</div>
+      <div class="p-size">48×48px min</div>
+      <div class="p-detail">Google pulls the favicon and shows it next to your URL in search results. The 48×48 PNG or SVG covers this. High-impact for brand recognition in search.</div>
+      <div class="p-file"><span class="file-tag png">favicon-48x48.png</span></div>
+    </div>
+    <div class="placement">
+      <div class="p-where">PWA manifest</div>
+      <div class="p-size">192 + 512px</div>
+      <div class="p-detail">If you ever add a web app manifest for "install to home screen" on Android. Probably not needed now, but the files are ready.</div>
+      <div class="p-file"><span class="file-tag png">favicon-192/512.png</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════
+     NEW ASSETS NEEDED
+     ═══════════════════════════════════════ -->
+<div class="new-files">
+  <h2>New assets to create</h2>
+  <p>You have all the logo files. These are the platform-specific compositions that need to be built using those files:</p>
+
+  <div class="new-file-list">
+    <div class="new-file-item">
+      <span class="nf-name">beehiiv-logo-800.png</span>
+      <span class="nf-spec">800×800px</span>
+      <span class="nf-use">Logo mark on #0a0e17 background. Cascades to navbar, favicon, email avatar, Recommendations. Also use for YouTube channel icon.</span>
+    </div>
+    <div class="new-file-item">
+      <span class="nf-name">linkedin-banner.png</span>
+      <span class="nf-spec">1584×396px</span>
+      <span class="nf-use">Brand name + tagline + mono watermark on Nuclear palette. Keep text in centre safe zone (1350×220px).</span>
+    </div>
+    <div class="new-file-item">
+      <span class="nf-name">x-header.png</span>
+      <span class="nf-spec">1500×500px</span>
+      <span class="nf-use">Same visual language as LinkedIn banner. Can be the same design, re-cropped to 1500×500.</span>
+    </div>
+    <div class="new-file-item">
+      <span class="nf-name">youtube-banner.png</span>
+      <span class="nf-spec">2560×1440px</span>
+      <span class="nf-use">"Metrics & Mayhem" or "Mastering Observability" in safe zone (1546×423px). Leave bottom-right clear for YouTube's link overlay.</span>
+    </div>
+    <div class="new-file-item">
+      <span class="nf-name">default-thumbnail.png</span>
+      <span class="nf-spec">1200×630px</span>
+      <span class="nf-use">beehiiv default OG image for posts without custom thumbnails. Nuclear palette + mono watermark.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     QUICK REFERENCE
+     ═══════════════════════════════════════ -->
+<div class="summary">
+  <h2>Quick reference — which file does what</h2>
+
+  <div class="summary-grid">
+    <div class="summary-card">
+      <h3><span class="dot" style="background:#64ffda;"></span>logo-master.svg</h3>
+      <p>Full-detail canonical mark. Use for print, presentations, decks, and any placement ≥80px. This is the source of truth — all other variants derive from it.</p>
+    </div>
+    <div class="summary-card">
+      <h3><span class="dot" style="background:#14a3a8;"></span>logo-on-dark.svg</h3>
+      <p>Primary variant. Use on any dark background (#000 to #1A1A1A). This is what you'll use most — newsletter headers, dark-mode website, presentation slides.</p>
+    </div>
+    <div class="summary-card">
+      <h3><span class="dot" style="background:#0a5c5e;"></span>logo-on-light.svg</h3>
+      <p>Deeper tones for light backgrounds (#E0E0E0 to #FFF). Use when the logo needs to sit on a white or light grey surface — print materials, light-mode contexts.</p>
+    </div>
+    <div class="summary-card">
+      <h3><span class="dot" style="background:#fff;"></span>logo-mono.svg</h3>
+      <p><strong>Your most-used file.</strong> All-white strokes for watermarks at 30–60% opacity. Every blog thumbnail, every featured card, every carousel slide. Bottom-right, per §24.11.</p>
+    </div>
+    <div class="summary-card">
+      <h3><span class="dot" style="background:#2dd4bf;"></span>favicon.svg</h3>
+      <p>Optimised stroke weights for 16–32px rendering. Has CSS <code>prefers-color-scheme</code> dark mode built in. Use for browser tabs via <code>&lt;link rel="icon"&gt;</code>.</p>
+    </div>
+    <div class="summary-card">
+      <h3><span class="dot" style="background:#ffd166;"></span>PNG rasters</h3>
+      <p>Fallbacks for platforms that don't accept SVG. Use <code>favicon-512x512.png</code> for circular-crop profile pics. <code>favicon-192x192.png</code> for YouTube watermark. <code>apple-touch-icon.png</code> for iOS.</p>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

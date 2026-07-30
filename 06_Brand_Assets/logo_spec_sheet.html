@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mastering Observability — Logo Spec Sheet</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;700&family=Archivo+Black&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0e17;
+    font-family: 'DM Sans', sans-serif;
+    color: #ccc;
+    padding: 0;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 32px;
+    background: radial-gradient(ellipse at 50% 40%, rgba(13,115,119,0.12) 0%, transparent 60%);
+    padding: 80px 40px 60px;
+    position: relative;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(100,255,218,0.15), transparent);
+  }
+  .hero .mark-container {
+    width: 220px;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .hero .mark-container::before {
+    content: '';
+    position: absolute;
+    inset: -30px;
+    border-radius: 50%;
+    border: 1px solid rgba(100,255,218,0.04);
+  }
+  .hero .mark-container::after {
+    content: '';
+    position: absolute;
+    inset: -60px;
+    border-radius: 50%;
+    border: 1px solid rgba(100,255,218,0.02);
+  }
+  .hero .brand-text {
+    text-align: center;
+  }
+  .hero .brand-text h1 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .hero .brand-text p {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* ── SECTIONS ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .spec-section {
+    padding: 60px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .spec-section:last-child { border-bottom: none; }
+
+  .spec-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #64ffda;
+    margin-bottom: 6px;
+  }
+  .spec-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .spec-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 30px;
+    line-height: 1.6;
+    max-width: 650px;
+  }
+
+  /* ── SIZE SCALE ── */
+  .scale-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 50px;
+    flex-wrap: wrap;
+  }
+  .scale-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .scale-frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(100,255,218,0.05);
+    border-radius: 6px;
+    padding: 20px;
+  }
+  .scale-meta {
+    text-align: center;
+  }
+  .scale-meta .size {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.25);
+  }
+  .scale-meta .use {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 2px;
+  }
+
+  /* ── BACKGROUND GRID ── */
+  .bg-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 3px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .bg-cell {
+    padding: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .bg-cell .bg-name {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* ── CLEAR SPACE ── */
+  .clearspace-demo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(100,255,218,0.05);
+    border-radius: 6px;
+    padding: 60px;
+  }
+  .clearspace-demo .zone {
+    position: absolute;
+    border: 1px dashed rgba(100,255,218,0.2);
+    border-radius: 4px;
+  }
+  .clearspace-demo .zone-label {
+    position: absolute;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: rgba(100,255,218,0.4);
+    letter-spacing: 1px;
+  }
+
+  /* ── COLOUR SWATCHES ── */
+  .swatch-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .swatch {
+    width: 140px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .swatch .colour-block {
+    height: 70px;
+  }
+  .swatch .colour-info {
+    padding: 10px 12px;
+    background: rgba(255,255,255,0.03);
+  }
+  .swatch .colour-info .name {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 2px;
+  }
+  .swatch .colour-info .hex {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* ── LOCKUPS ── */
+  .lockup-row {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+  .lockup {
+    flex: 1;
+    min-width: 280px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(100,255,218,0.05);
+    border-radius: 8px;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .lockup .lockup-text h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.3px;
+  }
+  .lockup .lockup-text p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    margin-top: 3px;
+  }
+  .lockup-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+    margin-bottom: 10px;
+  }
+
+  /* ── FEATURED CARD MOCK ── */
+  .featured-mock {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .f-card {
+    flex: 1;
+    min-width: 300px;
+    height: 180px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 28px 30px;
+  }
+  .f-card.dark { background: #0a0e17; border: 1px solid rgba(100,255,218,0.06); }
+  .f-card.gradient { background: linear-gradient(135deg, #0c1929 0%, #112240 100%); border: 1px solid rgba(100,255,218,0.06); }
+
+  .f-card .f-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #64ffda;
+    margin-bottom: 8px;
+  }
+  .f-card .f-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 32px;
+    color: #fff;
+    line-height: 1.0;
+    margin-bottom: 10px;
+  }
+  .f-card .f-title .amp { color: #64ffda; }
+  .f-card .f-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+  }
+  .f-card .f-watermark {
+    position: absolute;
+    bottom: 16px;
+    right: 20px;
+    opacity: 0.35;
+  }
+  .f-card .f-footer {
+    position: absolute;
+    bottom: 16px;
+    left: 30px;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+  }
+
+  /* ── FILE TABLE ── */
+  .file-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+  }
+  .file-table th {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .file-table td {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    vertical-align: top;
+  }
+  .file-table td code {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: #64ffda;
+    background: rgba(100,255,218,0.06);
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+
+  /* ── IMPLEMENTATION ── */
+  .code-block {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 6px;
+    padding: 20px 24px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7;
+    overflow-x: auto;
+    white-space: pre;
+    margin-top: 16px;
+  }
+  .code-block .comment { color: rgba(255,255,255,0.25); }
+  .code-block .tag { color: #64ffda; }
+  .code-block .attr { color: #ffd166; }
+  .code-block .val { color: #a8d8ea; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════ HERO ════════════════════════ -->
+<div class="hero">
+  <div class="mark-container">
+    <svg viewBox="0 0 200 200" width="200" height="200">
+      <circle cx="100" cy="100" r="90" fill="none" stroke="#0d7377" stroke-width="3"/>
+      <circle cx="100" cy="100" r="75" fill="none" stroke="#14a3a8" stroke-width="2" opacity="0.6"/>
+      <circle cx="100" cy="100" r="62" fill="#0f2b2d"/>
+      <g stroke="#64ffda" stroke-width="3" stroke-linecap="round">
+        <line x1="100" y1="0" x2="100" y2="20"/>
+        <line x1="100" y1="180" x2="100" y2="200"/>
+        <line x1="0" y1="100" x2="20" y2="100"/>
+        <line x1="180" y1="100" x2="200" y2="100"/>
+      </g>
+      <path d="M36 100 Q100 50 164 100 Q100 150 36 100 Z" fill="#ffffff"/>
+      <circle cx="100" cy="100" r="26" fill="#0a5c5e"/>
+      <circle cx="100" cy="100" r="16" fill="#2dd4bf"/>
+      <circle cx="109" cy="92" r="5.5" fill="#ffffff" opacity="0.45"/>
+    </svg>
+  </div>
+  <div class="brand-text">
+    <h1>Mastering Observability</h1>
+    <p>Logo Specification — Direction 02 "Evolved"</p>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ════════════════════════ SCALE ════════════════════════ -->
+<div class="spec-section">
+  <div class="spec-label">01 — Scale</div>
+  <div class="spec-title">Size-optimised variants</div>
+  <div class="spec-desc">Stroke weights adjust at each breakpoint. Below 48px, the middle ring drops and tick strokes thicken. Below 32px, the highlight drops. Each size is tuned for pixel-grid clarity.</div>
+
+  <div class="scale-row">
+    <div class="scale-item">
+      <div class="scale-frame">
+        <svg viewBox="0 0 200 200" width="160" height="160">
+          <circle cx="100" cy="100" r="90" fill="none" stroke="#0d7377" stroke-width="3"/>
+          <circle cx="100" cy="100" r="75" fill="none" stroke="#14a3a8" stroke-width="2" opacity="0.6"/>
+          <circle cx="100" cy="100" r="62" fill="#0f2b2d"/>
+          <g stroke="#64ffda" stroke-width="3" stroke-linecap="round"><line x1="100" y1="0" x2="100" y2="20"/><line x1="100" y1="180" x2="100" y2="200"/><line x1="0" y1="100" x2="20" y2="100"/><line x1="180" y1="100" x2="200" y2="100"/></g>
+          <path d="M36 100 Q100 50 164 100 Q100 150 36 100 Z" fill="#ffffff"/>
+          <circle cx="100" cy="100" r="26" fill="#0a5c5e"/>
+          <circle cx="100" cy="100" r="16" fill="#2dd4bf"/>
+          <circle cx="109" cy="92" r="5.5" fill="#ffffff" opacity="0.45"/>
+        </svg>
+      </div>
+      <div class="scale-meta">
+        <div class="size">160px — Hero</div>
+        <div class="use">Website, presentation, print</div>
+      </div>
+    </div>
+
+    <div class="scale-item">
+      <div class="scale-frame">
+        <svg viewBox="0 0 200 200" width="80" height="80">
+          <circle cx="100" cy="100" r="90" fill="none" stroke="#0d7377" stroke-width="4"/>
+          <circle cx="100" cy="100" r="75" fill="none" stroke="#14a3a8" stroke-width="2.5" opacity="0.5"/>
+          <circle cx="100" cy="100" r="62" fill="#0f2b2d"/>
+          <g stroke="#64ffda" stroke-width="4" stroke-linecap="round"><line x1="100" y1="0" x2="100" y2="20"/><line x1="100" y1="180" x2="100" y2="200"/><line x1="0" y1="100" x2="20" y2="100"/><line x1="180" y1="100" x2="200" y2="100"/></g>
+          <path d="M36 100 Q100 50 164 100 Q100 150 36 100 Z" fill="#ffffff"/>
+          <circle cx="100" cy="100" r="26" fill="#0a5c5e"/>
+          <circle cx="100" cy="100" r="16" fill="#2dd4bf"/>
+          <circle cx="109" cy="92" r="5.5" fill="#ffffff" opacity="0.45"/>
+        </svg>
+      </div>
+      <div class="scale-meta">
+        <div class="size">80px — Header</div>
+        <div class="use">Newsletter, beehiiv logo</div>
+      </div>
+    </div>
+
+    <div class="scale-item">
+      <div class="scale-frame">
+        <svg viewBox="0 0 200 200" width="48" height="48">
+          <circle cx="100" cy="100" r="88" fill="none" stroke="#0d7377" stroke-width="7"/>
+          <circle cx="100" cy="100" r="62" fill="#0f2b2d"/>
+          <g stroke="#64ffda" stroke-width="6" stroke-linecap="round"><line x1="100" y1="2" x2="100" y2="22"/><line x1="100" y1="178" x2="100" y2="198"/><line x1="2" y1="100" x2="22" y2="100"/><line x1="178" y1="100" x2="198" y2="100"/></g>
+          <path d="M38 100 Q100 52 162 100 Q100 148 38 100 Z" fill="#ffffff"/>
+          <circle cx="100" cy="100" r="26" fill="#0a5c5e"/>
+          <circle cx="100" cy="100" r="16" fill="#2dd4bf"/>
+        </svg>
+      </div>
+      <div class="scale-meta">
+        <div class="size">48px — Icon</div>
+        <div class="use">Google search, mobile</div>
+      </div>
+    </div>
+
+    <div class="scale-item">
+      <div class="scale-frame">
+        <svg viewBox="0 0 200 200" width="32" height="32">
+          <circle cx="100" cy="100" r="86" fill="none" stroke="#0d7377" stroke-width="10"/>
+          <circle cx="100" cy="100" r="62" fill="#0f2b2d"/>
+          <g stroke="#64ffda" stroke-width="9" stroke-linecap="round"><line x1="100" y1="0" x2="100" y2="24"/><line x1="100" y1="176" x2="100" y2="200"/><line x1="0" y1="100" x2="24" y2="100"/><line x1="176" y1="100" x2="200" y2="100"/></g>
+          <path d="M38 100 Q100 54 162 100 Q100 146 38 100 Z" fill="#ffffff"/>
+          <circle cx="100" cy="100" r="26" fill="#0a5c5e"/>
+          <circle cx="100" cy="100" r="16" fill="#2dd4bf"/>
+        </svg>
+      </div>
+      <div class="scale-meta">
+        <div class="size">32px — Favicon</div>
+        <div class="use">Browser tab (HiDPI)</div>
+      </div>
+    </div>
+
+    <div class="scale-item">
+      <div class="scale-frame">
+        <svg viewBox="0 0 200 200" width="16" height="16">
+          <circle cx="100" cy="100" r="84" fill="none" stroke="#0d7377" stroke-width="14"/>
+          <circle cx="100" cy="100" r="60" fill="#0f2b2d"/>
+          <g stroke="#64ffda" stroke-width="12" stroke-linecap="round"><line x1="100" y1="0" x2="100" y2="26"/><line x1="100" y1="174" x2="100" y2="200"/><line x1="0" y1="100" x2="26" y2="100"/><line x1="174" y1="100" x2="200" y2="100"/></g>
+          <path d="M40 100 Q100 56 160 100 Q100 144 40 100 Z" fill="#ffffff"/>
+          <circle cx="100" cy="100" r="24" fill="#0a5c5e"/>
+          <circle cx="100" cy="100" r="15" fill="#2dd4bf"/>
+        </svg>
+      </div>
+      <div class="scale-meta">
+        <div class="size">16px — Favicon</div>
+        <div class="use">Browser tab (standard)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════ BACKGROUNDS ════════════════════════ -->
+<div class="spec-section">
+  <div class="spec-label">02 — Backgrounds</div>
+  <div class="spec-title">Colour environment testing</div>
+  <div class="spec-desc">The on-dark variant is primary. The on-light variant uses deeper tones (#0a5c5e ring, #0d7377 ticks) for sufficient contrast. Monochrome is for watermarks at 30–60% opacity.</div>
+
+  <div class="bg-grid">
+    <div class="bg-cell" style="background:#0a0e17;">
+      <svg viewBox="0 0 200 200" width="70" height="70">
+        <circle cx="100" cy="100" r="90" fill="none" stroke="#0d7377" stroke-width="4"/>
+        <circle cx="100" cy="100" r="75" fill="none" stroke="#14a3a8" stroke-width="2.5" opacity="0.6"/>
+        <circle cx="100" cy="100" r="62" fill="#0f2b2d"/>
+        <g stroke="#64ffda" stroke-width="4" stroke-linecap="round"><line x1="100" y1="0" x2="100" y2="20"/><line x1="100" y1="180" x2="100" y2="200"/><line x1="0" y1="100" x2="20" y2="100"/><line x1="180" y1="100" x2="200" y2="100"/></g>
+        <path d="M36 100 Q100 50 164 100 Q100 150 36 100 Z" fill="#ffffff"/>
+        <circle cx="100" cy="100" r="26" fill="#0a5c5e"/><circle cx="100" cy="100" r="16" fill="#2dd4bf"/>
+      </svg>
+      <span class="bg-name" style="color:rgba(255,255,255,0.3);">Dark #0A0E17</span>
+    </div>
+    <div class="bg-cell" style="background:#1a1a1a;">
+      <svg viewBox="0 0 200 200" width="70" height="70">
+        <circle cx="100" cy="100" r="90" fill="none" stroke="#0d7377" stroke-width="4"/>
+        <circle cx="100" cy="100" r="75" fill="none" stroke="#14a3a8" stroke-width="2.5" opacity="0.6"/>
+        <circle cx="100" cy="100" r="62" fill="#0f2b2d"/>
+        <g stroke="#64ffda" stroke-width="4" stroke-linecap="round"><line x1="100" y1="0" x2="100" y2="20"/><line x1="100" y1="180" x2="100" y2="200"/><line x1="0" y1="100" x2="20" y2="100"/><line x1="180" y1="100" x2="200" y2="100"/></g>
+        <path d="M36 100 Q100 50 164 100 Q100 150 36 100 Z" fill="#ffffff"/>
+        <circle cx="100" cy="100" r="26" fill="#0a5c5e"/><circle cx="100" cy="100" r="16" fill="#2dd4bf"/>
+      </svg>
+      <span class="bg-name" style="color:rgba(255,255,255,0.3);">Nuclear #1A1A1A</span>
+    </div>
+    <div class="bg-cell" style="background:#e8e8e8;">
+      <svg viewBox="0 0 200 200" width="70" height="70">
+        <circle cx="100" cy="100" r="90" fill="none" stroke="#0a5c5e" stroke-width="4"/>
+        <circle cx="100" cy="100" r="75" fill="none" stroke="#0d7377" stroke-width="2.5" opacity="0.5"/>
+        <circle cx="100" cy="100" r="62" fill="#0f3d3f"/>
+        <g stroke="#0d7377" stroke-width="4" stroke-linecap="round"><line x1="100" y1="0" x2="100" y2="20"/><line x1="100" y1="180" x2="100" y2="200"/><line x1="0" y1="100" x2="20" y2="100"/><line x1="180" y1="100" x2="200" y2="100"/></g>
+        <path d="M36 100 Q100 50 164 100 Q100 150 36 100 Z" fill="#ffffff"/>
+        <circle cx="100" cy="100" r="26" fill="#0a5c5e"/><circle cx="100" cy="100" r="16" fill="#2dd4bf"/>
+      </svg>
+      <span class="bg-name" style="color:rgba(0,0,0,0.3);">Light #E8E8E8</span>
+    </div>
+    <div class="bg-cell" style="background:#ffffff;">
+      <svg viewBox="0 0 200 200" width="70" height="70">
+        <circle cx="100" cy="100" r="90" fill="none" stroke="#0a5c5e" stroke-width="4"/>
+        <circle cx="100" cy="100" r="75" fill="none" stroke="#0d7377" stroke-width="2.5" opacity="0.5"/>
+        <circle cx="100" cy="100" r="62" fill="#0f3d3f"/>
+        <g stroke="#0d7377" stroke-width="4" stroke-linecap="round"><line x1="100" y1="0" x2="100" y2="20"/><line x1="100" y1="180" x2="100" y2="200"/><line x1="0" y1="100" x2="20" y2="100"/><line x1="180" y1="100" x2="200" y2="100"/></g>
+        <path d="M36 100 Q100 50 164 100 Q100 150 36 100 Z" fill="#ffffff"/>
+        <circle cx="100" cy="100" r="26" fill="#0a5c5e"/><circle cx="100" cy="100" r="16" fill="#2dd4bf"/>
+      </svg>
+      <span class="bg-name" style="color:rgba(0,0,0,0.3);">White #FFFFFF</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════ COLOUR PALETTE ════════════════════════ -->
+<div class="spec-section">
+  <div class="spec-label">03 — Palette</div>
+  <div class="spec-title">Logo colour system</div>
+  <div class="spec-desc">Six colours drawn from the existing brand palette. The accent teal (#64FFDA) is the signature — used for crosshair ticks and the pupil.</div>
+
+  <div class="swatch-row">
+    <div class="swatch"><div class="colour-block" style="background:#0d7377;"></div><div class="colour-info"><div class="name">Outer Ring</div><div class="hex">#0D7377</div></div></div>
+    <div class="swatch"><div class="colour-block" style="background:#14a3a8;"></div><div class="colour-info"><div class="name">Mid Ring</div><div class="hex">#14A3A8</div></div></div>
+    <div class="swatch"><div class="colour-block" style="background:#0f2b2d;"></div><div class="colour-info"><div class="name">Inner Disc</div><div class="hex">#0F2B2D</div></div></div>
+    <div class="swatch"><div class="colour-block" style="background:#64ffda;"></div><div class="colour-info"><div class="name">Accent (Ticks)</div><div class="hex">#64FFDA</div></div></div>
+    <div class="swatch"><div class="colour-block" style="background:#0a5c5e;"></div><div class="colour-info"><div class="name">Iris</div><div class="hex">#0A5C5E</div></div></div>
+    <div class="swatch"><div class="colour-block" style="background:#2dd4bf;"></div><div class="colour-info"><div class="name">Pupil</div><div class="hex">#2DD4BF</div></div></div>
+  </div>
+</div>
+
+<!-- ════════════════════════ LOCKUPS ════════════════════════ -->
+<div class="spec-section">
+  <div class="spec-label">04 — Lockups</div>
+  <div class="spec-title">Mark + text pairings</div>
+  <div class="spec-desc">Horizontal lockup for headers and navigation. Vertical lockup for square contexts (social avatars, app icons).</div>
+
+  <div class="lockup-label">Horizontal</div>
+  <div class="lockup-row" style="margin-bottom:20px;">
+    <div class="lockup">
+      <svg viewBox="0 0 200 200" width="44" height="44">
+        <circle cx="100" cy="100" r="88" fill="none" stroke="#0d7377" stroke-width="6"/>
+        <circle cx="100" cy="100" r="62" fill="#0f2b2d"/>
+        <g stroke="#64ffda" stroke-width="5" stroke-linecap="round"><line x1="100" y1="2" x2="100" y2="20"/><line x1="100" y1="180" x2="100" y2="198"/><line x1="2" y1="100" x2="20" y2="100"/><line x1="180" y1="100" x2="198" y2="100"/></g>
+        <path d="M38 100 Q100 52 162 100 Q100 148 38 100 Z" fill="#ffffff"/>
+        <circle cx="100" cy="100" r="26" fill="#0a5c5e"/><circle cx="100" cy="100" r="16" fill="#2dd4bf"/>
+      </svg>
+      <div class="lockup-text">
+        <h3>Mastering Observability</h3>
+        <p>See what matters. Decide faster. Reduce noise.</p>
+      </div>
+    </div>
+    <div class="lockup">
+      <svg viewBox="0 0 200 200" width="38" height="38">
+        <circle cx="100" cy="100" r="88" fill="none" stroke="#0d7377" stroke-width="7"/>
+        <circle cx="100" cy="100" r="62" fill="#0f2b2d"/>
+        <g stroke="#64ffda" stroke-width="6" stroke-linecap="round"><line x1="100" y1="2" x2="100" y2="20"/><line x1="100" y1="180" x2="100" y2="198"/><line x1="2" y1="100" x2="20" y2="100"/><line x1="180" y1="100" x2="198" y2="100"/></g>
+        <path d="M38 100 Q100 52 162 100 Q100 148 38 100 Z" fill="#ffffff"/>
+        <circle cx="100" cy="100" r="26" fill="#0a5c5e"/><circle cx="100" cy="100" r="16" fill="#2dd4bf"/>
+      </svg>
+      <div class="lockup-text">
+        <h3>Allan Mann</h3>
+        <p>Mastering Observability</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════ IN CONTEXT ════════════════════════ -->
+<div class="spec-section">
+  <div class="spec-label">05 — In Context</div>
+  <div class="spec-title">LinkedIn featured cards</div>
+  <div class="spec-desc">The mark as a watermark (35% opacity) in the bottom-right corner, consistent with §24.11 Nuclear Visual Guidance.</div>
+
+  <div class="featured-mock">
+    <div class="f-card dark">
+      <div class="f-label">The Newsletter & Blog</div>
+      <div class="f-title">MASTERING<br>OBSERVABILITY</div>
+      <div class="f-sub">See what matters. Decide faster.<br>Reduce noise.</div>
+      <svg class="f-watermark" viewBox="0 0 200 200" width="55" height="55">
+        <circle cx="100" cy="100" r="90" fill="none" stroke="#fff" stroke-width="3"/>
+        <circle cx="100" cy="100" r="75" fill="none" stroke="#fff" stroke-width="2" opacity="0.4"/>
+        <circle cx="100" cy="100" r="62" fill="none" stroke="#fff" stroke-width="2" opacity="0.3"/>
+        <g stroke="#fff" stroke-width="3" stroke-linecap="round"><line x1="100" y1="0" x2="100" y2="20"/><line x1="100" y1="180" x2="100" y2="200"/><line x1="0" y1="100" x2="20" y2="100"/><line x1="180" y1="100" x2="200" y2="100"/></g>
+        <path d="M36 100 Q100 50 164 100 Q100 150 36 100 Z" fill="none" stroke="#fff" stroke-width="2.5"/>
+        <circle cx="100" cy="100" r="26" fill="none" stroke="#fff" stroke-width="2"/>
+        <circle cx="100" cy="100" r="16" fill="#fff" opacity="0.8"/>
+      </svg>
+      <div class="f-footer">Allan Mann &bull; Mastering Observability</div>
+    </div>
+    <div class="f-card gradient">
+      <div class="f-label">The Podcast</div>
+      <div class="f-title">METRICS <span class="amp">&</span> MAYHEM</div>
+      <div class="f-sub">One idea, one habit, no theatre.</div>
+      <svg class="f-watermark" viewBox="0 0 200 200" width="55" height="55">
+        <circle cx="100" cy="100" r="90" fill="none" stroke="#fff" stroke-width="3"/>
+        <circle cx="100" cy="100" r="75" fill="none" stroke="#fff" stroke-width="2" opacity="0.4"/>
+        <circle cx="100" cy="100" r="62" fill="none" stroke="#fff" stroke-width="2" opacity="0.3"/>
+        <g stroke="#fff" stroke-width="3" stroke-linecap="round"><line x1="100" y1="0" x2="100" y2="20"/><line x1="100" y1="180" x2="100" y2="200"/><line x1="0" y1="100" x2="20" y2="100"/><line x1="180" y1="100" x2="200" y2="100"/></g>
+        <path d="M36 100 Q100 50 164 100 Q100 150 36 100 Z" fill="none" stroke="#fff" stroke-width="2.5"/>
+        <circle cx="100" cy="100" r="26" fill="none" stroke="#fff" stroke-width="2"/>
+        <circle cx="100" cy="100" r="16" fill="#fff" opacity="0.8"/>
+      </svg>
+      <div class="f-footer">Allan Mann &bull; Mastering Observability</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════ FILES ════════════════════════ -->
+<div class="spec-section">
+  <div class="spec-label">06 — Deliverables</div>
+  <div class="spec-title">Production files</div>
+  <div class="spec-desc">All files included in the export package.</div>
+
+  <table class="file-table">
+    <tr><th>File</th><th>Use</th><th>Notes</th></tr>
+    <tr><td><code>logo-master.svg</code></td><td>Canonical mark, full detail</td><td>Use at ≥80px. All elements present.</td></tr>
+    <tr><td><code>logo-on-dark.svg</code></td><td>Dark backgrounds (#000–#1A1A1A)</td><td>Primary variant. Teal ticks, bright eye.</td></tr>
+    <tr><td><code>logo-on-light.svg</code></td><td>Light backgrounds (#E0E0E0–#FFF)</td><td>Deeper ring/tick tones for contrast.</td></tr>
+    <tr><td><code>logo-mono.svg</code></td><td>Watermarks, embossing, single-colour</td><td>All-white strokes. Use at 30–60% opacity.</td></tr>
+    <tr><td><code>favicon.svg</code></td><td>Browser favicon (modern)</td><td>CSS dark mode media query included.</td></tr>
+    <tr><td><code>favicon-32x32.png</code></td><td>Browser tab (HiDPI)</td><td>PNG fallback for Safari / older browsers.</td></tr>
+    <tr><td><code>favicon-48x48.png</code></td><td>Google search results</td><td>Google's minimum recommended size.</td></tr>
+    <tr><td><code>apple-touch-icon.png</code></td><td>iOS home screen</td><td>180×180px as Apple requires.</td></tr>
+    <tr><td><code>favicon-192x192.png</code></td><td>Android home screen</td><td>For web app manifest.</td></tr>
+    <tr><td><code>favicon-512x512.png</code></td><td>Android splash / PWA</td><td>Largest raster export.</td></tr>
+  </table>
+
+  <div class="spec-desc" style="margin-top:24px;margin-bottom:8px;">HTML implementation:</div>
+  <div class="code-block"><span class="comment">&lt;!-- Favicon set --&gt;</span>
+<span class="tag">&lt;link</span> <span class="attr">rel=</span><span class="val">"icon"</span> <span class="attr">type=</span><span class="val">"image/svg+xml"</span> <span class="attr">href=</span><span class="val">"/favicon.svg"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;link</span> <span class="attr">rel=</span><span class="val">"icon"</span> <span class="attr">type=</span><span class="val">"image/png"</span> <span class="attr">sizes=</span><span class="val">"32x32"</span> <span class="attr">href=</span><span class="val">"/favicon-32x32.png"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;link</span> <span class="attr">rel=</span><span class="val">"icon"</span> <span class="attr">type=</span><span class="val">"image/png"</span> <span class="attr">sizes=</span><span class="val">"48x48"</span> <span class="attr">href=</span><span class="val">"/favicon-48x48.png"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;link</span> <span class="attr">rel=</span><span class="val">"apple-touch-icon"</span> <span class="attr">sizes=</span><span class="val">"180x180"</span> <span class="attr">href=</span><span class="val">"/apple-touch-icon.png"</span><span class="tag">&gt;</span></div>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

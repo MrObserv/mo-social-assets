@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Mastering Observability — On Light Backgrounds -->
+  <!-- Use on backgrounds #E0E0E0 to #FFFFFF -->
+
+  <circle cx="100" cy="100" r="90" fill="none" stroke="#0a5c5e" stroke-width="3"/>
+  <circle cx="100" cy="100" r="75" fill="none" stroke="#0d7377" stroke-width="2" opacity="0.5"/>
+  <circle cx="100" cy="100" r="62" fill="#0f3d3f"/>
+
+  <g stroke="#0d7377" stroke-width="3" stroke-linecap="round">
+    <line x1="100" y1="0" x2="100" y2="20"/>
+    <line x1="100" y1="180" x2="100" y2="200"/>
+    <line x1="0" y1="100" x2="20" y2="100"/>
+    <line x1="180" y1="100" x2="200" y2="100"/>
+  </g>
+
+  <path d="M36 100 Q100 50 164 100 Q100 150 36 100 Z" fill="#ffffff"/>
+  <circle cx="100" cy="100" r="26" fill="#0a5c5e"/>
+  <circle cx="100" cy="100" r="16" fill="#2dd4bf"/>
+  <circle cx="109" cy="92" r="5.5" fill="#ffffff" opacity="0.45"/>
+</svg>

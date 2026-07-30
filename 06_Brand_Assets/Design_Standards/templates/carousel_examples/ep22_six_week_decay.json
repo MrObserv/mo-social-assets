@@ -1,0 +1,10 @@
+{
+ "cover": {"eyebrow":"Signal Drop 22","title":"The six-week decay","sub":"How automation quietly de-skills your best team"},
+ "points": [
+   {"accent":"amber","slug":"slide","label":"The slow slide","head":"The team got quietly worse","body":"We automated triage. Fewer people woken, the numbers looked great. Then a novel fault arrived and they stalled."},
+   {"accent":"mint","slug":"cause","label":"The real cause","head":"You took away their reps","body":"Every routine incident was a small rep. Automate the boring reps away and the edge goes with them."},
+   {"accent":"mint","slug":"number","label":"The wrong number","head":"Watch what you could not automate","body":"Not how well you handle the incidents you automated. How well you handle the ones you could not."},
+   {"accent":"green","slug":"fix","label":"The fix","head":"Put the reps back on purpose","body":"Run one live incident drill the automation cannot help with. A novel fault, no runbook, your best people, cold."}
+ ],
+ "cta": {"eyebrow":"The full Signal Drop","head":"Keep your team's edge on purpose.","button":"Listen + free chapter","sub":"masteringobservability.com  ·  link in bio"}
+}
