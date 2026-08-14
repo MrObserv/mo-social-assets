@@ -1,0 +1,1308 @@
+1
+00:00:00,000 --> 00:00:03,639
+Right, you were told to instrument free
+pillars.
+
+2
+00:00:06,028 --> 00:00:12,657
+metrics, logs, traces. And it's some
+godforsaken time in the morning.
+
+3
+00:00:12,657 --> 00:00:19,417
+The question you always didn't predict
+that comes in ends up scattered across
+three
+
+4
+00:00:19,417 --> 00:00:22,812
+tours that you know darn well are not
+talking to one another.
+
+5
+00:00:25,388 --> 00:00:30,072
+Today I want to show you the argument that
+says that those three pillars were never
+
+6
+00:00:30,453 --> 00:00:32,634
+the right primitive in the first place.
+
+7
+00:00:32,634 --> 00:00:38,900
+And then I want to kind of explain
+honestly why I think the people
+
+8
+00:00:38,900 --> 00:00:42,644
+who are making that gesticulation could be
+right.
+
+9
+00:00:44,144 --> 00:00:47,982
+You're listening to Tech Tuesday from
+Metrix and Mayhem.
+
+10
+00:00:50,342 --> 00:00:55,998
+10 minutes to make sense of one thing that
+has landed on my desk over
+
+11
+00:00:55,998 --> 00:01:00,723
+the past couple of weeks. Whether you're
+in the pit fighting the fires
+
+12
+00:01:00,723 --> 00:01:03,135
+or whether you're making decisions at the
+table.
+
+13
+00:01:03,135 --> 00:01:05,318
+This is one for you.
+
+14
+00:01:06,818 --> 00:01:09,070
+So here's where we are.
+
+15
+00:01:10,570 --> 00:01:13,605
+It's early in morning and there's
+something hot,
+
+16
+00:01:13,605 --> 00:01:17,482
+there's something wrong. Not
+catastrophically wrong,
+
+17
+00:01:17,482 --> 00:01:24,013
+but wrong in the way that it's much harder
+to deal with than the usual issues.
+
+18
+00:01:25,513 --> 00:01:28,637
+Your error rate is up. Not everywhere,
+
+19
+00:01:28,637 --> 00:01:30,881
+but it's just up. It's really noticeable.
+
+20
+00:01:33,265 --> 00:01:37,928
+And the question you need answered is a
+very specific one.
+
+21
+00:01:37,928 --> 00:01:43,230
+It's not hitting every customer or a
+handful.
+
+22
+00:01:43,230 --> 00:01:47,253
+It's only on the new checkout path.
+
+23
+00:01:47,253 --> 00:01:52,405
+It's only on mobile. It's only one region
+and it's only on a specific
+
+24
+00:01:52,405 --> 00:01:57,718
+set of accounts that have been gone live
+since the migration.
+
+25
+00:01:57,718 --> 00:02:02,441
+And here's the one thing about that type
+of question.
+
+26
+00:02:03,347 --> 00:02:07,778
+You know, done well, it's not on any
+dashboard at that particular point in
+time.
+
+27
+00:02:07,778 --> 00:02:13,190
+No one can predict these multi phasic
+issues,
+
+28
+00:02:13,190 --> 00:02:18,161
+multi hop issues, because nobody could
+ever have had predicted it.
+
+29
+00:02:18,161 --> 00:02:22,142
+And that is the nature of these
+interesting failures.
+
+30
+00:02:22,142 --> 00:02:26,624
+They always arrive in a combination.
+
+31
+00:02:26,624 --> 00:02:29,724
+Nobody thought to map out in advance.
+
+32
+00:02:29,724 --> 00:02:31,365
+So.
+
+33
+00:02:33,001 --> 00:02:38,121
+So you do what we all do. You go into logs
+and you grip and you find something that
+
+34
+00:02:38,121 --> 00:02:43,394
+looks suspicious. Then you go into your
+tracing and you hunt for the slow span.
+
+35
+00:02:43,394 --> 00:02:48,290
+It might be related. Then you go back to
+the metrics to see whether that shape
+
+36
+00:02:48,290 --> 00:02:49,290
+matches.
+
+37
+00:02:51,217 --> 00:02:57,386
+It's the route. We all do three tools,
+
+38
+00:02:57,386 --> 00:03:04,357
+three query languages, generally three
+browser tabs and your.
+
+39
+00:03:05,857 --> 00:03:08,679
+and you are the integration layer.
+
+40
+00:03:08,679 --> 00:03:11,501
+You're holding the custom ID in your head,
+
+41
+00:03:11,501 --> 00:03:17,234
+copying it between windows, trying to keep
+the story that's scattered across three
+
+42
+00:03:17,234 --> 00:03:22,548
+systems that were never designed to talk
+to one another.
+
+43
+00:03:24,048 --> 00:03:25,048
+because that's not you.
+
+44
+00:03:27,920 --> 00:03:30,423
+But that's not even the worst part of the
+situation.
+
+45
+00:03:32,934 --> 00:03:37,954
+The worst part is that your metrics
+already threw away the answer.
+
+46
+00:03:39,454 --> 00:03:41,465
+because somewhere along the line,
+
+47
+00:03:41,465 --> 00:03:46,269
+somebody looked at the cost of your
+metrics and did the responsible thing.
+
+48
+00:03:46,269 --> 00:03:50,632
+They stripped out some of the high
+cardinality fields,
+
+49
+00:03:50,632 --> 00:03:54,415
+the customer ID, the build version,
+
+50
+00:03:54,415 --> 00:03:59,138
+the region, the feature flag, all the
+things that we do in a responsible way.
+
+51
+00:03:59,138 --> 00:04:05,163
+This is perfectly sensible to cost
+decision.
+
+52
+00:04:05,163 --> 00:04:06,864
+And it means that
+
+53
+00:04:07,294 --> 00:04:12,728
+the detail that you now desperately need
+was never in the data the moment
+
+54
+00:04:12,728 --> 00:04:18,033
+it was collected and got deleted before it
+was even stored.
+
+55
+00:04:18,033 --> 00:04:22,386
+You're not missing the answer because
+nobody looked.
+
+56
+00:04:22,386 --> 00:04:26,920
+You're missing it because it was
+aggregated away in a cross review eight
+months ago.
+
+57
+00:04:28,420 --> 00:04:34,378
+So here's the sentence the whole argument
+rests on right now.
+
+58
+00:04:38,433 --> 00:04:39,969
+So the privative should be a wide one.
+
+59
+00:04:39,969 --> 00:04:43,132
+Structured event per unit of work.
+
+60
+00:04:44,632 --> 00:04:47,649
+and the pillars should be derived from it,
+
+61
+00:04:47,649 --> 00:04:49,874
+not collected separately.
+
+62
+00:04:51,374 --> 00:04:57,637
+Now, let me give you the picture because
+this is the one that makes it all click.
+
+63
+00:05:00,386 --> 00:05:04,833
+Imagine something goes badly wrong in a
+building where there were three witnesses.
+
+64
+00:05:07,780 --> 00:05:08,780
+Stick with me.
+
+65
+00:05:11,362 --> 00:05:13,606
+The first one only watches the doors.
+
+66
+00:05:13,606 --> 00:05:16,822
+She can tell you exactly how many people
+went out,
+
+67
+00:05:16,822 --> 00:05:19,857
+how fast. That is your metrics.
+
+68
+00:05:19,857 --> 00:05:23,083
+Counts and rates, very precise,
+
+69
+00:05:23,083 --> 00:05:24,856
+no context whatsoever.
+
+70
+00:05:27,332 --> 00:05:30,084
+The second one only heard what was
+shouted.
+
+71
+00:05:30,084 --> 00:05:32,717
+He can tell you what was said,
+
+72
+00:05:32,717 --> 00:05:35,929
+what time, but not who was there.
+
+73
+00:05:35,929 --> 00:05:38,872
+This is your logs, rich in detail,
+
+74
+00:05:38,872 --> 00:05:45,508
+but only the detail somebody chose to say
+out loud.
+
+75
+00:05:47,008 --> 00:05:51,470
+The only tracked how...
+
+76
+00:05:55,258 --> 00:05:59,183
+The third only tracks how many people move
+from room to room.
+
+77
+00:05:59,183 --> 00:06:03,598
+She can tell you the path and where things
+slow down.
+
+78
+00:06:03,598 --> 00:06:05,010
+That's your traces.
+
+79
+00:06:06,510 --> 00:06:09,792
+Now, every one of those witnesses is
+honest.
+
+80
+00:06:09,792 --> 00:06:15,136
+Everyone is accurate and everyone saw one
+fragment.
+
+81
+00:06:15,136 --> 00:06:20,179
+Just one. So to work out what actually
+happened,
+
+82
+00:06:20,179 --> 00:06:21,760
+you interview all three. Of course you do.
+
+83
+00:06:21,760 --> 00:06:26,323
+You write it down. You try to stitch three
+partial accounts together into one story.
+
+84
+00:06:26,323 --> 00:06:31,006
+And you can only ever ask each witness
+
+85
+00:06:31,146 --> 00:06:35,589
+the questions from their vantage points
+and what it allows.
+
+86
+00:06:38,263 --> 00:06:43,637
+So now imagine instead you only had one
+witness who saw the whole thing start
+
+87
+00:06:43,637 --> 00:06:47,039
+to finish, who noticed who was there,
+
+88
+00:06:47,039 --> 00:06:50,451
+what they were carrying, what time it was,
+
+89
+00:06:50,451 --> 00:06:52,763
+what door they used and how it all ended.
+
+90
+00:06:52,763 --> 00:06:57,906
+It would be nice, right? And crucially,
+
+91
+00:06:57,906 --> 00:07:01,048
+a witness you can keep asking questions,
+
+92
+00:07:01,048 --> 00:07:07,713
+not just one. Hear the answer and let the
+answer suggest the next question.
+
+93
+00:07:13,062 --> 00:07:17,117
+That's a wide event. One rich account of
+what happened,
+
+94
+00:07:17,117 --> 00:07:19,039
+you can interrogate afterwards.
+
+95
+00:07:19,039 --> 00:07:22,583
+Not three fragments to,
+
+96
+00:07:22,583 --> 00:07:26,687
+you know, to reconcile at three in the
+morning.
+
+97
+00:07:26,687 --> 00:07:29,030
+One witness who saw the whole thing.
+
+98
+00:07:29,030 --> 00:07:34,136
+Now just hold onto that because we're
+going to come back to it.
+
+99
+00:07:35,636 --> 00:07:40,807
+Right, named parts. There four of them in
+this order.
+
+100
+00:07:42,307 --> 00:07:44,960
+Number one, the wide event.
+
+101
+00:07:46,460 --> 00:07:50,511
+A wide event is a single structured record
+of one unit of work.
+
+102
+00:07:50,511 --> 00:07:53,660
+One request, one job, one transaction.
+
+103
+00:07:56,543 --> 00:08:00,713
+that is the whole definition and it's
+worth sitting with it before
+
+104
+00:08:00,713 --> 00:08:01,713
+we go any further.
+
+105
+00:08:03,713 --> 00:08:07,885
+What makes it wide is how much you put on
+it,
+
+106
+00:08:07,885 --> 00:08:11,227
+not five fields, hundreds,
+
+107
+00:08:11,227 --> 00:08:14,028
+the customer ID, the region, the bill,
+
+108
+00:08:14,028 --> 00:08:17,130
+the real Virgin, every feature flag that
+was on,
+
+109
+00:08:17,130 --> 00:08:23,463
+how long the database took, how long the
+external call took the end point,
+
+110
+00:08:23,463 --> 00:08:26,995
+the device, whether it aired and how.
+
+111
+00:08:29,215 --> 00:08:32,767
+Everything you knew in that moment is
+captured in one row.
+
+112
+00:08:35,287 --> 00:08:37,950
+Everything. It's not a log line.
+
+113
+00:08:37,950 --> 00:08:42,817
+It's not a metric. It's just the full
+context of one thing that happened
+
+114
+00:08:42,817 --> 00:08:44,299
+at that particular point in time.
+
+115
+00:08:47,127 --> 00:08:50,332
+Two, and we all know very well,
+
+116
+00:08:50,332 --> 00:08:51,875
+cardinality.
+
+117
+00:08:53,375 --> 00:08:56,306
+This is the word that decides the entire
+argument.
+
+118
+00:08:56,306 --> 00:09:01,899
+So let me really define it as accurately
+and as plainly as I can.
+
+119
+00:09:01,899 --> 00:09:07,862
+Cardinality is simply how many distinct
+values a field can have.
+
+120
+00:09:07,862 --> 00:09:12,985
+Region is low cardinality. You can have a
+handful.
+
+121
+00:09:12,985 --> 00:09:17,207
+Customer ID is very high cardinality
+because you could have millions.
+
+122
+00:09:18,707 --> 00:09:24,389
+And traditional metrics platforms struggle
+badly with high cardinality because
+
+123
+00:09:24,389 --> 00:09:29,391
+of how they store things. They
+pre-aggregate every unique combination
+
+124
+00:09:29,391 --> 00:09:34,573
+of labels becomes its own series to keep
+and the cost climbs deeply as
+
+125
+00:09:34,573 --> 00:09:36,644
+you add more dimensions. know this.
+
+126
+00:09:36,644 --> 00:09:39,705
+We've seen the bills every month.
+
+127
+00:09:39,705 --> 00:09:43,017
+So teams do the rational thing.
+
+128
+00:09:43,017 --> 00:09:46,028
+They strip out the high cardinality.
+
+129
+00:09:46,730 --> 00:09:48,603
+which they feel that they don't need,
+
+130
+00:09:48,603 --> 00:09:54,445
+which are of course exactly the fields
+that let you answer which customer,
+
+131
+00:09:54,445 --> 00:09:57,050
+which build and which region in this
+example.
+
+132
+00:09:59,325 --> 00:10:00,325
+So.
+
+133
+00:10:02,058 --> 00:10:07,237
+Hold both halves of this. cardinality is
+where the answer lives and
+
+134
+00:10:07,237 --> 00:10:11,134
+is also where the cost lives. That's the
+tension of the whole story.
+
+135
+00:10:13,790 --> 00:10:18,200
+Number three, observability 2.0,
+
+136
+00:10:18,200 --> 00:10:23,615
+which really means to derive rather than
+collect.
+
+137
+00:10:23,615 --> 00:10:27,127
+So here is the actual claim, right?
+
+138
+00:10:27,127 --> 00:10:28,928
+Stripped of all the marking you're here.
+
+139
+00:10:28,928 --> 00:10:34,481
+This is it in a nutshell. Instead of
+collecting three separate things,
+
+140
+00:10:34,481 --> 00:10:37,493
+you store one thing, the wide events.
+
+141
+00:10:37,493 --> 00:10:42,526
+And then your metrics and your traces
+become views computed over that store when
+
+142
+00:10:42,526 --> 00:10:43,526
+you ask for them.
+
+143
+00:10:43,956 --> 00:10:45,518
+You stop collecting the pillars,
+
+144
+00:10:45,518 --> 00:10:50,764
+you start deriving them and let that sink
+in.
+
+145
+00:10:50,764 --> 00:10:55,620
+That's it. That's the whole point of what
+people mean in
+
+146
+00:10:55,620 --> 00:10:57,972
+my opinion of observability 2.0.
+
+147
+00:10:57,972 --> 00:11:01,216
+Number four,
+
+148
+00:11:01,216 --> 00:11:04,580
+query after the fact.
+
+149
+00:11:07,112 --> 00:11:12,838
+And this is the payoff and the reason
+anyone bothers with this whole thing.
+
+150
+00:11:15,232 --> 00:11:18,214
+Because the raw detail is still sitting in
+your events,
+
+151
+00:11:18,214 --> 00:11:21,617
+you can ask a question nobody designed for
+it.
+
+152
+00:11:21,617 --> 00:11:27,952
+At three in the morning, ~ about a
+combination that happened that nobody ever
+
+153
+00:11:27,952 --> 00:11:30,224
+predicted. That's never going to be on any
+dashboard.
+
+154
+00:11:30,224 --> 00:11:33,637
+You do not need to have known the question
+in advance.
+
+155
+00:11:33,637 --> 00:11:36,499
+That's the capability you're now buying
+with these,
+
+156
+00:11:36,499 --> 00:11:37,590
+with these wide events.
+
+157
+00:11:38,788 --> 00:11:43,278
+Still with me? Good, because now I have to
+be honest about the other side
+
+158
+00:11:43,278 --> 00:11:44,278
+of this argument.
+
+159
+00:11:45,460 --> 00:11:47,320
+Because this is a live argument,
+
+160
+00:11:47,320 --> 00:11:48,561
+not a settled fact,
+
+161
+00:11:48,561 --> 00:11:51,303
+and I'm I can't pretend otherwise.
+
+162
+00:11:51,303 --> 00:11:56,827
+So let me credit it properly first before
+we go any further.
+
+163
+00:11:56,827 --> 00:12:02,411
+The clearest advocates
+
+164
+00:12:02,411 --> 00:12:06,023
+of this position are our friend Charity
+Majors from Honeycomb.
+
+165
+00:12:06,023 --> 00:12:10,416
+And she has argued this publicly for years
+in her writing,
+
+166
+00:12:10,416 --> 00:12:11,647
+in her talks, and
+
+167
+00:12:12,031 --> 00:12:14,890
+She's we all know she's co authored on
+this subject.
+
+168
+00:12:17,619 --> 00:12:19,110
+And credit where credit's due.
+
+169
+00:12:19,110 --> 00:12:22,421
+She was making this case long before it
+was fashionable.
+
+170
+00:12:22,421 --> 00:12:29,284
+A good deal of the vocabulary the rest of
+us now casually frame this work.
+
+171
+00:12:31,804 --> 00:12:35,495
+So when I push back, understand that I'm
+pushing back on the position,
+
+172
+00:12:35,495 --> 00:12:37,406
+not the person. Right? To be very,
+
+173
+00:12:37,406 --> 00:12:39,346
+very clear. I don't want this to be
+misconstrued.
+
+174
+00:12:39,346 --> 00:12:42,607
+Here is where I differ from this argument.
+
+175
+00:12:42,607 --> 00:12:45,608
+The framing that the three pillars are
+dead is,
+
+176
+00:12:45,608 --> 00:12:51,210
+in my view, too strong for most estates
+that I've worked in.
+
+177
+00:12:51,210 --> 00:12:54,231
+Mostly financial and a couple of
+governments,
+
+178
+00:12:54,231 --> 00:12:57,392
+but you know, it's a bit strong.
+
+179
+00:12:59,012 --> 00:13:02,274
+Now, I have to correct my own advice here
+too,
+
+180
+00:13:02,274 --> 00:13:05,416
+because for years the rule I gave people
+straightforward.
+
+181
+00:13:05,416 --> 00:13:09,819
+Instrumental three pillars instrumental
+three pillars,
+
+182
+00:13:09,819 --> 00:13:12,901
+that's the standard. Let's get on with it.
+
+183
+00:13:12,901 --> 00:13:16,193
+This was years ago. Obviously there's
+profile and all that now,
+
+184
+00:13:16,193 --> 00:13:17,193
+but years ago.
+
+185
+00:13:22,202 --> 00:13:23,784
+Now that rule has a failure mode,
+
+186
+00:13:23,784 --> 00:13:27,788
+and the failure mode is precisely the
+three in the morning I opened with
+
+187
+00:13:28,449 --> 00:13:31,633
+is you pre-aggregate for cost,
+
+188
+00:13:31,633 --> 00:13:33,815
+you lose the high cardinality in detail,
+
+189
+00:13:33,815 --> 00:13:37,659
+and you cannot answer the question that
+nobody predicted.
+
+190
+00:13:37,659 --> 00:13:39,501
+That's it.
+
+191
+00:13:39,501 --> 00:13:43,401
+So the rule, let's update it.
+
+192
+00:13:43,401 --> 00:13:46,425
+Keep the pillars where they generally earn
+their place.
+
+193
+00:13:46,425 --> 00:13:52,869
+But stop treating pre-aggregated metrics
+as the place where the detail lives
+because
+
+194
+00:13:52,869 --> 00:13:55,250
+it's not. It never was, guys. You know
+that.
+
+195
+00:13:56,750 --> 00:13:58,422
+Wide events for the questions
+
+196
+00:13:58,422 --> 00:14:01,325
+you cannot predict, pillars for the ones
+you can.
+
+197
+00:14:02,825 --> 00:14:04,306
+Two more honest things quickly.
+
+198
+00:14:05,806 --> 00:14:09,518
+First is cost. Wide events are not free.
+
+199
+00:14:09,518 --> 00:14:12,749
+Storing each week's record for every
+single request is a real bill.
+
+200
+00:14:12,749 --> 00:14:18,391
+And it's worth noting that vendors make
+this argument most loudly
+
+201
+00:14:19,152 --> 00:14:22,923
+are also generally the people who are
+going to store it for you.
+
+202
+00:14:22,923 --> 00:14:27,995
+All right. So be be careful. It does not
+make them wrong.
+
+203
+00:14:27,995 --> 00:14:30,966
+It just means that you should do your own
+maths,
+
+204
+00:14:30,966 --> 00:14:31,966
+guys. You know this.
+
+205
+00:14:35,693 --> 00:14:38,955
+The second is maturity. If your team knows
+Prometheus,
+
+206
+00:14:38,955 --> 00:14:43,806
+Grafana and nothing else, then moving to
+an events first model
+
+207
+00:14:44,148 --> 00:14:48,790
+is a retraining project, not a
+configuration change.
+
+208
+00:14:48,790 --> 00:14:52,492
+Budget in the people. I always advocate
+this,
+
+209
+00:14:52,492 --> 00:14:55,013
+you know I do. Not just a platform.
+
+210
+00:14:55,013 --> 00:14:57,775
+People first. Always.
+
+211
+00:14:59,275 --> 00:15:01,800
+So what do you actually do with this?
+
+212
+00:15:03,962 --> 00:15:04,962
+So
+
+213
+00:15:05,434 --> 00:15:09,398
+if you're in the pit, SRE, you're up
+against this daily struggle,
+
+214
+00:15:09,398 --> 00:15:10,720
+then
+
+215
+00:15:12,220 --> 00:15:15,816
+Do not sit there and rewrite all your
+instrumentation.
+
+216
+00:15:15,816 --> 00:15:21,687
+That's a two year product and it will die
+in month four.
+
+217
+00:15:21,687 --> 00:15:23,280
+So don't even try.
+
+218
+00:15:24,780 --> 00:15:27,524
+Take one endpoint, the most critical one,
+
+219
+00:15:27,524 --> 00:15:33,572
+and emit one wide event request alongside
+one you already have.
+
+220
+00:15:33,572 --> 00:15:38,639
+Everything you know about that request in
+one row,
+
+221
+00:15:38,639 --> 00:15:40,581
+high cardinality fields included.
+
+222
+00:15:40,581 --> 00:15:42,324
+Just one endpoint no.
+
+223
+00:15:44,556 --> 00:15:46,717
+The next time you have an incident on that
+path,
+
+224
+00:15:46,717 --> 00:15:50,330
+just try to answer it from that one event
+alone.
+
+225
+00:15:50,330 --> 00:15:53,652
+Obviously you've got to remember it's
+there and and everything else.
+
+226
+00:15:53,652 --> 00:15:57,134
+But you know, if if you have a troublesome
+journey,
+
+227
+00:15:57,134 --> 00:15:59,105
+then you know you're in the right place.
+
+228
+00:15:59,105 --> 00:16:04,308
+That one experiment will teach you more
+than any amount
+
+229
+00:16:04,308 --> 00:16:07,610
+of arguing about data models in Reddit,
+
+230
+00:16:07,610 --> 00:16:10,122
+on the internet. Trust me, it will.
+
+231
+00:16:12,630 --> 00:16:17,929
+Now, if you're at the table making the big
+bucks and the decisions,
+
+232
+00:16:17,929 --> 00:16:19,571
+then
+
+233
+00:16:21,071 --> 00:16:24,310
+This is a cost versus flexibility
+decision.
+
+234
+00:16:24,310 --> 00:16:28,091
+And it's not a religion,
+
+235
+00:16:28,091 --> 00:16:29,525
+right?
+
+236
+00:16:31,609 --> 00:16:36,736
+The pre-aggregated metrics are cheap and
+they answer the questions
+
+237
+00:16:36,736 --> 00:16:38,799
+you already know the what to ask.
+
+238
+00:16:38,799 --> 00:16:42,835
+Wide events cost more, because they answer
+the questions you had no idea were going
+
+239
+00:16:42,835 --> 00:16:45,269
+to come down the pipe. So think of it like
+that.
+
+240
+00:16:48,020 --> 00:16:50,222
+the question to put to your team is,
+
+241
+00:16:50,222 --> 00:16:56,559
+what fraction of our three in the morning
+hours goes on questions nobody
+
+242
+00:16:56,559 --> 00:17:00,272
+has designed a dashboard for? That's a
+great place to start.
+
+243
+00:17:00,272 --> 00:17:01,724
+And
+
+244
+00:17:04,496 --> 00:17:07,047
+Be interested in that fraction as well.
+
+245
+00:17:07,047 --> 00:17:11,708
+Because if the honest answer they're going
+back to is most of them,
+
+246
+00:17:11,708 --> 00:17:15,190
+you're already paying for that flexibility
+anyway.
+
+247
+00:17:15,190 --> 00:17:20,212
+You're just paying for it in the engineer
+hours instead of the storage.
+
+248
+00:17:20,212 --> 00:17:26,014
+And engineer hours at three in the morning
+are the most expensive you'll buy,
+
+249
+00:17:26,014 --> 00:17:27,014
+right?
+
+250
+00:17:28,988 --> 00:17:30,270
+And if you took this seriously,
+
+251
+00:17:30,270 --> 00:17:32,293
+here is what you would actually build.
+
+252
+00:17:32,293 --> 00:17:37,090
+Not a migration, you build a default.
+
+253
+00:17:39,334 --> 00:17:44,487
+You would decide that every new service
+emits one wide event per unit
+
+254
+00:17:44,487 --> 00:17:46,428
+of work from the day it's written.
+
+255
+00:17:46,428 --> 00:17:50,910
+Not retrofitted later, not as a special
+project,
+
+256
+00:17:50,910 --> 00:17:54,632
+as the shape of how you instrument things
+by default.
+
+257
+00:17:54,632 --> 00:18:00,936
+By default. You would keep the higher card
+the high card fields
+
+258
+00:18:00,936 --> 00:18:04,528
+on it deliberately because those are the
+fields that answer
+
+259
+00:18:04,528 --> 00:18:06,079
+the questions that really matter,
+
+260
+00:18:06,079 --> 00:18:08,120
+that you don't know are going to come.
+
+261
+00:18:11,712 --> 00:18:16,254
+And you would put one rule around cost
+because cost is what erodes this.
+
+262
+00:18:16,254 --> 00:18:22,858
+You never strip a field to save money
+without writing down each question
+
+263
+00:18:23,038 --> 00:18:24,659
+you have just made unanswerable.
+
+264
+00:18:24,659 --> 00:18:30,362
+Do that and you stop having to choose
+sides in this argument at all.
+
+265
+00:18:30,362 --> 00:18:34,494
+You have the raw material for both at your
+disposal.
+
+266
+00:18:35,973 --> 00:18:37,452
+Take the analogy with you.
+
+267
+00:18:38,952 --> 00:18:42,192
+Because you're not really choosing between
+tools here.
+
+268
+00:18:44,349 --> 00:18:45,349
+You really not
+
+269
+00:18:46,558 --> 00:18:50,796
+you're choosing how many witnesses you get
+and how long you get
+
+270
+00:18:50,796 --> 00:18:53,532
+to question them when something happens.
+
+271
+00:18:57,195 --> 00:19:02,091
+Three witnesses who saw each fragment or
+one that saw the whole thing
+
+272
+00:19:02,732 --> 00:19:06,437
+and will still answer questions at three
+in the morning.
+
+273
+00:19:06,437 --> 00:19:10,622
+Still that framing for your next
+architectural review.
+
+274
+00:19:10,622 --> 00:19:14,287
+~ you do not you don't have to credit me,
+
+275
+00:19:14,287 --> 00:19:15,287
+right?
+
+276
+00:19:17,249 --> 00:19:20,234
+And that, my friends, is Tech Tuesday.
+
+277
+00:19:23,158 --> 00:19:26,529
+I'm Alan Mann. And if you like this,
+
+278
+00:19:26,529 --> 00:19:28,710
+you know the book is out Metrics of
+Mayhem,
+
+279
+00:19:28,710 --> 00:19:31,020
+a CTO's guide to observability that
+actually works.
+
+280
+00:19:31,020 --> 00:19:34,951
+~ it's out, it's all live. You can get
+your free chapter
+
+281
+00:19:34,951 --> 00:19:36,912
+at masteringobservability.com.
+
+282
+00:19:36,912 --> 00:19:40,408
+And I look forward to talking to you
+again.
+
+283
+00:19:40,408 --> 00:19:43,894
+Keep the topics coming in. I I love doing
+these.
+
+284
+00:19:43,894 --> 00:19:46,914
+~ and ~ next is a signal drop next week.
+
+285
+00:19:46,914 --> 00:19:49,015
+So much love to everyone, much love,
+
+286
+00:19:49,015 --> 00:19:50,876
+be safe, be safe.
+

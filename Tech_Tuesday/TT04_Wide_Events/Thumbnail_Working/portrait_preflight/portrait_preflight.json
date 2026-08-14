@@ -1,0 +1,55 @@
+{
+  "status": "pass",
+  "reason": "Automated checks and required visual review passed.",
+  "video": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\riverside_first_pass_mastering_obv's stu.mp4",
+  "duration_seconds": 1207.208,
+  "width": 1920,
+  "height": 1080,
+  "composite_filename": false,
+  "explicitly_uncaptioned_candidate": false,
+  "source_logo_policy": "allowed-unless-allan-opts-out",
+  "contact_sheet": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\portrait_preflight\\portrait_preflight_contact_sheet.jpg",
+  "samples": [
+    {
+      "percent": 15,
+      "seconds": 181.081,
+      "face_count": 1,
+      "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\portrait_preflight\\preflight_15pct.jpg"
+    },
+    {
+      "percent": 35,
+      "seconds": 422.523,
+      "face_count": 2,
+      "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\portrait_preflight\\preflight_35pct.jpg"
+    },
+    {
+      "percent": 55,
+      "seconds": 663.965,
+      "face_count": 1,
+      "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\portrait_preflight\\preflight_55pct.jpg"
+    },
+    {
+      "percent": 75,
+      "seconds": 905.406,
+      "face_count": 2,
+      "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\portrait_preflight\\preflight_75pct.jpg"
+    },
+    {
+      "percent": 90,
+      "seconds": 1086.487,
+      "face_count": 1,
+      "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\portrait_preflight\\preflight_90pct.jpg"
+    }
+  ],
+  "attestations": {
+    "complete_anatomy": true,
+    "no_overlay": true
+  },
+  "manual_checks": [
+    "no burned captions or lower-thirds crossing the usable presenter",
+    "no source watermark or layout furniture crossing the usable presenter",
+    "full head, ears, glasses and chin available",
+    "no clipped, blurred or duplicated hands",
+    "source-worn logos are allowed unless Allan explicitly opts out for this episode"
+  ]
+}

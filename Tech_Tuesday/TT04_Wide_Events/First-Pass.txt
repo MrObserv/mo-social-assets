@@ -1,0 +1,168 @@
+Allan (00:00)
+Right, you were told to instrument free pillars.
+
+metrics, logs, traces. And it's some godforsaken time in the morning. The question you always didn't predict that comes in ends up scattered across three tours that you know darn well are not talking to one another.
+
+Today I want to show you the argument that says that those three pillars were never the right primitive in the first place. And then I want to kind of explain honestly why I think the people who are making that gesticulation could be right.
+
+You're listening to Tech Tuesday from Metrix and Mayhem.
+
+10 minutes to make sense of one thing that has landed on my desk over the past couple of weeks. Whether you're in the pit fighting the fires or whether you're making decisions at the table. This is one for you.
+
+So here's where we are.
+
+It's early in morning and there's something hot, there's something wrong. Not catastrophically wrong, but wrong in the way that it's much harder to deal with than the usual issues.
+
+Your error rate is up. Not everywhere, but it's just up. It's really noticeable.
+
+And the question you need answered is a very specific one. It's not hitting every customer or a handful. It's only on the new checkout path. It's only on mobile. It's only one region and it's only on a specific set of accounts that have been gone live since the migration. And here's the one thing about that type of question.
+
+You know, done well, it's not on any dashboard at that particular point in time. No one can predict these multi phasic issues, multi hop issues, because nobody could ever have had predicted it. And that is the nature of these interesting failures. They always arrive in a combination. Nobody thought to map out in advance. So.
+
+So you do what we all do. You go into logs and you grip and you find something that looks suspicious. Then you go into your tracing and you hunt for the slow span. It might be related. Then you go back to the metrics to see whether that shape matches.
+
+It's the route. We all do three tools, three query languages, generally three browser tabs and your.
+
+and you are the integration layer. You're holding the custom ID in your head, copying it between windows, trying to keep the story that's scattered across three systems that were never designed to talk to one another.
+
+because that's not you.
+
+But that's not even the worst part of the situation.
+
+The worst part is that your metrics already threw away the answer.
+
+because somewhere along the line, somebody looked at the cost of your metrics and did the responsible thing. They stripped out some of the high cardinality fields, the customer ID, the build version, the region, the feature flag, all the things that we do in a responsible way. This is perfectly sensible to cost decision. And it means that
+
+the detail that you now desperately need was never in the data the moment it was collected and got deleted before it was even stored. You're not missing the answer because nobody looked. You're missing it because it was aggregated away in a cross review eight months ago.
+
+So here's the sentence the whole argument rests on right now.
+
+So the privative should be a wide one. Structured event per unit of work.
+
+and the pillars should be derived from it, not collected separately.
+
+Now, let me give you the picture because this is the one that makes it all click.
+
+Imagine something goes badly wrong in a building where there were three witnesses.
+
+Stick with me.
+
+The first one only watches the doors. She can tell you exactly how many people went out, how fast. That is your metrics. Counts and rates, very precise, no context whatsoever.
+
+The second one only heard what was shouted. He can tell you what was said, what time, but not who was there. This is your logs, rich in detail, but only the detail somebody chose to say out loud.
+
+The only tracked how...
+
+The third only tracks how many people move from room to room. She can tell you the path and where things slow down. That's your traces.
+
+Now, every one of those witnesses is honest. Everyone is accurate and everyone saw one fragment. Just one. So to work out what actually happened, you interview all three. Of course you do. You write it down. You try to stitch three partial accounts together into one story. And you can only ever ask each witness the questions from their vantage points and what it allows.
+
+So now imagine instead you only had one witness who saw the whole thing start to finish, who noticed who was there, what they were carrying, what time it was, what door they used and how it all ended. It would be nice, right? And crucially, a witness you can keep asking questions, not just one. Hear the answer and let the answer suggest the next question.
+
+That's a wide event. One rich account of what happened, you can interrogate afterwards. Not three fragments to, you know, to reconcile at three in the morning. One witness who saw the whole thing. Now just hold onto that because we're going to come back to it.
+
+Right, named parts. There four of them in this order.
+
+Number one, the wide event.
+
+A wide event is a single structured record of one unit of work. One request, one job, one transaction.
+
+that is the whole definition and it's worth sitting with it before we go any further.
+
+What makes it wide is how much you put on it, not five fields, hundreds, the customer ID, the region, the bill, the real Virgin, every feature flag that was on, how long the database took, how long the external call took the end point, the device, whether it aired and how.
+
+Everything you knew in that moment is captured in one row.
+
+Everything. It's not a log line. It's not a metric. It's just the full context of one thing that happened at that particular point in time.
+
+Two, and we all know very well, cardinality.
+
+This is the word that decides the entire argument. So let me really define it as accurately and as plainly as I can. Cardinality is simply how many distinct values a field can have. Region is low cardinality. You can have a handful. Customer ID is very high cardinality because you could have millions.
+
+And traditional metrics platforms struggle badly with high cardinality because of how they store things. They pre-aggregate every unique combination of labels becomes its own series to keep and the cost climbs deeply as you add more dimensions. know this. We've seen the bills every month. So teams do the rational thing. They strip out the high cardinality.
+
+which they feel that they don't need, which are of course exactly the fields that let you answer which customer, which build and which region in this example.
+
+So.
+
+Hold both halves of this. cardinality is where the answer lives and is also where the cost lives. That's the tension of the whole story.
+
+Number three, observability 2.0, which really means to derive rather than collect. So here is the actual claim, right? Stripped of all the marking you're here. This is it in a nutshell. Instead of collecting three separate things, you store one thing, the wide events. And then your metrics and your traces become views computed over that store when you ask for them.
+
+You stop collecting the pillars, you start deriving them and let that sink in. That's it. That's the whole point of what people mean in my opinion of observability 2.0. Number four, query after the fact.
+
+And this is the payoff and the reason anyone bothers with this whole thing.
+
+Because the raw detail is still sitting in your events, you can ask a question nobody designed for it. At three in the morning, about a combination that happened that nobody ever predicted. That's never going to be on any dashboard. You do not need to have known the question in advance. That's the capability you're now buying with these, with these wide events.
+
+Allan (11:38)
+Still with me? Good, because now I have to be honest about the other side of this argument.
+
+Because this is a live argument, not a settled fact,
+
+and I'm I can't pretend otherwise. So let me credit it properly first before we go any further. The clearest advocates of this position are our friend Charity Majors from Honeycomb. And she has argued this publicly for years in her writing, in her talks, and
+
+She's we all know she's co authored on this subject.
+
+And credit where credit's due. She was making this case long before it was fashionable. A good deal of the vocabulary the rest of us now casually frame this work.
+
+So when I push back, understand that I'm pushing back on the position, not the person. Right? To be very, very clear. I don't want this to be misconstrued. Here is where I differ from this argument. The framing that the three pillars are dead is, in my view, too strong for most estates that I've worked in. Mostly financial and a couple of governments, but you know, it's a bit strong.
+
+Now, I have to correct my own advice here too, because for years the rule I gave people straightforward. Instrumental three pillars instrumental three pillars, that's the standard. Let's get on with it. This was years ago. Obviously there's profile and all that now, but years ago.
+
+Now that rule has a failure mode, and the failure mode is precisely the three in the morning I opened with is you pre-aggregate for cost, you lose the high cardinality in detail, and you cannot answer the question that nobody predicted. That's it.
+
+So the rule, let's update it. Keep the pillars where they generally earn their place. But stop treating pre-aggregated metrics as the place where the detail lives because it's not. It never was, guys. You know that.
+
+Wide events for the questions
+
+you cannot predict, pillars for the ones you can.
+
+Two more honest things quickly.
+
+First is cost. Wide events are not free. Storing each week's record for every single request is a real bill. And it's worth noting that vendors make this argument most loudly are also generally the people who are going to store it for you. All right. So be be careful. It does not make them wrong. It just means that you should do your own maths, guys. You know this.
+
+The second is maturity. If your team knows Prometheus, Grafana and nothing else, then moving to an events first model is a retraining project, not a configuration change. Budget in the people. I always advocate this, you know I do. Not just a platform. People first. Always.
+
+So what do you actually do with this?
+
+So
+
+if you're in the pit, SRE, you're up against this daily struggle, then
+
+Do not sit there and rewrite all your instrumentation. That's a two year product and it will die in month four. So don't even try.
+
+Take one endpoint, the most critical one, and emit one wide event request alongside one you already have. Everything you know about that request in one row, high cardinality fields included. Just one endpoint no.
+
+The next time you have an incident on that path, just try to answer it from that one event alone. Obviously you've got to remember it's there and and everything else. But you know, if if you have a troublesome journey, then you know you're in the right place. That one experiment will teach you more than any amount of arguing about data models in Reddit, on the internet. Trust me, it will.
+
+Now, if you're at the table making the big bucks and the decisions, then
+
+This is a cost versus flexibility decision. And it's not a religion, right?
+
+The pre-aggregated metrics are cheap and they answer the questions you already know the what to ask. Wide events cost more, because they answer the questions you had no idea were going to come down the pipe. So think of it like that.
+
+the question to put to your team is, what fraction of our three in the morning hours goes on questions nobody has designed a dashboard for? That's a great place to start. And
+
+Be interested in that fraction as well. Because if the honest answer they're going back to is most of them, you're already paying for that flexibility anyway. You're just paying for it in the engineer hours instead of the storage. And engineer hours at three in the morning are the most expensive you'll buy, right?
+
+And if you took this seriously, here is what you would actually build. Not a migration, you build a default.
+
+You would decide that every new service emits one wide event per unit of work from the day it's written. Not retrofitted later, not as a special project, as the shape of how you instrument things by default. By default. You would keep the higher card the high card fields on it deliberately because those are the fields that answer the questions that really matter, that you don't know are going to come.
+
+And you would put one rule around cost because cost is what erodes this. You never strip a field to save money without writing down each question you have just made unanswerable. Do that and you stop having to choose sides in this argument at all. You have the raw material for both at your disposal.
+
+Take the analogy with you.
+
+Because you're not really choosing between tools here.
+
+You really not
+
+you're choosing how many witnesses you get and how long you get to question them when something happens.
+
+Three witnesses who saw each fragment or one that saw the whole thing and will still answer questions at three in the morning. Still that framing for your next architectural review. you do not you don't have to credit me, right?
+
+And that, my friends, is Tech Tuesday.
+
+I'm Alan Mann. And if you like this, you know the book is out Metrics of Mayhem, a CTO's guide to observability that actually works. it's out, it's all live. You can get your free chapter at masteringobservability.com. And I look forward to talking to you again. Keep the topics coming in. I I love doing these. and next is a signal drop next week. So much love to everyone, much love, be safe, be safe.
+

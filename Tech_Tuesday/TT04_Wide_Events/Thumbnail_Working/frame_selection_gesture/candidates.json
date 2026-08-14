@@ -1,0 +1,1058 @@
+[
+  {
+    "seconds": 968.0,
+    "score": 12.8606,
+    "details": {
+      "sharpness": 138.88,
+      "brightness": 108.76,
+      "face_count": 2,
+      "face_ratio": 0.1713,
+      "face_box": [
+        335,
+        118,
+        298,
+        298
+      ],
+      "eye_count": 2,
+      "smile_detected": true,
+      "lower_skin_ratio": 0.1746,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_01_968.0s.jpg"
+  },
+  {
+    "seconds": 1046.0,
+    "score": 12.8309,
+    "details": {
+      "sharpness": 138.23,
+      "brightness": 109.22,
+      "face_count": 2,
+      "face_ratio": 0.1771,
+      "face_box": [
+        285,
+        124,
+        303,
+        303
+      ],
+      "eye_count": 2,
+      "smile_detected": true,
+      "lower_skin_ratio": 0.184,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_02_1046.0s.jpg"
+  },
+  {
+    "seconds": 548.0,
+    "score": 12.7999,
+    "details": {
+      "sharpness": 136.2,
+      "brightness": 108.86,
+      "face_count": 2,
+      "face_ratio": 0.2075,
+      "face_box": [
+        288,
+        128,
+        328,
+        328
+      ],
+      "eye_count": 2,
+      "smile_detected": true,
+      "lower_skin_ratio": 0.198,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_03_548.0s.jpg"
+  },
+  {
+    "seconds": 330.0,
+    "score": 12.7803,
+    "details": {
+      "sharpness": 135.25,
+      "brightness": 110.85,
+      "face_count": 2,
+      "face_ratio": 0.1512,
+      "face_box": [
+        240,
+        142,
+        280,
+        280
+      ],
+      "eye_count": 2,
+      "smile_detected": true,
+      "lower_skin_ratio": 0.2603,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_04_330.0s.jpg"
+  },
+  {
+    "seconds": 424.0,
+    "score": 12.7798,
+    "details": {
+      "sharpness": 135.81,
+      "brightness": 109.64,
+      "face_count": 2,
+      "face_ratio": 0.1611,
+      "face_box": [
+        259,
+        147,
+        289,
+        289
+      ],
+      "eye_count": 2,
+      "smile_detected": true,
+      "lower_skin_ratio": 0.229,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_05_424.0s.jpg"
+  },
+  {
+    "seconds": 860.0,
+    "score": 12.6136,
+    "details": {
+      "sharpness": 153.28,
+      "brightness": 110.38,
+      "face_count": 2,
+      "face_ratio": 0.1645,
+      "face_box": [
+        344,
+        100,
+        292,
+        292
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1794,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_06_860.0s.jpg"
+  },
+  {
+    "seconds": 736.0,
+    "score": 12.5938,
+    "details": {
+      "sharpness": 154.13,
+      "brightness": 109.84,
+      "face_count": 2,
+      "face_ratio": 0.1634,
+      "face_box": [
+        330,
+        114,
+        291,
+        291
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1697,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_07_736.0s.jpg"
+  },
+  {
+    "seconds": 952.0,
+    "score": 12.5619,
+    "details": {
+      "sharpness": 141.05,
+      "brightness": 110.75,
+      "face_count": 2,
+      "face_ratio": 0.1713,
+      "face_box": [
+        318,
+        100,
+        298,
+        298
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1659,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_08_952.0s.jpg"
+  },
+  {
+    "seconds": 784.0,
+    "score": 12.5496,
+    "details": {
+      "sharpness": 141.62,
+      "brightness": 108.55,
+      "face_count": 2,
+      "face_ratio": 0.169,
+      "face_box": [
+        330,
+        87,
+        296,
+        296
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1759,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_09_784.0s.jpg"
+  },
+  {
+    "seconds": 906.0,
+    "score": 12.5494,
+    "details": {
+      "sharpness": 137.47,
+      "brightness": 110.39,
+      "face_count": 2,
+      "face_ratio": 0.1567,
+      "face_box": [
+        333,
+        107,
+        285,
+        285
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1613,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_10_906.0s.jpg"
+  },
+  {
+    "seconds": 430.0,
+    "score": 12.5471,
+    "details": {
+      "sharpness": 149.33,
+      "brightness": 110.46,
+      "face_count": 2,
+      "face_ratio": 0.1534,
+      "face_box": [
+        280,
+        110,
+        282,
+        282
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1772,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_11_430.0s.jpg"
+  },
+  {
+    "seconds": 602.0,
+    "score": 12.5462,
+    "details": {
+      "sharpness": 153.75,
+      "brightness": 109.29,
+      "face_count": 2,
+      "face_ratio": 0.1725,
+      "face_box": [
+        271,
+        114,
+        299,
+        299
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.2527,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_12_602.0s.jpg"
+  },
+  {
+    "seconds": 1138.0,
+    "score": 12.5351,
+    "details": {
+      "sharpness": 146.11,
+      "brightness": 109.97,
+      "face_count": 2,
+      "face_ratio": 0.1502,
+      "face_box": [
+        310,
+        130,
+        279,
+        279
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1654,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_13_1138.0s.jpg"
+  },
+  {
+    "seconds": 760.0,
+    "score": 12.5347,
+    "details": {
+      "sharpness": 139.16,
+      "brightness": 108.37,
+      "face_count": 2,
+      "face_ratio": 0.1806,
+      "face_box": [
+        344,
+        87,
+        306,
+        306
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1666,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_14_760.0s.jpg"
+  },
+  {
+    "seconds": 830.0,
+    "score": 12.5342,
+    "details": {
+      "sharpness": 139.67,
+      "brightness": 109.39,
+      "face_count": 2,
+      "face_ratio": 0.1589,
+      "face_box": [
+        332,
+        115,
+        287,
+        287
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1813,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_15_830.0s.jpg"
+  },
+  {
+    "seconds": 1006.0,
+    "score": 12.5337,
+    "details": {
+      "sharpness": 137.06,
+      "brightness": 109.94,
+      "face_count": 2,
+      "face_ratio": 0.1502,
+      "face_box": [
+        344,
+        116,
+        279,
+        279
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.162,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_16_1006.0s.jpg"
+  },
+  {
+    "seconds": 200.0,
+    "score": 12.5331,
+    "details": {
+      "sharpness": 148.28,
+      "brightness": 108.12,
+      "face_count": 2,
+      "face_ratio": 0.1578,
+      "face_box": [
+        289,
+        112,
+        286,
+        286
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1974,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_17_200.0s.jpg"
+  },
+  {
+    "seconds": 640.0,
+    "score": 12.53,
+    "details": {
+      "sharpness": 134.9,
+      "brightness": 107.92,
+      "face_count": 2,
+      "face_ratio": 0.2283,
+      "face_box": [
+        306,
+        70,
+        344,
+        344
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1901,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_18_640.0s.jpg"
+  },
+  {
+    "seconds": 1124.0,
+    "score": 12.5297,
+    "details": {
+      "sharpness": 138.6,
+      "brightness": 110.4,
+      "face_count": 2,
+      "face_ratio": 0.1556,
+      "face_box": [
+        335,
+        121,
+        284,
+        284
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1627,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_19_1124.0s.jpg"
+  },
+  {
+    "seconds": 268.0,
+    "score": 12.5295,
+    "details": {
+      "sharpness": 140.77,
+      "brightness": 112.67,
+      "face_count": 2,
+      "face_ratio": 0.1667,
+      "face_box": [
+        273,
+        89,
+        294,
+        294
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1629,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_20_268.0s.jpg"
+  },
+  {
+    "seconds": 878.0,
+    "score": 12.5292,
+    "details": {
+      "sharpness": 142.07,
+      "brightness": 110.0,
+      "face_count": 2,
+      "face_ratio": 0.1512,
+      "face_box": [
+        297,
+        113,
+        280,
+        280
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1784,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_21_878.0s.jpg"
+  },
+  {
+    "seconds": 534.0,
+    "score": 12.5284,
+    "details": {
+      "sharpness": 135.52,
+      "brightness": 110.45,
+      "face_count": 2,
+      "face_ratio": 0.1656,
+      "face_box": [
+        313,
+        105,
+        293,
+        293
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1846,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_22_534.0s.jpg"
+  },
+  {
+    "seconds": 804.0,
+    "score": 12.528,
+    "details": {
+      "sharpness": 141.77,
+      "brightness": 107.6,
+      "face_count": 2,
+      "face_ratio": 0.1512,
+      "face_box": [
+        368,
+        106,
+        280,
+        280
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1669,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_23_804.0s.jpg"
+  },
+  {
+    "seconds": 680.0,
+    "score": 12.5243,
+    "details": {
+      "sharpness": 138.38,
+      "brightness": 108.12,
+      "face_count": 2,
+      "face_ratio": 0.1611,
+      "face_box": [
+        314,
+        94,
+        289,
+        289
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1861,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_24_680.0s.jpg"
+  },
+  {
+    "seconds": 1068.0,
+    "score": 12.5242,
+    "details": {
+      "sharpness": 142.76,
+      "brightness": 110.02,
+      "face_count": 2,
+      "face_ratio": 0.1567,
+      "face_box": [
+        292,
+        117,
+        285,
+        285
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1732,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_25_1068.0s.jpg"
+  },
+  {
+    "seconds": 992.0,
+    "score": 12.5241,
+    "details": {
+      "sharpness": 154.24,
+      "brightness": 108.19,
+      "face_count": 2,
+      "face_ratio": 0.1491,
+      "face_box": [
+        311,
+        126,
+        278,
+        278
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1668,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_26_992.0s.jpg"
+  },
+  {
+    "seconds": 1166.0,
+    "score": 12.5204,
+    "details": {
+      "sharpness": 135.82,
+      "brightness": 110.7,
+      "face_count": 2,
+      "face_ratio": 0.1578,
+      "face_box": [
+        317,
+        117,
+        286,
+        286
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1753,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_27_1166.0s.jpg"
+  },
+  {
+    "seconds": 446.0,
+    "score": 12.5196,
+    "details": {
+      "sharpness": 135.73,
+      "brightness": 109.26,
+      "face_count": 2,
+      "face_ratio": 0.2243,
+      "face_box": [
+        300,
+        86,
+        341,
+        341
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1843,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_28_446.0s.jpg"
+  },
+  {
+    "seconds": 632.0,
+    "score": 12.5189,
+    "details": {
+      "sharpness": 137.34,
+      "brightness": 108.72,
+      "face_count": 2,
+      "face_ratio": 0.183,
+      "face_box": [
+        309,
+        102,
+        308,
+        308
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.186,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_29_632.0s.jpg"
+  },
+  {
+    "seconds": 1000.0,
+    "score": 12.5164,
+    "details": {
+      "sharpness": 141.38,
+      "brightness": 107.34,
+      "face_count": 2,
+      "face_ratio": 0.1645,
+      "face_box": [
+        317,
+        115,
+        292,
+        292
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1615,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_30_1000.0s.jpg"
+  },
+  {
+    "seconds": 572.0,
+    "score": 12.5162,
+    "details": {
+      "sharpness": 135.24,
+      "brightness": 109.15,
+      "face_count": 2,
+      "face_ratio": 0.2217,
+      "face_box": [
+        286,
+        79,
+        339,
+        339
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1994,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_31_572.0s.jpg"
+  },
+  {
+    "seconds": 368.0,
+    "score": 12.5134,
+    "details": {
+      "sharpness": 135.05,
+      "brightness": 110.2,
+      "face_count": 2,
+      "face_ratio": 0.1512,
+      "face_box": [
+        320,
+        120,
+        280,
+        280
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1728,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_32_368.0s.jpg"
+  },
+  {
+    "seconds": 590.0,
+    "score": 12.511,
+    "details": {
+      "sharpness": 136.97,
+      "brightness": 109.32,
+      "face_count": 2,
+      "face_ratio": 0.1634,
+      "face_box": [
+        297,
+        104,
+        291,
+        291
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.2143,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_33_590.0s.jpg"
+  },
+  {
+    "seconds": 296.0,
+    "score": 12.5081,
+    "details": {
+      "sharpness": 147.86,
+      "brightness": 110.04,
+      "face_count": 2,
+      "face_ratio": 0.1771,
+      "face_box": [
+        255,
+        120,
+        303,
+        303
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1764,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_34_296.0s.jpg"
+  },
+  {
+    "seconds": 1060.0,
+    "score": 12.5077,
+    "details": {
+      "sharpness": 138.76,
+      "brightness": 108.34,
+      "face_count": 2,
+      "face_ratio": 0.1545,
+      "face_box": [
+        321,
+        123,
+        283,
+        283
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1691,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_35_1060.0s.jpg"
+  },
+  {
+    "seconds": 492.0,
+    "score": 12.5064,
+    "details": {
+      "sharpness": 134.42,
+      "brightness": 109.09,
+      "face_count": 2,
+      "face_ratio": 0.1794,
+      "face_box": [
+        306,
+        104,
+        305,
+        305
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1814,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_36_492.0s.jpg"
+  },
+  {
+    "seconds": 698.0,
+    "score": 12.5063,
+    "details": {
+      "sharpness": 136.88,
+      "brightness": 107.97,
+      "face_count": 2,
+      "face_ratio": 0.1611,
+      "face_box": [
+        305,
+        106,
+        289,
+        289
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1837,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_37_698.0s.jpg"
+  },
+  {
+    "seconds": 668.0,
+    "score": 12.5047,
+    "details": {
+      "sharpness": 135.74,
+      "brightness": 109.1,
+      "face_count": 2,
+      "face_ratio": 0.183,
+      "face_box": [
+        296,
+        103,
+        308,
+        308
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1874,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_38_668.0s.jpg"
+  },
+  {
+    "seconds": 934.0,
+    "score": 12.5039,
+    "details": {
+      "sharpness": 136.14,
+      "brightness": 108.93,
+      "face_count": 2,
+      "face_ratio": 0.1611,
+      "face_box": [
+        334,
+        121,
+        289,
+        289
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1646,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_39_934.0s.jpg"
+  },
+  {
+    "seconds": 1192.0,
+    "score": 12.5037,
+    "details": {
+      "sharpness": 137.78,
+      "brightness": 108.68,
+      "face_count": 2,
+      "face_ratio": 0.1491,
+      "face_box": [
+        338,
+        109,
+        278,
+        278
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1785,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_40_1192.0s.jpg"
+  },
+  {
+    "seconds": 562.0,
+    "score": 12.5027,
+    "details": {
+      "sharpness": 133.48,
+      "brightness": 110.29,
+      "face_count": 2,
+      "face_ratio": 0.189,
+      "face_box": [
+        293,
+        102,
+        313,
+        313
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.2019,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_41_562.0s.jpg"
+  },
+  {
+    "seconds": 1104.0,
+    "score": 12.5004,
+    "details": {
+      "sharpness": 138.41,
+      "brightness": 108.55,
+      "face_count": 2,
+      "face_ratio": 0.1702,
+      "face_box": [
+        317,
+        121,
+        297,
+        297
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1771,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_42_1104.0s.jpg"
+  },
+  {
+    "seconds": 582.0,
+    "score": 12.5003,
+    "details": {
+      "sharpness": 131.95,
+      "brightness": 110.31,
+      "face_count": 2,
+      "face_ratio": 0.2,
+      "face_box": [
+        282,
+        86,
+        322,
+        322
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1873,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_43_582.0s.jpg"
+  },
+  {
+    "seconds": 618.0,
+    "score": 12.5002,
+    "details": {
+      "sharpness": 136.49,
+      "brightness": 108.88,
+      "face_count": 2,
+      "face_ratio": 0.1502,
+      "face_box": [
+        307,
+        120,
+        279,
+        279
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1898,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_44_618.0s.jpg"
+  },
+  {
+    "seconds": 1204.0,
+    "score": 12.4977,
+    "details": {
+      "sharpness": 141.64,
+      "brightness": 107.63,
+      "face_count": 2,
+      "face_ratio": 0.1783,
+      "face_box": [
+        335,
+        123,
+        304,
+        304
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1944,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_45_1204.0s.jpg"
+  },
+  {
+    "seconds": 238.0,
+    "score": 12.4976,
+    "details": {
+      "sharpness": 135.8,
+      "brightness": 109.99,
+      "face_count": 2,
+      "face_ratio": 0.1589,
+      "face_box": [
+        294,
+        117,
+        287,
+        287
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1819,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_46_238.0s.jpg"
+  },
+  {
+    "seconds": 520.0,
+    "score": 12.4963,
+    "details": {
+      "sharpness": 137.26,
+      "brightness": 110.08,
+      "face_count": 2,
+      "face_ratio": 0.1854,
+      "face_box": [
+        274,
+        106,
+        310,
+        310
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.2028,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_47_520.0s.jpg"
+  },
+  {
+    "seconds": 162.0,
+    "score": 12.4958,
+    "details": {
+      "sharpness": 134.45,
+      "brightness": 108.8,
+      "face_count": 2,
+      "face_ratio": 0.1523,
+      "face_box": [
+        319,
+        122,
+        281,
+        281
+      ],
+      "eye_count": 2,
+      "smile_detected": false,
+      "lower_skin_ratio": 0.1725,
+      "gesture_bias": 8.0,
+      "blur_penalty": 0.0
+    },
+    "path": "G:\\My Drive\\Metrics And Mayhem\\03_Podcast\\Tech_Tuesday\\TT04_Wide_Events\\Thumbnail_Working\\frame_selection_gesture\\candidate_48_162.0s.jpg"
+  }
+]
