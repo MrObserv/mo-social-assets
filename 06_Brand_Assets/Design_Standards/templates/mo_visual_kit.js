@@ -73,7 +73,7 @@ async function blogthumb(opts) {
     svg += `<text x="60" y="${startY + i * titleSize * 1.12}" font-family=${JSON.stringify(FONT.display.replace(/"/g, "'"))} font-size="${titleSize}" font-weight="800" fill="${C.ink}">${esc(ln)}</text>`;
   });
   if (sub) svg += `<text x="60" y="${startY + lines.length * titleSize * 1.12 + 8}" font-family=${JSON.stringify(FONT.body.replace(/"/g, "'"))} font-size="26" fill="${C.grey}">${esc(sub)}</text>`;
-  svg += monoLabel(60, H - 44, "METRICS & MAYHEM   ·   MASTERINGOBSERVABILITY.COM", 17, C.mid);
+  svg += monoLabel(60, H - 44, "MASTERING OBSERVABILITY   ·   MASTERINGOBSERVABILITY.COM", 17, C.mid);
   svg += `<image href="${logo}" x="${W - 150}" y="${H - 150}" width="90" height="90" opacity="0.5"/>`;
   svg += `</svg>`;
   await renderPng(svg, opts.out || "blog_thumbnail.png");

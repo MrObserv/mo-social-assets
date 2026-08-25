@@ -139,7 +139,7 @@ function arrow(x1, y1, x2, y2, { color = C.arrow, width = 2.4 } = {}) {
 }
 
 function footer(w, h) {
-  return label(w / 2, h - 34, "METRICS & MAYHEM  ·  MASTERINGOBSERVABILITY.COM", { size: 16, fill: C.teal, ls: 3, anchor: "middle" });
+  return label(w / 2, h - 34, "MASTERING OBSERVABILITY  ·  MASTERINGOBSERVABILITY.COM", { size: 16, fill: C.teal, ls: 3, anchor: "middle" });
 }
 
 async function render(svg, out) {
