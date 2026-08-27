@@ -62,14 +62,14 @@ const DARK = {
 const LIGHT = {
   key: "light",
   navy: "#ffffff", navy2: "#ffffff", navy3: "#f1f6fa",
-  bg1: "#ffffff", bg2: "#ffffff", bg3: "#f9fbfd",
+  bg1: "#ffffff", bg2: "#ffffff", bg3: "#f1f6fa",
   cardBg: "#f1f6fa", bandBg: "#f1f6fa",
   teal: "#0d7377", mint: "#2f9e8d", bright: "#0d7377",
   ink: "#12233d", grey: "#6c7a82", greyMute: "#6c7a82",
   green: "#2f9e57",   // low / safe / success (darkened for a light surface)
   amber: "#b8790a",   // high / caution / warning (darkened for a light surface)
   arrow: "#c2c9cc",
-  grid: "#e9ecec", gridOpacity: 0.3,
+  grid: "#e9ecec", gridOpacity: 1,
   glow: "#ffffff", glowOpacity: 0,
   hairlineOpacity: 1, bandStrokeOpacity: 0.9,
 };
