@@ -65,7 +65,7 @@ const LIGHT = {
   bg1: "#ffffff", bg2: "#ffffff", bg3: "#f9fbfd",
   cardBg: "#f1f6fa", bandBg: "#f1f6fa",
   teal: "#0d7377", mint: "#2f9e8d", bright: "#0d7377",
-  ink: "#12233d", grey: "#6c7a82", greyMute: "#6c7a82",
+  ink: "#12233d", grey: "#5f6d75", greyMute: "#5f6d75",
   green: "#2f9e57",   // low / safe / success (darkened for a light surface)
   amber: "#b8790a",   // high / caution / warning (darkened for a light surface)
   arrow: "#c2c9cc",
