@@ -8,3 +8,6 @@ sync_log.txt
 *.wav
 *.aif
 *.aiff
+
+# Third-party post media captured by linkedin-reply-pack. Local reference only, never published.
+_Source_Captures/
