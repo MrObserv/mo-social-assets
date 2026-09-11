@@ -12,12 +12,33 @@ REM 2026-07-13: self-heals a leftover rebase husk / stale index.lock.
 
 cd /d "C:\Users\alman\OneDrive\Documents\GitHub\mo-social-assets"
 
-REM 0. Self-heal a leftover rebase husk + stale index.lock. We always commit before
+REM 0. Self-heal a leftover rebase husk + stale locks. We always commit before
 REM    pulling, so any .git\rebase-merge here is a stale husk that would stall the sync.
 git rebase --abort 2>nul
 if exist ".git\rebase-merge" rmdir /s /q ".git\rebase-merge"
 if exist ".git\rebase-apply" rmdir /s /q ".git\rebase-apply"
-if exist ".git\index.lock" del /f /q ".git\index.lock"
+
+REM    LOCK CLEARING WIDENED 2026-09-12, and this line is why the sync kept dying.
+REM    It previously cleared index.lock ONLY. An audit on 2026-09-03 recorded that as
+REM    one of FOUR known lock types on this repo and said so plainly; nothing was done,
+REM    and on 2026-09-12 the other three were all present and blocking every git command.
+REM    HEAD.lock is the serious one: it blocks commit, checkout and reset outright, so
+REM    the sync could neither stage nor publish while reporting nothing obviously wrong.
+REM    Root cause of the locks themselves: this repo lives inside OneDrive, which grabs
+REM    files mid-write. They will keep appearing. Clearing them has to be routine.
+REM
+REM    GUARD: only clear when no git process is running. Deleting a lock out from under
+REM    a live git is how you corrupt a repository rather than unblock one.
+tasklist /FI "IMAGENAME eq git.exe" 2>nul | find /I "git.exe" >nul
+if errorlevel 1 (
+    if exist ".git\index.lock" del /f /q ".git\index.lock"
+    if exist ".git\HEAD.lock" del /f /q ".git\HEAD.lock"
+    if exist ".git\objects\maintenance.lock" del /f /q ".git\objects\maintenance.lock"
+    del /f /q ".git\next-index-*.lock" >nul 2>&1
+) else (
+    echo [WARN] git.exe is running. Stale locks NOT cleared this run.
+    echo        If the sync fails below, close any open git process and run again.
+)
 
 echo ============================================================
 echo   MO Social Assets - sync  %date% %time%
