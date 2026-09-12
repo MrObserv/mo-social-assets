@@ -58,3 +58,14 @@ Rendering is not shipping. Before an OG is used:
 2. Fresh-eyes second pass at the same size (a real second look, not the same glance). Only a pass that finds nothing ships.
 
 First clean render: Ep 23 "The Curiosity You Stop Needing", 2026-07-11 (two passes).
+
+## Producer discipline — the render loop (added 2026-08-06 after a stale-builder incident)
+
+The OG is produced ONLY by the canonical `00_Command_Center/thumbnail_builder.py` `compose_og()`. On 2026-08-06 the Ep 26 OG was rendered wrong **twice**, both from not using the canonical builder: (1) a hand-built preview replica (`og_layoutb.py`) forced the quote into Montserrat instead of DM Sans and lost the spec; (2) a **stale sandbox copy** of the builder (v1.3.0, before the v1.3.2 footer fix) **doubled the footer domain and dropped the vertical divider**. Fix + loop:
+
+1. **No replicas, ever.** Never render an OG from a hand-rolled or "preview" script. Canonical builder only. (The retired replicas `og_layoutb.py` / `terminal_og.py` were deleted from the sandbox.)
+2. **Sync before render.** In any sandbox session, sync the sandbox `thumbnail_builder.py` from the canonical G: copy FIRST, and confirm they match (`BUILDER_VERSION` + line count). The sandbox mount can serve a stale file — the exact hazard the builder's own header warns about (2026-06-08 watcher incident). Rendering from a stale copy is what caused this.
+3. **Fonts + root.** `MO_FONTS` → `mo-social-assets/fonts/` (the sandbox-reachable brand-font home; G: fonts are unreadable by the Linux render sandbox). `MM_PROJECT_ROOT` → a root holding `06_Brand_Assets/{fonts, logo-on-dark.svg}`.
+4. **Two-pass QA every render** (the gate above): pass 1 eyeball against this spec, pass 2 fresh-eyes. Explicitly check: footer shows the domain ONCE (left credit `EPISODE n • ALLAN MANN`, right stamp `MASTERINGOBSERVABILITY.COM`), the vertical divider is present, the quote is DM Sans Bold.
+
+Re-render clean from canonical v1.3.2: Ep 26 "You Don't See the Foundation", 2026-08-06 (two passes).

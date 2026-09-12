@@ -9,7 +9,7 @@
 - **Eyebrow:** mono caps, bright mint `#64ffda`, letterspaced, top left (e.g. THE OBSERVABILITY DIGEST, or the series name).
 - **Title:** display font, white, bold, left-aligned, 2 lines preferred, 3 maximum. One insight, ≤12 words (§24.11).
 - **Subtitle:** optional, one line, grey `#9fb0bd`, body font.
-- **Footer:** mono caps, mid teal: METRICS & MAYHEM · MASTERINGOBSERVABILITY.COM.
+- **Footer:** mono caps, mid teal: MASTERING OBSERVABILITY · MASTERINGOBSERVABILITY.COM. (Blog OG is a cross-property asset, so it carries the house brand, realigned 2026-08-24; podcast YouTube/episode art keep METRICS & MAYHEM.)
 - **Logo:** lens mark bottom right at 40-60% opacity (§24.11).
 - **No:** icons, emojis, stock humans, gradients on text, more than one message.
 

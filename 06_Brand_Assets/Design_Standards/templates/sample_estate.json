@@ -1,0 +1,7 @@
+{
+  "_deprecated": true,
+  "_superseded": "2026-08-08 (GR-2026-07-31-01)",
+  "_use_instead": "render_arch_kit.py",
+  "_see": "ARCH_KIT_README.md",
+  "_note": "The kit is self-contained Python (four build_* functions); it does not use a JSON config. This file is a redirect stub only."
+}

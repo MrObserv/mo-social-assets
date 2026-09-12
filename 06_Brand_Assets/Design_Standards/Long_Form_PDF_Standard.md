@@ -1,5 +1,21 @@
 # Mastering Observability: Long-Form PDF Standard v1.0
 
+> # ⛔ SUPERSEDED 2026-09-11 by `Long_Form_PDF_Standard_v2.md`. Use that file.
+>
+> Colour comes from `design-tokens.json`. Layout, grid, cover, running heads and output come from v2. **Nothing in this file is current.**
+>
+> ### The correction history, kept because it is the more useful part
+>
+> **Earlier on 2026-09-11 this banner said the opposite**, and said it emphatically: that `Long_Form_PDF_Standard_v2.md` **did not exist**, verified by glob; that `Brand_Design_System_v3.md` contradicted itself by superseding this file *"in full"* while also saying per-asset standards keep their production rules; and that v1.0 therefore remained the only long-form document standard in the estate and was live for layout.
+>
+> **All of that was true when written and all of it was false about four hours later.** The Design lane wrote v2, and corrected v3's line 5 to supersede *"the palette and display face"* rather than the file in full. The gap closed properly rather than being argued away.
+>
+> **The lesson is about the annotation, not the standard.** That banner was a hand-written copy of a fact, in a file that had no way of knowing the fact had moved. **It sat here for four hours telling anyone who read it to build an ebook from a retired standard.** It is the same failure class as a hardcoded palette, a stale inbox list, and a Canva kit kept current by somebody remembering to: **a copy of a fact, maintained by hand, in a place nobody looks when the fact changes.**
+>
+> Which is exactly why `producers/mo-tokens.js` carries `assertNoRetired` and a checklist would not have done. **A build that fails is a control. A note in a file is a hope.**
+
+**SUPERSEDED. See `Long_Form_PDF_Standard_v2.md`.** The original text follows for reference only.
+
 **Created:** 2026-06-10. The brand's PDF document language for client engagement deliverables, strategy papers, lead magnets and any multi-page printed or distributed document. Sits alongside the slide system (`../Slide_System/Slide_Design_System.md`): same tokens, different layout grammar. First implementation: the [REDACTED CLIENT] enterprise observability strategy sent to FAB on 2026-06-10.
 
 ## Principles

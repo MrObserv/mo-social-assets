@@ -1,0 +1,327 @@
+{
+  "$schema": "mo-design-tokens/1",
+  "version": "3.1.0",
+  "status": "ratified",
+  "updated": "2026-09-11",
+  "owner": "Growth",
+  "note": "Generated from the MO Design System page. Never hand-edit a producer palette; read this file.",
+  "mode": {
+    "default": "light",
+    "rule": "Light unless the asset renders inside someone else's dark chrome. Dark = YouTube, podcast apps, video overlays, studio backgrounds, deck punctuation.",
+    "dark_surfaces": [
+      "youtube_thumbnail",
+      "episode_square",
+      "video_card",
+      "bookend_9x16",
+      "studio_background",
+      "deck_opener",
+      "deck_divider",
+      "deck_closer",
+      "ebook_cover"
+    ]
+  },
+  "colour": {
+    "light": {
+      "ground": "#F6F8F7",
+      "panel": "#FFFFFF",
+      "tint": "#EAF6F3",
+      "ink": "#16282D",
+      "navy": "#0D2127",
+      "muted": "#3B5257",
+      "soft": "#5A6E72",
+      "teal": "#2F9E8D",
+      "teal-deep": "#17695C",
+      "border": "#C9DCDC",
+      "hairline": "#DCE7E5",
+      "semantic-high": "#8F6109",
+      "semantic-low": "#237A45",
+      "neutral-series": "#CCD6D8"
+    },
+    "dark": {
+      "dark-ground": "#0D2127",
+      "dark-panel": "#1C3C45",
+      "dark-motif": "#13313A",
+      "teal": "#2F9E8D",
+      "teal-bright": "#74DDCD",
+      "on-dark-body": "#D5E0E1",
+      "on-dark-soft": "#9FB0BD",
+      "semantic-high": "#FFD166",
+      "semantic-low": "#7BD88F"
+    },
+    "retired": {
+      "#0a0e17": "old dark ground, superseded by dark-ground",
+      "#64ffda": "old mint accent, superseded by teal-bright",
+      "#0d7377": "old deep teal, superseded by teal-deep",
+      "#2dd4bf": "old mint, superseded by teal-bright",
+      "#F5F3EC": "cream slide ground, superseded by ground",
+      "#FBFCFC": "architecture white, superseded by ground",
+      "#63797D": "old soft grey, failed 4.5:1 on ground, superseded by soft",
+      "#A8720B": "old caution, failed 4.5:1 on light, superseded by semantic-high light",
+      "#2F9E57": "old light safe, failed 4.5:1 on light, superseded by semantic-low light",
+      "#5f6d75": "undocumented grey, duplicate of soft within 0.03:1 on every ground. Folded into soft #5A6E72 on 2026-09-11. Passed AA, so shipped assets are not re-rendered.",
+      "#16333B": "undocumented ghost-numeral navy. Folded into dark-motif #13313A."
+    }
+  },
+  "usage_rules": [
+    "teal #2F9E8D is a graphic colour on light, never body text. Use teal-deep for text and links.",
+    "soft is for light grounds only. On dark use on-dark-soft.",
+    "Semantic pairs differ by mode. Light uses the darkened set, dark uses the bright set. The meaning never changes.",
+    "One radial teal wash per dark canvas, 10 to 22 per cent. Never two, never on light."
+  ],
+  "type": {
+    "display": {
+      "family": "Montserrat",
+      "weight": 900,
+      "tracking": "-1.5px to -4px",
+      "use": "asset titles, H1, slide and cover titles"
+    },
+    "heading": {
+      "family": "Montserrat",
+      "weight": 800,
+      "tracking": "-0.5px to -2.5px",
+      "use": "H2 to H4, card and slide titles"
+    },
+    "body": {
+      "family": "DM Sans",
+      "weights": [
+        400,
+        700
+      ],
+      "leading": 1.65,
+      "measure": "64ch",
+      "sizes": {
+        "card": "14.5px",
+        "prose": "16px to 19px",
+        "email": "16px"
+      }
+    },
+    "label": {
+      "family": "Space Mono",
+      "weight": 700,
+      "transform": "uppercase",
+      "tracking": {
+        "12px": "4px",
+        "10.5px": "1.5px"
+      },
+      "use": "kickers, eyebrows, timestamps, figures, code. Every surface, including architecture diagrams."
+    },
+    "minimums": {
+      "slide_1920": "24px",
+      "print": "12pt",
+      "email_body": "16px",
+      "mark": "24px"
+    }
+  },
+  "structure": {
+    "radius": {
+      "chip": "3px",
+      "button": "4px",
+      "card": "6px",
+      "panel_large": "8px"
+    },
+    "rule": {
+      "weight": "1px",
+      "colour": "#C9DCDC",
+      "note": "One weight. A heavier line must mean something."
+    },
+    "grid": {
+      "content_max": "1120px",
+      "gutter": "16px to 28px",
+      "card_gap": "18px",
+      "joined_cells": "1px"
+    },
+    "section_padding": "34px to 56px",
+    "button": {
+      "fill": "#17695C",
+      "text": "#FFFFFF",
+      "radius": "4px",
+      "padding": "11px 20px",
+      "weight": 700,
+      "dark_variant": {
+        "fill": "#2F9E8D",
+        "text": "#0D2127"
+      }
+    }
+  },
+  "motion": {
+    "durations_ms": {
+      "quick": 160,
+      "standard": 320,
+      "deliberate": 600,
+      "reveal": 1650,
+      "bumper": 2400,
+      "cold-open": 7000
+    },
+    "easing": {
+      "enter": "cubic-bezier(0.2, 0, 0, 1)",
+      "exit": "cubic-bezier(0.4, 0, 1, 1)"
+    },
+    "reveal": {
+      "scan-line": {
+        "use": "a name or title landing, once per piece",
+        "duration": 1650
+      },
+      "type-on": {
+        "use": "terminal content only",
+        "per_char_ms": 28
+      },
+      "rise-fade": {
+        "use": "everything else",
+        "offset": "12px",
+        "stagger_ms": 60,
+        "duration": 320
+      },
+      "card": {
+        "on": "at the line",
+        "off_ms_after": 1500,
+        "exception": "diagram hold stays for the explained beat"
+      }
+    },
+    "frame_rate": 30,
+    "safe_band_9x16": "middle 60 per cent; drop the day chip, centre the underline"
+  },
+  "canvas": {
+    "og_card": [
+      1200,
+      630
+    ],
+    "signal_masthead": [
+      1200,
+      630
+    ],
+    "carousel": [
+      1080,
+      1350
+    ],
+    "quote_card": [
+      1080,
+      1080
+    ],
+    "episode_square": [
+      3000,
+      3000
+    ],
+    "episode_square_beehiiv": [
+      1400,
+      1400
+    ],
+    "youtube_thumbnail": [
+      1280,
+      720
+    ],
+    "title_card": [
+      1920,
+      1080
+    ],
+    "series_badge": [
+      1000,
+      360
+    ],
+    "bookend": [
+      1080,
+      1920
+    ],
+    "video_card": [
+      1920,
+      1080
+    ],
+    "slide": [
+      1920,
+      1080
+    ],
+    "diagram_concept": [
+      1200,
+      680
+    ],
+    "diagram_figure": [
+      1600,
+      1080
+    ],
+    "architecture": [
+      2560,
+      1440
+    ],
+    "email_body_px": 600,
+    "document": "A4 portrait, 14mm sides and top, 16mm foot"
+  },
+  "lockup": {
+    "rule": "Podcast lane carries METRICS & MAYHEM. Everything else carries MASTERING OBSERVABILITY.",
+    "podcast_lane": [
+      "signal_drop",
+      "tech_tuesday",
+      "episode_square",
+      "youtube_thumbnail",
+      "title_card",
+      "series_badge",
+      "bookend",
+      "video_card"
+    ],
+    "house_lane": [
+      "website",
+      "email",
+      "the_signal",
+      "blog_og",
+      "carousel",
+      "quote_card",
+      "diagram",
+      "deck",
+      "ebook"
+    ]
+  },
+  "marks": {
+    "identifier": "ring-mark",
+    "ring-mark": {
+      "min_px": 24,
+      "stroke_boost_below_px": 32,
+      "clear_space": "inner ring radius on all sides",
+      "versions": [
+        "teal on light",
+        "teal-bright on dark",
+        "mono"
+      ]
+    },
+    "crosshair": {
+      "role": "document and diagram furniture, top right",
+      "drawn": true,
+      "one_per_page": true
+    },
+    "lens-wash": {
+      "role": "texture on dark surfaces only",
+      "opacity": "0.10 to 0.22",
+      "one_per_canvas": true
+    },
+    "retired": [
+      "faint mint grid"
+    ]
+  },
+  "contrast": {
+    "standard": "WCAG 2.1 AA",
+    "body_min": 4.5,
+    "large_min": 3,
+    "audited": "2026-09-11",
+    "all_pairings_pass": true
+  },
+  "ratified": "2026-09-11",
+  "ratified_by": "Al",
+  "consumers": {
+    "rule": "A producer that defines a hex is a defect. Read this file through mo-tokens.js or mo_tokens.py.",
+    "loaders": [
+      "mo-tokens.js",
+      "mo_tokens.py"
+    ],
+    "build_check": "Call assertNoRetired / assert_no_retired on your own source in the build. It fails on any retired hex.",
+    "status": {
+      "templates/mo_diagram.js": "not yet consuming",
+      "Slide_System/mo_slide_template.js": "not yet consuming",
+      "templates/long_form_pdf/reference_strategy_template.html": "not yet consuming",
+      "templates/mo_visual_kit.js": "not yet consuming",
+      "tools/thumbnail_builder.py": "not yet consuming",
+      "templates/mo_quote_card.js": "not yet consuming",
+      "templates/render_arch_kit.py": "not yet consuming"
+    }
+  },
+  "canonical_tree": {
+    "decision": "OPEN — Al to rule",
+    "note": "RULED BY AL 2026-09-11: mo-social-assets is CANONICAL. G:\\...\\06_Brand_Assets becomes the read-only mirror, not the source. This REVERSES the recommendation in MIGRATION_v3.1.0.md section 2, which proposed the opposite; Al ruled for the repo because git gives history, diffs and rollback that G: has never had, and the .bak proliferation on G: is the evidence. EDIT BRAND FILES IN THE REPO FROM NOW ON. SEEDING ORDER IS CRITICAL AND IRREVERSIBLE IF DONE BACKWARDS: the repo does NOT yet contain v3, the producers, or the supersession banners written on 2026-09-11, so the ONE-TIME seed must run G: to repo FIRST. A repo-to-G: mirror run before that seed destroys the entire v3 release."
+  }
+}

@@ -4,6 +4,8 @@
 
 **What it is.** The visual + motion identity for **Tech Tuesday**, the MO technical teaching series (distinct from the Signal Drop podcast). Built on the **dark visual-asset surface** (§24.11): navy `#0a0e17` canvas, mint `#64ffda` accent, teal `#14a3a8` structural rules, Space Mono labels, Montserrat ExtraBold display. Its own signature is a **terminal / command-line motif** so it never blurs with Signal Drop's audio-waveform identity.
 
+**Tech Tuesday cadence: FORTNIGHTLY (Al 2026-08-21, ID-2026-07-05-03).** Tech Tuesday releases on a fortnightly Tuesday rhythm. (The codex §19.10 / §25.6 wording still reads the earlier "video-first monthly" pilot line; that codex line is queued for the next codex bump, not changed here.)
+
 ## Signature motif (what makes it Tech Tuesday)
 - A mono command prompt `> tech_tuesday` and a **mint block cursor**.
 - A **terminal-window chrome**: rounded rect, three muted traffic-light dots, a `~/mo/tech_tuesday` path titlebar, a divider, and a command inside the body (title card runs `> start --learn`, Spotify runs `> episode --open`).
@@ -36,6 +38,12 @@ Keyword-led YouTube + Spotify titles and descriptions, teaching register, canoni
 - Rendered binaries (PNG/MP4/WAV) + the ep OG card are **hosted via the auto-sync repo** `mo-social-assets/` (raw.githubusercontent URL), not stored here, matching the canonical asset-hosting model.
 
 **Canonicalisation still owed to Control (GR-2026-07-06-01):** register this file + producers in the Design index + changelog; add a Tech Tuesday template to the thumbnail producer (`mo_visual_kit.js`) so production thumbnails/Spotify art are generated not hand-built; register the intro alongside the Signal Drop intro; and settle the podcast-feed placement with Podcast Ideas (`ID-2026-07-05-03`).
+
+## Script production norms (Codex §1.5 governs)
+- **Length (PI-2026-07-15-04, Al 2026-07-15):** Tech Tuesday scripts run **at least 15 minutes (~2,000+ words)** — the teaching lane is deeper than a Signal Drop (6-10 min). TT02 (~10:30) is a grandfathered one-off; TT03/TT04 onward build to ≥15 min.
+- **Problem-first hook (PI-2026-08-13-01, Al 2026-08-13):** open on the problem the listener already feels, in plain language — never a jargon-first hook.
+- **Re-hook / pattern-interrupt ~every 2 min (PI-2026-08-13-01):** a re-hook, reveal, stakes reset, or visual/card change roughly every two minutes so the piece never sits static.
+- **Visual/Card Plan required (PI-2026-08-13-01 / PI-2026-08-13-02):** every episode brief carries a Visual/Card Plan feeding `[CARD]` script cues, built to the `Video_Card_System_Standard.md`.
 
 ## MANDATORY two-pass brand QA gate
 No Tech Tuesday asset ships without it, run twice (fresh eyes on the second, subagent for bespoke/high-stakes): open every render at full size; nothing clips or collides; correct palette/fonts/motif; the `TUE` chip centred; on the thumbnail the **face is the brightest element** and the head is never cropped; squint test on the hook; §5 + keyword + CTA on the caption/metadata. Same discipline as `Diagram_Standard.md` and `Carousel_Standard.md`.

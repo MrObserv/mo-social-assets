@@ -11,6 +11,7 @@ No loose files at the top of `04_Newsletter_and_Blog/` except this-pattern folde
 | `_Briefs/` | blog briefs (`YYYY-MM-DD_Blog_Brief_<slug>.md`) | `transcript-to-pipeline`; Growth |
 | `_Newsletter/` | newsletter production packs (`beehiiv_production_pack*`, `Beehiiv_Prod_Pack.pdf`), welcome/automation emails (`welcome_email_*`), and their thumbnails | Growth / manual |
 | `Observability_Digest/` | the monthly digest drafts + `Observability_Digest_TEMPLATE.md` | `observability-digest-build-reminder` flow / Growth |
+| `The_Signal/` | the weekly newsletter: standing docs (spec, relaunch brief, `Signal_Performance_Log.md`) + a `README.md` + per-issue folders `NNN_YYYY-MM-DD_<slug>/` (issue record; the masthead card image lives in the assets repo `mo-social-assets/The_Signal/`). Issue number is a **continuing counter** (rebrand = 101, never "01"). | `the-signal-weekly-newsletter` / Growth |
 | named topic folders (e.g. `DIY_AIOps_research/`, `House of Lords Dinner/`) | research / event material | as relevant |
 | `_archive/` | superseded one-offs | Control / Growth |
 

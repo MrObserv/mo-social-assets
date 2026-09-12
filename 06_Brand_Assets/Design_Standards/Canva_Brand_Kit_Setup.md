@@ -1,5 +1,13 @@
 # Canva Brand Kit: MO Setup Sheet
 
+> # ⛔ RETIRED 2026-09-11. CANVA IS NO LONGER A BRAND SURFACE.
+>
+> Retired on Al's ruling of 2026-09-11 alongside Brand Design System v3.1.0. **Do not enter these values into Canva, and do not maintain this sheet.**
+>
+> **Its own "Source of truth" line points at `Brand_Design_System_v2.md`, which is itself now superseded**, so this sheet was two hops from canonical even before Canva was retired. That is the argument against hand-maintained copies of a palette, written out in one file: a copy of a copy, kept current by somebody remembering to.
+>
+> Anything still made by hand in Canva is off-brand by definition from today. Producers read `design-tokens.json`.
+
 **Purpose:** the exact paste-in values to build the Mastering Observability / Metrics & Mayhem Brand Kit in Canva, so anything made by hand in Canva stays on the same identity the code pipeline produces. Canva has no brand kit today (empty), which is why the older Canva library drifted off-brand. Enter this once.
 
 **Owner:** Growth. **Source of truth:** `Brand_Design_System_v2.md` (web/email tokens) + `Diagram_Standard.md` / `Blog_Thumbnail_Standard.md` (§24.11 dark-asset palette). If those change, update this sheet in the same patch.

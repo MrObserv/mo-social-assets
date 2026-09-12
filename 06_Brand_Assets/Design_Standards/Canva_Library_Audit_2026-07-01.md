@@ -1,5 +1,13 @@
 # Canva Library Audit: 2026-07-01
 
+> # ⛔ RETIRED 2026-09-11. CANVA IS NO LONGER A BRAND SURFACE.
+>
+> Retired on Al's ruling of 2026-09-11 alongside Brand Design System v3.1.0. The remediation actions in this audit are **moot**: nothing in Canva is being brought back on-brand, because nothing in Canva is a brand surface any more.
+>
+> It also audits against the **two-surface** identity, which v3.1.0 replaced with light-default plus a named list of dark surfaces, so its test is out of date as well as its subject.
+>
+> **Kept as evidence, not as an instruction.** It recorded what an unmanaged hand-design library does to an identity, which is the reasoning behind retiring Canva rather than fixing it again.
+
 **Scope:** all 42 designs in Al's connected Canva, triaged against the current two-surface identity (`Canva_Brand_Kit_Setup.md`).
 
 **Governing finding:** every design predates the v2.0 identity (established 2026-06-23). The most recently touched were February 2026, still pre-identity. So **none are currently on-brand.** The decision for each is not "is it on-brand" (none are) but:

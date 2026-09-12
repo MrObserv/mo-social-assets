@@ -18,10 +18,10 @@ git rebase --abort 2>nul
 if exist ".git\rebase-merge" rmdir /s /q ".git\rebase-merge"
 if exist ".git\rebase-apply" rmdir /s /q ".git\rebase-apply"
 
-REM    LOCK CLEARING WIDENED 2026-09-12, and this line is why the sync kept dying.
+REM    LOCK CLEARING WIDENED 2026-09-11, and this line is why the sync kept dying.
 REM    It previously cleared index.lock ONLY. An audit on 2026-09-03 recorded that as
 REM    one of FOUR known lock types on this repo and said so plainly; nothing was done,
-REM    and on 2026-09-12 the other three were all present and blocking every git command.
+REM    and on 2026-09-11 the other three were all present and blocking every git command.
 REM    HEAD.lock is the serious one: it blocks commit, checkout and reset outright, so
 REM    the sync could neither stage nor publish while reporting nothing obviously wrong.
 REM    Root cause of the locks themselves: this repo lives inside OneDrive, which grabs
