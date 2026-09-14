@@ -287,28 +287,49 @@
 
       /** Registry check, where a registry exists. Skipped rather than thrown
        *  when fontconfig is absent — Windows has no fc-list and that is not
-       *  itself a failure. Use assertFontsProbe for the real gate. */
+       *  itself a failure. Use assertFontsProbe for the real gate.
+       *
+       *  ASKS fontconfig rather than GREPPING it. The previous version dumped
+       *  `fc-list` and tested /Family:style=Style/ against the whole blob.
+       *  That regex encoded the OLD non-compliant naming: once the faces were
+       *  correctly normalised, fontconfig began printing parallel comma lists
+       *
+       *    Montserrat-ExtraBold.ttf: Montserrat,Montserrat ExtraBold:style=ExtraBold,Regular
+       *
+       *  in which that literal substring never appears. So the gate started
+       *  failing BECAUSE the fonts had been fixed properly — and only on
+       *  platforms that have fc-list, which meant it passed on Windows and
+       *  hard-broke Linux and CI. The exact mirror of the defect it exists to
+       *  catch. Raised by Content Management 2026-09-14.
+       *
+       *  fc-list takes a pattern. Let it do the matching; it understands its
+       *  own naming model and we demonstrably do not. */
       assertFonts: function () {
         if (!req) return { skipped: 'browser' };
-        var out;
+        var cp = req('child_process');
         try {
-          out = req('child_process').execSync('fc-list', { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
+          cp.execSync('fc-list -V', { stdio: ['ignore', 'ignore', 'ignore'] });
         } catch (e) {
           return { skipped: 'no fontconfig CLI on this platform — use assertFontsProbe(sharp)' };
         }
-        var need = raw.fonts && raw.fonts.required, missing = [];
+        var need = raw.fonts && raw.fonts.required, missing = [], checked = 0;
         if (!need) return true;
         Object.keys(need).forEach(function (family) {
           need[family].forEach(function (style) {
-            var re = new RegExp(family.replace(/ /g, '\\s*') + ':style=' + style, 'i');
-            if (!re.test(out)) missing.push(family + ' ' + style);
+            var hit;
+            try {
+              hit = cp.execSync('fc-list ' + JSON.stringify(family + ':style=' + style),
+                { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
+            } catch (e) { hit = ''; }
+            checked++;
+            if (!String(hit).trim()) missing.push(family + ' ' + style);
           });
         });
         if (missing.length) {
           throw new Error('mo-tokens: missing font faces:\n  ' + missing.join('\n  ') +
             '\n\n' + (raw.fonts.trap || '') + '\nAcceptance: ' + (raw.fonts.acceptance || ''));
         }
-        return { verified: 'fontconfig' };
+        return { verified: 'fontconfig', queried: checked };
       }
     };
     return T;

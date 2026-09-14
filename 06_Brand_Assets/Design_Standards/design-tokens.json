@@ -1,10 +1,10 @@
 {
   "$schema": "mo-design-tokens/1",
-  "version": "3.1.1",
+  "version": "3.1.3",
   "status": "ratified",
   "updated": "2026-09-14",
   "owner": "Growth",
-  "note": "Generated from the MO Design System page. Never hand-edit a producer palette; read this file. Changed in 3.1.1: display weight 900 -> 800 (ruled), font name-table defect closed and documented, canonical_tree settled, marks gap closed, eye-mark trap recorded, producer single-home rule. NO colour, canvas, motion or contrast value changed.",
+  "note": "Generated from the MO Design System page. Never hand-edit a producer palette; read this file. Changed in 3.1.3: the radial wash is PERMITTED ON LIGHT at 12 per cent (reversing v3.1.0), and both opacities moved out of the producer into structure.wash. Two .md standards still carry the old wording and are owed an amendment — see structure.wash.owed. NO colour value changed.",
   "mode": {
     "default": "light",
     "rule": "Writing renders light. A blog, article, newsletter or any card fronting written material uses the website palette, because it is the same reading surface. Everything else — podcast, YouTube, episode art, short-form, feed cards for non-writing assets — renders dark.",
@@ -84,7 +84,7 @@
     "teal #2F9E8D is a graphic colour on light, never body text. Use teal-deep for text and links.",
     "soft is for light grounds only. On dark use on-dark-soft.",
     "Semantic pairs differ by mode. Light uses the darkened set, dark uses the bright set. The meaning never changes.",
-    "One radial teal wash per dark canvas, 10 to 22 per cent. Never two, never on light."
+    "One radial teal wash per canvas, 20 per cent on dark and 12 per cent on light. Never two. PERMITTED ON LIGHT — amended 2026-09-14 by Al, reversing the v3.1.0 \"never on light\" rule. Values in structure.wash; never hardcoded in a producer."
   ],
   "type": {
     "display": {
@@ -160,6 +160,15 @@
         "fill": "#2F9E8D",
         "text": "#0D2127"
       }
+    },
+    "wash": {
+      "dark": 0.2,
+      "light": 0.12,
+      "rule": "ONE radial teal wash per canvas, in teal #2F9E8D, centred per surface. Never two. PERMITTED ON LIGHT at 12 per cent.",
+      "amended": "2026-09-14 by Al. v3.1.0 said \"never on light\". Content Management correctly raised the producer as non-compliant (their D5); the wash was suppressed, the light card was rendered flat, and Al ruled the WASH STAYS. The rule was written before anyone had looked at a light card. A flat light card reads flat.",
+      "considered": "Three alternatives were built and rejected: a flat tint field, the signal_line motif as the card graphic, and a white panel on tint. The wash was kept as the house treatment.",
+      "owed": "Brand_Design_System_v3.md §3 and Logo_and_Marks_Standard.md §3 still say \"never on light\" and must be amended to match. Until they are, three documents disagree — which is the condition that produced this whole exchange.",
+      "producer_note": "Both values live HERE. A producer that hardcodes 0.12 is the same defect as one that hardcodes a hex, and the fact that it lived in bgDefs() is why its compliance was arguable."
     }
   },
   "motion": {
@@ -286,10 +295,11 @@
       1074,
       720
     ],
-    "og_card_note": "1200x630 is correct and has always been correct. If a card rasterises at 1600x840 the defect is in the PRODUCER, not here: sharp's default density is 72 and the kit passed 96, scaling every unitless SVG dimension by 96/72. Fixed 2026-09-14. Do not 'correct' this token to match a bad render."
+    "og_card_note": "1200x630 is correct and has always been correct. If a card rasterises at 1600x840 the defect is in the PRODUCER, not here: sharp's default density is 72 and the kit passed 96, scaling every unitless SVG dimension by 96/72. Fixed 2026-09-14. Do not 'correct' this token to match a bad render.",
+    "hosting_rule": "In-body images are UPLOADED to the publishing platform's own CDN, never hotlinked. A published post currently serves a diagram from raw.githubusercontent.com, which is not a CDN, is rate-limited, and breaks if the repo goes private or the file moves. Raised 2026-09-14."
   },
   "lockup": {
-    "rule": "Podcast lane carries METRICS & MAYHEM. Everything else carries MASTERING OBSERVABILITY.",
+    "rule": "Mastering Observability is the MASTER BRAND. Metrics & Mayhem sits UNDERNEATH it — parent and child, not siblings. Tech Tuesday and Signal Drop sit under Metrics & Mayhem. The Signal, byte-size, the Digest and blogs sit under Mastering Observability. Ruled by Al 2026-09-14, restating what The_Signal_Card_Standard.md already said and what v3.1.0 lost: §6 of the standard, §5 of the marks standard and this rule all described two parallel equal lanes with no parent. The file that declares itself canonical was the one that dropped the hierarchy.",
     "podcast_lane": [
       "signal_drop",
       "tech_tuesday",
@@ -313,8 +323,13 @@
       "deck",
       "ebook",
       "linkedin_personal_banner",
-      "linkedin_company_banner"
-    ]
+      "linkedin_company_banner",
+      "byte_size",
+      "monthly_digest"
+    ],
+    "name_trap": "the_signal is the NEWSLETTER and is house lane. signal_drop is the PODCAST and is podcast lane. One word apart, opposite wordmarks. Al's 2026-09-14 ruling on the Digest, The Signal and byte-size covers the newsletter only.",
+    "prohibition": "Metrics & Mayhem must NOT appear on a house asset. That name is reserved for the book and the podcast.",
+    "open_question": "OPEN, Al to rule before the re-render sweep: the two wordmarks are currently mutually exclusive and there is NO endorsement anywhere — podcast assets carry METRICS & MAYHEM, a format badge, and no reference to the parent. Should the hierarchy stay purely organisational, or should podcast assets carry a small endorsement? It changes every YouTube thumbnail, episode square, title card, bookend and video card. Not decided here."
   },
   "marks": {
     "rule": "Resolve a mark by NAME from this manifest. Never by searching the tree — a search finds logo-master.svg and favicon.svg, which predate the ring mark. If a mark is not listed here it does not exist yet.",
@@ -339,7 +354,8 @@
       "role": "Second motif. The latency trace from the website hero: teal at one weight, breach segment in caution, dashed threshold. Use as the graphic on a card that needs one.",
       "on_light": "marks/mo_signal_line_on_light.svg",
       "on_dark": "marks/mo_signal_line_on_dark.svg",
-      "rule": "The breach segment must actually breach the dashed threshold. It is a diagram, not a squiggle."
+      "rule": "The breach segment must actually breach the dashed threshold. It is a diagram, not a squiggle.",
+      "status": "AVAILABLE, NOT THE DEFAULT. Offered as the light-card graphic 2026-09-14 and not taken; the radial wash was kept as the house treatment. Still the right choice for a card that needs to say something rather than have atmosphere."
     },
     "legacy": {
       "logo-master.svg": "Wordmark lockup. Still current.",
@@ -405,7 +421,8 @@
     "body_min": 4.5,
     "large_min": 3,
     "audited": "2026-09-11",
-    "all_pairings_pass": true
+    "all_pairings_pass": true,
+    "retrofit_exception": "Brand_Design_System_v3 §3 says shipped assets are not retrofitted. NARROW EXCEPTION ruled by Al 2026-09-14: the six evergreen winners are re-rendered. The rule was written for hex changes; blog cards underwent a full mode flip from navy to light, which is a different kind of change. The rest of the archive is left alone and self-corrects. Recorded here so the sweep is not read as a breach of the rule."
   },
   "ratified": "2026-09-11",
   "ratified_by": "Al",
@@ -417,7 +434,7 @@
     ],
     "build_check": "Call assertNoRetired / assert_no_retired on your own source in the build. It fails on any retired hex.",
     "status": {
-      "templates/mo_diagram.js": "not yet consuming",
+      "templates/mo_diagram.js": "NOT CONSUMING — 10 retired-token hits, never repointed. A diagram rendered off it is LIVE on a published post, carrying the pre-v3 palette. Highest-priority remaining consumer.",
       "Slide_System/mo_slide_template.js": "not yet consuming",
       "templates/long_form_pdf/reference_strategy_template.html": "not yet consuming",
       "tools/thumbnail_builder.py": "not yet consuming",
@@ -426,7 +443,8 @@
       "producers/mo_visual_kit.js": "CONSUMING — merged, single home, ring mark by name, all three gates, density 72."
     },
     "single_home": "The kit lives at Design_Standards/producers/mo_visual_kit.js and nowhere else. Two copies of a producer is the same defect class as two canonical trees. The two that existed had DIVERGED, not aged: templates/ had a font-file check but embedded the eye mark and never called assertRenderClean; producers/ resolved the ring mark and ran all three gates but lacked the font check. The surviving file is the merge of both.",
-    "token_resolution": "mo-tokens.js walks UP from its own directory to find this file (5 levels, MO_TOKENS still wins when set). The earlier version looked only beside itself, so every producer run needed MO_TOKENS set by hand."
+    "token_resolution": "mo-tokens.js walks UP from its own directory to find this file (5 levels, MO_TOKENS still wins when set). The earlier version looked only beside itself, so every producer run needed MO_TOKENS set by hand.",
+    "producer_contract": "blogthumb requires --surface AND --eyebrow. Neither is defaulted. It previously called lockupFor(\"blog_og\") literally, so every card returned MASTERING OBSERVABILITY whatever it was — the right answer for the wrong reason, routing around the throw that exists to stop a surface defaulting into a wordmark. --eyebrow defaulted to THE OBSERVABILITY DIGEST, correct for one surface and wrong for four. A silent default that is right once and wrong four times is the same failure class as the font fallback that produced the blank card."
   },
   "canonical_tree": {
     "decision": "SETTLED — mo-social-assets is canonical (Al, 2026-09-14).",
@@ -540,7 +558,16 @@
   },
   "copy": {
     "claim_bank": "claim-bank.json",
-    "rule": "A claim on an asset comes from the bank. Inventing one at production time is how the voice drifts, because a thumbnail line gets less review than any sentence of prose and more impressions than most of them."
+    "rule": "A claim on an asset comes from the bank. Inventing one at production time is how the voice drifts, because a thumbnail line gets less review than any sentence of prose and more impressions than most of them.",
+    "eyebrow_vocabulary": {
+      "status": "PROPOSED by Content Management 2026-09-14, awaiting Al.",
+      "technical_blog": "TECHNICAL",
+      "leadership_blog": "LEADERSHIP",
+      "newsletter": "THE SIGNAL",
+      "byte_size": "BYTE-SIZE",
+      "digest": "THE OBSERVABILITY DIGEST",
+      "rule": "Required, never defaulted. A missing eyebrow fails the render rather than guessing."
+    }
   },
   "fonts": {
     "required": {
@@ -557,7 +584,7 @@
       ]
     },
     "rule": "librsvg ignores @font-face entirely. SVG text renders through fontconfig, so the STATIC TTFs must be installed system-wide. Embedding a font in the SVG does nothing.",
-    "acceptance": "fc-list | grep -i montserrat prints Montserrat:style=ExtraBold. On Windows there is no fc-list, so the acceptance test is a rendered card with words on it in the right faces.",
+    "acceptance": "fc-list \"Montserrat:style=ExtraBold\" returns at least one match. NOT a grep of bare fc-list output: under correct RIBBI naming fontconfig prints parallel comma lists (\"Montserrat,Montserrat ExtraBold:style=ExtraBold,Regular\"), in which the literal substring \"Montserrat:style=ExtraBold\" never appears. The old acceptance encoded the OLD non-compliant naming and started failing because the fonts were fixed properly. ASK fontconfig with a pattern; do not grep it. On Windows there is no fc-list, so the acceptance test is a rendered card with words on it in the right faces.",
     "trap": "Variable-font and per-optical-size downloads declare the wrong family name — \"Montserrat Thin\", \"DM Sans 9pt\" — so fontconfig never matches the family the producer asks for. Download the static TTFs.",
     "silent_failure": "A font-family fallback stack means a missing face renders in Liberation Sans instead of failing. Every producer must call assertFonts() before its first render.",
     "name_table_defect": {
@@ -569,7 +596,8 @@
       "windows_install": "NORMALISING THE REPO FILES IS NOT SUFFICIENT. The renderer reads the WINDOWS FONT STORE, not the repo folder. Installed copies cannot be overwritten — the font cache holds them open — and rewriting the registry names while the files stay stale gives correct names pointing at wrong files, which looks fixed and is not. Install under NEW filenames (-mo.ttf) and repoint the registry, remove the old-named entries, then RESTART THE SHELL because the font cache is read at process start.",
       "regresses": "Every time anyone refreshes the fonts, because upstream is wrong at source. Run normalise_font_names.py --check before any render sweep. This estate has no CI, so --check in the runbook is the standing gate."
     },
-    "probe_limitation": "assertFontsProbe compares two renders, so it detects SUBSTITUTION (family absent). It does NOT detect SYNTHESIS, and it does NOT detect a mislabelled name table. A pass proves the tool ran, not that the display face is real. Render one card and look."
+    "probe_limitation": "assertFontsProbe compares two renders, so it detects SUBSTITUTION (family absent). It does NOT detect SYNTHESIS, and it does NOT detect a mislabelled name table. A pass proves the tool ran, not that the display face is real. Render one card and look.",
+    "gate_history": "assertFonts grepped fc-list output against /Family:style=Style/ until 2026-09-14. That passed on Windows (no fc-list, returns skipped) and hard-broke Linux and CI after normalisation — the exact mirror of the defect it exists to catch. Raised by Content Management. A gate whose pass condition encodes a defect will fail when the defect is fixed."
   },
   "gates": {
     "rule": "If a check reads something other than the artefact that ships, it is theatre. Every resolver throws rather than falling back.",
@@ -589,5 +617,5 @@
     ],
     "preflight": "node mo_visual_kit.js preflight — runs every gate, writes nothing."
   },
-  "amended": "2026-09-14 by Al — display weight and record corrections only."
+  "amended": "2026-09-14 by Al — 3.1.1 display weight + record corrections; 3.1.2 font gate, lockup hierarchy, producer contract; 3.1.3 wash permitted on light, opacities moved into structure.wash."
 }

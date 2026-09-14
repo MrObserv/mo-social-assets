@@ -128,10 +128,24 @@ const mime = (p) => (p.endsWith(".svg") ? "image/svg+xml" : p.endsWith(".png") ?
 const imgHref = (p) => `data:${mime(p)};base64,${b64(p)}`;
 const ff = (f) => JSON.stringify(f.replace(/"/g, "'"));
 
-/* Flat ground + ONE radial teal wash. The three-stop navy gradient and the
- * faint mint grid are both retired (ratified reversal, 2026-09-11). */
+/* Flat ground + ONE radial teal wash, on BOTH modes.
+ *
+ * The three-stop navy gradient and the faint mint grid are both retired
+ * (ratified reversal, 2026-09-11).
+ *
+ * HISTORY, because this flipped twice in one day. Content Management raised it
+ * as D5: the wash on light contradicted three ratified sources saying "never
+ * on light", so it was suppressed. Al reviewed the rendered result and RULED
+ * THE WASH STAYS ON LIGHT (2026-09-14) — a flat light card reads flat, and the
+ * standard was written before anyone had looked at a light card. The rule is
+ * amended rather than the code reverted; usage_rules[3] now permits it.
+ *
+ * Both opacities come from the token file. A producer that hardcodes 0.12 is
+ * the same defect as a producer that hardcodes a hex — it is a brand value,
+ * and the reason this was arguable at all is that it lived here. */
 function bgDefs(S, w, h, glowCx, glowCy) {
-  const op = S.dark ? 0.20 : 0.12;
+  const W = T.structure.wash;
+  const op = S.dark ? W.dark : W.light;
   return `<defs>
   <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
     <stop offset="0" stop-color="${S.accent2}" stop-opacity="${op}"/><stop offset="0.7" stop-color="${S.accent2}" stop-opacity="0"/>
@@ -171,11 +185,33 @@ async function renderPng(svg, out, quality) {
   console.log("written:", out);
 }
 
-/* ---------- BLOG / OG CARD — light under v3 ---------- */
+/* ---------- BLOG / OG CARD — light under v3 ----------
+ *
+ * --surface and --eyebrow are BOTH REQUIRED. Neither has a default, and that
+ * is deliberate (items 8 and 9, Content Management 2026-09-14).
+ *
+ * --surface: this used to call T.lockupFor("blog_og") literally, so every card
+ * returned MASTERING OBSERVABILITY regardless of what the card was. A
+ * byte-size or Digest card got the right answer for the wrong reason and never
+ * reached the throw that exists to stop a surface defaulting into a wordmark.
+ *
+ * --eyebrow: this used to default to "THE OBSERVABILITY DIGEST", correct for
+ * one surface and wrong for the other four. A silent default that is right
+ * once and wrong four times is the same failure class as the font fallback
+ * that produced the blank card. A missing eyebrow fails the render. */
 async function blogthumb(opts) {
+  if (!opts.surface) throw new Error(
+    "mo_visual_kit: --surface is required. It decides the wordmark, and a card " +
+    "that guesses its own lane is how the wrong wordmark ships. House-lane " +
+    "writing surfaces: blog_og, byte_size, monthly_digest, the_signal.");
+  if (!opts.eyebrow) throw new Error(
+    "mo_visual_kit: --eyebrow is required. It used to default to THE " +
+    "OBSERVABILITY DIGEST, which is correct for one surface and wrong for the " +
+    "rest. Pass it explicitly: TECHNICAL, LEADERSHIP, THE SIGNAL, BYTE-SIZE, " +
+    "THE OBSERVABILITY DIGEST.");
   const S = surface("og_card", T.variantFor("og_card", opts.mode));
   const [W, H] = T.size("og_card");
-  const eyebrow = opts.eyebrow || "THE OBSERVABILITY DIGEST";
+  const eyebrow = opts.eyebrow;
   const lines = wrapLines(opts.title || "Untitled", 24);
   const sub = opts.sub || "";
   const titleSize = lines.length >= 3 ? 64 : 76;
@@ -189,7 +225,7 @@ async function blogthumb(opts) {
   });
   if (sub) svg += `<text x="60" y="${startY + lines.length * titleSize * 1.12 + 8}" font-family=${ff(FONT.body)} font-size="26" fill="${S.body}">${esc(sub)}</text>`;
   svg += `<line x1="60" y1="${H - 78}" x2="${W - 60}" y2="${H - 78}" stroke="${S.rule}" stroke-opacity="${S.ruleOpacity}" stroke-width="1"/>`;
-  svg += monoLabel(60, H - 44, T.lockupFor("blog_og"), 17, S.soft);
+  svg += monoLabel(60, H - 44, T.lockupFor(opts.surface), 17, S.soft);
   svg += monoLabel(W - 128, H - 44, "MASTERINGOBSERVABILITY.COM", 17, S.accent, "end");
   svg += `<image href="${ringHref}" x="${W - 104}" y="${H - 66}" width="44" height="44"/>`;
   svg += `</svg>`;
@@ -309,5 +345,8 @@ function parseArgs(argv) {
     console.log("og_card: " + T.modeFor("og_card") + " by default, --mode light for the in-body companion.");
     console.log("youtube_thumbnail: " + T.modeFor("youtube_thumbnail") + ".");
   }
-  else console.log("usage: node mo_visual_kit.js blogthumb|ytthumb|diagram-sample|preflight|tokens [--title ...] [--sub ...] [--eyebrow ...] [--badge ...] [--headshot path] [--mode light|dark] [--out file]");
+  else console.log("usage: node mo_visual_kit.js blogthumb|ytthumb|diagram-sample|preflight|tokens\n" +
+    "  blogthumb --surface <blog_og|byte_size|monthly_digest|the_signal> --eyebrow \"...\" --title \"...\"\n" +
+    "            [--sub ...] [--mode light|dark] [--out file]\n" +
+    "  --surface and --eyebrow are REQUIRED. Neither is defaulted, on purpose.");
 })().catch((e) => { console.error(e.message || e); process.exit(1); });
