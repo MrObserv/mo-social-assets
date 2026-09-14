@@ -313,6 +313,12 @@ The same turn also declared a `canonical_dir` of `Design_Standards/marks/` while
 
 **A contract has two sides. Changing the reader without shipping the writer is the same defect as changing the writer without the reader** — and it is invisible locally, because both halves are correct in the folder you are looking at. Check the shape against the tree that will run it, not the one you just wrote.
 
+### F9c. Correcting a field to a second wrong value
+
+`marks.canonical_dir` first pointed at `Design_Standards/marks/` when the repo's marks lived at `06_Brand_Assets/marks/`. That was corrected — to `06_Brand_Assets/marks/`, just as the eleven new variants were committed to `Design_Standards/marks/`. The declaration was wrong, then corrected, then wrong again in the opposite direction, and both times it was written from reasoning rather than from the tree.
+
+Resolution kept working throughout, because the loader derives the path from `__dirname` and never reads `canonical_dir`. **A declaration nothing consumes cannot fail loudly** — which is why it drifted twice without a single error. Either something reads it or it should not exist.
+
 ### F10. A mechanical read of a rule can overrule a human decision
 
 The mode rule was applied literally and flipped the blog card to light, contradicting the approved master. **The rendered master outranks a rule derived from it.** When they disagree, the design is right and the rule needs a clause.

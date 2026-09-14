@@ -316,7 +316,7 @@
   },
   "marks": {
     "rule": "Resolve a mark by NAME from this manifest. Never by searching the tree — a search finds logo-master.svg and favicon.svg, which predate the ring mark. If a mark is not listed here it does not exist yet.",
-    "canonical_dir": "06_Brand_Assets/marks/",
+    "canonical_dir": "06_Brand_Assets/Design_Standards/marks/",
     "ring_mark": {
       "role": "House mark. Two hairline rings and a solid centre: the lens resolving on a signal.",
       "on_light": "marks/mo_ring_mark_on_light.svg",
@@ -365,7 +365,9 @@
         "4. node mo_visual_kit.js preflight — it resolves every mark and every font before writing anything."
       ],
       "note": "Steps 1 and 2 in either order, 3 never before both. This is the sequencing Growth flagged, and the cause was a loader written against a manifest shape that had not shipped."
-    }
+    },
+    "canonical_dir_note": "Verified against the repo 2026-09-14: this is where the eleven variants live, and it is what the loaders resolve to (mo-tokens.js walks up from producers/, so the relative paths below are correct). 06_Brand_Assets/marks/ is the OLDER folder holding three pre-variant files and is NOT canonical. Two marks directories now exist; the legacy one should be emptied once every producer resolves by name.",
+    "metadata_rule": "A mark file is geometry only. If an SVG arrives carrying a <metadata> block — provenance manifests, editor cruft — strip it before committing. Each injected manifest is ~7.8KB against ~380 bytes of geometry, the producer base64-embeds the whole file at render time, and a re-download rewrites the manifest with fresh UUIDs so git reports every mark as modified. Strip: sed -i 's|<metadata>.*</metadata>||g' *.svg"
   },
   "contrast": {
     "standard": "WCAG 2.1 AA",
