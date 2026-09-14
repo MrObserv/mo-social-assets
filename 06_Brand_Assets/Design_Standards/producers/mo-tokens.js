@@ -237,7 +237,12 @@
         };
         var WEIGHTS = { Thin: 100, Light: 300, Regular: 400, Medium: 500,
                         SemiBold: 600, Bold: 700, ExtraBold: 800, Black: 900 };
-        var families = Object.keys(need), missing = [], checked = [];
+        // A contrasting generic for the second baseline. See the ambiguity note
+        // below: 'monospace' for proportional targets, 'sans-serif' for mono.
+        var contrast = function (family) {
+          return /mono/i.test(family) ? 'sans-serif' : 'monospace';
+        };
+        var families = Object.keys(need), missing = [], unproven = [], checked = [];
         for (var i = 0; i < families.length; i++) {
           var family = families[i], styles = need[family];
           for (var j = 0; j < styles.length; j++) {
@@ -245,17 +250,39 @@
             var got = await probe(family, w);
             var base = await probe('__MO_NoSuchFont_' + i + j + '__', w);
             checked.push(family + ' ' + styles[j]);
-            if (got.equals(base)) missing.push(family + ' ' + styles[j] + ' (weight ' + w + ')');
+            if (!got.equals(base)) continue;   // resolved: differs from the fallback
+            /* got === base. THIS IS NOT PROOF OF FAILURE, and treating it as
+             * proof produced a false positive on 2026-09-14 against a face
+             * that demonstrably rendered correctly.
+             *
+             * The reason: fontconfig picks a BEST MATCH for the baseline too.
+             * When the requested weight is the heaviest face installed, the
+             * best match for a nonexistent family AT THAT WEIGHT is the target
+             * face itself. Both renders are then identical because the
+             * fallback IS the target, not because the target was missing.
+             * Montserrat ExtraBold at weight 800 is exactly that case.
+             *
+             * So disambiguate against a baseline pinned to a CONTRASTING
+             * generic, which the target cannot satisfy. If the target also
+             * matches that, nothing about the request is being honoured and it
+             * is a real failure. If it does not, the result is AMBIGUOUS and
+             * is reported rather than thrown — a gate that cannot tell the
+             * difference must say so, not guess. */
+            var alt = await probe('__MO_NoSuchFont_alt_' + i + j + '__, ' + contrast(family), w);
+            if (got.equals(alt)) missing.push(family + ' ' + styles[j] + ' (weight ' + w + ')');
+            else unproven.push(family + ' ' + styles[j] + ' (weight ' + w + ')');
           }
         }
         if (missing.length) {
           throw new Error('mo-tokens: these faces did NOT resolve — the renderer substituted a fallback:\n  ' +
             missing.join('\n  ') +
-            '\n\nProbed ' + checked.length + ' faces by rendering each against a nonexistent family.' +
+            '\n\nProbed ' + checked.length + ' faces. Each was checked twice: against a ' +
+            'nonexistent family, and against a nonexistent family pinned to a contrasting generic. ' +
+            'These faces matched BOTH, so the family request is not being honoured at all.' +
             '\n\n' + (raw.fonts.trap || '') +
             '\n' + (raw.fonts.rule || ''));
         }
-        return { probed: checked.length, faces: checked };
+        return { probed: checked.length, faces: checked, unproven: unproven };
       },
 
       /** Registry check, where a registry exists. Skipped rather than thrown

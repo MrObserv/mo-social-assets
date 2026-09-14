@@ -1,0 +1,25 @@
+sync_log.txt
+.claude/
+*.mp4
+*.mov
+*.m4v
+*.mkv
+*.avi
+*.wav
+*.aif
+*.aiff
+
+# Third-party post media captured by linkedin-reply-pack. Local reference only, never published.
+_Source_Captures/
+
+# Producer dependencies. Committed by accident in TWO places under
+# 06_Brand_Assets/Design_Standards/ (producers/ and templates/).
+# Reinstall with: npm i sharp
+node_modules/
+
+# Producer scratch output. The kit writes PNGs next to itself unless --out is
+# given, so test renders land in the tree. Named outputs under samples/ are
+# committed deliberately and are not matched here.
+06_Brand_Assets/Design_Standards/templates/*.png
+06_Brand_Assets/Design_Standards/producers/*.png
+fonttest*.png

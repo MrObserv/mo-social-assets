@@ -287,6 +287,14 @@ function parseArgs(argv) {
     const probe = await T.assertFontsProbe(sharp);
     console.log("fonts: " + probe.probed + " faces resolved by render probe");
     probe.faces.forEach(function (f) { console.log("       " + f); });
+    if (probe.unproven && probe.unproven.length) {
+      console.log("AMBIGUOUS — these faces could not be proved either way by the probe:");
+      probe.unproven.forEach(function (f) { console.log("       " + f); });
+      console.log("      This happens when the face IS the renderer's best fallback for that");
+      console.log("      weight — the heaviest face installed. The probe cannot separate");
+      console.log("      'did not resolve' from 'resolved, and is also the fallback'. Not a");
+      console.log("      failure. Render one card and look at the letterforms.");
+    }
     T.assertNoRetired(fs.readFileSync(__filename, "utf8"), "mo_visual_kit.js");
     T.assertFilesClean(["on_dark", "on_light", "small_on_dark", "small_on_light",
                         "mono_black", "mono_white"].map(function (v) { return T.mark("ring_mark", v); }));

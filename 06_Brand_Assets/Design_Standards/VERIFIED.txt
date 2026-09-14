@@ -1,0 +1,17 @@
+Checked by parsing the files, not by reading them:
+
+  mo-tokens.js       syntax OK, 324 lines
+  mo_visual_kit.js   syntax OK (shebang stripped, as node does)
+  eye-mark logo field gone from code (appears only in an explanatory comment)
+  "logo-on-" not referenced in code
+  S.logo not used anywhere
+  ringMarkHref called
+  density: 72 present
+  token resolver walks up 5 levels
+  probe ambiguity wired through both files
+  every T.* call the kit makes is exported by mo-tokens.js
+  no retired hex anywhere in either file, comments included
+
+Two earlier flags were faults in my own test, not the files: a shebang that
+new Function() rejects but node strips, and the eye-mark filename appearing
+inside the comment that documents it.
