@@ -40,6 +40,23 @@ if errorlevel 1 (
     echo        If the sync fails below, close any open git process and run again.
 )
 
+REM 0b. DISABLE AUTOMATIC GARBAGE COLLECTION. 2026-09-12, and this one cost an hour.
+REM    git runs `gc --auto` after commits. This repo lives inside OneDrive, which holds
+REM    directories open, so gc cannot delete .git\objects\XX and asks
+REM      "Deletion of directory '.git/objects/00' failed. Should I try again? (y/n)"
+REM    ONCE PER OBJECT DIRECTORY, UP TO 256 TIMES, and it blocks the script until answered.
+REM    The commit has already succeeded at that point; the PUSH has not run yet. So an
+REM    unattended run stalls here forever, having committed and not published, which is
+REM    indistinguishable from a clean run in every log.
+REM
+REM    THIS EXACT FAILURE WAS DOCUMENTED IN sync_now.bat's header ON 2026-09-11 AND THEN
+REM    HAPPENED AGAIN ON 2026-09-12. We wrote a comment about it instead of disabling gc.
+REM    That is Defect_Register D12: a defect correctly diagnosed, written down, and left.
+REM    Setting the config IS the fix. Describing the problem is not.
+REM
+REM    Set here rather than once by hand so a fresh clone inherits it.
+git config gc.auto 0
+
 echo ============================================================
 echo   MO Social Assets - sync  %date% %time%
 echo ============================================================
@@ -92,7 +109,11 @@ if %errorlevel%==0 (
 ) else (
     echo Uploading these files ^(A=added  M=changed  D=deleted^):
     echo ------------------------------------------------------------
-    git diff --cached --name-status
+    REM --no-pager added 2026-09-12. Without it git opens `less` whenever the staged
+    REM file list is longer than a screen, and the script sits behind the pager waiting
+    REM for a keypress. The v3 brand seed staged 33 files and stalled here twice.
+    REM A scheduled run has nobody to press q, so it would wait indefinitely.
+    git --no-pager diff --cached --name-status
     echo ------------------------------------------------------------
     git commit -m "Auto sync %date% %time%" --quiet
 )

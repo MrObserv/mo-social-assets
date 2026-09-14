@@ -7,7 +7,7 @@
   "note": "Generated from the MO Design System page. Never hand-edit a producer palette; read this file.",
   "mode": {
     "default": "light",
-    "rule": "Light unless the asset renders inside someone else's dark chrome. Dark = YouTube, podcast apps, video overlays, studio backgrounds, deck punctuation.",
+    "rule": "Writing renders light. A blog, article, newsletter or any card fronting written material uses the website palette, because it is the same reading surface. Everything else — podcast, YouTube, episode art, short-form, feed cards for non-writing assets — renders dark.",
     "dark_surfaces": [
       "youtube_thumbnail",
       "episode_square",
@@ -18,7 +18,14 @@
       "deck_divider",
       "deck_closer",
       "ebook_cover"
-    ]
+    ],
+    "dual_mode": {
+      "og_card": {
+        "default": "light",
+        "variant": "dark",
+        "rule": "Light is the default and the standard for blog, articles, newsletter and any card fronting written material: it matches the website, so the card and the page it opens are one surface. Dark is the exception, for an OG card fronting a non-writing asset (an episode, a video, a short)."
+      }
+    }
   },
   "colour": {
     "light": {
@@ -59,7 +66,16 @@
       "#A8720B": "old caution, failed 4.5:1 on light, superseded by semantic-high light",
       "#2F9E57": "old light safe, failed 4.5:1 on light, superseded by semantic-low light",
       "#5f6d75": "undocumented grey, duplicate of soft within 0.03:1 on every ground. Folded into soft #5A6E72 on 2026-09-11. Passed AA, so shipped assets are not re-rendered.",
-      "#16333B": "undocumented ghost-numeral navy. Folded into dark-motif #13313A."
+      "#16333B": "undocumented ghost-numeral navy. Folded into dark-motif #13313A.",
+      "#0c1929": "gradient stop 2 of the retired navy gradient. 1.09:1 from navy — not a distinct surface. Folded into dark-ground.",
+      "#0e1f35": "gradient stop 3 of the retired navy gradient. 1.16:1 from navy. Folded into dark-ground.",
+      "#14a3a8": "old mid teal. Two jobs: footer label -> on-dark-soft, structural rule -> teal.",
+      "#6c7a82": "old light-figure label. FAILS AA at 4.43:1 on white. Superseded by soft #5A6E72 (5.37:1). Shipped light figures affected — re-render decision owed.",
+      "#666666": "old light-figure greyDark, superseded by soft",
+      "#c2c9cc": "old light-figure axis, superseded by border",
+      "#e9ecec": "old light-figure gridline, superseded by hairline",
+      "#cccccc": "old light-figure neutral bar, superseded by border",
+      "#1a1a1a": "old light-figure ink, superseded by ink #16282D"
     }
   },
   "usage_rules": [
@@ -314,7 +330,7 @@
       "templates/mo_diagram.js": "not yet consuming",
       "Slide_System/mo_slide_template.js": "not yet consuming",
       "templates/long_form_pdf/reference_strategy_template.html": "not yet consuming",
-      "templates/mo_visual_kit.js": "not yet consuming",
+      "templates/mo_visual_kit.js": "repointed file ready at producers/mo_visual_kit.v3.js — awaiting commit to repo",
       "tools/thumbnail_builder.py": "not yet consuming",
       "templates/mo_quote_card.js": "not yet consuming",
       "templates/render_arch_kit.py": "not yet consuming"
@@ -322,6 +338,12 @@
   },
   "canonical_tree": {
     "decision": "OPEN — Al to rule",
-    "note": "RULED BY AL 2026-09-11: mo-social-assets is CANONICAL. G:\\...\\06_Brand_Assets becomes the read-only mirror, not the source. This REVERSES the recommendation in MIGRATION_v3.1.0.md section 2, which proposed the opposite; Al ruled for the repo because git gives history, diffs and rollback that G: has never had, and the .bak proliferation on G: is the evidence. EDIT BRAND FILES IN THE REPO FROM NOW ON. SEEDING ORDER IS CRITICAL AND IRREVERSIBLE IF DONE BACKWARDS: the repo does NOT yet contain v3, the producers, or the supersession banners written on 2026-09-11, so the ONE-TIME seed must run G: to repo FIRST. A repo-to-G: mirror run before that seed destroys the entire v3 release."
-  }
+    "note": "mo-social-assets mirrors 06_Brand_Assets in full and carries none of v3. It is the tree Buffer pulls from, so published assets currently render from the retired palette. One tree must be canonical and the other a build output. Recommendation: 06_Brand_Assets is canonical, mo-social-assets becomes a publish target written by a sync step, never hand-edited."
+  },
+  "accent_hierarchy": {
+    "note": "Dark surfaces carry a two-step accent. Primary teal-bright #74DDCD, secondary teal #2F9E8D, 2.03x apart. Replaces the old bright/mint pair at 1.49x.",
+    "primary": "teal-bright",
+    "secondary": "teal"
+  },
+  "master": "MO Design System.dc.html — the rendered components are the reference. design-tokens.json holds the values; the page holds the composition."
 }

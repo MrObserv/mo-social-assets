@@ -21,8 +21,35 @@
     if (RAW) return RAW;
     if (req) {
       var fs = req('fs'), path = req('path');
-      var p = process.env.MO_TOKENS || path.join(__dirname, 'design-tokens.json');
-      if (!fs.existsSync(p)) throw new Error('mo-tokens: design-tokens.json not found at ' + p + '. Set MO_TOKENS.');
+
+      // PATH RESOLUTION CORRECTED 2026-09-14.
+      // This previously looked ONLY beside itself: path.join(__dirname, 'design-tokens.json').
+      // design-tokens.json actually lives one level up in Design_Standards/, while this
+      // module lives in producers/, so every producer failed on the first real run.
+      // Now it tries both, nearest first, so it works whether the token file sits beside
+      // this module or one directory up. MO_TOKENS still overrides everything.
+      var p = process.env.MO_TOKENS || null;
+      var tried = [];
+      if (!p) {
+        var candidates = [
+          path.join(__dirname, 'design-tokens.json'),
+          path.join(__dirname, '..', 'design-tokens.json')
+        ];
+        for (var ci = 0; ci < candidates.length; ci++) {
+          tried.push(candidates[ci]);
+          if (fs.existsSync(candidates[ci])) { p = candidates[ci]; break; }
+        }
+        if (!p) p = candidates[candidates.length - 1];
+      }
+      // The error names every path tried, because "not found at <one path>" sends you
+      // looking in the wrong place when the real problem is which paths were searched.
+      if (!fs.existsSync(p)) {
+        throw new Error(
+          'mo-tokens: design-tokens.json not found. Tried: ' +
+          (tried.length ? tried.join(' , ') : p) +
+          '. Set MO_TOKENS to its absolute path to override.'
+        );
+      }
       RAW = JSON.parse(fs.readFileSync(p, 'utf8'));
     }
     return RAW;
@@ -59,13 +86,28 @@
 
       /** Which mode a named surface renders in, per the v3 rule. */
       modeFor: function (surface) {
+        if (!surface) throw new Error('mo-tokens: modeFor needs a surface name');
         return raw.mode.dark_surfaces.indexOf(surface) > -1 ? 'dark' : 'light';
+      },
+
+      /** Resolve a requested mode for a dual-mode surface. Throws if the
+       *  surface has no such variant, so a typo cannot silently ship. */
+      variantFor: function (surface, requested) {
+        var dual = (raw.mode.dual_mode || {})[surface];
+        if (!requested) return dual ? dual.default : T.modeFor(surface);
+        if (!dual) throw new Error('mo-tokens: "' + surface + '" is not dual-mode. It renders ' + T.modeFor(surface) + ' only.');
+        if (requested !== dual.default && requested !== dual.variant) {
+          throw new Error('mo-tokens: "' + surface + '" has no ' + requested + ' variant. Permitted: ' + dual.default + ', ' + dual.variant + '.');
+        }
+        return requested;
       },
 
       /** Which wordmark a surface carries. */
       lockupFor: function (surface) {
-        return raw.lockup.podcast_lane.indexOf(surface) > -1
-          ? 'METRICS & MAYHEM' : 'MASTERING OBSERVABILITY';
+        if (raw.lockup.podcast_lane.indexOf(surface) > -1) return 'METRICS & MAYHEM';
+        if (raw.lockup.house_lane.indexOf(surface) > -1) return 'MASTERING OBSERVABILITY';
+        throw new Error('mo-tokens: surface "' + surface + '" is in neither lockup lane. ' +
+          'Which wordmark it carries is a brand decision, not a default. Add it to design-tokens.json.');
       },
 
       /** Canvas size for a named asset, [w, h]. */

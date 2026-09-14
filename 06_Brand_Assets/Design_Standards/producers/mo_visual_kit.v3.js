@@ -19,11 +19,7 @@
 const sharp = require("sharp");
 const fs = require("fs");
 const path = require("path");
-// PATH CORRECTED 2026-09-14. Was `./mo-tokens.js`, which only resolves while this
-// file sits in producers/. It has to live HERE, in templates/, for two reasons:
-// node_modules (and therefore `sharp`) is in templates/, and every existing caller
-// references templates/mo_visual_kit.js by that exact path.
-const T = require("../producers/mo-tokens.js");
+const T = require("./mo-tokens.js");
 
 // The build fails if a retired hex is anywhere in this file. This is what
 // makes the single-source rule real rather than aspirational.
@@ -101,74 +97,8 @@ function wrapLines(text, maxChars) {
   for (const w of words) { if ((cur + " " + w).trim().length > maxChars && cur) { lines.push(cur); cur = w; } else cur = (cur + " " + w).trim(); }
   if (cur) lines.push(cur); return lines;
 }
-/* ---------- EMBEDDED FONTS. ADDED 2026-09-14, AND IT IS NOT AN OPTIMISATION. ----------
- *
- * FONT.display etc. name font FAMILIES and trust the renderer to find them. sharp
- * rasterises SVG through its own bundled engine, which does NOT read the Windows
- * font store, and the fallbacks in those chains ('Liberation Sans', 'DejaVu Sans')
- * are LINUX fonts. So on Windows nothing in any chain resolves.
- *
- * THE FAILURE MODE IS THE DANGEROUS KIND: unresolved text is DROPPED SILENTLY.
- * The card renders perfectly, with ground, wash, rules, logo and ring mark all
- * correct, and simply no words on it. Exit code 0. "written: blog_thumbnail.png".
- * Measured 2026-09-14: a blogthumb produced a flawless, completely blank card, and
- * installing all six TTFs into Windows did not change it.
- *
- * This producer had only ever run in the Linux sandbox, where the fallbacks exist.
- * The first time it ran on a real workstation it produced empty cards.
- *
- * Embedding removes the dependency entirely: the SVG carries its own fonts, so it
- * renders identically on any machine, in CI, and in a sandbox. It is the same
- * principle the Python builder already states outright: "the builder never falls
- * back to system fonts". This is that rule, applied to the JS kit.
- */
-const _fontBytes = {};
-let _fontCss = null;
-function fontFaceCss() {
-  if (_fontCss !== null) return _fontCss;
-  const dir = path.join(BRAND_DIR, "fonts");
-  // Montserrat-ExtraBold is declared at BOTH 800 and 900. The display token asks for
-  // 900 and there is no Black weight in the cache; without the 900 declaration the
-  // heaviest available face is never matched and the title disappears again.
-  const faces = [
-    ["Montserrat", 900, "Montserrat-ExtraBold.ttf"],
-    ["Montserrat", 800, "Montserrat-ExtraBold.ttf"],
-    ["Montserrat", 700, "Montserrat-Bold.ttf"],
-    ["DM Sans",    700, "DMSans-Bold.ttf"],
-    ["DM Sans",    400, "DMSans-Regular.ttf"],
-    ["Space Mono", 700, "SpaceMono-Bold.ttf"],
-    ["Space Mono", 400, "SpaceMono-Regular.ttf"],
-  ];
-  const missing = [], rules = [];
-  for (const [family, weight, file] of faces) {
-    const p = path.join(dir, file);
-    if (!fs.existsSync(p)) { if (!missing.includes(file)) missing.push(file); continue; }
-    if (!_fontBytes[file]) _fontBytes[file] = b64(p);   // read once, reused across weights
-    rules.push(
-      "@font-face{font-family:'" + family + "';font-weight:" + weight +
-      ";font-style:normal;src:url(data:font/ttf;base64," + _fontBytes[file] + ") format('truetype');}"
-    );
-  }
-  // FAIL LOUDLY. A missing font used to mean a silently wordless card, which is
-  // exactly the class of silent failure v3 was written to stop.
-  if (missing.length) {
-    throw new Error(
-      "mo_visual_kit: brand fonts missing from " + dir + ": " + missing.join(", ") +
-      ". Text would render BLANK rather than fall back. This builder never uses system fonts."
-    );
-  }
-  _fontCss = "<style type=\"text/css\">" + rules.join("") + "</style>";
-  return _fontCss;
-}
-
 async function renderPng(svg, out, quality) {
-  // Single choke point: every command renders through here, so injecting the faces
-  // once covers blogthumb, ytthumb, bookends and diagram-sample alike.
-  const m = svg.match(/<svg[^>]*>/);
-  if (!m) throw new Error("mo_visual_kit: no <svg> root element found in generated markup");
-  const at = m.index + m[0].length;
-  const withFonts = svg.slice(0, at) + fontFaceCss() + svg.slice(at);
-  await sharp(Buffer.from(withFonts), { density: 96 }).png({ quality: quality || 90 }).toFile(out);
+  await sharp(Buffer.from(svg), { density: 96 }).png({ quality: quality || 90 }).toFile(out);
   console.log("written:", out);
 }
 

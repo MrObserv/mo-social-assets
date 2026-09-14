@@ -38,7 +38,9 @@ if "%UNPUSHED%"=="0" (
 ) else (
     echo   *** NOT PUSHED: %UNPUSHED% commit^(s^) are still local only. ***
     echo.
-    git log origin/main..HEAD --oneline
+    REM --no-pager: this list appears precisely when something has gone wrong, so it
+    REM must never be the thing that hides the error behind a pager. 2026-09-12.
+    git --no-pager log origin/main..HEAD --oneline
     echo.
     echo   Your work is COMMITTED and SAFE. It simply has not reached GitHub,
     echo   so any raw.githubusercontent URL for these files will still 404.
