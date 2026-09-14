@@ -21,8 +21,27 @@
     if (RAW) return RAW;
     if (req) {
       var fs = req('fs'), path = req('path');
-      var p = process.env.MO_TOKENS || path.join(__dirname, 'design-tokens.json');
-      if (!fs.existsSync(p)) throw new Error('mo-tokens: design-tokens.json not found at ' + p + '. Set MO_TOKENS.');
+      // Walk up from this file looking for design-tokens.json. The previous
+      // version checked __dirname only, so a producer in producers/ could not
+      // see the token file one level up in Design_Standards/ and every run
+      // needed MO_TOKENS set by hand. Bounded at 5 levels; MO_TOKENS still
+      // wins when set, for an out-of-tree token file.
+      var p = process.env.MO_TOKENS, tried = [];
+      if (!p) {
+        var dir = __dirname;
+        for (var i = 0; i < 5; i++) {
+          var c = path.join(dir, 'design-tokens.json');
+          tried.push(c);
+          if (fs.existsSync(c)) { p = c; break; }
+          var up = path.dirname(dir);
+          if (up === dir) break;
+          dir = up;
+        }
+      }
+      if (!p || !fs.existsSync(p)) throw new Error(
+        'mo-tokens: design-tokens.json not found. Looked in:\n  ' +
+        (tried.length ? tried.join('\n  ') : String(p)) +
+        '\nSet MO_TOKENS to its full path, or run from inside the Design_Standards tree.');
       RAW = JSON.parse(fs.readFileSync(p, 'utf8'));
     }
     return RAW;
@@ -161,8 +180,11 @@
        *  mark. Throws on an unlisted name and on a missing file. */
       mark: function (name, variant) {
         var m = raw.marks[name];
-        if (!m) throw new Error('mo-tokens: no mark named "' + name + '". Listed: ' +
-          Object.keys(raw.marks).filter(function (k) { return typeof raw.marks[k] === 'object'; }).join(', '));
+        if (!m || typeof m !== 'object' || Array.isArray(m)) throw new Error('mo-tokens: no mark named "' + name + '". Listed: ' +
+          Object.keys(raw.marks).filter(function (k) {
+            var v = raw.marks[k];
+            return v && typeof v === 'object' && !Array.isArray(v) && v.role;
+          }).join(', '));
         var rel = m[variant];
         if (!rel) throw new Error('mo-tokens: mark "' + name + '" has no "' + variant + '" variant. Has: ' +
           Object.keys(m).filter(function (k) { return typeof m[k] === 'string' && /\.svg$/.test(m[k]); }).join(', '));
@@ -179,14 +201,14 @@
       /** Pick the ring-mark variant for a mode and a rendered size, applying
        *  the 40px crossover. Below it the hairlines vanish. */
       ringMark: function (mode, sizePx) {
-        var small = sizePx < (raw.marks.ring_mark.crossover_px || 40);
-        if (sizePx < (raw.marks.ring_mark.min_px || 16)) {
-          throw new Error('mo-tokens: ring mark below its ' + raw.marks.ring_mark.min_px +
-            'px minimum at ' + sizePx + 'px. It stops reading as a mark.');
+        var M = raw.marks.ring_mark;
+        if (sizePx < (M.min_px || 16)) {
+          throw new Error('mo-tokens: ring mark below its ' + M.min_px + 'px minimum at ' +
+            sizePx + 'px. It stops reading as a mark.');
         }
-        return T.mark('ring_mark', (mode === 'dark' ? 'on_dark' : 'on_light') + (small ? '' : ''))
-          && T.mark('ring_mark', small ? (mode === 'dark' ? 'small_on_dark' : 'small_on_light')
-                                      : (mode === 'dark' ? 'on_dark' : 'on_light'));
+        var small = sizePx < (M.crossover_px || 40);
+        var variant = (small ? 'small_on_' : 'on_') + (mode === 'dark' ? 'dark' : 'light');
+        return T.mark('ring_mark', variant);
       },
 
       /** Fonts: a BEHAVIOURAL probe, not a registry lookup.
