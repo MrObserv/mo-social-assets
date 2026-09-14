@@ -17,7 +17,9 @@
       "deck_opener",
       "deck_divider",
       "deck_closer",
-      "ebook_cover"
+      "ebook_cover",
+      "x_header",
+      "youtube_channel_art"
     ],
     "dual_mode": {
       "og_card": {
@@ -258,7 +260,31 @@
       1440
     ],
     "email_body_px": 600,
-    "document": "A4 portrait, 14mm sides and top, 16mm foot"
+    "document": "A4 portrait, 14mm sides and top, 16mm foot",
+    "linkedin_personal_banner": [
+      1584,
+      396
+    ],
+    "linkedin_company_banner": [
+      1128,
+      191
+    ],
+    "x_header": [
+      1500,
+      500
+    ],
+    "youtube_channel_art": [
+      2560,
+      1440
+    ],
+    "business_card_trim": [
+      1004,
+      650
+    ],
+    "business_card_bleed": [
+      1074,
+      720
+    ]
   },
   "lockup": {
     "rule": "Podcast lane carries METRICS & MAYHEM. Everything else carries MASTERING OBSERVABILITY.",
@@ -270,7 +296,9 @@
       "title_card",
       "series_badge",
       "bookend",
-      "video_card"
+      "video_card",
+      "x_header",
+      "youtube_channel_art"
     ],
     "house_lane": [
       "website",
@@ -281,34 +309,63 @@
       "quote_card",
       "diagram",
       "deck",
-      "ebook"
+      "ebook",
+      "linkedin_personal_banner",
+      "linkedin_company_banner"
     ]
   },
   "marks": {
-    "identifier": "ring-mark",
-    "ring-mark": {
-      "min_px": 24,
-      "stroke_boost_below_px": 32,
-      "clear_space": "inner ring radius on all sides",
-      "versions": [
-        "teal on light",
-        "teal-bright on dark",
-        "mono"
-      ]
+    "rule": "Resolve a mark by NAME from this manifest. Never by searching the tree — a search finds logo-master.svg and favicon.svg, which predate the ring mark. If a mark is not listed here it does not exist yet.",
+    "canonical_dir": "06_Brand_Assets/marks/",
+    "ring_mark": {
+      "role": "House mark. Two hairline rings and a solid centre: the lens resolving on a signal.",
+      "on_light": "marks/mo_ring_mark_on_light.svg",
+      "on_dark": "marks/mo_ring_mark_on_dark.svg",
+      "small_on_light": "marks/mo_ring_mark_small_on_light.svg",
+      "small_on_dark": "marks/mo_ring_mark_small_on_dark.svg",
+      "crossover_px": 40,
+      "crossover_rule": "Below 40px use the small variant. The hairline rings disappear at favicon and avatar sizes; the small variant carries a 2px ring and a larger centre so the mark survives.",
+      "min_px": 16,
+      "supersedes": "The heavier crosshair treatment on new assets. Crosshair survives only as page chrome in long-form PDFs.",
+      "mono_black": "marks/mo_ring_mark_mono_black.svg",
+      "mono_white": "marks/mo_ring_mark_mono_white.svg",
+      "mono_black_small": "marks/mo_ring_mark_mono_black_small.svg",
+      "mono_white_small": "marks/mo_ring_mark_mono_white_small.svg",
+      "mono_rule": "One colour, no opacity, 1.2px stroke so it holds at a single ink weight. For single-colour print, stamping, watermarks and any surface where the two-tone mark cannot be reproduced. Never use mono where the full mark will render."
     },
-    "crosshair": {
-      "role": "document and diagram furniture, top right",
-      "drawn": true,
-      "one_per_page": true
+    "signal_line": {
+      "role": "Second motif. The latency trace from the website hero: teal at one weight, breach segment in caution, dashed threshold. Use as the graphic on a card that needs one.",
+      "on_light": "marks/mo_signal_line_on_light.svg",
+      "on_dark": "marks/mo_signal_line_on_dark.svg",
+      "rule": "The breach segment must actually breach the dashed threshold. It is a diagram, not a squiggle."
     },
-    "lens-wash": {
-      "role": "texture on dark surfaces only",
-      "opacity": "0.10 to 0.22",
-      "one_per_canvas": true
+    "legacy": {
+      "logo-master.svg": "Wordmark lockup. Still current.",
+      "logo-on-dark.svg": "Wordmark on dark. Still current.",
+      "logo-on-light.svg": "Wordmark on light. Still current.",
+      "favicon.svg": "PREDATES the ring mark. Owed: rebuild from mo_ring_mark_small_on_dark.svg.",
+      "07_Website/Pages/home/mo_ring_mark.svg": "ORIGIN, now a copy. The canonical files are in marks/. Do not edit the website copy.",
+      "06_Brand_Assets/marks/mo_ring_mark.svg": "The two-tone mark as first committed, no mode variant. Superseded by on_light/on_dark. Keep until every producer resolves by name.",
+      "06_Brand_Assets/marks/mo_ring_mark_104.png": "Raster at 104px. Above the 40px crossover, so it is the on_dark full variant. Regenerate from the SVG once the variants land.",
+      "06_Brand_Assets/marks/mo_ring_mark_52.png": "Raster at 52px. Above the crossover. Regenerate from the SVG."
     },
-    "retired": [
-      "faint mint grid"
-    ]
+    "never": [
+      "icons",
+      "emoji",
+      "stock humans",
+      "illustrated metaphors",
+      "gradient text"
+    ],
+    "commit_order": {
+      "problem": "mo_visual_kit.v3.js calls T.mark(\"ring_mark\", variant) and reads marks.ring_mark.crossover_px. A token file whose marks block is the older descriptive shape (\"ring-mark\" with a versions list) has neither, so the producer throws on first run.",
+      "order": [
+        "1. Commit the eight SVGs into 06_Brand_Assets/marks/.",
+        "2. Commit THIS design-tokens.json, which carries the manifest shape with file paths.",
+        "3. Only then commit producers/mo_visual_kit.v3.js over templates/mo_visual_kit.js.",
+        "4. node mo_visual_kit.js preflight — it resolves every mark and every font before writing anything."
+      ],
+      "note": "Steps 1 and 2 in either order, 3 never before both. This is the sequencing Growth flagged, and the cause was a loader written against a manifest shape that had not shipped."
+    }
   },
   "contrast": {
     "standard": "WCAG 2.1 AA",
@@ -338,12 +395,158 @@
   },
   "canonical_tree": {
     "decision": "OPEN — Al to rule",
-    "note": "mo-social-assets mirrors 06_Brand_Assets in full and carries none of v3. It is the tree Buffer pulls from, so published assets currently render from the retired palette. One tree must be canonical and the other a build output. Recommendation: 06_Brand_Assets is canonical, mo-social-assets becomes a publish target written by a sync step, never hand-edited."
+    "measured": "2026-09-14, by reading MrObserv/mo-social-assets@main directly.",
+    "correction": "The earlier note in this file said mo-social-assets \"carries none of v3\". That is now FALSE and was itself an instance of F7 — asserting the state of a tree without measuring it. The repo carries Brand_Design_System_v3.md, design-tokens.json 3.1.0, MIGRATION_v3.1.0.md, the contrast audit, Long_Form_PDF_Standard_v2.md, Logo_and_Marks_Standard.md, 00_Design_Standards_Index_v2.md and all three producers.",
+    "actual_gap": [
+      "marks/ holds 3 files (mo_ring_mark.svg + two rasters). The eight mode and mono variants are absent, so YouTube stays on the retired mark.",
+      "The committed design-tokens.json predates the marks manifest, the fonts block and the gates block.",
+      "templates/mo_visual_kit.js is still the old hardcoded-palette version; producers/mo_visual_kit.v3.js sits beside it uncommitted.",
+      "The old 00_Design_Standards_Index.md and Brand_Design_System_v2.md are both still present alongside their v3 replacements, unstamped."
+    ],
+    "note": "One tree must be canonical and the other a build output. Recommendation unchanged: 06_Brand_Assets canonical, mo-social-assets a publish target written by a sync step, never hand-edited. The drift is smaller than stated but the structural risk is identical — two hand-maintained copies."
   },
   "accent_hierarchy": {
     "note": "Dark surfaces carry a two-step accent. Primary teal-bright #74DDCD, secondary teal #2F9E8D, 2.03x apart. Replaces the old bright/mint pair at 1.49x.",
     "primary": "teal-bright",
     "secondary": "teal"
   },
-  "master": "MO Design System.dc.html — the rendered components are the reference. design-tokens.json holds the values; the page holds the composition."
+  "master": "MO Design System.dc.html — the rendered components are the reference. design-tokens.json holds the values; the page holds the composition.",
+  "safe_areas": {
+    "note": "A banner is cropped differently on every device. Nothing carrying meaning sits outside the safe area; everything outside it is croppable decoration.",
+    "linkedin_personal_banner": {
+      "safe": [
+        1128,
+        396
+      ],
+      "anchor": "centre",
+      "avatar_exclusion": {
+        "d": 264,
+        "x": 96,
+        "anchor": "bottom-left",
+        "half_below": true
+      }
+    },
+    "linkedin_company_banner": {
+      "safe": [
+        1128,
+        191
+      ],
+      "anchor": "centre",
+      "note": "Drop the title entirely. Kicker, wordmark and rings only."
+    },
+    "x_header": {
+      "safe": [
+        1500,
+        380
+      ],
+      "anchor": "top",
+      "dead_zone": "bottom 120px always obscured",
+      "avatar_exclusion": {
+        "d": 200,
+        "x": 36,
+        "anchor": "bottom-left",
+        "half_below": true
+      }
+    },
+    "youtube_channel_art": {
+      "safe": [
+        1546,
+        423
+      ],
+      "anchor": "centre",
+      "note": "On mobile this is the entire visible asset. Centre the composition; the rest is TV bleed."
+    }
+  },
+  "print": {
+    "business_card": {
+      "size_mm": [
+        85,
+        55
+      ],
+      "bleed_mm": 3,
+      "safe_mm": 3,
+      "dpi": 300,
+      "colour": "CMYK",
+      "front": "dark",
+      "back": "light",
+      "rule": "Dark front, light back. Same pairing as the ebook: one side to be recognised, one side to be used. Print has no chrome to answer the mode question, so the object decides.",
+      "stock": "400 gsm uncoated, matt or soft-touch",
+      "type_floor_pt": 5,
+      "type_floor_note": "Deliberate deviation from the 12pt print floor. 5pt minimum, 6pt for anything typed into a phone. A card cannot hold 12pt contact details and a name.",
+      "cmyk_warnings": {
+        "navy #0D2127": "Ask for a rich black build (60/40/40/100). A 4-colour default goes muddy.",
+        "teal #2F9E8D": "Outside CMYK gamut and will dull. Proof before a full run or spot-match."
+      },
+      "never": [
+        "spot UV",
+        "foil",
+        "rounded corners",
+        "gloss"
+      ]
+    }
+  },
+  "contact": {
+    "name": "Allan Mann",
+    "domain": "masteringobservability.com",
+    "email": "allan@masteringobservability.com",
+    "mobile": "+44 7552 196185",
+    "linkedin": "linkedin.com/in/allanmann1",
+    "credit": "Author · Metrics & Mayhem",
+    "rules": {
+      "urls": "Strip protocol and www on every surface. linkedin.com/in/allanmann1, never https://www.linkedin.com/in/allanmann1/.",
+      "mobile": "International format, spaced: +44 7552 196185. Never bracketed, never hyphenated.",
+      "order": "domain, email, mobile, linkedin — domain first because it is the asset, mobile third because it is the ask."
+    }
+  },
+  "photography": {
+    "headshot_grade": {
+      "saturation": 0.78,
+      "brightness": 0.95
+    },
+    "rule": "Desaturated and slightly pulled down so the subject sits under the type rather than competing with it. Applied by the producer; never baked into the source file.",
+    "treatment": "Cut out or feather-masked against the dark ground. No square photo blocks."
+  },
+  "copy": {
+    "claim_bank": "claim-bank.json",
+    "rule": "A claim on an asset comes from the bank. Inventing one at production time is how the voice drifts, because a thumbnail line gets less review than any sentence of prose and more impressions than most of them."
+  },
+  "fonts": {
+    "required": {
+      "Montserrat": [
+        "ExtraBold",
+        "Black"
+      ],
+      "DM Sans": [
+        "Regular",
+        "Medium",
+        "Bold"
+      ],
+      "Space Mono": [
+        "Regular",
+        "Bold"
+      ]
+    },
+    "rule": "librsvg ignores @font-face entirely. SVG text renders through fontconfig, so the STATIC TTFs must be installed system-wide. Embedding a font in the SVG does nothing.",
+    "acceptance": "fc-list | grep -i montserrat must print Montserrat:style=ExtraBold",
+    "trap": "Variable-font and per-optical-size downloads declare the wrong family name — \"Montserrat Thin\", \"DM Sans 9pt\" — so fontconfig never matches the family the producer asks for. Download the static TTFs.",
+    "silent_failure": "A font-family fallback stack means a missing face renders in Liberation Sans instead of failing. Every producer must call assertFonts() before its first render."
+  },
+  "gates": {
+    "rule": "If a check reads something other than the artefact that ships, it is theatre. Every resolver throws rather than falling back.",
+    "order": [
+      "assertFonts() — before first render. Fonts resolve through fontconfig, not @font-face.",
+      "assertNoRetired(source) — at load. The producer carries no retired hex.",
+      "assertRenderClean(markup) — immediately before rasterising. Decodes every data: URI. Lives inside the render call so it cannot be skipped.",
+      "assertFilesClean(paths) — for assets read rather than embedded."
+    ],
+    "throws_never_falls_back": [
+      "unknown token",
+      "unlisted mark",
+      "missing mark file",
+      "missing font face",
+      "unpermitted mode",
+      "surface in neither lockup lane"
+    ],
+    "preflight": "node mo_visual_kit.js preflight — runs every gate, writes nothing."
+  }
 }

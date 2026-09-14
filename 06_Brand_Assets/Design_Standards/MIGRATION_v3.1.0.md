@@ -120,6 +120,43 @@ That last line is the point. The build fails if a retired hex is still in the fi
 | `templates/mo_quote_card.js` | 1 | 6th |
 | `templates/render_arch_kit.py` | 1 | 7th |
 
+## 1b. Four gaps Growth found
+
+**Two were defects in code I shipped.** Full write-up of the general lesson is §10f of the standard, "Failure modes".
+
+### 1. Fonts — NOT fixed here, and Growth has the cause right
+
+Nothing in this system installs or validates a font. The name tables are wrong, not the outlines: a variable-font or per-optical-size download declares itself *Montserrat Thin* or *DM Sans 9pt*, so fontconfig never matches the family a producer asks for. **Re-download the static TTFs.** Acceptance test stands: `fc-list | grep -i montserrat` must print `Montserrat:style=ExtraBold`.
+
+Growth is right that the `@font-face` embedding does nothing — librsvg ignores it outright. **Stop that work.**
+
+**What is added is the gate, not the fix.** `T.assertFonts()` reads `fonts.required`, shells `fc-list`, throws naming the missing faces. It matters beyond convenience: every producer carries a fallback stack, so a missing face renders in **Liberation Sans instead of failing** and would have shipped indefinitely.
+
+### 2. Dark and mono ring marks — closed
+
+Dark existed. **Mono did not, and Growth is right that the standard specified them.** Four mono files added, black and white, full and small: one colour, no opacity, 1.2px stroke so the mark holds at a single ink weight. Eight ring-mark files now listed in `marks.ring_mark`. **YouTube can come off the retired eye.**
+
+### 3. Repointing the mark reference — closed, and worse than a line number
+
+Growth's sequencing is right: repoint after the files exist or `ytthumb` breaks.
+
+But `mo_visual_kit.v3.js` had a deeper version of the bug, and I put it there. It hardcoded `logo-on-dark.svg`/`logo-on-light.svg` and **never referenced the ring mark at all** — I wrote a manifest and then failed to read it from my own producer. It resolves through `T.mark("ring_mark", variant)` now, which throws on an unlisted name *and* a listed-but-missing file. A missing mark is a build failure, not a silent skip. `T.ringMark(mode, px)` applies the 40px crossover and throws below the 16px floor.
+
+### 4. assertNoRetired and embedded assets — a real bug in my code, fixed
+
+Growth is exactly right. It read `readFileSync(__filename)` — **the producer's own source only.** A base64-embedded mark passes straight through. The build goes green while shipping four retired hexes.
+
+| Gate | Checks | When |
+|---|---|---|
+| `assertFonts()` | every required face resolves in fontconfig | before first render |
+| `assertNoRetired(src)` | the producer's own source | at load |
+| **`assertRenderClean(svg)`** | **composed markup plus every decoded data: URI** | **before rasterising** |
+| `assertFilesClean(paths)` | assets read rather than embedded | in preflight |
+
+`assertRenderClean` sits inside `renderPng()`, so nothing rasterises without passing it. `node mo_visual_kit.js preflight` runs the lot and writes nothing.
+
+**Both failures Growth found were the build confirming something other than what shipped.** That is now F2 and F3 in the standard's failure-mode list, so the next producer inherits the lesson instead of repeating it.
+
 ## 2. Resolve the two trees — Al's decision, and the biggest one here
 
 `mo-social-assets` mirrors `06_Brand_Assets` in full and has none of v3. **It is the tree Buffer pulls from, so every published asset currently renders from the retired palette.** Updating one copy of a mirrored system is the exact failure v3 was written to stop, and I did it.

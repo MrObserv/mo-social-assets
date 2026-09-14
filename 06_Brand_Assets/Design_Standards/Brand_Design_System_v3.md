@@ -209,6 +209,128 @@ v2.0 adopted. Montserrat, DM Sans and Space Mono replace Space Grotesk and Helve
 
 ---
 
+## 10a. Profile banners
+
+Four surfaces: LinkedIn personal 1584×396, LinkedIn company 1128×191, X 1500×500, YouTube channel art 2560×1440.
+
+A banner cannot be art-directed, because the platform crops it per device and drops an avatar through it. **Design the safe area, then let the rest bleed.** Nothing carrying meaning sits outside it. Safe-area and avatar-exclusion geometry is in `design-tokens.json` under `safe_areas`.
+
+**Mode follows the platform's chrome, not the asset.** LinkedIn is light — its chrome is white and the banner abuts it. X and YouTube are dark, because a light banner inside a dark player or a dimmed timeline reads as a rendering fault.
+
+**Lockup splits by lane.** LinkedIn carries the house lockup: it is the professional and writing surface. X and YouTube carry **Metrics & Mayhem** — they front the podcast.
+
+**YouTube is the only centred composition in the system.** Its crop is symmetrical, so the composition has to be, and the channel name is the title — a claim gets cropped to nonsense on a TV.
+
+**QA, all four:** render, then crop to the safe area and check it still says something. If the cropped version is meaningless, the banner is wrong.
+
+## 10b. Business card
+
+85 × 55 mm UK, 91 × 61 mm with 3 mm bleed, 300 dpi, CMYK. Geometry in `design-tokens.json` under `print.business_card`.
+
+**Dark front, light back** — the pairing already ratified for ebooks, for the same reason. The front is identity and can afford to be a solid object; the back carries information and has to be read in bad light by someone who has just met you. Print has no chrome to answer the mode question, so the object's own logic decides: one side to be recognised, one side to be used.
+
+Front: teal edge band bleeding off three sides, ring mark top left, name in Montserrat 900 at 18pt, teal rule, house wordmark in Space Mono. Back: kicker, one line of positioning in Montserrat 800 at 9pt, contact block, optional 11 mm QR reserve pointing at `/signal` rather than the home page.
+
+**Two print risks.** Navy needs a rich black build (60/40/40/100) or it goes muddy on a default 4-colour conversion. Teal sits outside CMYK gamut and will dull — proof it or spot-match it. 400 gsm uncoated, matt or soft-touch; gloss fights the navy. No spot UV, no foil, no rounded corners.
+
+**Deliberate deviation.** The system sets a 12pt print floor. A card cannot hold it — 12pt contact details on 85 mm leave no room for a name. The floor here is **5pt, and 6pt for anything typed into a phone**. Written down with its reason so it is an exception rather than a drift. QA: print one at actual size and hand it to someone over 45 in a dim room.
+
+## 10c. Claims
+
+`claim-bank.json`, v1.0.0. Twenty-two claims, each with a gear, a hinge and its permitted surfaces.
+
+Every component spec says *one claim, twelve words or fewer* and then leaves the producer to invent one. **A claim comes from the bank; a new claim is a CR, not a production decision.** The Voice Codex governs prose; this governs the line that gets the most impressions and the least review.
+
+Rules: twelve words maximum, under eight better. One hinge per claim. Four runs then rest for a quarter, because overuse turns a line into a slogan and a slogan is the opposite of a practitioner talking. Two claims carry conditions — **C06** never runs without its source named on the same surface, **C21** is channel-limited.
+
+Every line was lifted from shipped posts, the advisory page, the deck masters or the book, so each has already passed the Codex in context. Nothing in the bank is newly invented copy.
+
+## 10d. Marks manifest
+
+**Resolve a mark by name from `marks` in `design-tokens.json`. Never by searching the tree.** A search of `06_Brand_Assets` finds `logo-master.svg` and `favicon.svg`, both of which predate the ring mark — which is exactly why the ring mark could not be found: it existed only at `07_Website/Pages/home/mo_ring_mark.svg`, inside a website page folder, and was never in the brand assets tree at all.
+
+Canonical files now live at `06_Brand_Assets/Design_Standards/marks/`. Six files: ring mark and signal line, each on light and on dark, plus a small ring variant per mode.
+
+**The ring mark has a crossover at 40px.** Below it, use the small variant — the hairline rings vanish at favicon and avatar sizes, so the small variant carries a 2px ring and a larger centre. Absolute minimum 16px. `favicon.svg` predates all of this and is owed a rebuild from `mo_ring_mark_small_on_dark.svg`.
+
+**The signal line's breach segment must actually breach the dashed threshold.** It is a diagram, not a squiggle.
+
+## 10e. Photography
+
+Headshot grade is `photography.headshot_grade` in the token file: saturation 0.78, brightness 0.95. Desaturated and slightly pulled down so the subject sits under the type rather than competing with it. Applied by the producer, never baked into the source file. Cut out or feather-masked against the dark ground; no square photo blocks.
+
+This was previously a brand decision living in a JavaScript literal inside `mo_visual_kit.js` — the same class of problem as a hardcoded palette.
+
+## 10f. Failure modes — read this before changing anything
+
+Every entry below actually happened in this system, most of them during the build of v3. They are written down because each one was found by a human noticing, not by a check. **The rule is the same every time: if a check reads something other than the artefact that ships, it is theatre.**
+
+### F1. A single-source rule does not create a single source
+
+v3 declared `design-tokens.json` canonical and left every copy of the palette in place. Stating the rule changed nothing. **A single source exists when the copies are deleted and the build fails if one returns.** That is why `assertNoRetired` exists and why it belongs in a build rather than a checklist.
+
+### F2. Checking the source instead of the artefact
+
+`assertNoRetired` read the producer's own source. Marks are base64-embedded at render time, so four retired hexes shipped with a green build. **Check the composed render, not the inputs.** `assertRenderClean` decodes every `data:` URI and now lives inside `renderPng` so it cannot be skipped.
+
+### F3. A fallback is a silent failure
+
+A font-family stack means a missing Montserrat renders as Liberation Sans and nothing complains. An unknown token returning `undefined` renders as transparent and nothing complains. **Every resolver in this system throws instead of falling back:** unknown token, unlisted mark, missing mark file, missing font face, unpermitted mode, surface in neither lockup lane.
+
+### F4. Embedding is not installing
+
+`@font-face` in an SVG does nothing — librsvg ignores it and renders through fontconfig. Three byte-identical renders proved it. **Confirm the mechanism before optimising the implementation.**
+
+### F5. A mirrored tree drifts the moment you update one copy
+
+`mo-social-assets` mirrors `06_Brand_Assets` and got none of v3 — and it is the tree Buffer publishes from. The system that warned about copies was itself copied. **One tree is canonical; the other is a build output, never hand-edited.**
+
+### F6. An asset resolved by search returns the wrong asset
+
+The ring mark could not be found because it lived only in a website page folder. Searching `06_Brand_Assets` returns `logo-master.svg` and `favicon.svg`, both pre-ring-mark, and returns them confidently. **Resolve by name from a manifest. If it is not listed, it does not exist.**
+
+### F7. Undocumented values are invisible until measured
+
+`#5f6d75`, `#16333B`, `#6c7a82` and eight more were load-bearing and in no table. One of them, `#6c7a82` at 4.43:1, was failing AA on every shipped light figure. **Measure before assuming; a value nobody wrote down is a value nobody checked.**
+
+### F8. A spec nobody can produce from gets invented at production time
+
+Every component said *one claim, twelve words or fewer* and left the words to whoever was building the asset. That is voice drift with a process behind it. **If a spec requires a judgement, supply the bank the judgement draws from** — hence `claim-bank.json`.
+
+### F9. Renumbering breaks cross-references, and checking the number is not checking the link
+
+Inserting a section and bumping the next one produced two sections numbered 07 on a page arguing for single-source rigour. Fixing that then produced a worse version: the chip's **label** was renumbered and its **href** was not, so "07 Failure modes" scrolled to the changelog and the new section was unreachable.
+
+The verification script compared numeric prefixes and reported clean, because the numbers were the only thing it looked at. **That is F2 again** — checking a property of the artefact instead of the artefact's behaviour.
+
+**After any renumber, resolve every link:** assert each href matches a real id, no two point at the same target, and no section is orphaned. Numbers are labels; hrefs are the thing that works.
+
+### F9b. A loader written against an unshipped shape
+
+`mo_visual_kit.v3.js` resolved marks through `T.mark("ring_mark", variant)`. The token file **committed to the repo** still carried the older descriptive `marks["ring-mark"]` block with no file paths and no crossover. The producer was correct against a manifest that existed only in the export folder, so committing it would have thrown on first run.
+
+The same turn also declared a `canonical_dir` of `Design_Standards/marks/` while the repo's marks already lived at `06_Brand_Assets/marks/` — which would have created the second marks directory the manifest exists to prevent.
+
+**A contract has two sides. Changing the reader without shipping the writer is the same defect as changing the writer without the reader** — and it is invisible locally, because both halves are correct in the folder you are looking at. Check the shape against the tree that will run it, not the one you just wrote.
+
+### F10. A mechanical read of a rule can overrule a human decision
+
+The mode rule was applied literally and flipped the blog card to light, contradicting the approved master. **The rendered master outranks a rule derived from it.** When they disagree, the design is right and the rule needs a clause.
+
+### F10b. Asserting the state of a system instead of reading it
+
+This file said `mo-social-assets` "carries none of v3". Reading the repo showed it carries nearly all of v3 — the standard, the token file, the migration, the audit, all three producers. The claim was written from the shape of the problem rather than from the tree, and then ratified and shipped, where it sat as a false statement in a canonical file.
+
+**It is the same error as F7, one level up: a value nobody measured is a value nobody checked — and that applies to claims about repositories, not just hexes.** The real gap was narrower and elsewhere: three mark files instead of eleven, and a token file two revisions behind its own loaders.
+
+### F11. Deviations must be written with their reason
+
+The business card cannot hold the 12pt print floor. Recorded as a 5pt floor *with the reason*, so in six months it reads as a decision rather than a mistake. **An undocumented exception becomes indistinguishable from drift.**
+
+---
+
+**The check on the checks.** Before adding a QA point, ask whether a human has to remember it. If so, it is not a check — it is a hope. Convert it into something that throws.
+
 ## 11. Consumers
 
 **A producer that defines a hex is a defect.** `mo-tokens.js` and `mo_tokens.py` are the read path; both throw on an unknown token and both expose `assertNoRetired` so a build fails on a retired hex rather than shipping one.

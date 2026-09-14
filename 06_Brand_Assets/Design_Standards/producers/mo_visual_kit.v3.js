@@ -21,8 +21,14 @@ const fs = require("fs");
 const path = require("path");
 const T = require("./mo-tokens.js");
 
-// The build fails if a retired hex is anywhere in this file. This is what
-// makes the single-source rule real rather than aspirational.
+// Gate 1 - fonts. librsvg ignores @font-face, so SVG text renders through
+// fontconfig. A font-family fallback stack means a missing face renders in
+// Liberation Sans rather than failing, which is a silent brand defect. Check
+// before the first render, not after someone notices.
+T.assertFonts();
+
+// Gate 2 - this file's own source. Makes the single-source rule real rather
+// than aspirational.
 T.assertNoRetired(fs.readFileSync(__filename, "utf8"), "mo_visual_kit.js");
 
 const BRAND_DIR = process.env.MO_BRAND_DIR || path.resolve(__dirname, "..", "..");
@@ -57,6 +63,17 @@ function surface(name, override) {
     low:     P["semantic-low"],
     logo:    dark ? "logo-on-dark.svg" : "logo-on-light.svg",
   };
+}
+
+/* Resolve the ring mark by NAME from the manifest, applying the 40px
+ * crossover. Never search the brand folder - a search returns logo-master.svg
+ * and favicon.svg, both of which predate the ring mark. That is exactly how
+ * the retired mark kept shipping. */
+function ringMarkHref(mode, sizePx) {
+  const variant = sizePx < T.marks.ring_mark.crossover_px
+    ? (mode === "dark" ? "small_on_dark" : "small_on_light")
+    : (mode === "dark" ? "on_dark" : "on_light");
+  return imgHref(T.mark("ring_mark", variant));
 }
 
 const FONT = {
@@ -98,6 +115,12 @@ function wrapLines(text, maxChars) {
   if (cur) lines.push(cur); return lines;
 }
 async function renderPng(svg, out, quality) {
+  // Gate 3 - the COMPOSED RENDER. assertNoRetired reads this file's source; a
+  // mark is base64-embedded at render time and passes straight through it, so
+  // the build went green while shipping retired hexes. This decodes every
+  // data: URI and scans the payload, so the thing checked is the thing that
+  // ships. Inside renderPng so it cannot be forgotten.
+  T.assertRenderClean(svg, out);
   await sharp(Buffer.from(svg), { density: 96 }).png({ quality: quality || 90 }).toFile(out);
   console.log("written:", out);
 }
@@ -111,7 +134,7 @@ async function blogthumb(opts) {
   const sub = opts.sub || "";
   const titleSize = lines.length >= 3 ? 64 : 76;
   const startY = H / 2 - ((lines.length - 1) * (titleSize * 1.12)) / 2 + (sub ? -20 : 10);
-  const logo = imgHref(path.join(BRAND_DIR, S.logo));
+  const ringHref = ringMarkHref(S.mode, 44);
   let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`;
   svg += bgDefs(S, W, H, W / 2, 0);
   svg += kicker(60, 66, eyebrow, 19, S.accent2, S.accent);
@@ -122,7 +145,7 @@ async function blogthumb(opts) {
   svg += `<line x1="60" y1="${H - 78}" x2="${W - 60}" y2="${H - 78}" stroke="${S.rule}" stroke-opacity="${S.ruleOpacity}" stroke-width="1"/>`;
   svg += monoLabel(60, H - 44, T.lockupFor("blog_og"), 17, S.soft);
   svg += monoLabel(W - 128, H - 44, "MASTERINGOBSERVABILITY.COM", 17, S.accent, "end");
-  svg += `<image href="${logo}" x="${W - 104}" y="${H - 66}" width="44" height="44"/>`;
+  svg += `<image href="${ringHref}" x="${W - 104}" y="${H - 66}" width="44" height="44"/>`;
   svg += `</svg>`;
   await renderPng(svg, opts.out || "blog_thumbnail.png");
 }
@@ -211,10 +234,17 @@ function parseArgs(argv) {
   else if (cmd === "ytthumb") await ytthumb(opts);
   else if (cmd === "bookends") await bookends(opts);
   else if (cmd === "diagram-sample") await diagramSample(opts);
+  else if (cmd === "preflight") {
+    T.assertFonts();
+    T.assertNoRetired(fs.readFileSync(__filename, "utf8"), "mo_visual_kit.js");
+    T.assertFilesClean(["on_dark", "on_light", "small_on_dark", "small_on_light",
+                        "mono_black", "mono_white"].map(function (v) { return T.mark("ring_mark", v); }));
+    console.log("preflight clean: fonts resolve, no retired hexes in source or marks.");
+  }
   else if (cmd === "tokens") {
     console.log("Brand Design System v" + T.version + " — this producer defines no colours.");
     console.log("og_card: " + T.modeFor("og_card") + " by default, --mode light for the in-body companion.");
     console.log("youtube_thumbnail: " + T.modeFor("youtube_thumbnail") + ".");
   }
-  else console.log("usage: node mo_visual_kit.js blogthumb|ytthumb|diagram-sample|tokens [--title ...] [--sub ...] [--eyebrow ...] [--badge ...] [--headshot path] [--mode light|dark] [--out file]");
+  else console.log("usage: node mo_visual_kit.js blogthumb|ytthumb|diagram-sample|preflight|tokens [--title ...] [--sub ...] [--eyebrow ...] [--badge ...] [--headshot path] [--mode light|dark] [--out file]");
 })().catch((e) => { console.error(e.message || e); process.exit(1); });

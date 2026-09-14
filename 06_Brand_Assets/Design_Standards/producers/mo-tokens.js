@@ -21,35 +21,8 @@
     if (RAW) return RAW;
     if (req) {
       var fs = req('fs'), path = req('path');
-
-      // PATH RESOLUTION CORRECTED 2026-09-14.
-      // This previously looked ONLY beside itself: path.join(__dirname, 'design-tokens.json').
-      // design-tokens.json actually lives one level up in Design_Standards/, while this
-      // module lives in producers/, so every producer failed on the first real run.
-      // Now it tries both, nearest first, so it works whether the token file sits beside
-      // this module or one directory up. MO_TOKENS still overrides everything.
-      var p = process.env.MO_TOKENS || null;
-      var tried = [];
-      if (!p) {
-        var candidates = [
-          path.join(__dirname, 'design-tokens.json'),
-          path.join(__dirname, '..', 'design-tokens.json')
-        ];
-        for (var ci = 0; ci < candidates.length; ci++) {
-          tried.push(candidates[ci]);
-          if (fs.existsSync(candidates[ci])) { p = candidates[ci]; break; }
-        }
-        if (!p) p = candidates[candidates.length - 1];
-      }
-      // The error names every path tried, because "not found at <one path>" sends you
-      // looking in the wrong place when the real problem is which paths were searched.
-      if (!fs.existsSync(p)) {
-        throw new Error(
-          'mo-tokens: design-tokens.json not found. Tried: ' +
-          (tried.length ? tried.join(' , ') : p) +
-          '. Set MO_TOKENS to its absolute path to override.'
-        );
-      }
+      var p = process.env.MO_TOKENS || path.join(__dirname, 'design-tokens.json');
+      if (!fs.existsSync(p)) throw new Error('mo-tokens: design-tokens.json not found at ' + p + '. Set MO_TOKENS.');
       RAW = JSON.parse(fs.readFileSync(p, 'utf8'));
     }
     return RAW;
@@ -117,16 +90,129 @@
         return s;
       },
 
-      /** Throws if a producer still holds a retired hex. Call it in your build. */
-      assertNoRetired: function (source, label) {
+      /** Scan a string for retired hexes. Returns a list of findings. */
+      findRetired: function (source) {
         var hits = [];
         Object.keys(retired).forEach(function (hex) {
-          var re = new RegExp(hex.replace('#', '#'), 'ig');
-          var m = String(source).match(re);
+          var m = String(source).match(new RegExp(hex, 'ig'));
           if (m) hits.push(hex + ' x' + m.length + ' (' + retired[hex] + ')');
         });
+        return hits;
+      },
+
+      /** Throws if a producer still holds a retired hex. Call it in your build. */
+      assertNoRetired: function (source, label) {
+        var hits = T.findRetired(source);
         if (hits.length) {
           throw new Error('mo-tokens: retired tokens in ' + (label || 'source') + ':\n  ' + hits.join('\n  '));
+        }
+        return true;
+      },
+
+      /** Scan a COMPOSED RENDER, not a source file.
+       *
+       *  assertNoRetired reads the producer's own source. A mark that is
+       *  base64-embedded at render time passes straight through it, so the
+       *  build goes green while shipping retired hexes. This decodes every
+       *  data: URI in the markup and scans the payload too, so the thing
+       *  checked is the thing that ships.
+       *
+       *  Call it on the final SVG string immediately before rasterising.
+       */
+      assertRenderClean: function (markup, label) {
+        var s = String(markup);
+        var hits = T.findRetired(s).map(function (h) { return 'markup: ' + h; });
+        var re = /data:(image\/svg\+xml|text\/[a-z+]+);base64,([A-Za-z0-9+\/=]+)/g, m, n = 0;
+        while ((m = re.exec(s)) !== null) {
+          n++;
+          var decoded;
+          try {
+            decoded = (typeof Buffer !== 'undefined')
+              ? Buffer.from(m[2], 'base64').toString('utf8')
+              : atob(m[2]);
+          } catch (e) { continue; }
+          T.findRetired(decoded).forEach(function (h) {
+            hits.push('embedded asset #' + n + ': ' + h);
+          });
+        }
+        if (hits.length) {
+          throw new Error('mo-tokens: retired tokens in the RENDER of ' + (label || 'asset') +
+            ' (' + n + ' embedded asset(s) decoded and scanned):\n  ' + hits.join('\n  '));
+        }
+        return true;
+      },
+
+      /** Scan files on disk — use for templates, marks and any asset a
+       *  producer reads rather than contains. */
+      assertFilesClean: function (paths) {
+        if (!req) throw new Error('mo-tokens: assertFilesClean is Node only');
+        var fs = req('fs'), hits = [];
+        paths.forEach(function (p) {
+          if (!fs.existsSync(p)) throw new Error('mo-tokens: asset not found: ' + p +
+            '. A missing mark is a build failure, not a silent skip.');
+          T.findRetired(fs.readFileSync(p, 'utf8')).forEach(function (h) { hits.push(p + ': ' + h); });
+        });
+        if (hits.length) throw new Error('mo-tokens: retired tokens in assets:\n  ' + hits.join('\n  '));
+        return true;
+      },
+
+      /** Resolve a mark by NAME from the manifest. Never search the tree —
+       *  a search of the brand folder returns marks that predate the ring
+       *  mark. Throws on an unlisted name and on a missing file. */
+      mark: function (name, variant) {
+        var m = raw.marks[name];
+        if (!m) throw new Error('mo-tokens: no mark named "' + name + '". Listed: ' +
+          Object.keys(raw.marks).filter(function (k) { return typeof raw.marks[k] === 'object'; }).join(', '));
+        var rel = m[variant];
+        if (!rel) throw new Error('mo-tokens: mark "' + name + '" has no "' + variant + '" variant. Has: ' +
+          Object.keys(m).filter(function (k) { return typeof m[k] === 'string' && /\.svg$/.test(m[k]); }).join(', '));
+        if (req) {
+          var path = req('path'), fs = req('fs');
+          var abs = path.join(process.env.MO_BRAND_DIR || path.join(__dirname, '..'), rel);
+          if (!fs.existsSync(abs)) throw new Error('mo-tokens: mark file missing: ' + abs +
+            '. The manifest lists it, so this is a missing file, not a wrong name.');
+          return abs;
+        }
+        return rel;
+      },
+
+      /** Pick the ring-mark variant for a mode and a rendered size, applying
+       *  the 40px crossover. Below it the hairlines vanish. */
+      ringMark: function (mode, sizePx) {
+        var small = sizePx < (raw.marks.ring_mark.crossover_px || 40);
+        if (sizePx < (raw.marks.ring_mark.min_px || 16)) {
+          throw new Error('mo-tokens: ring mark below its ' + raw.marks.ring_mark.min_px +
+            'px minimum at ' + sizePx + 'px. It stops reading as a mark.');
+        }
+        return T.mark('ring_mark', (mode === 'dark' ? 'on_dark' : 'on_light') + (small ? '' : ''))
+          && T.mark('ring_mark', small ? (mode === 'dark' ? 'small_on_dark' : 'small_on_light')
+                                      : (mode === 'dark' ? 'on_dark' : 'on_light'));
+      },
+
+      /** Fonts render through fontconfig, NOT @font-face — librsvg ignores
+       *  @font-face outright. A fallback stack means a missing face renders
+       *  in Liberation Sans instead of failing, so check before rendering. */
+      assertFonts: function () {
+        if (!req) return true;
+        var out;
+        try {
+          out = req('child_process').execSync('fc-list', { encoding: 'utf8' });
+        } catch (e) {
+          throw new Error('mo-tokens: fontconfig not available. SVG text cannot be rendered reliably.');
+        }
+        var need = raw.fonts && raw.fonts.required, missing = [];
+        if (!need) return true;
+        Object.keys(need).forEach(function (family) {
+          need[family].forEach(function (style) {
+            var re = new RegExp(family.replace(/ /g, '\\s*') + ':style=' + style, 'i');
+            if (!re.test(out)) missing.push(family + ' ' + style);
+          });
+        });
+        if (missing.length) {
+          throw new Error('mo-tokens: missing font faces:\n  ' + missing.join('\n  ') +
+            '\n\n' + (raw.fonts.trap || '') +
+            '\nAcceptance test: ' + (raw.fonts.acceptance || '') +
+            '\nNote: ' + (raw.fonts.rule || ''));
         }
         return true;
       }

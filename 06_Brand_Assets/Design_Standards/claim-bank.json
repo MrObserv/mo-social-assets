@@ -1,0 +1,314 @@
+{
+  "version": "1.0.0",
+  "status": "draft for ratification",
+  "date": "2026-09-14",
+  "owner": "Voice Codex (copy) + Growth (application)",
+  "purpose": "Every asset spec in the design system says \"one claim, twelve words or fewer\" and then leaves the producer to invent one. This is the file that stops that. A claim on a thumbnail is brand voice at its most compressed and least reviewed, so it gets a bank, a version and a changelog like everything else.",
+  "rules": {
+    "use": "Pick from the bank. A new claim is a CR, not a production decision.",
+    "gate": "Every claim passes the Codex: no em dashes, UK English, frustration at systems never people, no vendor numbers, \"gets the call\" never \"paged\".",
+    "length": "Twelve words maximum. Under eight is better. A claim that needs a comma is usually two claims.",
+    "repetition": "A claim may be reused across surfaces but not twice in the same week on the same channel. The bank is large enough that it does not need to be.",
+    "pairing": "A claim carries one hinge. If the asset needs two ideas, it is the wrong asset.",
+    "retire": "A claim that has run four times moves to resting for a quarter. Overuse is how a line becomes a slogan, and a slogan is the opposite of a practitioner talking."
+  },
+  "claims": [
+    {
+      "id": "C01",
+      "text": "It was never the tooling.",
+      "gear": "Conviction",
+      "hinge": "The tool was fine. The organisation around it was not.",
+      "surfaces": [
+        "blog",
+        "carousel cover",
+        "banner",
+        "deck opener"
+      ],
+      "status": "approved",
+      "runs": 0
+    },
+    {
+      "id": "C02",
+      "text": "Own the signal. Rent the platform.",
+      "gear": "Conviction",
+      "hinge": "Vendors are replaceable. Your instrumentation and your ownership model are not.",
+      "surfaces": [
+        "banner",
+        "deck opener",
+        "advisory"
+      ],
+      "status": "approved",
+      "runs": 1
+    },
+    {
+      "id": "C03",
+      "text": "Cost is a design decision.",
+      "gear": "Standard",
+      "hinge": "Cardinality, retention and sampling were chosen, not inherited.",
+      "surfaces": [
+        "blog",
+        "carousel cover",
+        "deck"
+      ],
+      "status": "approved",
+      "runs": 1
+    },
+    {
+      "id": "C04",
+      "text": "Retention is a bet, not a setting.",
+      "gear": "Standard",
+      "hinge": "Thirteen months of everything is a wager nobody wrote down.",
+      "surfaces": [
+        "blog",
+        "carousel point",
+        "figure caption"
+      ],
+      "status": "approved",
+      "runs": 1
+    },
+    {
+      "id": "C05",
+      "text": "Nobody owns the outcome.",
+      "gear": "Nuclear",
+      "hinge": "Three teams own a piece each, so the answer belongs to no one.",
+      "surfaces": [
+        "LinkedIn",
+        "carousel cover",
+        "deck"
+      ],
+      "status": "approved",
+      "runs": 0
+    },
+    {
+      "id": "C06",
+      "text": "Spend went up. Outcomes went down.",
+      "gear": "Conviction",
+      "hinge": "The evidence slide. Always paired with a named, dated source.",
+      "surfaces": [
+        "deck",
+        "blog",
+        "figure"
+      ],
+      "status": "approved",
+      "runs": 1,
+      "note": "Never runs without the source named on the same surface."
+    },
+    {
+      "id": "C07",
+      "text": "A leadership problem wearing a tooling costume.",
+      "gear": "Nuclear",
+      "hinge": "The reorganisation you are avoiding is the fix you are shopping for.",
+      "surfaces": [
+        "LinkedIn",
+        "blog",
+        "deck"
+      ],
+      "status": "approved",
+      "runs": 1
+    },
+    {
+      "id": "C08",
+      "text": "Forty minutes to agree who is on the call.",
+      "gear": "Conversational",
+      "hinge": "The bridge call is the audit. It shows you exactly what you built.",
+      "surfaces": [
+        "podcast",
+        "YouTube",
+        "carousel point"
+      ],
+      "status": "approved",
+      "runs": 1
+    },
+    {
+      "id": "C09",
+      "text": "Your dashboard is not your strategy.",
+      "gear": "Conviction",
+      "hinge": "Twelve panels is not a plan. It is twelve deferred decisions.",
+      "surfaces": [
+        "LinkedIn",
+        "blog",
+        "carousel cover"
+      ],
+      "status": "approved",
+      "runs": 0
+    },
+    {
+      "id": "C10",
+      "text": "The alert fired. Nobody moved.",
+      "gear": "Nuclear",
+      "hinge": "Detection was never the bottleneck. Ownership was.",
+      "surfaces": [
+        "LinkedIn",
+        "YouTube",
+        "podcast"
+      ],
+      "status": "approved",
+      "runs": 0
+    },
+    {
+      "id": "C11",
+      "text": "Chosen by accident. Defended for two years.",
+      "gear": "Conviction",
+      "hinge": "The cardinality decision nobody remembers making and everybody now protects.",
+      "surfaces": [
+        "blog",
+        "carousel point",
+        "deck"
+      ],
+      "status": "approved",
+      "runs": 0
+    },
+    {
+      "id": "C12",
+      "text": "You cannot buy a culture of ownership.",
+      "gear": "Conviction",
+      "hinge": "No procurement cycle produces the thing you actually need.",
+      "surfaces": [
+        "LinkedIn",
+        "advisory",
+        "deck"
+      ],
+      "status": "approved",
+      "runs": 0
+    },
+    {
+      "id": "C13",
+      "text": "Instrument the journey, not the box.",
+      "gear": "Fifth Gear",
+      "hinge": "Host metrics tell you the server is fine while the customer cannot check out.",
+      "surfaces": [
+        "blog",
+        "figure",
+        "deck",
+        "architecture"
+      ],
+      "status": "approved",
+      "runs": 0
+    },
+    {
+      "id": "C14",
+      "text": "Every dashboard is a decision someone stopped making.",
+      "gear": "Conviction",
+      "hinge": "Automation of a judgement is not the same as making it.",
+      "surfaces": [
+        "LinkedIn",
+        "blog"
+      ],
+      "status": "approved",
+      "runs": 0
+    },
+    {
+      "id": "C15",
+      "text": "More signal will not tell you who answers.",
+      "gear": "Conviction",
+      "hinge": "The gap is human, so more telemetry cannot close it.",
+      "surfaces": [
+        "LinkedIn",
+        "carousel cover",
+        "banner"
+      ],
+      "status": "approved",
+      "runs": 0
+    },
+    {
+      "id": "C16",
+      "text": "The team that will not go first.",
+      "gear": "Conversational",
+      "hinge": "Migration stalls on the one group with the most to lose and the least to gain.",
+      "surfaces": [
+        "blog",
+        "podcast",
+        "carousel point"
+      ],
+      "status": "approved",
+      "runs": 1
+    },
+    {
+      "id": "C17",
+      "text": "Observability is a question you can answer.",
+      "gear": "Fifth Gear",
+      "hinge": "Not a product category. A capability, tested by whether you get an answer.",
+      "surfaces": [
+        "blog",
+        "deck",
+        "webinar",
+        "ebook"
+      ],
+      "status": "approved",
+      "runs": 0
+    },
+    {
+      "id": "C18",
+      "text": "Who gets the call at three in the morning?",
+      "gear": "Conversational",
+      "hinge": "Every architecture decision eventually becomes somebody’s night.",
+      "surfaces": [
+        "podcast",
+        "YouTube",
+        "LinkedIn"
+      ],
+      "status": "approved",
+      "runs": 0
+    },
+    {
+      "id": "C19",
+      "text": "The platform was fine. The boundaries were not.",
+      "gear": "Standard",
+      "hinge": "Ownership boundaries, not technology, decide recovery time.",
+      "surfaces": [
+        "blog",
+        "deck",
+        "advisory"
+      ],
+      "status": "approved",
+      "runs": 0
+    },
+    {
+      "id": "C20",
+      "text": "Decide retention on purpose, in writing.",
+      "gear": "Standard",
+      "hinge": "The forward close. One action, specific, doable on Monday.",
+      "surfaces": [
+        "deck close",
+        "carousel CTA",
+        "newsletter"
+      ],
+      "status": "approved",
+      "runs": 1
+    },
+    {
+      "id": "C21",
+      "text": "Rendering is not shipping.",
+      "gear": "Standard",
+      "hinge": "Internal discipline claim. Use only where the audience is practitioners.",
+      "surfaces": [
+        "LinkedIn",
+        "blog"
+      ],
+      "status": "approved",
+      "runs": 0,
+      "note": "Reads as process-nerd inside the audience and as jargon outside it. Channel-limited on purpose."
+    },
+    {
+      "id": "C22",
+      "text": "Observability that survives the bridge call.",
+      "gear": "Standard",
+      "hinge": "The positioning line. The test is the worst hour, not the demo.",
+      "surfaces": [
+        "business card",
+        "advisory",
+        "banner"
+      ],
+      "status": "approved",
+      "runs": 1
+    }
+  ],
+  "resting": [],
+  "changelog": [
+    {
+      "version": "1.0.0",
+      "date": "2026-09-14",
+      "change": "Bank created. Twenty-two claims lifted from shipped posts, the advisory page, the deck masters and the book, so every line has already survived a Codex pass in context. Nothing here is newly invented copy."
+    }
+  ]
+}
