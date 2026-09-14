@@ -25,6 +25,8 @@ const T = require("./mo-tokens.js");
 // fontconfig. A font-family fallback stack means a missing face renders in
 // Liberation Sans rather than failing, which is a silent brand defect. Check
 // before the first render, not after someone notices.
+// Registry check where one exists; the real gate is the render probe in
+// preflight, which works on every platform.
 T.assertFonts();
 
 // Gate 2 - this file's own source. Makes the single-source rule real rather
@@ -235,7 +237,9 @@ function parseArgs(argv) {
   else if (cmd === "bookends") await bookends(opts);
   else if (cmd === "diagram-sample") await diagramSample(opts);
   else if (cmd === "preflight") {
-    T.assertFonts();
+    // Registry check where one exists; the real gate is the render probe in
+// preflight, which works on every platform.
+T.assertFonts();
     T.assertNoRetired(fs.readFileSync(__filename, "utf8"), "mo_visual_kit.js");
     T.assertFilesClean(["on_dark", "on_light", "small_on_dark", "small_on_light",
                         "mono_black", "mono_white"].map(function (v) { return T.mark("ring_mark", v); }));

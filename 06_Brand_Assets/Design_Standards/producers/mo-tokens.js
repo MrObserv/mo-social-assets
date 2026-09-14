@@ -189,16 +189,63 @@
                                       : (mode === 'dark' ? 'on_dark' : 'on_light'));
       },
 
-      /** Fonts render through fontconfig, NOT @font-face — librsvg ignores
-       *  @font-face outright. A fallback stack means a missing face renders
-       *  in Liberation Sans instead of failing, so check before rendering. */
+      /** Fonts: a BEHAVIOURAL probe, not a registry lookup.
+       *
+       *  The earlier version shelled fc-list, which does not exist on Windows
+       *  and which answers the wrong question anyway: what is installed, not
+       *  what renders. Every producer carries a font-family fallback stack, so
+       *  a missing face silently renders in whatever the engine substitutes.
+       *
+       *  This renders one short string twice — once in the required family,
+       *  once in a family guaranteed not to exist. If the two PNGs are
+       *  byte-identical, the required family did NOT resolve and the first
+       *  render was a substitution. That is the same signal as three
+       *  byte-identical thumbnails, turned into a gate.
+       *
+       *  Pass your sharp instance: await T.assertFontsProbe(require('sharp'))
+       */
+      assertFontsProbe: async function (sharp, opts) {
+        var need = raw.fonts && raw.fonts.required;
+        if (!need) return true;
+        var probe = function (family, weight) {
+          var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="420" height="90">' +
+            '<text x="6" y="62" font-family="' + family + '" font-weight="' + weight +
+            '" font-size="56">Handgloves 123</text></svg>';
+          return sharp(Buffer.from(svg), { density: 96 }).png().toBuffer();
+        };
+        var WEIGHTS = { Thin: 100, Light: 300, Regular: 400, Medium: 500,
+                        SemiBold: 600, Bold: 700, ExtraBold: 800, Black: 900 };
+        var families = Object.keys(need), missing = [], checked = [];
+        for (var i = 0; i < families.length; i++) {
+          var family = families[i], styles = need[family];
+          for (var j = 0; j < styles.length; j++) {
+            var w = WEIGHTS[styles[j]] || 400;
+            var got = await probe(family, w);
+            var base = await probe('__MO_NoSuchFont_' + i + j + '__', w);
+            checked.push(family + ' ' + styles[j]);
+            if (got.equals(base)) missing.push(family + ' ' + styles[j] + ' (weight ' + w + ')');
+          }
+        }
+        if (missing.length) {
+          throw new Error('mo-tokens: these faces did NOT resolve — the renderer substituted a fallback:\n  ' +
+            missing.join('\n  ') +
+            '\n\nProbed ' + checked.length + ' faces by rendering each against a nonexistent family.' +
+            '\n\n' + (raw.fonts.trap || '') +
+            '\n' + (raw.fonts.rule || ''));
+        }
+        return { probed: checked.length, faces: checked };
+      },
+
+      /** Registry check, where a registry exists. Skipped rather than thrown
+       *  when fontconfig is absent — Windows has no fc-list and that is not
+       *  itself a failure. Use assertFontsProbe for the real gate. */
       assertFonts: function () {
-        if (!req) return true;
+        if (!req) return { skipped: 'browser' };
         var out;
         try {
-          out = req('child_process').execSync('fc-list', { encoding: 'utf8' });
+          out = req('child_process').execSync('fc-list', { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
         } catch (e) {
-          throw new Error('mo-tokens: fontconfig not available. SVG text cannot be rendered reliably.');
+          return { skipped: 'no fontconfig CLI on this platform — use assertFontsProbe(sharp)' };
         }
         var need = raw.fonts && raw.fonts.required, missing = [];
         if (!need) return true;
@@ -210,11 +257,9 @@
         });
         if (missing.length) {
           throw new Error('mo-tokens: missing font faces:\n  ' + missing.join('\n  ') +
-            '\n\n' + (raw.fonts.trap || '') +
-            '\nAcceptance test: ' + (raw.fonts.acceptance || '') +
-            '\nNote: ' + (raw.fonts.rule || ''));
+            '\n\n' + (raw.fonts.trap || '') + '\nAcceptance: ' + (raw.fonts.acceptance || ''));
         }
-        return true;
+        return { verified: 'fontconfig' };
       }
     };
     return T;
