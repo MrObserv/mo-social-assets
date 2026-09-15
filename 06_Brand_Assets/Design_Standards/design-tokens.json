@@ -1,10 +1,10 @@
 {
   "$schema": "mo-design-tokens/1",
-  "version": "3.1.3",
+  "version": "3.1.6",
   "status": "ratified",
   "updated": "2026-09-14",
   "owner": "Growth",
-  "note": "Generated from the MO Design System page. Never hand-edit a producer palette; read this file. Changed in 3.1.3: the radial wash is PERMITTED ON LIGHT at 12 per cent (reversing v3.1.0), and both opacities moved out of the producer into structure.wash. Two .md standards still carry the old wording and are owed an amendment — see structure.wash.owed. NO colour value changed.",
+  "note": "Generated from the MO Design System page. Never hand-edit a producer palette; read this file. Changed in 3.1.6: dual_mode is keyed by surface (blog_og added) so byte_size cannot inherit a dark variant through its canvas alias. NO colour value changed.",
   "mode": {
     "default": "light",
     "rule": "Writing renders light. A blog, article, newsletter or any card fronting written material uses the website palette, because it is the same reading surface. Everything else — podcast, YouTube, episode art, short-form, feed cards for non-writing assets — renders dark.",
@@ -26,8 +26,16 @@
         "default": "light",
         "variant": "dark",
         "rule": "Light is the default and the standard for blog, articles, newsletter and any card fronting written material: it matches the website, so the card and the page it opens are one surface. Dark is the exception, for an OG card fronting a non-writing asset (an episode, a video, a short)."
-      }
-    }
+      },
+      "blog_og": {
+        "default": "light",
+        "variant": "dark",
+        "rule": "Light is the default and the standard for blog, articles, newsletter and any card fronting written material: it matches the website, so the card and the page it opens are one surface. Dark is the exception, for an OG card fronting a non-writing asset (an episode, a video, a short).",
+        "note": "Keyed by SURFACE, not canvas. variantFor() deliberately does not resolve surface_aliases: dual-mode is a property of the surface. Aliasing briefly let byte_size inherit this permission and accept --mode dark, which the writing-renders-light rule forbids. byte_size and monthly_digest are absent from this block on purpose, so --mode dark throws on them."
+      },
+      "note": "Only blog_og and og_card are dual-mode. Writing surfaces (byte_size, monthly_digest) render light only."
+    },
+    "writing_surfaces_note": "blog_og is dual-mode (light default, dark for an OG fronting a non-writing asset). byte_size and monthly_digest are NOT dual-mode and render light only, so --mode dark throws on them. That is deliberate: a byte-size is writing."
   },
   "colour": {
     "light": {
@@ -167,7 +175,7 @@
       "rule": "ONE radial teal wash per canvas, in teal #2F9E8D, centred per surface. Never two. PERMITTED ON LIGHT at 12 per cent.",
       "amended": "2026-09-14 by Al. v3.1.0 said \"never on light\". Content Management correctly raised the producer as non-compliant (their D5); the wash was suppressed, the light card was rendered flat, and Al ruled the WASH STAYS. The rule was written before anyone had looked at a light card. A flat light card reads flat.",
       "considered": "Three alternatives were built and rejected: a flat tint field, the signal_line motif as the card graphic, and a white panel on tint. The wash was kept as the house treatment.",
-      "owed": "Brand_Design_System_v3.md §3 and Logo_and_Marks_Standard.md §3 still say \"never on light\" and must be amended to match. Until they are, three documents disagree — which is the condition that produced this whole exchange.",
+      "owed": "Brand_Design_System_v3.md §3 bullet 4 and Logo_and_Marks_Standard.md §3 bullet 1 both still say \"never on light\". Amended wording DRAFTED 2026-09-14 (see STANDARDS_AMENDMENTS.md in the handover) and NOT YET APPLIED. Until it is, three documents disagree — the condition that produced this whole exchange. Note that Logo_and_Marks §3 bullet 2, \"nothing important sits on it and nothing is read through it\", survives unchanged and is now load-bearing: it is the ratified constraint the light-mode contrast case leans on.",
       "producer_note": "Both values live HERE. A producer that hardcodes 0.12 is the same defect as one that hardcodes a hex, and the fact that it lived in bgDefs() is why its compliance was arguable."
     }
   },
@@ -296,7 +304,16 @@
       720
     ],
     "og_card_note": "1200x630 is correct and has always been correct. If a card rasterises at 1600x840 the defect is in the PRODUCER, not here: sharp's default density is 72 and the kit passed 96, scaling every unitless SVG dimension by 96/72. Fixed 2026-09-14. Do not 'correct' this token to match a bad render.",
-    "hosting_rule": "In-body images are UPLOADED to the publishing platform's own CDN, never hotlinked. A published post currently serves a diagram from raw.githubusercontent.com, which is not a CDN, is rate-limited, and breaks if the repo goes private or the file moves. Raised 2026-09-14."
+    "hosting_rule": "In-body images are UPLOADED to the publishing platform's own CDN, never hotlinked. A published post currently serves a diagram from raw.githubusercontent.com, which is not a CDN, is rate-limited, and breaks if the repo goes private or the file moves. Raised 2026-09-14.",
+    "png_output": {
+      "rule": "No `quality` option on PNG output. In sharp, quality implies palette: true, which quantises.",
+      "measured": "2026-09-14: cards rendered INDEXED with 25 to 28 colours; a vertical slice through the radial wash held only 5 to 7 distinct values, i.e. visible banding rings. Present since the kit was written — every card it ever produced is banded, dark worse than light.",
+      "fix": "png({ compressionLevel: 9, palette: false }) — lossless truecolour.",
+      "size_expectation": "Roughly 290KB to 575KB against the previous ~72KB. Content measured 14 live cards: 49KB smallest, 91KB median, 251KB largest, already 11 RGB to 2 palette. Truecolour is the existing majority, not a new regime.",
+      "ceiling": "1MB, as a smoke alarm rather than a target — high enough never to bind on a real card, low enough to catch a producer emitting something absurd. Content's suggestion, adopted.",
+      "second_reason_for_the_sweep": "The banding is independent of the palette flip, so the six evergreen winners need re-rendering for image quality as well as for mode.",
+      "note_on_writing_surfaces": "byte_size and monthly_digest share the og_card canvas via surface_aliases. They are NOT dual-mode: writing renders light, so --mode dark throws on them. blog_og is dual-mode because an OG card can front a non-writing asset."
+    }
   },
   "lockup": {
     "rule": "Mastering Observability is the MASTER BRAND. Metrics & Mayhem sits UNDERNEATH it — parent and child, not siblings. Tech Tuesday and Signal Drop sit under Metrics & Mayhem. The Signal, byte-size, the Digest and blogs sit under Mastering Observability. Ruled by Al 2026-09-14, restating what The_Signal_Card_Standard.md already said and what v3.1.0 lost: §6 of the standard, §5 of the marks standard and this rule all described two parallel equal lanes with no parent. The file that declares itself canonical was the one that dropped the hierarchy.",
@@ -325,11 +342,17 @@
       "linkedin_personal_banner",
       "linkedin_company_banner",
       "byte_size",
-      "monthly_digest"
+      "monthly_digest",
+      "og_card"
     ],
     "name_trap": "the_signal is the NEWSLETTER and is house lane. signal_drop is the PODCAST and is podcast lane. One word apart, opposite wordmarks. Al's 2026-09-14 ruling on the Digest, The Signal and byte-size covers the newsletter only.",
     "prohibition": "Metrics & Mayhem must NOT appear on a house asset. That name is reserved for the book and the podcast.",
-    "open_question": "OPEN, Al to rule before the re-render sweep: the two wordmarks are currently mutually exclusive and there is NO endorsement anywhere — podcast assets carry METRICS & MAYHEM, a format badge, and no reference to the parent. Should the hierarchy stay purely organisational, or should podcast assets carry a small endorsement? It changes every YouTube thumbnail, episode square, title card, bookend and video card. Not decided here."
+    "open_question": "OPEN, Al to rule before the re-render sweep: the two wordmarks are currently mutually exclusive and there is NO endorsement anywhere — podcast assets carry METRICS & MAYHEM, a format badge, and no reference to the parent. Should the hierarchy stay purely organisational, or should podcast assets carry a small endorsement? It changes every YouTube thumbnail, episode square, title card, bookend and video card. Not decided here.",
+    "beehiiv_slugs": {
+      "note": "Surface keys here are an INTERNAL namespace and follow this file's snake_case convention. Beehiiv content tags are a different namespace with different rules. Recorded so the mismatch is found by reading rather than by an outage — the LG- inbox sat invisible for seven days on exactly this class of mismatch.",
+      "monthly_digest": "monthly-digest (hyphen, on Beehiiv)",
+      "byte_size": "byte_size (underscore, matches both conventions)"
+    }
   },
   "marks": {
     "rule": "Resolve a mark by NAME from this manifest. Never by searching the tree — a search finds logo-master.svg and favicon.svg, which predate the ring mark. If a mark is not listed here it does not exist yet.",
@@ -434,7 +457,7 @@
     ],
     "build_check": "Call assertNoRetired / assert_no_retired on your own source in the build. It fails on any retired hex.",
     "status": {
-      "templates/mo_diagram.js": "NOT CONSUMING — 10 retired-token hits, never repointed. A diagram rendered off it is LIVE on a published post, carrying the pre-v3 palette. Highest-priority remaining consumer.",
+      "templates/mo_diagram.js": "NOT CONSUMING — and the v3 table's \"10 retired-token hits\" UNDERCOUNTS it. Content Management measured the real file (288 lines, does not require mo-tokens.js at all): 6 retired hexes in 13 places, 5 already-valid v3 tokens in 12, and FOURTEEN UNDECLARED COLOURS in 23 places with no v3 equivalent. So the repoint is not a find-and-replace of ten values; it is fourteen mapping decisions, each either a fold into an existing token or a CR to add one. A blind repoint would have gone wrong. A diagram rendered off this file is LIVE on a published post.",
       "Slide_System/mo_slide_template.js": "not yet consuming",
       "templates/long_form_pdf/reference_strategy_template.html": "not yet consuming",
       "tools/thumbnail_builder.py": "not yet consuming",
@@ -444,7 +467,33 @@
     },
     "single_home": "The kit lives at Design_Standards/producers/mo_visual_kit.js and nowhere else. Two copies of a producer is the same defect class as two canonical trees. The two that existed had DIVERGED, not aged: templates/ had a font-file check but embedded the eye mark and never called assertRenderClean; producers/ resolved the ring mark and ran all three gates but lacked the font check. The surviving file is the merge of both.",
     "token_resolution": "mo-tokens.js walks UP from its own directory to find this file (5 levels, MO_TOKENS still wins when set). The earlier version looked only beside itself, so every producer run needed MO_TOKENS set by hand.",
-    "producer_contract": "blogthumb requires --surface AND --eyebrow. Neither is defaulted. It previously called lockupFor(\"blog_og\") literally, so every card returned MASTERING OBSERVABILITY whatever it was — the right answer for the wrong reason, routing around the throw that exists to stop a surface defaulting into a wordmark. --eyebrow defaulted to THE OBSERVABILITY DIGEST, correct for one surface and wrong for four. A silent default that is right once and wrong four times is the same failure class as the font fallback that produced the blank card."
+    "producer_contract": "blogthumb requires --surface AND --eyebrow. Neither is defaulted. It previously called lockupFor(\"blog_og\") literally, so every card returned MASTERING OBSERVABILITY whatever it was — the right answer for the wrong reason, routing around the throw that exists to stop a surface defaulting into a wordmark. --eyebrow defaulted to THE OBSERVABILITY DIGEST, correct for one surface and wrong for four. A silent default that is right once and wrong four times is the same failure class as the font fallback that produced the blank card.",
+    "mo_diagram_scope": {
+      "measured": "2026-09-14 by Content Management, at 424839f",
+      "retired": {
+        "#64ffda": "dark teal-bright",
+        "#0d7377": "light teal-deep",
+        "#5f6d75": "light soft",
+        "#2f9e57": "light semantic-low",
+        "#0a0e17": "dark-ground",
+        "#2dd4bf": "dark teal or teal-bright — OPEN, Design's call"
+      },
+      "undeclared_count": 14,
+      "undeclared_examples": [
+        "cardBg #0e2038",
+        "bandBg #10233a",
+        "arrow #4a6272",
+        "greyMute #aab7c4",
+        "light navy3 #f1f6fa",
+        "light bg3 #f9fbfd",
+        "light ink #12233d",
+        "light amber #b8790a",
+        "light arrow #c2c9cc",
+        "light grid #e9ecec"
+      ],
+      "already_ruled": "v3 §3 states #5f6d75 passed AA, so the twelve shipped light diagrams are NOT re-rendered and the 2026-09-01 acceptance holds. The repoint is forward-looking; only the one live figure on the published post needs a re-render.",
+      "also_owed": "That figure hotlinks raw.githubusercontent.com. In-body images are uploaded to the publishing platform's CDN, never hotlinked."
+    }
   },
   "canonical_tree": {
     "decision": "SETTLED — mo-social-assets is canonical (Al, 2026-09-14).",
@@ -567,7 +616,8 @@
       "byte_size": "BYTE-SIZE",
       "digest": "THE OBSERVABILITY DIGEST",
       "rule": "Required, never defaulted. A missing eyebrow fails the render rather than guessing."
-    }
+    },
+    "blog_thumbnail_standard_stale": "Blog_Thumbnail_Standard.md's Spec block is stale in SIX places, not one: it still specifies the navy gradient, the retired mint grid, #64ffda, #9fb0bd, a lens mark at 40-60 per cent opacity, and a Production block pointing at templates/mo_visual_kit.js which no longer exists. Content's recommendation, adopted: rewrite the Spec block wholesale against v3 rather than patch the title bullet, or the next reader meets a standard that contradicts the producer in six places instead of five. Rewrite DRAFTED in STANDARDS_AMENDMENTS.md."
   },
   "fonts": {
     "required": {
@@ -617,5 +667,13 @@
     ],
     "preflight": "node mo_visual_kit.js preflight — runs every gate, writes nothing."
   },
-  "amended": "2026-09-14 by Al — 3.1.1 display weight + record corrections; 3.1.2 font gate, lockup hierarchy, producer contract; 3.1.3 wash permitted on light, opacities moved into structure.wash."
+  "amended": "2026-09-14 by Al — 3.1.1 display weight + record corrections; 3.1.2 font gate, lockup hierarchy, producer contract; 3.1.3 wash on light; 3.1.4 PNG banding, mo_diagram scope; 3.1.5 surface_aliases; 3.1.6 dual_mode keyed by surface.",
+  "surface_aliases": {
+    "blog_og": "og_card",
+    "byte_size": "og_card",
+    "monthly_digest": "og_card",
+    "note": "Surface name -> CANVAS/MODE name. This estate carried two names for one thing: blog_og is the lockup-lane name, og_card the canvas name. That was invisible while blogthumb hardcoded \"og_card\" for its size and \"blog_og\" for its lockup separately; the moment the producer resolved both from the real surface, T.size('blog_og') threw. Found by test, 2026-09-14.",
+    "why_not_duplicate": "byte_size and monthly_digest were briefly given their own canvas entries of [1200,630]. That was reverted: two canvas entries for one canvas is exactly how the two names arose. An alias is one declared fact; a duplicate is two facts that can drift.",
+    "reading": "mo-tokens resolves aliases inside size() and modeFor() ONLY. variantFor() does not alias, because dual-mode is a property of the surface rather than the canvas. lockupFor() does not alias either, because lane membership is a property of the surface — og_card is listed in house_lane in its own right."
+  }
 }

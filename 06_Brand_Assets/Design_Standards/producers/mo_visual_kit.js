@@ -167,21 +167,28 @@ function wrapLines(text, maxChars) {
   for (const w of words) { if ((cur + " " + w).trim().length > maxChars && cur) { lines.push(cur); cur = w; } else cur = (cur + " " + w).trim(); }
   if (cur) lines.push(cur); return lines;
 }
-async function renderPng(svg, out, quality) {
+async function renderPng(svg, out) {
   // Gate 3 - the COMPOSED RENDER. assertNoRetired reads this file's source; a
   // mark is base64-embedded at render time and passes straight through it, so
   // the build went green while shipping retired hexes. This decodes every
   // data: URI and scans the payload, so the thing checked is the thing that
   // ships. Inside renderPng so it cannot be forgotten.
-  //
-  // This is also D4 from the 2026-09-14 work order. It already exists; the
-  // templates/ kit simply never called it, which is why that kit could embed
-  // the eye mark and still report success.
   T.assertRenderClean(svg, out);
   // density 72, NOT 96. sharp's default is 72; passing 96 scaled every
   // unitless SVG dimension by 96/72, so a 1200x630 og_card rasterised at
-  // 1600x840 — aspect exact, size off-spec. Measured 2026-09-14.
-  await sharp(Buffer.from(svg), { density: 72 }).png({ quality: quality || 90 }).toFile(out);
+  // 1600x840. Measured 2026-09-14.
+  //
+  // NO `quality` OPTION. In sharp, setting quality on a PNG implies
+  // palette: true, which quantises the output. Measured 2026-09-14: cards came
+  // out INDEXED with 25 to 28 colours, and a vertical slice through the radial
+  // wash held only 5 to 7 distinct values — visible banding rings. A
+  // near-monochrome card gives the quantiser no reason to keep gradient steps,
+  // so it threw them away. This was in the kit from the start; every card it
+  // ever produced is banded. compressionLevel is lossless and costs only size.
+  // Content confirmed no standard pins PNG mode, quality or file size.
+  await sharp(Buffer.from(svg), { density: 72 })
+    .png({ compressionLevel: 9, palette: false })
+    .toFile(out);
   console.log("written:", out);
 }
 
@@ -209,8 +216,8 @@ async function blogthumb(opts) {
     "OBSERVABILITY DIGEST, which is correct for one surface and wrong for the " +
     "rest. Pass it explicitly: TECHNICAL, LEADERSHIP, THE SIGNAL, BYTE-SIZE, " +
     "THE OBSERVABILITY DIGEST.");
-  const S = surface("og_card", T.variantFor("og_card", opts.mode));
-  const [W, H] = T.size("og_card");
+  const S = surface(opts.surface, T.variantFor(opts.surface, opts.mode));
+  const [W, H] = T.size(opts.surface);
   const eyebrow = opts.eyebrow;
   const lines = wrapLines(opts.title || "Untitled", 24);
   const sub = opts.sub || "";

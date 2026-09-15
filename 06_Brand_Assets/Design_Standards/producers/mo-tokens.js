@@ -76,14 +76,40 @@
         return m === 'light' ? T.light : T.dark;
       },
 
+      /** Resolve a surface name to its CANVAS/MODE name.
+       *
+       *  This estate carries two names for one thing: `blog_og` is the
+       *  lockup-lane name and `og_card` is the canvas name. While blogthumb
+       *  hardcoded "og_card" for its size and its lockup key separately, the
+       *  mismatch was invisible. The moment the producer started resolving
+       *  from the real surface, T.size('blog_og') threw.
+       *
+       *  Declared in the token file as surface_aliases rather than fixed by
+       *  duplicating canvas entries — two entries for one canvas is how the
+       *  two names arose in the first place. */
+      canvasNameFor: function (surface) {
+        var a = (raw.surface_aliases || {})[surface];
+        return a || surface;
+      },
+
       /** Which mode a named surface renders in, per the v3 rule. */
       modeFor: function (surface) {
         if (!surface) throw new Error('mo-tokens: modeFor needs a surface name');
-        return raw.mode.dark_surfaces.indexOf(surface) > -1 ? 'dark' : 'light';
+        var n = T.canvasNameFor(surface);
+        return raw.mode.dark_surfaces.indexOf(n) > -1 ? 'dark' : 'light';
       },
 
       /** Resolve a requested mode for a dual-mode surface. Throws if the
        *  surface has no such variant, so a typo cannot silently ship. */
+      /** Resolve a requested mode for a dual-mode surface. Throws if the
+       *  surface has no such variant, so a typo cannot silently ship.
+       *
+       *  DOES NOT ALIAS, deliberately. Dual-mode is a property of the SURFACE,
+       *  not of the canvas it renders on. Aliasing here briefly let byte_size
+       *  inherit og_card's dual-mode permission and accept --mode dark, which
+       *  the writing-renders-light rule forbids. Caught by test 2026-09-14.
+       *  dual_mode is therefore keyed by surface name, and a surface that is
+       *  genuinely dual-mode is listed in its own right. */
       variantFor: function (surface, requested) {
         var dual = (raw.mode.dual_mode || {})[surface];
         if (!requested) return dual ? dual.default : T.modeFor(surface);
@@ -104,8 +130,11 @@
 
       /** Canvas size for a named asset, [w, h]. */
       size: function (name) {
-        var s = raw.canvas[name];
-        if (!s) throw new Error('mo-tokens: no canvas size for "' + name + '"');
+        var key = T.canvasNameFor(name);
+        var s = raw.canvas[key];
+        if (!s) throw new Error('mo-tokens: no canvas size for "' + name + '"' +
+          (key !== name ? ' (aliased to "' + key + '")' : '') +
+          '. Add it to canvas, or map it in surface_aliases if it shares another surface\'s canvas.');
         return s;
       },
 
