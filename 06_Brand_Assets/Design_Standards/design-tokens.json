@@ -1,10 +1,10 @@
 {
   "$schema": "mo-design-tokens/1",
-  "version": "3.1.6",
+  "version": "3.1.7",
   "status": "ratified",
   "updated": "2026-09-14",
   "owner": "Growth",
-  "note": "Generated from the MO Design System page. Never hand-edit a producer palette; read this file. Changed in 3.1.6: dual_mode is keyed by surface (blog_og added) so byte_size cannot inherit a dark variant through its canvas alias. NO colour value changed.",
+  "note": "Generated from the MO Design System page. Never hand-edit a producer palette; read this file. Changed in 3.1.7: eyebrow vocabulary ruled, with the length-not-topic choice rule. The four standards amendments are applied in standards/ and are no longer owed. NO colour value changed.",
   "mode": {
     "default": "light",
     "rule": "Writing renders light. A blog, article, newsletter or any card fronting written material uses the website palette, because it is the same reading surface. Everything else — podcast, YouTube, episode art, short-form, feed cards for non-writing assets — renders dark.",
@@ -175,7 +175,7 @@
       "rule": "ONE radial teal wash per canvas, in teal #2F9E8D, centred per surface. Never two. PERMITTED ON LIGHT at 12 per cent.",
       "amended": "2026-09-14 by Al. v3.1.0 said \"never on light\". Content Management correctly raised the producer as non-compliant (their D5); the wash was suppressed, the light card was rendered flat, and Al ruled the WASH STAYS. The rule was written before anyone had looked at a light card. A flat light card reads flat.",
       "considered": "Three alternatives were built and rejected: a flat tint field, the signal_line motif as the card graphic, and a white panel on tint. The wash was kept as the house treatment.",
-      "owed": "Brand_Design_System_v3.md §3 bullet 4 and Logo_and_Marks_Standard.md §3 bullet 1 both still say \"never on light\". Amended wording DRAFTED 2026-09-14 (see STANDARDS_AMENDMENTS.md in the handover) and NOT YET APPLIED. Until it is, three documents disagree — the condition that produced this whole exchange. Note that Logo_and_Marks §3 bullet 2, \"nothing important sits on it and nothing is read through it\", survives unchanged and is now load-bearing: it is the ratified constraint the light-mode contrast case leans on.",
+      "owed": "CLEARED 2026-09-15. All four locations amended: Brand_Design_System_v3.md §3 bullet 4 AND §6 bullet 3 (the second was missed by both Content Management and Design, because the request was for one paragraph and got one paragraph), and Logo_and_Marks_Standard.md §3 bullet 1. Logo_and_Marks §3 bullet 2 preserved verbatim and is load-bearing: \"nothing important sits on it and nothing is read through it\" is the ratified constraint the light-mode case rests on.",
       "producer_note": "Both values live HERE. A producer that hardcodes 0.12 is the same defect as one that hardcodes a hex, and the fact that it lived in bgDefs() is why its compliance was arguable."
     }
   },
@@ -609,15 +609,17 @@
     "claim_bank": "claim-bank.json",
     "rule": "A claim on an asset comes from the bank. Inventing one at production time is how the voice drifts, because a thumbnail line gets less review than any sentence of prose and more impressions than most of them.",
     "eyebrow_vocabulary": {
-      "status": "PROPOSED by Content Management 2026-09-14, awaiting Al.",
+      "status": "RULED by Al 2026-09-15.",
       "technical_blog": "TECHNICAL",
       "leadership_blog": "LEADERSHIP",
       "newsletter": "THE SIGNAL",
       "byte_size": "BYTE-SIZE",
       "digest": "THE OBSERVABILITY DIGEST",
-      "rule": "Required, never defaulted. A missing eyebrow fails the render rather than guessing."
+      "choice_rule": "LENGTH AND TREATMENT decide it, not topic. Short and to the point is BYTE-SIZE. A larger technical explainer carrying diagrams is TECHNICAL. So a short post on a technical subject takes BYTE-SIZE.",
+      "worked_example": "what-is-grafana-alloy is BYTE-SIZE. It is a technical subject, but it is written short and to the point, and length is what decides.",
+      "required": "Required on every render, no default. A missing eyebrow fails the render rather than guessing."
     },
-    "blog_thumbnail_standard_stale": "Blog_Thumbnail_Standard.md's Spec block is stale in SIX places, not one: it still specifies the navy gradient, the retired mint grid, #64ffda, #9fb0bd, a lens mark at 40-60 per cent opacity, and a Production block pointing at templates/mo_visual_kit.js which no longer exists. Content's recommendation, adopted: rewrite the Spec block wholesale against v3 rather than patch the title bullet, or the next reader meets a standard that contradicts the producer in six places instead of five. Rewrite DRAFTED in STANDARDS_AMENDMENTS.md."
+    "blog_thumbnail_standard_stale": "RESOLVED 2026-09-15. Spec block rewritten wholesale against v3 plus a new §Eyebrow carrying Al's ruling; Production block repointed at producers/mo_visual_kit.js with the required flags and the PNG format rule."
   },
   "fonts": {
     "required": {
@@ -667,7 +669,7 @@
     ],
     "preflight": "node mo_visual_kit.js preflight — runs every gate, writes nothing."
   },
-  "amended": "2026-09-14 by Al — 3.1.1 display weight + record corrections; 3.1.2 font gate, lockup hierarchy, producer contract; 3.1.3 wash on light; 3.1.4 PNG banding, mo_diagram scope; 3.1.5 surface_aliases; 3.1.6 dual_mode keyed by surface.",
+  "amended": "2026-09-15 by Al — 3.1.6 and earlier as recorded; 3.1.7 eyebrow vocabulary ruled, chosen by length and treatment rather than topic.",
   "surface_aliases": {
     "blog_og": "og_card",
     "byte_size": "og_card",
