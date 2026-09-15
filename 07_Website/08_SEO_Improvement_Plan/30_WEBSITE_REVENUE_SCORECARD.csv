@@ -1,0 +1,18 @@
+metric_id,funnel_stage,metric_name,source,baseline_window,baseline_value,month_1_target,month_2_target,month_3_target,actual_month_1,actual_month_2,actual_month_3,decision_rule,owner,notes
+MO-WEB-001,Discovery,Unique website visitors,Beehiiv website analytics,Last 4 weeks to 2026-07-26,181,225,280,350,,,,Compare rolling 4 weeks and source quality,Growth,Traffic is useful only when downstream actions also move
+MO-WEB-002,Discovery,Website sessions,Beehiiv website analytics,Last 4 weeks to 2026-07-26,249,300,375,475,,,,Compare rolling 4 weeks and engaged sessions,Growth,
+MO-WEB-003,Discovery,Google sessions,Beehiiv website analytics,Last 4 weeks to 2026-07-26,20,30,45,65,,,,Confirm against GA4 organic sessions,Growth,
+MO-WEB-004,Audience,New subscribers,Beehiiv publication stats,Last 4 weeks to 2026-07-26,13,16,20,25,,,,Report confirmed subscribers and churn together,Growth,
+MO-WEB-005,Audience,Google-attributed new subscribers,Beehiiv publication stats,Last 4 weeks to 2026-07-26,2,4,6,8,,,,Treat attribution as directional until events are verified,Growth,
+MO-WEB-006,Lead magnet,Free-chapter landing views,Beehiiv page analytics,Last 4 weeks to 2026-07-26,32,40,50,65,,,,Compare with product clicks and completions,Growth,
+MO-WEB-007,Lead magnet,Free product-page views,Beehiiv page analytics,Last 4 weeks to 2026-07-26,24,30,38,50,,,,Use event-level CTA clicks once GTM is verified,Growth,
+MO-WEB-008,Lead magnet,Free-chapter completions,Thank-you page plus Beehiiv product,Last 4 weeks to 2026-07-26,2 directional,3,4,6,,,,Count successful product completions not outbound clicks,Growth,Product has 8 completions all-time
+MO-WEB-009,Commercial,Advisory page sessions,Beehiiv and GA4,Last 4 weeks to 2026-07-26,30,35,45,60,,,,Use GA4 sessions after instrumentation is verified,Growth,
+MO-WEB-010,Commercial,Advisory CTA click rate,GA4 via GTM,Not instrumented,Unknown,Establish baseline,8%,10%,,,,Requires at least 100 relevant sessions before a winner is called,Growth,
+MO-WEB-011,Pipeline,Booked discovery calls,Google Calendar and pipeline tracker,Not instrumented,Unknown,Measure,1,2,,,,A click is not a booked call,Allan,
+MO-WEB-012,Pipeline,Qualified advisory conversations,Pipeline tracker,Not instrumented,Unknown,1,1,2,,,,Qualification requires buyer fit problem fit and credible next step,Allan,
+MO-WEB-013,Pipeline,Proposals issued,Pipeline tracker,Not instrumented,Unknown,Measure,0 to 1,At least 1,,,,Record quoted value and next action,Allan,
+MO-WEB-014,Revenue,Qualified pipeline value,Pipeline tracker,Not instrumented,Unknown,Measure,Build,At least GBP 5000,,,,Expected value equals quoted value times stable stage probability,Allan,
+MO-WEB-015,Revenue,Won revenue,Invoices or accounting,Not instrumented,Unknown,Measure,Measure,Measure,,,,Record cash only when contracted and paid,Allan,The first paid Assessment is the validation event not a dated promise
+MO-WEB-016,Search,GSC rolling 90-day CTR,Google Search Console,Snapshot 2026-07-06,0.6%,Fresh baseline,At least 0.9%,At least 1.1%,,,,Minimum 28 days and 500 impressions for snippet decisions,Growth,Current baseline is stale
+MO-WEB-017,Technical,Crawler 404 share,Beehiiv crawler analytics,Last 4 weeks to 2026-07-26,2.5%,Below 1.0%,Below 0.5%,Hold below 0.5%,,,,Separate genuine stale paths from harmless probes,Growth,

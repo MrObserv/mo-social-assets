@@ -1,0 +1,272 @@
+<!-- ============================================================================
+     Mastering Observability, home page BLOCK 1: hero, proof strip, credibility.
+
+     FRAGMENT, not a full document. beehiiv iframes a full DOCTYPE document,
+     which hides the body from crawlers. Same pattern as .mm-adv on /advisory.
+
+     All CSS scoped under .mm-home so nothing leaks into the rest of the site.
+
+     Palette: the ratified WEB surface from Brand_Design_System_v2.md.
+       ink #16282D, navy #0D2127, teal #2F9E8D, AA-safe link teal #17695C,
+       tint #EAF6F3, border #C9DCDC, ground #F6F8F7.
+     Type: Montserrat headings, DM Sans body, Space Mono labels.
+     Buttons follow the prototype, per Al 2026-09-10: deep teal #17695C, white text,
+     radius 4. This departs from Brand_Design_System_v2 (teal #2F9E8D, navy text).
+     The teal line under the site nav is drawn by the nav rule at the end of the style block.
+
+     PASTE: beehiiv home page > add a Custom HTML section > paste this whole
+     block > place it ABOVE your existing post feed blocks.
+
+     Links carry target="_top" because the block renders inside an iframe;
+     without it, links open trapped inside the embed.
+     ============================================================================ -->
+<div class="mm-home">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap');
+
+    .mm-home {
+      --ground: #F6F8F7;
+      --panel: #FFFFFF;
+      --tint: #EAF6F3;
+      --ink: #16282D;
+      --navy: #0D2127;
+      --muted: #3B5257;
+      --soft: #63797D;
+      --teal: #2F9E8D;
+      --teal-deep: #17695C;
+      --border: #C9DCDC;
+      --caution: #A8720B;
+      background: var(--ground);
+      color: var(--ink);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: clamp(15px, 1vw + .4rem, 18px);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      max-width: 100%;
+      overflow-x: hidden;
+      text-align: left;
+    }
+
+    .mm-home *, .mm-home *::before, .mm-home *::after { margin: 0; padding: 0; box-sizing: border-box }
+    .mm-home img { max-width: 100%; height: auto; display: block }
+    .mm-home a { color: var(--teal-deep); text-decoration: none }
+
+    .mm-home .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 28px) }
+    /* Site nav on this page: a teal gradient line in place of the nav's grey hairline.
+       Page-wide on purpose; .navbar-list is beehiiv's own class on the nav bar. */
+    nav .navbar-list {
+      border-bottom: 3px solid transparent !important;
+      border-image: linear-gradient(to right, rgba(47,158,141,0), rgba(47,158,141,.55), rgba(47,158,141,0)) 1 !important
+    }
+    .mm-home .divider { height: 1px; background: var(--border) }
+    .mm-home section { padding: clamp(34px, 4vw, 56px) 0 }
+
+    .mm-home .eyebrow {
+      font-family: 'Space Mono', monospace; font-weight: 700; font-size: 12px;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--teal-deep);
+      margin-bottom: 16px; display: inline-flex; align-items: center; gap: 12px
+    }
+    .mm-home .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--teal); opacity: .8 }
+
+    .mm-home h1, .mm-home h2, .mm-home h3 {
+      font-family: 'Montserrat', 'DM Sans', sans-serif; font-weight: 800; color: var(--navy); line-height: 1.12
+    }
+    .mm-home p { color: var(--muted) }
+    .mm-home em { color: var(--ink); font-style: italic }
+
+    .mm-home .btn {
+      display: inline-block; background: var(--teal-deep); color: #FFFFFF;
+      font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: .94rem;
+      padding: 11px 20px; border: 1px solid transparent; border-radius: 4px; text-decoration: none;
+      transition: background-color .18s ease, border-color .18s ease
+    }
+    .mm-home .btn:hover { background: color-mix(in srgb, var(--teal-deep) 84%, var(--ground)) }
+    .mm-home .btn-ghost {
+      background: transparent; color: var(--ink); border-color: var(--border)
+    }
+    .mm-home .btn-ghost:hover { border-color: rgba(47, 158, 141, .38); background: rgba(47, 158, 141, .10) }
+    .mm-home .btns { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 26px }
+
+    /* ---------- hero ---------- */
+    .mm-home .hero { position: relative; overflow: hidden; padding-top: clamp(34px, 4.5vw, 64px) }
+    .mm-home .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 20%, rgba(47, 158, 141, .10), transparent 62%);
+      pointer-events: none
+    }
+    .mm-home .hero-grid {
+      position: relative; display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: clamp(28px, 3.5vw, 52px); align-items: center
+    }
+    .mm-home .hero h1 {
+      font-size: clamp(32px, 4.4vw, 52px); font-weight: 900; text-wrap: balance;
+      letter-spacing: -1.5px; line-height: 1.04; margin-bottom: 18px
+    }
+    .mm-home .hero h1 span { color: var(--teal-deep); display: block }
+    .mm-home .hero .sub { font-size: clamp(16px, 1.35vw, 19px); color: var(--muted); max-width: 46ch }
+    .mm-home .hero .trust {
+      margin-top: 22px; font-family: 'Space Mono', monospace; font-size: 12px;
+      letter-spacing: 1.5px; text-transform: uppercase; color: var(--soft)
+    }
+
+    /* signal panel */
+    .mm-home .panel {
+      background: var(--panel); border: 1px solid var(--border); border-radius: 6px; padding: 20px 22px 16px
+    }
+    .mm-home .panel-top {
+      display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 14px;
+      font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase
+    }
+    .mm-home .panel-top .lbl { color: var(--soft) }
+    .mm-home .panel-top .bad { color: var(--caution); font-weight: 700 }
+    .mm-home .panel svg { display: block; width: 100%; height: auto }
+    .mm-home .panel-foot {
+      margin-top: 14px; padding-top: 13px; border-top: 1px solid var(--border);
+      font-family: 'Space Mono', monospace; font-size: 11.5px; color: var(--soft); line-height: 1.6
+    }
+    .mm-home .panel-foot b { color: var(--ink); font-weight: 700 }
+
+    /* ---------- proof strip ---------- */
+    .mm-home .proof-band { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border) }
+    .mm-home .proof {
+      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px; background: var(--border); margin-inline: -20px
+    }
+    .mm-home .proof-cell { background: var(--ground); padding: 22px 20px }
+    .mm-home .proof-n {
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(22px, 2.2vw, 30px);
+      color: var(--navy); line-height: 1; letter-spacing: -.5px; font-variant-numeric: tabular-nums
+    }
+    .mm-home .proof-l {
+      font-family: 'Space Mono', monospace; font-size: 10.5px; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--soft); margin-top: 8px
+    }
+
+    /* ---------- credibility ---------- */
+    .mm-home .cred { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap: clamp(28px, 3.5vw, 52px); align-items: start }
+    .mm-home .cred h2 { font-size: clamp(24px, 2.8vw, 36px); margin-bottom: 16px }
+    .mm-home .cred p { margin-bottom: 12px; font-size: clamp(15px, 1.15vw, 17px) }
+    .mm-home .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px }
+    .mm-home .chip {
+      font-family: 'Space Mono', monospace; font-size: 10.5px; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--muted); background: var(--tint); border: 1px solid var(--border); border-radius: 3px; padding: 5px 10px
+    }
+    .mm-home .roles { display: grid; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 6px; overflow: hidden }
+    .mm-home .role { background: var(--panel); padding: 14px 20px }
+    .mm-home .role b { display: block; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; line-height: 1.3; color: var(--navy); margin-bottom: 3px }
+    /* A block, so its own line height applies. Left inline, each line took the taller line box set on .mm-home. */
+    .mm-home .role span { display: block; color: var(--muted); font-size: 14px; line-height: 1.5 }
+
+    @media (max-width: 860px) {
+      .mm-home .hero-grid { grid-template-columns: 1fr }
+      .mm-home .cred { grid-template-columns: 1fr }
+      .mm-home .role { padding: 12px 16px }
+      .mm-home .proof { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+      .mm-home .btn, .mm-home .btn-ghost { width: 100%; text-align: center }
+    }
+  </style>
+
+
+  <!-- ============================ HERO ============================ -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Vendor-neutral &middot; Weekly since Feb 2024</div>
+          <h1>Own the signal.<span>Rent the platform.</span></h1>
+          <p class="sub">Observability strategy, incident leadership and AI operations for the
+            people who are accountable when it breaks. Written by Allan Mann, with nothing to
+            sell you but the thinking.</p>
+          <div class="btns">
+            <a class="btn" href="https://www.masteringobservability.com/subscribe" target="_top">Get The Signal</a>
+            <a class="btn btn-ghost" href="https://www.masteringobservability.com/advisory" target="_top">Work with Allan</a>
+          </div>
+          <div class="trust">One email a week &middot; Unsubscribe in one click</div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-top">
+            <span class="lbl">checkout &middot; p99 latency</span>
+            <span class="bad">&#9670; breach 14:22</span>
+          </div>
+          <svg viewBox="0 0 600 170" role="img" aria-label="A latency chart breaching its service level objective">
+            <defs>
+              <linearGradient id="mmFade" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#2F9E8D" stop-opacity="0.18"></stop>
+                <stop offset="100%" stop-color="#2F9E8D" stop-opacity="0"></stop>
+              </linearGradient>
+            </defs>
+            <g stroke="#C9DCDC" stroke-width="1">
+              <line x1="0" y1="140" x2="600" y2="140"></line>
+              <line x1="0" y1="100" x2="600" y2="100"></line>
+              <line x1="0" y1="60" x2="600" y2="60"></line>
+              <line x1="0" y1="20" x2="600" y2="20"></line>
+            </g>
+            <line x1="0" y1="52" x2="600" y2="52" stroke="#A8720B" stroke-width="1" stroke-dasharray="5 5" opacity="0.85"></line>
+            <text x="4" y="45" fill="#A8720B" font-family="'Space Mono', monospace" font-size="10" letter-spacing="1">SLO 400ms</text>
+            <polygon fill="url(#mmFade)" points="0,118 15,112 30,121 45,108 60,116 75,104 90,119 105,110 120,122 135,113 150,105 165,117 180,109 195,120 210,111 225,102 240,115 255,107 270,119 285,110 300,116 315,99 330,112 345,104 360,118 375,96 390,88 405,64 420,38 435,26 450,44 465,72 480,95 495,106 510,113 525,104 540,116 555,108 570,119 585,111 600,115 600,150 0,150"></polygon>
+            <polyline fill="none" stroke="#2F9E8D" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" points="0,118 15,112 30,121 45,108 60,116 75,104 90,119 105,110 120,122 135,113 150,105 165,117 180,109 195,120 210,111 225,102 240,115 255,107 270,119 285,110 300,116 315,99 330,112 345,104 360,118 375,96 390,88 405,64 420,38 435,26 450,44 465,72 480,95 495,106 510,113 525,104 540,116 555,108 570,119 585,111 600,115"></polyline>
+            <polyline fill="none" stroke="#A8720B" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" points="390,88 405,64 420,38 435,26 450,44 465,72"></polyline>
+            <circle cx="435" cy="26" r="3.4" fill="#A8720B"></circle>
+            <text x="596" y="163" text-anchor="end" fill="#63797D" font-family="'Space Mono', monospace" font-size="10" letter-spacing="1">-6h to now</text>
+          </svg>
+          <div class="panel-foot"><b>Everyone sees the spike.</b> The argument is about who owns the fix.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= PROOF STRIP ========================= -->
+  <div class="proof-band"><div class="wrap"><div class="proof">
+    <div class="proof-cell"><div class="proof-n">561</div><div class="proof-l">Subscribers</div></div>
+    <div class="proof-cell"><div class="proof-n">36.2%</div><div class="proof-l">Open rate</div></div>
+    <div class="proof-cell"><div class="proof-n">147</div><div class="proof-l">Pieces published</div></div>
+    <div class="proof-cell"><div class="proof-n">103</div><div class="proof-l">Issues of The Signal</div></div>
+  </div></div></div>
+
+  <!-- ========================= CREDIBILITY ========================= -->
+  <section>
+    <div class="wrap">
+      <div class="cred">
+        <div>
+          <div class="eyebrow">Who writes this</div>
+          <h2>Allan Mann</h2>
+          <p>25+ years running IT operations and observability across five tier-1 banks and one
+            UAE government, the environments where "it looked fine on the dashboard" ends up in front of a regulator.</p>
+          <p>Author of <em>Metrics &amp; Mayhem: A CTO's Guide to Observability That Actually Works</em>.
+            Host of the Metrics &amp; Mayhem podcast. Vendor-neutral by construction: no platform
+            reselling, no vendor sponsorship, no referral fees.</p>
+          <div class="chips">
+            <span class="chip">PRA</span>
+            <span class="chip">FCA</span>
+            <span class="chip">Bank of England</span>
+            <span class="chip">Vendor-neutral</span>
+          </div>
+        </div>
+        <div class="roles">
+          <div class="role">
+            <b>A global investment bank</b>
+            <span>Twelve years running IT operations, with teams across the globe working follow-the-sun. It is where
+              25+ years in IT operations and SRE began, and what the last five years as a practitioner are built on.</span>
+          </div>
+          <div class="role">
+            <b>A global tier-1 bank</b>
+            <span>Modernised monitoring across 40+ countries.</span>
+          </div>
+          <div class="role">
+            <b>A UAE government platform</b>
+            <span>Built the observability function from nothing, for a platform serving 3.2 million citizens.</span>
+          </div>
+          <div class="role">
+            <b>A tier-1 UK bank</b>
+            <span>Designed metrics and the Dynatrace business-events programme for three of the largest payment
+              applications, inside a payments-resilience initiative under PRA, FCA and Bank of England oversight.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+</div>

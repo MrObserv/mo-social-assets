@@ -1,0 +1,286 @@
+<!-- ============================================================================
+     Mastering Observability, /subscribe. FULL PAGE REPLACEMENT.
+
+     Replaces the one Custom HTML block on the Subscribe page. Brings the page
+     onto the web surface of the rebuilt home page: ground #F6F8F7, ink
+     #16282D, navy #0D2127, deep teal #17695C buttons with white text, border
+     #C9DCDC, tint #EAF6F3; Montserrat headings, DM Sans body, Space Mono
+     labels; one 1120px column.
+
+     FRAGMENT, not a full document, like the home blocks and /advisory: beehiiv
+     puts a full DOCTYPE document in a frame, which hides the copy from search
+     engines. All CSS is scoped under .mm-sub.
+
+     The site nav and footer are switched off on this page (a page setting), so
+     the slim brand bar at the top stands in for the nav and the page carries
+     its own footer links. If the nav is switched back on, delete the
+     <header class="bar"> block.
+
+     The form is beehiiv subscribe form ad0cdd4a, unchanged. Its own colours
+     and fonts are set in beehiiv's form builder, not here.
+
+     Links carry a target so none open inside a frame: site links _top,
+     off-site links a new tab.
+
+     PASTE: Subscribe page > the Custom HTML block > replace its contents.
+     Rollback: subscribe_page_live_2026-07-27.html in this folder.
+     ============================================================================ -->
+<div class="mm-sub">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap');
+
+    .mm-sub {
+      --ground: #F6F8F7;
+      --panel: #FFFFFF;
+      --tint: #EAF6F3;
+      --ink: #16282D;
+      --navy: #0D2127;
+      --muted: #3B5257;
+      --soft: #63797D;
+      --teal: #2F9E8D;
+      --teal-deep: #17695C;
+      --border: #C9DCDC;
+      background: var(--ground);
+      color: var(--ink);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: clamp(15px, 1vw + .4rem, 18px);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      max-width: 100%;
+      overflow-x: hidden;
+      text-align: left;
+    }
+
+    .mm-sub *, .mm-sub *::before, .mm-sub *::after { margin: 0; padding: 0; box-sizing: border-box }
+    .mm-sub img { max-width: 100%; height: auto; display: block }
+    .mm-sub a { color: var(--teal-deep); text-decoration: none }
+
+    .mm-sub .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 28px) }
+    .mm-sub .divider { height: 1px; background: var(--border) }
+    .mm-sub section { padding: clamp(34px, 4vw, 56px) 0 }
+
+    .mm-sub .eyebrow {
+      font-family: 'Space Mono', monospace; font-weight: 700; font-size: 12px;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--teal-deep);
+      margin-bottom: 16px; display: inline-flex; align-items: center; gap: 12px
+    }
+    .mm-sub .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--teal); opacity: .8 }
+
+    .mm-sub h1, .mm-sub h2, .mm-sub h3 {
+      font-family: 'Montserrat', 'DM Sans', sans-serif; font-weight: 800; color: var(--navy); line-height: 1.12;
+      text-wrap: balance
+    }
+    .mm-sub p { color: var(--muted) }
+    .mm-sub em { color: var(--ink); font-style: italic }
+
+    .mm-sub .btn {
+      display: inline-block; background: var(--teal-deep); color: #FFFFFF;
+      font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: .94rem;
+      padding: 11px 20px; border: 1px solid transparent; border-radius: 4px; text-decoration: none;
+      transition: background-color .18s ease
+    }
+    .mm-sub .btn:hover { background: color-mix(in srgb, var(--teal-deep) 84%, var(--ground)) }
+    .mm-sub .btns { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 26px }
+
+    /* ---------- brand bar: stands in for the site nav, which is off on this page ---------- */
+    .mm-sub .bar {
+      border-bottom: 3px solid transparent;
+      border-image: linear-gradient(to right, rgba(47,158,141,0), rgba(47,158,141,.55), rgba(47,158,141,0)) 1
+    }
+    .mm-sub .bar .wrap { display: flex; align-items: center; min-height: 62px }
+    .mm-sub .brand {
+      display: inline-flex; align-items: center; gap: 10px; color: var(--ink);
+      font-family: 'Montserrat', 'DM Sans', sans-serif; font-weight: 800; font-size: 13px;
+      letter-spacing: .8px; text-transform: uppercase; line-height: 1.2
+    }
+    .mm-sub .brand svg { width: 26px; height: 26px; flex: none }
+
+    /* ---------- hero ---------- */
+    .mm-sub .hero { position: relative; overflow: hidden }
+    .mm-sub .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 20%, rgba(47, 158, 141, .10), transparent 62%);
+      pointer-events: none
+    }
+    .mm-sub .hero-grid {
+      position: relative; display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      gap: clamp(28px, 3.5vw, 52px); align-items: center
+    }
+    .mm-sub .hero h1 {
+      font-size: clamp(32px, 4.4vw, 52px); font-weight: 900; text-wrap: balance;
+      letter-spacing: -1.5px; line-height: 1.04; margin-bottom: 18px
+    }
+    .mm-sub .hero h1 span { color: var(--teal-deep); display: block }
+    .mm-sub .hero .sub { font-size: clamp(16px, 1.35vw, 19px); max-width: 46ch }
+
+    /* signup card */
+    .mm-sub .signup { background: var(--panel); border: 1px solid var(--border); border-radius: 6px; padding: 24px 24px 18px }
+    .mm-sub .signup h2 { font-size: 22px; margin-bottom: 6px }
+    .mm-sub .signup .note { font-size: 14.5px; line-height: 1.55 }
+    .mm-sub .signup iframe {
+      display: block; width: 100%; height: 410px; border: 0; margin-top: 8px;
+      background: transparent; overflow: hidden
+    }
+    .mm-sub .signup .trust {
+      margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border);
+      font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--soft)
+    }
+    .mm-sub .signup .fallback { margin-top: 8px; font-size: 13.5px; color: var(--soft) }
+    .mm-sub .signup .fallback a { font-weight: 700; border-bottom: 1px solid var(--border) }
+
+    /* ---------- what lands in your inbox ---------- */
+    .mm-sub h2.sec { font-size: clamp(24px, 2.8vw, 36px) }
+    .mm-sub .intro { margin-top: 12px; max-width: 60ch; font-size: clamp(15px, 1.2vw, 18px) }
+    .mm-sub .chans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 30px }
+    .mm-sub .chan {
+      background: var(--panel); border: 1px solid var(--border); border-radius: 6px;
+      padding: 24px 24px 26px; display: flex; flex-direction: column; gap: 10px
+    }
+    .mm-sub .chan .n { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--teal-deep) }
+    .mm-sub .chan h3 { font-size: 19px }
+    .mm-sub .chan p { font-size: 14.5px; line-height: 1.55 }
+
+    /* ---------- the book ---------- */
+    .mm-sub .book { background: var(--tint) }
+    .mm-sub .book-grid {
+      display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: clamp(28px, 3.5vw, 52px); align-items: center
+    }
+    .mm-sub .book h2 { font-size: clamp(24px, 2.8vw, 36px); margin-bottom: 14px }
+    .mm-sub .book p { max-width: 54ch; font-size: clamp(15px, 1.2vw, 18px) }
+    .mm-sub .whofor { margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--border) }
+    .mm-sub .whofor .eyebrow { margin-bottom: 10px }
+    .mm-sub .whofor p { color: var(--ink) }
+    .mm-sub .cover { justify-self: center; width: min(240px, 100%) }
+    .mm-sub .cover img { width: 100%; border-radius: 4px; box-shadow: 0 18px 40px rgba(13, 33, 39, .22) }
+
+    /* ---------- footer ---------- */
+    .mm-sub .foot { padding: 34px 0 44px; text-align: center }
+    .mm-sub .foot .links { font-size: 15px; font-weight: 500 }
+    .mm-sub .foot .links a { margin: 0 6px; white-space: nowrap }
+    .mm-sub .foot .links a:hover { text-decoration: underline }
+    .mm-sub .foot .links span { color: var(--soft) }
+    .mm-sub .foot .sig {
+      margin-top: 14px; font-family: 'Space Mono', monospace; font-size: 11px;
+      letter-spacing: 1.5px; text-transform: uppercase; color: var(--soft)
+    }
+
+    @media (max-width: 860px) {
+      .mm-sub .hero-grid, .mm-sub .book-grid { grid-template-columns: 1fr }
+      .mm-sub .chans { grid-template-columns: 1fr }
+      .mm-sub .btn { width: 100%; text-align: center }
+      .mm-sub .cover { width: min(200px, 70%) }
+    }
+    @media (max-width: 520px) {
+      .mm-sub .signup { padding: 20px 16px 14px }
+      .mm-sub .signup iframe { height: 540px }
+    }
+  </style>
+
+  <!-- ========================= BRAND BAR ========================= -->
+  <header class="bar">
+    <div class="wrap">
+      <a class="brand" href="https://www.masteringobservability.com/" target="_top" aria-label="Mastering Observability, home">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="10.5" fill="none" stroke="rgba(47,158,141,0.38)" stroke-width="1"></circle>
+          <circle cx="12" cy="12" r="6" fill="none" stroke="rgba(47,158,141,0.38)" stroke-width="1"></circle>
+          <circle cx="12" cy="12" r="2.4" fill="#17695C"></circle>
+        </svg>
+        <span>Mastering Observability</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- ============================ HERO ============================ -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Vendor-neutral &middot; Free</div>
+          <h1>Observability <span>you can act on.</span></h1>
+          <p class="sub">Whether you build it or lead it. One short, practical piece most weeks from
+            Allan Mann, author of <em>Metrics &amp; Mayhem</em>, with the Signal Drop podcast and a
+            deeper technical explainer every other Tuesday. No vendor noise, no filler.</p>
+        </div>
+
+        <div class="signup" id="join">
+          <h2>Join free</h2>
+          <p class="note">Tell us your role and we send you the right things. Skip it and you get everything.</p>
+          <iframe src="https://subscribe-forms.beehiiv.com/ad0cdd4a-bf3c-493a-90e1-9b7209f2cf9a"
+            title="Subscribe to Mastering Observability" scrolling="no" loading="eager"></iframe>
+          <p class="trust">Unsubscribe in one click &middot; No sharing, ever</p>
+          <p class="fallback">Form not showing? <a href="https://subscribe-forms.beehiiv.com/ad0cdd4a-bf3c-493a-90e1-9b7209f2cf9a"
+              target="_blank" rel="noopener">Open it in a new tab</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===================== WHAT LANDS IN YOUR INBOX ===================== -->
+  <section>
+    <div class="wrap">
+      <div class="eyebrow">What you get</div>
+      <h2 class="sec">What lands in your inbox</h2>
+      <p class="intro">Three things, on a rhythm, from someone who has actually run this at scale in regulated banks.</p>
+      <div class="chans">
+        <div class="chan">
+          <span class="n">01</span>
+          <h3>The newsletter</h3>
+          <p>One signal most weeks. Something you can use on Monday, not a link dump.</p>
+        </div>
+        <div class="chan">
+          <span class="n">02</span>
+          <h3>Signal Drop</h3>
+          <p>A short, honest podcast on the parts of the job nobody warns you about.</p>
+        </div>
+        <div class="chan">
+          <span class="n">03</span>
+          <h3>Tech Tuesday</h3>
+          <p>A plain-English explainer on one piece of the observability stack, every other week.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== THE BOOK ========================== -->
+  <section class="book">
+    <div class="wrap">
+      <div class="book-grid">
+        <div>
+          <div class="eyebrow">The book</div>
+          <h2>From the author of Metrics &amp; Mayhem</h2>
+          <p>A CTO's guide to observability that actually works. The same operational read that shapes
+            everything here, in your own words and at your own pace.</p>
+          <div class="btns">
+            <a class="btn" href="https://www.masteringobservability.com/metrics-and-mayhem/free-chapter" target="_top">Read a free chapter &rarr;</a>
+          </div>
+          <div class="whofor">
+            <div class="eyebrow">Who it is for</div>
+            <p>Engineers and SREs who get the call, and the leaders who carry the budget.</p>
+          </div>
+        </div>
+        <a class="cover" href="https://www.masteringobservability.com/metrics-and-mayhem/free-chapter" target="_top">
+          <img src="https://beehiiv-images-production.s3.amazonaws.com/uploads/asset/file/aedcfbe9-498a-4e8c-8840-6b38fdd44271/cover_kindle_metrics_mayhem.png?t=1779638242"
+            alt="Metrics &amp; Mayhem book cover" loading="lazy">
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================== FOOTER =========================== -->
+  <footer class="foot">
+    <div class="wrap">
+      <p class="links">
+        <a href="https://amzn.eu/d/0cAuR2K1" target="_blank" rel="noopener">The book</a> <span>&middot;</span>
+        <a href="https://www.masteringobservability.com/metrics-and-mayhem/podcast" target="_top">Podcast</a> <span>&middot;</span>
+        <a href="https://www.linkedin.com/in/allanmann1/" target="_blank" rel="noopener">LinkedIn</a> <span>&middot;</span>
+        <a href="https://www.masteringobservability.com/metrics-and-mayhem/free-chapter" target="_top">Free chapter</a>
+      </p>
+      <p class="sig">Mastering Observability &middot; by Allan Mann</p>
+    </div>
+  </footer>
+</div>

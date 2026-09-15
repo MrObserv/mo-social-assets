@@ -1,0 +1,233 @@
+<!-- ============================================================================
+     Mastering Observability, home page BLOCK 3: why this exists, free chapter.
+
+     FRAGMENT, not a full document. Same pattern and palette as blocks 1 and 2.
+     Scoped under .mm-home. The token block below is byte-identical to the other
+     two on purpose, so any block still renders correctly on its own.
+
+     PASTE: beehiiv home page > add a Custom HTML section > paste this whole
+     block > place it BETWEEN block 1 and the post feed. It ends with the
+     feed's heading ("Recent writing / The thinking, in public", added
+     2026-09-11 to match the prototype), so it must sit directly above the feed.
+
+     Chapter 4 detail and the cover image are taken from the live
+     /metrics-and-mayhem/free-chapter page, not invented. The three problem
+     cards each correspond to a real published piece.
+
+     Links carry target="_top" so they do not open trapped inside the embed.
+     ============================================================================ -->
+<div class="mm-home">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap');
+
+    .mm-home {
+      --ground: #F6F8F7;
+      --panel: #FFFFFF;
+      --tint: #EAF6F3;
+      --ink: #16282D;
+      --navy: #0D2127;
+      --muted: #3B5257;
+      --soft: #63797D;
+      --teal: #2F9E8D;
+      --teal-deep: #17695C;
+      --border: #C9DCDC;
+      --caution: #A8720B;
+      background: var(--ground);
+      color: var(--ink);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: clamp(15px, 1vw + .4rem, 18px);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    .mm-home *, .mm-home *::before, .mm-home *::after { margin: 0; padding: 0; box-sizing: border-box }
+    .mm-home img { max-width: 100%; height: auto; display: block }
+    .mm-home a { color: var(--teal-deep); text-decoration: none }
+
+    .mm-home .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 28px) }
+    .mm-home .divider { height: 1px; background: var(--border) }
+    .mm-home section { padding: clamp(34px, 4vw, 56px) 0 }
+
+    .mm-home .eyebrow {
+      font-family: 'Space Mono', monospace; font-weight: 700; font-size: 12px;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--teal-deep);
+      margin-bottom: 16px; display: inline-flex; align-items: center; gap: 12px
+    }
+    .mm-home .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--teal); opacity: .8 }
+
+    .mm-home h1, .mm-home h2, .mm-home h3 {
+      font-family: 'Montserrat', 'DM Sans', sans-serif; font-weight: 800; color: var(--navy); line-height: 1.12
+    }
+    .mm-home p { color: var(--muted) }
+    .mm-home em { color: var(--ink); font-style: italic }
+
+    .mm-home .btn {
+      display: inline-block; background: var(--teal-deep); color: #FFFFFF;
+      font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: .94rem;
+      padding: 11px 20px; border: 1px solid transparent; border-radius: 4px; text-decoration: none;
+      transition: background-color .18s ease, border-color .18s ease
+    }
+    .mm-home .btn:hover { background: color-mix(in srgb, var(--teal-deep) 84%, var(--ground)) }
+    .mm-home .btn-ghost {
+      background: transparent; color: var(--ink); border-color: var(--border)
+    }
+    .mm-home .btn-ghost:hover { border-color: rgba(47, 158, 141, .38); background: rgba(47, 158, 141, .10) }
+    .mm-home .btns { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 26px }
+
+    /* ---------- why this exists ---------- */
+    .mm-home .lede { max-width: 62ch; font-size: clamp(16px, 1.25vw, 18px); margin-top: 14px }
+    .mm-home .probs {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0; margin-top: 36px; border-top: 1px solid var(--border)
+    }
+    .mm-home .prob { padding: 24px 26px 26px 0; border-right: 1px solid var(--border) }
+    .mm-home .prob:last-child { border-right: 0; padding-right: 0 }
+    .mm-home .prob:not(:first-child) { padding-left: 26px }
+    .mm-home .prob-k {
+      font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--teal-deep)
+    }
+    .mm-home .prob h3 { font-size: 19px; margin-top: 10px }
+    .mm-home .prob p { margin-top: 10px; font-size: 14.5px; line-height: 1.6 }
+
+    /* ---------- free chapter ---------- */
+    .mm-home .magnet-band { background: var(--tint) }
+    .mm-home .magnet {
+      display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 300px);
+      gap: clamp(28px, 3.5vw, 52px); align-items: center;
+      background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--teal);
+      border-radius: 6px; padding: clamp(24px, 3vw, 38px)
+    }
+    .mm-home .magnet h2 { font-size: clamp(22px, 2.5vw, 32px); margin-bottom: 14px }
+    .mm-home .magnet p { font-size: clamp(15px, 1.15vw, 17px) }
+    .mm-home .takeaways { list-style: none; margin-top: 18px; display: grid; gap: 10px }
+    .mm-home .takeaways li {
+      position: relative; padding-left: 28px; color: var(--ink); font-size: 15px; line-height: 1.55
+    }
+    .mm-home .takeaways li::before {
+      content: ''; position: absolute; left: 0; top: 4px; width: 17px; height: 17px;
+      border-radius: 50%; background: var(--tint); border: 1.5px solid var(--teal)
+    }
+    .mm-home .takeaways li::after {
+      content: ''; position: absolute; left: 5px; top: 9px; width: 7px; height: 4px;
+      border-left: 2px solid var(--teal-deep); border-bottom: 2px solid var(--teal-deep);
+      transform: rotate(-45deg)
+    }
+    .mm-home .cover {
+      padding: 12px; background: var(--tint); border: 1px solid var(--border); border-radius: 8px
+    }
+    .mm-home .cover img { border-radius: 3px; box-shadow: 0 12px 30px rgba(13, 33, 39, .18) }
+
+    /* ---------- feed heading (sits directly above the native post feed) ---------- */
+    .mm-home .sh-wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: clamp(40px, 5vw, 76px) clamp(16px, 4vw, 28px) 34px }
+    .mm-home .sh-eyebrow {
+      font-family: 'Space Mono', ui-monospace, monospace; font-size: .78rem;
+      letter-spacing: .14em; text-transform: uppercase; color: var(--soft)
+    }
+    .mm-home .sh-title {
+      margin-top: 12px; font-family: 'Montserrat', 'DM Sans', sans-serif; font-weight: 800;
+      font-size: 2rem; line-height: 1.08; letter-spacing: -.02em; color: var(--ink); text-wrap: balance
+    }
+
+    /* ---------- the native post feed below, dressed as the prototype's writing grid ----------
+       Page-wide on purpose: these rules style beehiiv's post feed block, which sits directly
+       under this block. They hang off beehiiv's stable hooks (post-root-element, grid,
+       embla__slide, and the card layout's data-json-path), so if beehiiv ever renames them the
+       feed falls back to its own styling rather than breaking. */
+    .post-root-element { max-width: 1064px; margin-left: auto !important; margin-right: auto !important }
+    .post-root-element .grid { gap: 1px !important; background: #DCE7E5; border: 1px solid #DCE7E5 }
+    .post-root-element .grid > .embla__slide { background: #F6F8F7; transition: background-color .18s ease }
+    .post-root-element .grid > .embla__slide:hover { background: #FFFFFF }
+    .post-root-element .grid > .embla__slide [data-json-path="0"] { background: transparent !important }
+    /* Card meta row left-aligned as in the prototype (beehiiv centres it), titles in full.
+       Hooks are the card-layout paths beehiiv renders. */
+    .post-root-element .grid > .embla__slide [data-json-path="0"],
+    .post-root-element .grid > .embla__slide [data-json-path="0,0"],
+    .post-root-element .grid > .embla__slide [data-json-path="0,1"] { text-align: left !important; justify-content: flex-start !important }
+    .post-root-element .grid > .embla__slide [data-json-path="0,1,0"] { -webkit-line-clamp: none !important; line-clamp: none !important }
+    .post-root-element .grid > .embla__slide:first-child,
+    .post-root-element .grid > .embla__slide:last-child:nth-child(even) { grid-column: 1 / -1 }
+    .post-root-element .grid > .embla__slide:first-child [data-json-path="0,1,0"] span {
+      font-size: clamp(24px, 2.4vw, 32px) !important; font-weight: 800 !important; line-height: 1.12
+    }
+
+    @media (max-width: 860px) {
+      .mm-home .probs { grid-template-columns: 1fr; border-top: 0 }
+      .mm-home .prob { border-right: 0; border-top: 1px solid var(--border); padding: 22px 0 24px }
+      .mm-home .prob:not(:first-child) { padding-left: 0 }
+      .mm-home .magnet { grid-template-columns: 1fr }
+      .mm-home .cover { max-width: 240px; margin: 0 auto }
+      .mm-home .btn, .mm-home .btn-ghost { width: 100%; text-align: center }
+    }
+  </style>
+
+  <!-- ======================= WHY THIS EXISTS ======================= -->
+  <section>
+    <div class="wrap">
+      <div class="eyebrow">Why this exists</div>
+      <h2 style="font-size:clamp(24px,2.8vw,36px)">Most observability advice is written to sell a platform.</h2>
+      <p class="lede">This is not. No vendor sponsorship, no reference architecture that happens to need
+        three seats of something. Just what actually holds up in a large enterprise, and what quietly does not.</p>
+
+      <div class="probs">
+        <div class="prob">
+          <div class="prob-k">The rollout</div>
+          <h3>It was never the tooling</h3>
+          <p>OpenTelemetry is not what is blocking you. Ownership boundaries, funding models and the
+            team that will not go first are. Those are the pieces nobody writes about.</p>
+        </div>
+        <div class="prob">
+          <div class="prob-k">The bill</div>
+          <h3>Cost is a design decision</h3>
+          <p>Cardinality, retention and sampling get chosen by accident, then defended for two years.
+            Decide them on purpose and the invoice stops being a surprise.</p>
+        </div>
+        <div class="prob">
+          <div class="prob-k">The agents</div>
+          <h3>AI needs a gate, not a leash</h3>
+          <p>Autonomous SRE agents will run queries you would never approve and spend budget while
+            they think. The question is where accountability actually sits.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= FREE CHAPTER ========================= -->
+  <section class="magnet-band">
+    <div class="wrap">
+      <div class="magnet">
+        <div>
+          <div class="eyebrow">Free chapter</div>
+          <h2>What separates the teams that recover fast from those that do not</h2>
+          <p>Chapter 4 of <em>Metrics &amp; Mayhem</em>. The chapter that answers the question every
+            engineering leader is afraid to ask out loud: when it breaks, who actually owns getting it back?</p>
+          <ul class="takeaways">
+            <li>Why one airline recovered from the CrowdStrike outage in a day and another took five,
+              from the identical software fault.</li>
+            <li>The three-layer ownership model: outcome owner, indicator owner, platform owner.</li>
+            <li>Why most organisations build only the platform layer, then wonder why their P1s take an hour.</li>
+            <li>One concrete Monday action you can take before you close the page.</li>
+          </ul>
+          <div class="btns">
+            <a class="btn" href="https://www.masteringobservability.com/products/metrics-mayhem-chapter-4" target="_top">Get the free chapter</a>
+            <a class="btn btn-ghost" href="https://www.masteringobservability.com/metrics-and-mayhem/book" target="_top">See the full book</a>
+          </div>
+        </div>
+        <div class="cover">
+          <img src="https://beehiiv-images-production.s3.amazonaws.com/uploads/asset/file/aedcfbe9-498a-4e8c-8840-6b38fdd44271/cover_kindle_metrics_mayhem.png?t=1779638242"
+            alt="Metrics and Mayhem book cover" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ======================== FEED HEADING ========================= -->
+  <div class="sh-wrap">
+    <p class="sh-eyebrow">Recent writing</p>
+    <h2 class="sh-title">The thinking, in public</h2>
+  </div>
+</div>

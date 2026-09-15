@@ -1,0 +1,31 @@
+<!-- ============================================================================
+     Mastering Observability, home page: heading above the native post feed.
+
+     FRAGMENT, same pattern as blocks 1 to 3. Scoped under .mm-home, but every
+     rule here uses class names the blocks do not use (sh-*), so it cannot
+     collide with their shared rules.
+
+     Matches the prototype's feed heading: the "Recent writing" eyebrow in
+     Space Mono and "The thinking, in public" in Montserrat 800.
+
+     PASTE: Custom HTML section directly ABOVE the post feed.
+     ============================================================================ -->
+<div class="mm-home">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap');
+
+    .mm-home .sh-wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: clamp(40px, 5vw, 76px) clamp(16px, 4vw, 28px) 34px }
+    .mm-home .sh-eyebrow {
+      margin: 0; font-family: 'Space Mono', ui-monospace, monospace; font-size: .78rem;
+      letter-spacing: .14em; text-transform: uppercase; color: #63797D
+    }
+    .mm-home .sh-title {
+      margin: 12px 0 0; font-family: 'Montserrat', 'DM Sans', sans-serif; font-weight: 800;
+      font-size: 2rem; line-height: 1.08; letter-spacing: -.02em; color: #16282D; text-wrap: balance
+    }
+  </style>
+  <div class="sh-wrap">
+    <p class="sh-eyebrow">Recent writing</p>
+    <h2 class="sh-title">The thinking, in public</h2>
+  </div>
+</div>

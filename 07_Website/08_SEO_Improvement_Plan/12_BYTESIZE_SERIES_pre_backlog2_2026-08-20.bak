@@ -1,0 +1,76 @@
+# byte-size Series Standard + SEO Franchise
+
+**Owner:** Growth (SEO + content turf) · **Created 2026-06-26** · Engagement owns the vendor relationship and produces the raw vendor read; Growth turns it into a ranking, repeatable series. Proven by the Grafana Alloy byte-size (an evergreen winner). This makes "byte-size" a destination people search for and return to, not a one-off. UK English, no em dashes, §5-clean, defensible numbers only, independent + disclosed.
+
+---
+
+## 1. Series definition
+**Naming.** Post title `byte-size: What Is <X>?`. SEO meta title `What Is <X>? A Practical Observability Guide` (the proven pattern). Slug `what-is-<x>`. Tag: `byte_size` (underscore; one canonical taxonomy).
+
+**Structure (the proven shape, ~3 min read):**
+1. **Hook intro** (2-4 lines): why this matters, the honest framing.
+2. **What is it?** plain-English definition, what it does, who is behind it.
+3. **[Optional] Foundational concept** when the tool rests on one (e.g., "First, what is eBPF?"). This doubles as a secondary keyword target, see §3.
+4. **What it does well** (2-4 concrete strengths).
+5. **The honest ledger** (the real gaps and limits). This is the brand value.
+6. **Is it right for you?** a clear "who it fits / who it does not" call.
+7. **CTA + disclosure + Sources.**
+
+**Tone.** Conviction-light, plain English, vendor-neutral. UK English, no em dashes, §5-clean (run `s5_lint.py`).
+
+**Disclosure rule (vendor pieces, mandatory).** Any byte-size on a vendor the brand has spoken with or may collaborate with carries a one-line disclosure near the close: relationship stated, opinion independent, gaps kept in. No pricing, no named customers, no unverified claims (codex §11). A Sources / further-reading block of external, verifiable links is mandatory.
+
+**CTA.** One intent-routed CTA per the CTA library: byte-size is informational / top-of-funnel, so **Block B (newsletter)** is the routed CTA, plus the free-chapter soft secondary. (Keep the author's reply / "book a slot" line as the human close; Block B is the standard ask.)
+
+**Diagrams (mandatory, from 2026-07-16 — Al's call).** Every byte-size carries **at least TWO diagrams** on the light in-body surface: technical / principle diagrams that explain the mechanism (a business-flow diagram is optional and additional). Held to the full diagram QA gate (two self passes + fresh-eyes independent validation, same bar as thumbnails). A picture says a thousand words, and byte-sizes exist to make a concept land, so they lean on diagrams. This supersedes the earlier ">=1 diagram" rule (GR-2026-07-15-02).
+
+**Pull-quotes: byte-sizes are EXEMPT.** The pull-quote rule (verbatim Block Q lines: 2 per Conviction blog, 1 per newsletter) does NOT apply to byte-sizes. Byte-sizes are diagram-heavy by design, and the diagrams do the visual-anchor and comprehension job that pull-quotes do on prose blogs. See `23_PULL_QUOTE_STANDARD_PROPOSAL_2026-07-16.md` (approved 2026-07-16).
+
+---
+
+## 2. SEO / cluster strategy
+- **Series hub + tag.** Every byte-size carries the `byte_size` tag, which gives a beehiiv tag archive (the de facto hub). Propose a curated "byte-size" hub entry in site nav + a short intro at the top of the tag archive so it reads as a series, not a tag. (Structural, filed for Control.)
+- **Internal-link rule (every byte-size):** link to 2 sibling byte-size posts + the most relevant deep guide (e.g., the OpenTelemetry Collector guide), and add a reciprocal link back from at least one sibling once live. This is what compounds the cluster.
+- **Cluster home:** byte-size sits in cluster C4 (Observability practice & tooling) of the Step 6 map (`11_FORWARD_SEO_STEP6.md`); definitional pieces (eBPF, OpenTelemetry, distributed tracing) can also support C2/C5.
+- **Pattern, not vendor:** target the generic query ("what is X"), never "X vs Y" hit-pieces; the neutral, definitional angle is what ranks and what keeps the byline honest.
+- **Tech Tuesday shares this franchise (ID-2026-07-05-02, settled in `16_TECH_TUESDAY_SEO_POSITIONING.md`):** a Tech Tuesday explainer's WRITTEN companion IS a byte-size on this contract (+ a `tech_tuesday` tag); the video is the second front door on YouTube/Spotify. One topic = one crawlable byte-size page + one video, never two competing MO URLs. Tech Tuesday gets a video hub (playlist/feed), not a separate search hub.
+
+---
+
+## 3. Backlog: high-intent "What Is X?" targets (compounding)
+Prioritised by search intent + relevance. Tier 1 = build next.
+
+**Tier 1 (foundational, highest intent): ALL THREE BUILT 2026-06-26 (web-only drafts, awaiting Al publish + OG-card upload).**
+- **What Is eBPF?** BUILT `post_30ae7490` slug `what-is-ebpf`. Cluster-linked. OG card in `2026-06-26_ebpf-bite-size/`.
+- **What Is OpenTelemetry?** BUILT `post_0418fb06` slug `what-is-opentelemetry` (uses CNCF graduation, 11 May 2026; links up to the Collector guide). OG card in `2026-06-26_opentelemetry-bite-size/`.
+- **What Is Distributed Tracing?** BUILT `post_563ed1a0` slug `what-is-distributed-tracing`. OG card in `2026-06-26_distributed-tracing-bite-size/`.
+
+Cluster now wired both ways across Odigos, eBPF, OpenTelemetry, Distributed Tracing, Grafana Alloy and the OTel Collector guide (one trivial leftover: the deep guide -> eBPF reciprocal link). Next Tier-2 build candidates: Prometheus, Grafana, Loki, Jaeger.
+
+**Tier 2 (major tools): "open-source stack" cluster BUILT 2026-07-01 (web-only drafts, awaiting publish + OG-card host/set).**
+- **What Is Prometheus?** `post_02a75ad8` slug `what-is-prometheus` (uses Prometheus 3.0 native OTLP).
+- **What Is Grafana?** `post_3b3175e9` slug `what-is-grafana` (LGTM stack, Grafana 13).
+- **What Is Loki?** `post_096e2cf3` slug `what-is-loki` (label-index trade-off, Kafka rearchitecture).
+- **What Is Jaeger?** `post_8be26104` slug `what-is-jaeger` (Jaeger v2 on the OTel Collector).
+- Still open in Tier 2: What Is Tempo?, and a What Is the OpenTelemetry Collector? byte-size pointing at the deep guide.
+Cross-linked into the live cluster (OpenTelemetry, Grafana Alloy, OTel Collector guide, Distributed Tracing). Reciprocal back-links from the Tier-1 posts + local per-post folder md + s5_lint = finishing pass still to do.
+
+**Tier 3 (patterns + concepts):**
+- What Is AIOps? · What Is an SLO / SLI? · What Is cardinality? · What Is sampling? · What Is a service-level objective? · What Is OBI (OpenTelemetry eBPF Instrumentation)?
+
+Growth keeps this list as the running backlog; Engagement feeds vendor reads in; Growth picks the next target by intent + the cluster gap.
+
+---
+
+## 4. Cadence + where briefs live
+- **Cadence:** 1-2 byte-size per month, slotted into the existing blog pipeline (does not displace the weekly Signal Drop or the monthly Digest). Each new byte-size is rounded up in the next Observability Digest "On the blog this month".
+- **Email distribution (Al, 2026-06-26): held to web-only for now.** Byte-size publishes web-only + Digest roundup until the Technical & Practitioner / Leadership & Strategy streams are populated (the survey has not run). Then byte-size becomes the email content for the **Technical stream** specifically, rather than a blast to the whole list. Holding now is sequencing, not a permanent web-only.
+- **Discovery while email is held:** every byte-size ships with a social amplification pack (X + company LinkedIn + light personal LinkedIn), handed to Daily Ops for Buffer, so people learn it exists. Disclosed vendor pieces lead with the neutral angle, never a pitch.
+- **Folder standard (per `04_Newsletter_and_Blog`):** each piece in its own per-post folder `04_Newsletter_and_Blog/YYYY-MM-DD_<topic>/`; briefs in `_Briefs`. (Odigos is in `2026-06-24_odigos-bite-size/`.)
+- **Tech Tuesday byte-size (DO-2026-07-09-01):** a Tech Tuesday topic's WRITTEN byte-size / blog web post lives in `04_Newsletter_and_Blog/` as a normal per-post folder (`YYYY-MM-DD_<topic>/`), exactly like every other byte-size, while the Tech Tuesday franchise folder `03_Podcast/Tech_Tuesday/TT##_<slug>/` holds only the franchise assets (title card, thumbnail, intro/outro, metadata) plus a cross-link to that `04` post. The `04` post is the crawlable search anchor the episode + socials point at; the TT folder points at it, it does not duplicate the written post.
+- **Hand-off:** Engagement drafts the vendor read into the per-post folder; Growth runs the SEO pass (this standard), publishes via the Bite-size template, and wires the cluster links.
+
+---
+
+## 5. Filed for Control (structural)
+Via `Change_Requests_Inbox/Growth.md` [SEO]: (1) the byte-size series hub/tag treatment (nav entry + tag-archive intro); (2) canonise this series standard; (3) reciprocal internal links from the Grafana Alloy byte-size + the OTel Collector guide to new entries. Template (Bite-size v2.0) already exists in `09_BEEHIIV_TEMPLATES.md`.

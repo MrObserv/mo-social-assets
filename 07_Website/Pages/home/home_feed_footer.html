@@ -1,0 +1,28 @@
+<!-- ============================================================================
+     Mastering Observability, home page: archive button below the native feed.
+
+     FRAGMENT, same pattern as blocks 1 to 3. Unique class names (sf-*), so it
+     cannot collide with the blocks' shared rules.
+
+     Matches the prototype's "Read the archive" ghost button.
+
+     PASTE: Custom HTML section directly BELOW the post feed, above block 2.
+     Links carry target="_top", as in the other blocks.
+     ============================================================================ -->
+<div class="mm-home">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+
+    .mm-home .sf-wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 28px) clamp(40px, 5vw, 72px) }
+    .mm-home .sf-btn {
+      display: inline-block; background: transparent; color: #16282D;
+      font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: .94rem;
+      padding: 11px 20px; border: 1px solid #C9DCDC; border-radius: 4px; text-decoration: none;
+      transition: background-color .18s ease, border-color .18s ease
+    }
+    .mm-home .sf-btn:hover { border-color: rgba(47, 158, 141, .38); background: rgba(47, 158, 141, .10) }
+  </style>
+  <div class="sf-wrap">
+    <a class="sf-btn" href="https://www.masteringobservability.com/archive" target="_top">Read the archive &rarr;</a>
+  </div>
+</div>

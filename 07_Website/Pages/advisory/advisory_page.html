@@ -1,0 +1,364 @@
+<!-- ============================================================================
+     Observability Advisory, /advisory. FULL PAGE REPLACEMENT.
+
+     Replaces the existing .mm-adv Custom HTML block. Same class name, so
+     nothing else on the site is affected.
+
+     WHY THIS REBUILD:
+     1. The live block is TRUNCATED. It ends mid-attribute at
+        <a href="https://amzn.eu/d/0cAuR2  and the closing footer link list is
+        lost. That is repaired here.
+     2. The live block uses Space Grotesk + Inter, which Brand_Design_System_v2.md
+        records as REPLACED. This uses Montserrat + DM Sans + Space Mono.
+     3. Colours move onto the ratified web surface so this page matches the
+        rebuilt home page: ink #16282D, navy #0D2127, teal #2F9E8D,
+        AA-safe link teal #17695C, tint #EAF6F3, border #C9DCDC, ground #F6F8F7.
+
+     COPY: headlines, prices and button labels are carried over verbatim from the
+     live page.
+
+     PASTE: /advisory > the existing Custom HTML block > replace its contents.
+
+     Links carry target="_top" so they do not open trapped inside the embed.
+     If the booking URL changes, find and replace calendar.app.google.
+     ============================================================================ -->
+<div class="mm-adv">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap');
+
+    /* Site nav on this page: a teal gradient line in place of the nav's grey hairline.
+       Page-wide on purpose; .navbar-list is beehiiv's own class on the nav bar. */
+    nav .navbar-list {
+      border-bottom: 3px solid transparent !important;
+      border-image: linear-gradient(to right, rgba(47,158,141,0), rgba(47,158,141,.55), rgba(47,158,141,0)) 1 !important
+    }
+
+    .mm-adv {
+      --ground: #F6F8F7;
+      --panel: #FFFFFF;
+      --tint: #EAF6F3;
+      --ink: #16282D;
+      --navy: #0D2127;
+      --muted: #3B5257;
+      --soft: #63797D;
+      --teal: #2F9E8D;
+      --teal-deep: #17695C;
+      --teal-bright: #74DDCD;
+      --border: #C9DCDC;
+      --caution: #A8720B;
+      background: var(--ground);
+      color: var(--ink);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: clamp(15px, 1vw + .4rem, 18px);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      max-width: 100%;
+      overflow-x: hidden;
+      text-align: left;
+    }
+
+    .mm-adv *, .mm-adv *::before, .mm-adv *::after { margin: 0; padding: 0; box-sizing: border-box }
+    .mm-adv img { max-width: 100%; height: auto; display: block }
+    .mm-adv a { color: var(--teal-deep); text-decoration: none }
+
+    .mm-adv .wrap { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 32px) }
+    .mm-adv .inner { max-width: 68ch }
+    .mm-adv section { padding: clamp(38px, 4.5vw, 64px) 0 }
+    .mm-adv .divider { height: 1px; background: var(--border) }
+
+    .mm-adv .eyebrow {
+      font-family: 'Space Mono', monospace; font-weight: 700; font-size: 12px;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--teal-deep);
+      margin-bottom: 16px; display: inline-flex; align-items: center; gap: 12px
+    }
+    .mm-adv .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--teal); opacity: .8 }
+
+    .mm-adv h1, .mm-adv h2, .mm-adv h3 {
+      font-family: 'Montserrat', 'DM Sans', sans-serif; font-weight: 800; color: var(--navy); line-height: 1.12
+    }
+    .mm-adv p { color: var(--muted) }
+    .mm-adv em { color: var(--ink); font-style: italic }
+    .mm-adv strong { color: var(--ink) }
+
+    .mm-adv .btn {
+      display: inline-block; background: var(--teal); color: var(--navy);
+      font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 16px;
+      padding: 15px 30px; border: 0; border-radius: 4px; text-decoration: none
+    }
+    .mm-adv .btn-ghost {
+      background: transparent; color: var(--ink); border: 1px solid var(--border); padding: 14px 29px
+    }
+    .mm-adv .btns { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px }
+
+    /* ---------- dark bands ---------- */
+    .mm-adv .dark { background: var(--navy) }
+    .mm-adv .dark h1, .mm-adv .dark h2 { color: #fff }
+    .mm-adv .dark p { color: rgba(255, 255, 255, .80) }
+    .mm-adv .dark strong { color: #fff }
+    .mm-adv .dark .eyebrow { color: var(--teal-bright) }
+    .mm-adv .dark .eyebrow::before { background: var(--teal-bright) }
+    .mm-adv .dark .btn-ghost { color: #fff; border-color: rgba(116, 221, 205, .45) }
+
+    .mm-adv .hero h1 {
+      font-size: clamp(30px, 4vw, 50px); font-weight: 900; letter-spacing: -1.2px; line-height: 1.06
+    }
+    .mm-adv .hero .subhead {
+      font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: clamp(17px, 1.5vw, 21px); color: var(--teal-bright); margin-top: 18px; max-width: 52ch
+    }
+    .mm-adv .hero .lead { margin-top: 16px; max-width: 60ch }
+
+    .mm-adv .proof {
+      display: flex; flex-wrap: wrap; gap: 10px 26px; align-items: center;
+      margin-top: 34px; padding-top: 24px; border-top: 1px solid rgba(116, 221, 205, .22);
+      font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 1px;
+      text-transform: uppercase; color: rgba(255, 255, 255, .62)
+    }
+    .mm-adv .proof b { color: var(--teal-bright); font-weight: 700 }
+
+    /* ---------- the problem ---------- */
+    .mm-adv h2 { font-size: clamp(24px, 2.9vw, 38px) }
+    .mm-adv .stat {
+      background: var(--panel); border-left: 3px solid var(--caution); border-radius: 0 4px 4px 0;
+      padding: 20px 24px; margin: 24px 0; font-size: clamp(15px, 1.2vw, 18px); color: var(--ink); max-width: 66ch
+    }
+    .mm-adv .stat b { color: var(--caution); font-weight: 700; font-variant-numeric: tabular-nums }
+    .mm-adv .body p { margin-top: 14px }
+
+    /* ---------- tint band ---------- */
+    .mm-adv .tint { background: var(--tint) }
+
+    /* ---------- the assessment ---------- */
+    .mm-adv .offer {
+      display: grid; grid-template-columns: 280px minmax(0, 1fr);
+      border: 1px solid var(--border); border-radius: 6px; overflow: hidden;
+      margin-top: 30px; background: var(--panel)
+    }
+    .mm-adv .offer-price {
+      background: var(--navy); color: #fff; padding: 34px 28px;
+      display: flex; flex-direction: column; justify-content: center; gap: 10px
+    }
+    .mm-adv .offer-price .lbl {
+      font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--teal-bright)
+    }
+    .mm-adv .offer-price .amt {
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(30px, 3vw, 40px);
+      letter-spacing: -1px; line-height: 1; color: #fff
+    }
+    .mm-adv .offer-price .sub { font-size: 14px; color: rgba(255, 255, 255, .78); line-height: 1.5 }
+    .mm-adv .offer-body { padding: 32px 32px 34px }
+    .mm-adv .offer-body h3 { font-size: clamp(20px, 2vw, 26px); margin-bottom: 12px }
+    .mm-adv .offer-body .lead { max-width: 60ch; color: var(--ink); font-weight: 500 }
+
+    .mm-adv .steps {
+      list-style: none; display: grid; gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-top: 24px
+    }
+    .mm-adv .step { background: var(--panel); padding: 18px 20px; display: grid; grid-template-columns: 34px 1fr; gap: 14px; align-items: start }
+    .mm-adv .step-n { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--teal-deep); padding-top: 2px }
+    .mm-adv .step-t { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 15px; color: var(--navy) }
+    .mm-adv .step-d { color: var(--muted); font-size: 14px; line-height: 1.55; margin-top: 3px }
+    .mm-adv .meta { margin-top: 20px; font-size: 13px; color: var(--soft); line-height: 1.55 }
+
+    .mm-adv .rate {
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: clamp(16px, 1.4vw, 19px);
+      color: var(--navy); margin-top: 20px
+    }
+
+    /* ---------- footer ---------- */
+    .mm-adv .foot { padding: clamp(32px, 4vw, 48px) 0 }
+    .mm-adv .foot .pitch { font-size: 14px; color: var(--soft); max-width: 64ch }
+    .mm-adv .links {
+      display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 18px;
+      font-family: 'Space Mono', monospace; font-size: 11.5px; letter-spacing: 1.2px; text-transform: uppercase
+    }
+    .mm-adv .links a { color: var(--teal-deep); border-bottom: 1px solid var(--border); padding-bottom: 3px }
+    .mm-adv .links a:hover { border-bottom-color: var(--teal) }
+
+    @media (max-width: 860px) {
+      .mm-adv .offer { grid-template-columns: 1fr }
+      .mm-adv .btn, .mm-adv .btn-ghost { width: 100%; text-align: center }
+    }
+  </style>
+
+  <!-- ===================== SECTION 1: HERO (dark) ===================== -->
+  <section class="dark hero">
+    <div class="wrap">
+      <div class="inner">
+        <div class="eyebrow">Observability Advisory</div>
+        <h1>You bought the tools. You still can't get a straight answer at 2:47am.</h1>
+        <p class="subhead">Independent, vendor-neutral observability advisory for IT and engineering
+          leaders in regulated enterprises.</p>
+        <p class="lead">I help you close the gap between the dashboard and the outcome. Banking-grade
+          operational discipline, no platform to sell you.</p>
+        <div class="btns">
+          <a class="btn" href="https://calendar.app.google/YTbYSEJFQcdaHyAu5" target="_top">Book a call</a>
+          <a class="btn btn-ghost" href="#mm-assessment" target="_top">See the Assessment</a>
+        </div>
+        <div class="proof">
+          <span><b>25 years</b> in banking &amp; government IT operations</span>
+          <span>Author of <b>Metrics &amp; Mayhem</b></span>
+          <span>Vendor-neutral</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SECTION 2: THE PROBLEM ===================== -->
+  <section>
+    <div class="wrap">
+      <div class="inner body">
+        <div class="eyebrow">The problem</div>
+        <h2>More tools. More dashboards. Worse recovery.</h2>
+        <div class="stat">
+          In 2021, <b>47%</b> of organisations took more than an hour to recover from an incident.
+          By 2024, it was <b>82%</b>. Spend went up. Outcomes went down.
+        </div>
+        <p>If you run operations in a bank, an insurer, or any environment a regulator cares about,
+          you already know the version that keeps you up. A green board that tells you nothing about
+          whether the payment cleared. Alerts nobody owns. A platform that looks observable and behaves
+          like a black box the moment it matters.</p>
+        <p>This is not a tooling problem. It is a leadership problem wearing a tooling costume.
+          That is the problem I work on.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ================ SECTION 3: WHO YOU WORK WITH ==================== -->
+  <section class="tint">
+    <div class="wrap">
+      <div class="inner body">
+        <div class="eyebrow">Who you would be working with</div>
+        <h2>Allan Mann</h2>
+        <p>Twenty-five years leading IT operations and observability across five tier-1 banks and one
+          UAE government. I modernised monitoring across 40+ countries at a global bank, built the
+          observability function from nothing for a government platform serving 3.2 million citizens,
+          and designed metrics and the Dynatrace business-events programme for three of a UK bank's
+          largest payment applications, inside a payments-resilience initiative under PRA, FCA and
+          Bank of England oversight.</p>
+        <p>I wrote the book on this. Literally: <em>Metrics &amp; Mayhem: A CTO's Guide to Observability
+          That Actually Works</em>. I also host the <em>Metrics &amp; Mayhem</em> podcast and publish the
+          Mastering Observability newsletter, where I work these problems out in the open. And I am
+          vendor-neutral. I do not resell platforms and I am not paid by them. I tell you what actually
+          moves the number.</p>
+        <div class="btns">
+          <a class="btn btn-ghost" href="https://amzn.eu/d/0cAuR2K1" target="_top">See the book</a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/allanmann1/" target="_top">Connect on LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== SECTION 4: THE ASSESSMENT ===================== -->
+  <section id="mm-assessment">
+    <div class="wrap">
+      <div class="eyebrow">The Observability Assessment</div>
+      <h2>A focused, honest read on where you stand.</h2>
+
+      <div class="offer">
+        <div class="offer-price">
+          <span class="lbl">Start here</span>
+          <span class="amt">from &pound;5,000</span>
+          <span class="sub">Fixed fee. Around five days. Bounded scope, agreed up front.
+            Prework completed before we start.</span>
+        </div>
+        <div class="offer-body">
+          <h3>How it works</h3>
+          <p class="lead">A fixed-scope review of one part of your observability, one platform,
+            one service domain, or a defined set of questions. Not the whole estate, and we agree
+            exactly what is in scope before we begin.</p>
+
+          <ol class="steps">
+            <li class="step">
+              <span class="step-n">01</span>
+              <div>
+                <div class="step-t">Prework, before I arrive</div>
+                <div class="step-d">You complete an intake pack: access, current dashboards and alerting,
+                  recent incident data, and the people I need to speak to. The work does not start until
+                  this is in. It is what makes the rest deliverable.</div>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step-n">02</span>
+              <div>
+                <div class="step-t">Review and interviews</div>
+                <div class="step-d">I work through what you have supplied and I talk to your people.
+                  The conversations matter as much as the data, and I do not skip them.</div>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step-n">03</span>
+              <div>
+                <div class="step-t">Findings and roadmap</div>
+                <div class="step-d">A written assessment of what is working, what is theatre, and a
+                  prioritised roadmap, plus a readout session to walk your team through it.</div>
+              </div>
+            </li>
+          </ol>
+
+          <div class="btns">
+            <a class="btn" href="https://calendar.app.google/YTbYSEJFQcdaHyAu5" target="_top">Book a call to scope it</a>
+          </div>
+          <p class="meta">Scope agreed in writing up front &middot; prework completed before day one &middot;
+            access and reasonable stakeholder time provided by you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- =================== SECTION 5: GOING FURTHER ===================== -->
+  <section>
+    <div class="wrap">
+      <div class="inner body">
+        <div class="eyebrow">Going further</div>
+        <h2>Then we fix what the check finds.</h2>
+        <p>Most assessments turn up two or three things worth real work: a metrics methodology that ties
+          signals to business outcomes, an alerting model people will actually trust, an ownership structure
+          that survives a 3am incident, or a roadmap you can take to the board.</p>
+        <p>I take that on as advisory, scoped to your situation. A few focused days, or a few days a month,
+          whatever the problem needs. No retainer you have to justify, no scope you don't.</p>
+        <p class="rate">Advisory from &pound;1,250 per day. Scoped and quoted per engagement.</p>
+        <div class="btns">
+          <a class="btn btn-ghost" href="https://calendar.app.google/YTbYSEJFQcdaHyAu5" target="_top">Talk it through</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECTION 6: CLOSING CTA (dark) ================== -->
+  <section class="dark">
+    <div class="wrap">
+      <div class="inner">
+        <h2>The next incident is already being written.</h2>
+        <p style="margin-top:16px">You can keep buying tools and hoping the outcomes follow. They haven't
+          so far, and the data says they won't. Or you can run a focused assessment and find out what
+          actually needs to change, with someone who has done it under real regulatory pressure.</p>
+        <p style="margin-top:14px">Start with the call. No pitch, just a conversation.</p>
+        <div class="btns">
+          <a class="btn" href="https://calendar.app.google/YTbYSEJFQcdaHyAu5" target="_top">Book a call</a>
+          <a class="btn btn-ghost" href="mailto:allan@masteringobservability.com" target="_top">Email Allan</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER (this is the part that was truncated) ======== -->
+  <footer class="foot">
+    <div class="wrap">
+      <p class="pitch">Independent observability advisory for IT and engineering leaders in regulated
+        enterprises. Start with a fixed-fee Assessment, or book a call.</p>
+      <div class="links">
+        <a href="https://calendar.app.google/YTbYSEJFQcdaHyAu5" target="_top">Book a call</a>
+        <a href="https://amzn.eu/d/0cAuR2K1" target="_top">The book</a>
+        <a href="https://www.masteringobservability.com/metrics-and-mayhem/free-chapter" target="_top">Free chapter</a>
+        <a href="https://www.masteringobservability.com/subscribe" target="_top">The Signal</a>
+        <a href="mailto:allan@masteringobservability.com" target="_top">Email Allan</a>
+      </div>
+    </div>
+  </footer>
+</div>

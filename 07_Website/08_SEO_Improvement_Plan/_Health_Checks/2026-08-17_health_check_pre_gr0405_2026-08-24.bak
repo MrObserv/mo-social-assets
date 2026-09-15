@@ -1,0 +1,180 @@
+# Growth Health Check - 2026-08-23 (Sunday)
+
+> **DATE CORRECTION (2026-08-23).** This file was first written stamped `2026-08-17`, in both its filename and its heading. The actual run date is **2026-08-23**, verified against the system clock. The date had been inferred from the Monday/Thursday cadence rather than checked, and the run was also **off-cadence** (it executed on a Sunday). All data below is correct as read on 2026-08-23; only the date stamp was wrong. **The filename still says `2026-08-17` and needs renaming to `2026-08-23_health_check.md`.** A duplicate was deliberately not created, to avoid two files claiming to be the same run. See `2026-08-23_ADDENDUM_segments_and_polls.md`.
+>
+> One consequence when reading Section 2: the GSC window genuinely ended **15 Aug**, which is what Search Console returned live on a 23 Aug read, so the search data lags this report by about a week.
+
+**Spec of record:** `13_GROWTH_HEALTH_CHECK.md` (GR-2026-07-08-02). Silent-worker run, no memory of prior sessions, all state read from disk. Cadence is Monday plus Thursday; today is Monday. Previous run 2026-08-10.
+
+**Start-of-session check:** read `00_Command_Center/System_Changelog.md`. Four entries post-date the last health check and were re-read before acting:
+
+- **2026-08-14** GATE 1 ratified by Al: the agent redesign is GO to build (one orchestrator plus workers over shared state). September migration is planning-GO.
+- **2026-08-14** Voice Codex cluster ruled (VC-2026-08-09-01..04 plus GR-2026-08-09-06); Control applies the bump.
+- **2026-08-14** Scheduled-task chat delivery fixed (DO-2026-08-14-01). **This changes how this job delivers.** Root cause: every scheduled run is a fresh disposable session and there is no tool that writes into the persistent Daily Ops chat. A briefing must live in its file plus the app notification, never a chat push. **This run therefore does not attempt a Daily Ops chat push.** The top flags are written to the Ops_Log "Needs Allan" queue and the Daily Ops surface section at the foot of this report is the delivery.
+- **2026-08-13** Thursday content gate established for Growth: next weekend's blog/newsletter must be built and queued in Beehiiv by each Thursday, plus a rolling 2 to 3 week content calendar.
+- **2026-08-12** `mo-content-production` skill built; harvest procedure hardened.
+
+**Browser-dependent sections:** GSC read live, no re-authentication wall. Google Trends failed for the **fourth consecutive run** and fell back to WebSearch per spec.
+
+---
+
+## Section 1 - Subscribers & Growth
+
+Publication: Mastering Observability (`pub_51d69527...`). Full detail: `05_Weekly_Beehiiv_Reports/Beehiiv_Report_2026-08-17.md`.
+
+| Metric (last 4 weeks) | This run | 08-10 | 08-03 | 08-01 |
+|---|---|---|---|---|
+| Active subscribers | **558** | 557 | 555 | 557 |
+| Open rate | **35.46%** | 31.69% | 37.37% | 38.42% |
+| Click rate | **5.19%** | 4.65% | 3.73% | 4.13% |
+| New subscribers | 7 | 7 | 10 | 10 |
+| Churned | 4 | 4 | 5 | 3 |
+| Net subscribers | **+3** | +3 | +5 | +7 |
+| Earnings | $6.10 | $6.10 | $6.10 | $6.10 |
+
+**The open-rate collapse reversed.** 31.69% to 35.46%, a 3.77 point recovery that claws back two thirds of last week's 5.68 point fall. The three-run decline (38.42, 37.37, 31.69) did not become a four-run decline. Click rate rose again to 5.19%, the highest reading in this log. Read together: the 08-10 drop looks like send-volume dilution from a three-send week rather than content failure, which is what last run's most-likely reading said. Do not treat this as solved, treat it as evidence that cadence, not quality, moves this number.
+
+Net growth flat at +3 for the second run (7 new, 4 churned). Subscriber count 558, an all-time high for this log by one.
+
+**New subscribers by acquisition source (4wk):** recommendation 7wdata.beehiiv.com 3, website direct 2, recommendation www.project-overwatch.com 1, embed direct 1. Sums cleanly to 7.
+
+**LinkedIn contributed ZERO signups this run.** It led with 5 of 10 two runs ago, fell to 2 of 7 last run, and is now 0 of 7. The **beehiiv recommendation network is now 4 of 7 (57%)** and has added a second referring publication (project-overwatch). This matters because LinkedIn traffic did not fall: on-site referrals from LinkedIn actually **rose** from 46 to 56 sessions. So the channel Allan actively works is sending more people and converting none of them, while a passive channel he does not touch is doing all the acquiring. That is a landing-page problem, not a reach problem.
+
+**Published posts: 137** (was 134). Three new since the last run: "Lead with the promise, not the plumbing" (08-10), "What Are Wide Events? Observability 2.0, Without the Hype" (08-13, the TT04 written anchor), "Own the Signal, Rent the Platform" (08-16).
+
+**Signal Drop pages: 23 tagged `signal_drop`, minus the still-live duplicate = 22 unique live episode pages** against a target of 17. No new Signal Drop this period. **Carried flag:** the duplicate "Your Role Changes Every Hour" (`post_0cbfa4e6` plus `post_47600cdf`) is still live on both IDs, **fourth run flagged**.
+
+## Section 2 - Website & SEO Traffic
+
+**Beehiiv website analytics (4wk vs prior 4wk):** unique visitors 188 (+8.7%), sessions 284 (+20.9%), page views 545 (-2.9%), bounce rate 48.59% (worse), avg session duration 72.03s (-52.1%).
+
+**More people, more sessions, and they are leaving faster than at any point in this log.** Bounce rate has now worsened four runs running: 38.22, 41.45, 44.59, **48.59**. Session duration fell from 111.3s last run to 72.03s, a 35% drop. Traffic is up and attention is down. Combined with the LinkedIn-traffic-without-LinkedIn-signups finding above, the site is now getting a materially worse conversion outcome per visitor than it was a month ago.
+
+**Top pages by page views:** / (144), poll results page (30), Ep25 Gate Stays Human podcast (30), /p/observability-maturity-assessment (25), /metrics-and-mayhem/book (23), /metrics-and-mayhem/free-chapter (22), /products/metrics-mayhem-chapter-4 (18), /metrics-and-mayhem/podcast (17), /p/quiet-isnt-good (16), **/advisory (15)**, /subscribe (15), /p/lead-with-the-promise (15), /p/what-is-opentelemetry-profiling (15), /p/how-to-lead-an-incident-response-team (15), /p/observability-digest-july-2026 (13), TT02 (10). Note: /p/what-is-a-wide-event only 5 page views since 08-13 publish.
+
+**Top referrers (sessions):** Direct 172, linkedin.com 33, LinkedIn Android 23, google.com 19, self-referral 8, beehiiv.com 7, reddit.com 5, ecosia 3, **substack.com 3 (new)**, facebook.com 2, static.microsoft 2, Gmail Android 1, google.de 1, t.co 1, cto.academy 1, youtube.com 1, bing.com 1.
+
+**Google Search Console: read live this run.** Full detail: `06_Search_Console_Reports/GSC_Report_2026-08-17.md`.
+
+**Site totals (rolling 3 months, 16 May to 15 Aug 2026): 53 clicks, 5,950 impressions, 0.9% CTR, average position 27.3, 286 queries.** Against 08-10 (51 / 5,990 / 0.9% / 26.7 / 272) and baseline (49 / 9,880 / 0.5% / 19.5). Clicks up 2, impressions flat, position drifted 0.6 further out, query count up another 14. The pattern of the last month holds: the surface keeps widening (254, 272, 286 queries) while total impression volume stays flat and average position slowly worsens. That is what happens when a site starts ranking for many new terms at poor positions.
+
+**Top queries:** grafana alloy (**1 click** / 65 impr / 1.5% / pos 25.0), sunny mattu (1 / 35 / 2.9% / 6.6), **observability maturity assessment (1 / 5 / 20% / 16.2, NEW)**, opentelemetry collector (0 / 222 / 69.9), hybrid cloud operations (0 / 153 / 49.9), observability cost (0 / 139 / 27.4), signal drop (0 / 124 / **5.4**), what is grafana alloy (0 / 99 / **10.7**), observability vs monitoring (0 / 95 / 46.8), observability news (0 / 74 / 48.1).
+
+Keyword movement against the plan's targets:
+
+- **"observability maturity assessment" is new and already converting.** 1 click on 5 impressions is a 20% CTR, the best on the site. The blog published 08-09 is indexed and matching its target term inside eight days. This is the clearest evidence yet that the assessment content line works as an SEO play, and it is a commercial-intent term.
+- **"grafana alloy" returned to the top ten with a click** (65 impressions, position 25.0) after dropping out entirely last run.
+- **"what is grafana alloy" improved 10.8 to 10.7** and impressions jumped 69 to 99, but it is a fourth consecutive read just off page one with zero clicks.
+- **"signal drop" improved 5.6 to 5.4** and remains the largest wasted page-one position on the site: 124 impressions, 0 clicks, three runs running.
+
+**Top pages by clicks:** / (18 / 136 / 13.2% / 6.2), **/authors/allan-mann (11 / 47 / 23.4% / 6.9)**, /metrics-and-mayhem/podcast (7 / 112 / 6.2% / 5.6), /p/what-is-grafana-alloy (3 / **683** / 0.4% / 13.3), **/authors/67e0a785-... (3 / 22 / 13.6% / 5.5)**, /p/sunny-mattu-capgemini (2 / 67 / 3% / 7.5), /t/observability (1 / 70 / 1.4% / 23.4), /t/observability_digest (1 / 47 / 2.1% / 6.4), /subscribe (1 / 40 / 2.5% / 5.3), Signal Drop Accountability Is the Job (1 / 37 / 2.7% / 11.9).
+
+**The author-page finding holds, second run.** The two author pages produce **14 of 53 organic clicks (26%)** at 23.4% and 13.6% CTR. They are still the best-converting surface on the site, still a duplicate splitting one intent, and still route nowhere. Nothing has changed since it was flagged on 08-10.
+
+**Biggest impression sink:** /p/what-is-grafana-alloy at 683 impressions for 3 clicks (0.4% CTR, position 13.3), 11% of all site impressions. The cost-strategy post that was the other half of last run's pair (732 impressions) has dropped out of the top ten pages entirely.
+
+## Section 3 - Lead Magnets & Funnel (SEO-to-Revenue)
+
+Per `05_SEO_TO_REVENUE_MODEL.md`: SEO has two jobs, feed advisory and grow the newsletter.
+
+| Signal | Organic (GSC) | On-site (4wk) | Move vs 08-10 |
+|---|---|---|---|
+| **Free-chapter** | 0 clicks / **3 impressions** / pos **36.7** | 22 page views | Impressions 2 to 3, position 39.5 to 36.7. Both improving. On-site **35 to 22, down 37%**. |
+| **Advisory** | 0 clicks / **19 impressions** / pos **7.6** | 15 page views | Impressions 12 to 19 (+58%), **position 10.2 to 7.6, back onto page one**. On-site 24 to 15, down 38%. |
+| **Newsletter signups by source** | n/a | 7 new subs | **LinkedIn 2 to 0. Recommendation network 3 to 4 of 7.** |
+
+**The advisory page is the headline of this run.** Three consecutive reads: 5 impressions at position 7.2, then 12 at 10.2, now **19 at 7.6**. Impressions have nearly quadrupled in a fortnight and the page is back inside page one. It still returns zero clicks. Its two ranking queries are "allan mann" (position 9.0) and **"observability in banking" (position 50.0)**, which is worth noting against Section 6 below: the regulated-industry angle is showing up in Allan's own search data.
+
+A page at position 7.6 with 19 impressions and 0 clicks is a title and snippet problem, not a ranking problem. This is the same recommendation as last run, now with a stronger case: the lever got better, and it was not pulled.
+
+**The counter-signal is louder this run.** On-site views for the money pages fell again: free-chapter 35 to 22, advisory 24 to 15. Only /book rose (20 to 23). Meanwhile total sessions rose 21% and bounce rate hit an all-time worst. More visitors, fewer of them reaching the commercial pages.
+
+**3b - extended lead-magnet map:**
+
+- **/products/metrics-mayhem-chapter-4:** 18 page views (was 20). GSC 0 clicks / 0 impressions, confirmed by exact-URL filter. Live "Lead magnet automation" (`purchased_product`) unchanged at 8 enrolled / 8 completed / 12.5% open / **0% click**. It delivers, it gets read occasionally, it converts nobody. Watch item, not a leak.
+- **/metrics-and-mayhem/book:** 23 page views (was 20), the only money page that grew. GSC 0/0. No dedicated beehiiv automation, expected (external purchase route).
+- **/metrics-and-mayhem/free-chapter:** 22 page views, 3 GSC impressions. **Still no dedicated nurture automation in the account. This remains the one true funnel leak in the map.** GR-13-02 (ungate /free-chapter) remains open, now more urgent: the page has surfaced organically for two consecutive runs and its position is improving.
+- **Author pages:** still not in the lead-magnet map, still producing 26% of organic clicks, still no CTA. Second run recommending they be added.
+
+## Section 4 - Automations Health
+
+**11 automations: 7 live, 4 draft.** (Correction to the last two runs, which recorded 6 live / 5 draft. Re-derived from `list_automations` state fields this run: live are Survey Follow up, Lead magnet, Warm Contributors, the three Stream routers, and Send Sub Form. Draft are New 2025 Survey, Test x2, Follow up on Data.)
+
+| Live automation | Trigger | Enrolled | Completed | Open % | Click % |
+|---|---|---|---|---|---|
+| Survey Follow up | signup | 308 | 306 (2 in progress) | 53.82% | 16.05% |
+| **Stream router: Both (poll)** | poll_submission | **5** | 5 | **60.0%** | 0% |
+| **Stream router: Technical (poll)** | poll_submission | **4** | 4 | **50.0%** | 0% |
+| **Stream router: Leadership (poll)** | poll_submission | **1** | 1 | 0% | 0% |
+| Lead magnet automation | purchased_product | 8 | 8 | 12.5% | 0% |
+| Warm Contributors nurture | segment_action | 7 | 7 | 33.33% | 0% |
+| Send Sub Form | manual | 0 | 0 | n/a | n/a |
+
+**Last run's Leadership-router flag eases but does not close.** It went 0 to 1 enrolment, so the branch does fire and it is not dead wiring. But the split is now **Both 5, Technical 4, Leadership 1**, and Leadership is the branch that feeds the advisory-relevant segment. Watch one more run before concluding anything; if it stays at roughly 1-in-10 while the other two share the rest, the poll question wording is doing the sorting, not a bug.
+
+**New flag, and it is the bigger one: the stream poll has barely been answered.** Segment `Stream: preference not set (nudge)` holds **548 of 558 active subscribers**. Ten people total have set a preference in the week since the poll went live. The whole stream-segmentation programme (GR-08-03) is currently running on a 1.8% response rate. The Thursday nudge send that segment was built for has not visibly moved it.
+
+**Nurture-exclusion guard (spec section 5, GR-2026-07-08-04):** unchanged. The Warm Contributors trigger segment is dynamic (survey Yes/Maybe), the 4 personally-outreached tracker names remain members, and there is still no tag or custom-field exclusion. The automation has completed its limited enrolment so immediate re-fire risk is low, but the structural gap is unchanged: exclusion relies on the automation never re-triggering, not on a mechanism.
+
+**Draft clutter (unchanged, 4 items):** "New 2025 Survey" (2025-01-21), "Test" x2 (2024-06-01, 2024-07-19), "Follow up on Data" (2024-07-19). None tied to a live capture page, so clutter rather than a funnel leak.
+
+## Section 5 - Surveys & Feedback
+
+3 surveys, all live. **No new responses since the last run.** All counts and most-recent-response dates unchanged: Newsletter feedback 3 (2025-02-03), Welcome/subscribe 73 (2026-04-16), Unsubscribe 5 (2026-07-20).
+
+**Standing flag, fourth run:** the welcome/subscribe survey has had zero responses for **four months**, across roughly 32 new subscribers in that period. Set against Section 4's finding that the stream poll also sits at a 1.8% response rate, there is now a pattern worth naming: **two separate subscriber-input mechanisms are both returning near-zero.** That is more likely a serve/placement problem than two independent cases of disinterest. Confirm the welcome survey is actually presented on signup.
+
+**Contributor / collaboration pool:** unchanged at **27 Yes plus 36 Maybe = 63 all-time**, of whom **only 4 have ever had a personal 1:1 touch** (the 17 Jun batch). Carried forward rather than re-derived, defensible again this run because there were no new survey responses that could have changed it. The dynamic Warm Contributors segment is **59 members**. The gap between "said yes" and "got contacted" is 59 people and has not narrowed in nine weeks.
+
+**Warm-contributor tracker check** (`15_WARM_CONTRIBUTOR_TRACKER.md`, last updated 2026-07-16): Ahmed Elbendary remains REPLIED / HOT with an open owed item. The ~470-word bylined piece "The dashboard was green. The system was not." still has not shipped, now **nine weeks** since his 17 Jun reply. Per the tracker's own instruction, this keeps flagging until it ships. The tracker's recommended path is unchanged: Growth drafts the piece from his case 1 and sends for sign-off, rather than nudging again.
+
+## Section 6 - Rising Themes
+
+**Google Trends: UNAVAILABLE, fourth consecutive run.** `trends.google.com/trends/explore` for the fixed keyword set rendered further than in previous runs (the page chrome, the four query chips and the "Worldwide, Past 90 days" scope all came back as text) but **no interest data of any kind was extractable**. The comparison chart and the rising/breakout terms are canvas-rendered. This is now four reproducible failures out of four attempts. **Recommendation stands and hardens: the spec should retire the Trends step and make WebSearch the primary for Section 6.** It has never once produced data and costs a browser round-trip every run.
+
+**WebSearch supplement (observability / SRE / AIOps, Aug 2026):**
+
+1. **Agentic AI in observability** remains the dominant theme: AI agents ingesting observability data to accomplish operational goals, AIOps moving from alerting to proactive remediation.
+2. **Predictive AIOps / "AIOps 2.0"**: forecasting failure and degradation from historical telemetry before user impact, framed as the 2026 paradigm shift from reactive firefighting.
+3. **Telemetry data authenticity and provenance** confirmed for a second consecutive run, and now with more substance. The framing: as synthetic and machine-generated content blends into legitimate telemetry, teams cannot trust alerts, model accuracy or automated decisioning, which drives demand for built-in data provenance and integrity checks in monitoring pipelines.
+4. **NEW this run: privacy-by-design and zero-trust observability.** Multiple 2026 sources frame privacy-by-design observability as a hard requirement rather than a nice-to-have for regulated industries, naming banks, healthcare, insurance and consumer tech as being pushed to treat telemetry with the same care as financial or health records. A complementary technical thread: integrating OpenTelemetry with a zero-trust workload identity manager to authenticate observability pipelines.
+
+**Top emerging keywords for the SEO radar:**
+
+1. **telemetry data authenticity / observability data provenance.** Carried from 08-10 and now corroborated. Still un-covered on the site, still sits directly on Allan's garbage-in-garbage-out arc (Ep 26's Hard Stop). The byte-size angle recommended last run, "how do you know your telemetry is telling the truth", is unchanged and still unbuilt.
+2. **observability in regulated industries / privacy-by-design observability (NEW).** This one has an unusual amount of supporting evidence to act on: it is rising in the trade press, it maps onto Allan's banking and enterprise background, **and it is already appearing in his own Search Console data** as a live advisory-page query ("observability in banking", position 50.0, 1 impression). A commercial-intent brief here would target a term the advisory page already half-ranks for.
+
+## Section 7 - Actions & Flags
+
+**7a - Change control review (`04_CHANGE_LOG.md`).** The file uses Applied / Verified / Recommend status tags rather than the literal "Pending fix" / "Proposed" strings; surfacing the equivalent open items:
+
+- **CHG-002 plus CHG-005:** still "Applied, spot-check pending". They were confirmed live via browser on 08-03 with page titles matching target exactly. **Fifth consecutive cycle** carrying them as pending with no reason left. Al to flip both to Verified.
+- **CHG-016:** dormant "Metrics & Mayhem" publication (`pub_199a2744...`) still awaiting Al's delete in beehiiv.
+- **CHG-014:** 10 of 11 staged Signal Drop hook-title / CTA drafts still awaiting publish (only #1 live).
+- **CHG-014 residual:** the crossed slugs on "Control Beats Perfection" / "The Last Person in the Queue" remain unresolved and still need Al to confirm which body is which.
+- **Metadata drift check** (live beehiiv meta vs `00_SEO_Metadata_Tracker.xlsx`): **not run again this session, fourth consecutive skip.** Flagging rather than skipping silently. Recommend it be either scheduled properly as its own job or formally dropped from the spec, because a check that is skipped four runs running is not a control.
+- **Carried:** duplicate Signal Drop post "Your Role Changes Every Hour", two live post IDs, fourth run flagged.
+
+**7b - Prioritised actions for this period:**
+
+1. **Pull the advisory lever. It has now improved twice while sitting untouched.** Position 7.6, 19 impressions, 0 clicks. A title and meta-description pass on `/advisory` is the highest-leverage single edit on the board, it is the commercial page, and it was the number-two action last run too. Every week it waits is a week of page-one impressions converting at zero.
+2. **Diagnose the bounce/duration collapse before adding traffic.** Bounce 38.22 to 41.45 to 44.59 to 48.59 across four runs; session duration 111.3s to 72.03s. Sessions are up 21% and money-page views are down 37%. More reach into a leakier site makes the leak bigger, and the LinkedIn evidence (56 sessions, 0 signups) says the landing experience is where it fails.
+3. **Build the CTA path on the author pages, and de-duplicate the two URLs.** 26% of organic clicks at 23.4% and 13.6% CTR routing nowhere. Flagged 08-10, unchanged 08-17. Cheapest conversion win on the site and it stays cheap only while nobody else notices.
+4. **Fix subscriber input, do not add more of it.** The welcome survey is four months dry and the stream poll has 10 answers from 558 subscribers. Confirm both are actually being served before building anything else that depends on subscriber-supplied data, because GR-08-03's segmentation is currently sitting on a 1.8% sample.
+5. **Ship Ahmed Elbendary's bylined piece (nine weeks) and flip CHG-002 / CHG-005 to Verified (five cycles).** Both cost almost nothing and both have been carried longer than any other open item in this plan.
+
+---
+
+## Daily Ops surface (top 3 flags)
+
+Per DO-2026-08-14-01 there is no tool that writes into the persistent Daily Ops chat from a scheduled run, so these are delivered via this file plus the Ops_Log "Needs Allan" queue rather than a chat push.
+
+1. **REVENUE LINE: `/advisory` is back on page one at position 7.6 with 19 impressions, up from 12 at position 10.2 a week ago, and still converts 0 clicks.** Free-chapter also improved (3 impressions, position 36.7). Meanwhile on-site views for both fell hard (advisory 24 to 15, free-chapter 35 to 22). Top signup source: **LinkedIn contributed zero for the first time**; the beehiiv recommendation network is now 4 of 7. The title/meta pass on `/advisory` is the action.
+2. **Site conversion quality is degrading while traffic grows.** Sessions +20.9%, unique visitors +8.7%, but bounce rate at an all-time worst 48.59% (fourth consecutive rise) and session duration down 35% to 72s. LinkedIn sent 56 sessions and produced 0 signups.
+3. **Subscriber input is not working.** The welcome survey is four months dry and the stream poll has been answered by 10 of 558 subscribers (548 sit in the "preference not set" segment). The Leadership stream router eased from 0 to 1 enrolment so it is not mis-wired, but the whole stream programme is running on a 1.8% sample.
+
+**Also carried:** free-chapter still has no nurture automation (the one true funnel leak); the contributor pool is 63 said-yes against 4 ever contacted, unchanged nine weeks; Ahmed Elbendary's piece is nine weeks overdue; CHG-002/-005 pending five cycles; duplicate Signal Drop post live on two IDs, fourth run.
+
+**Nudge for the period:** the advisory page has improved on its own two runs in a row. It is the only surface in this plan that has moved toward money without anyone touching it. Touch it.
+
+**Availability status this run:** GSC read live, no re-authentication wall, all seven sections completed. Google Trends unavailable for the fourth consecutive run; WebSearch fallback used per spec. Recommend the spec retire the Trends step.

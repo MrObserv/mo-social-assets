@@ -1,0 +1,234 @@
+<!--
+  Metrics & Mayhem - landing page (https://www.masteringobservability.com/metrics-and-mayhem/)
+  Drop this whole block into a beehiiv "Custom HTML" section.
+  All CSS is scoped under .mm-hub so it will not affect the rest of the site.
+  Built to 07_Website/Web_Design_Best_Practices.md: 8pt spacing grid, one primary
+  CTA per view, 48px equal-height buttons with 16px gaps, 3:1+ borders, focus states.
+
+  BOOK COVER: the book is the focal point. The hosted cover is embedded in Section 2
+  (img.mm-cover). To change it later, swap the src URL on that <img> tag.
+-->
+<div class="mm-hub">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+    .mm-hub{
+      /* brand tokens */
+      --navy:#0d2127; --navy-2:#13313a; --teal:#5fd0c0; --teal-deep:#2f9e8d;
+      --cream:#f5f3ec; --ink:#16282d; --muted:#5d6f73; --tint:#eaf6f3;
+      /* 8pt spacing scale */
+      --s1:8px; --s2:16px; --s3:24px; --s4:32px; --s5:48px; --s6:64px; --s7:96px;
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+      color:var(--ink); line-height:1.6; max-width:1080px; margin:0 auto;
+      -webkit-font-smoothing:antialiased;
+    }
+    .mm-hub *{box-sizing:border-box;}
+    .mm-hub h1,.mm-hub h2,.mm-hub .mm-kicker,.mm-hub .mm-eyebrow{font-family:'Space Grotesk','Inter',sans-serif;}
+
+    /* sections */
+    .mm-section{padding:clamp(48px,8vw,96px) var(--s3);}
+    .mm-dark{background:var(--navy);color:var(--cream);border-radius:20px;margin:var(--s2) 0;}
+    .mm-tint{background:var(--tint);border-radius:20px;margin:var(--s2) 0;padding:clamp(40px,6vw,64px) var(--s3);}
+    .mm-light{padding:clamp(40px,6vw,64px) var(--s3);}
+    .mm-inner{max-width:680px;margin:0 auto;}   /* ~65ch reading measure */
+
+    .mm-kicker,.mm-eyebrow{
+      display:inline-block;letter-spacing:.22em;font-size:12px;font-weight:600;
+      text-transform:uppercase;color:var(--teal-deep);margin:0 0 var(--s2);
+    }
+    .mm-dark .mm-kicker{color:var(--teal);}
+    .mm-hub h1{font-size:clamp(40px,7vw,64px);line-height:1.03;margin:0 0 var(--s2);font-weight:700;letter-spacing:-.01em;}
+    .mm-subhead{font-size:clamp(18px,2.6vw,24px);color:var(--teal);font-weight:600;margin:0 0 var(--s3);font-family:'Space Grotesk',sans-serif;}
+    .mm-hub h2{font-size:clamp(26px,4vw,38px);line-height:1.12;margin:0 0 var(--s2);font-weight:700;letter-spacing:-.01em;}
+    .mm-light h2,.mm-tint h2{color:var(--ink);}
+    .mm-dark h2{color:var(--cream);}
+    .mm-hub p{font-size:17px;margin:0 0 var(--s2);}
+    .mm-dark p{color:rgba(245,243,236,.86);}
+    .mm-light p,.mm-tint p{color:#33474c;}
+
+    /* proof strip */
+    .mm-proof{
+      display:flex;flex-wrap:wrap;gap:var(--s1) var(--s2);align-items:center;
+      font-size:13px;letter-spacing:.02em;color:rgba(245,243,236,.7);
+      margin:var(--s4) 0 0;padding-top:var(--s3);border-top:1px solid rgba(95,208,192,.22);
+    }
+    .mm-proof b{color:var(--teal);font-weight:600;}
+
+    /* buttons: 48px tall, equal height, 16px gap, 8px stacked */
+    .mm-btns{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s4);}
+    .mm-btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:var(--s1);
+      height:48px;padding:0 var(--s3);border-radius:10px;
+      font-weight:600;font-size:15px;text-decoration:none;border:1.5px solid transparent;
+      transition:transform .12s ease,box-shadow .12s ease,background .12s ease,border-color .12s ease;
+    }
+    .mm-btn:hover{transform:translateY(-2px);}
+    .mm-btn:focus-visible{outline:3px solid var(--teal);outline-offset:3px;}
+    .mm-btn-primary{background:var(--teal);color:#06201d;box-shadow:0 6px 20px rgba(95,208,192,.30);}
+    .mm-btn-primary:hover{background:#74ddcd;}
+    .mm-btn-ghost-d{background:transparent;color:var(--cream);border-color:rgba(95,208,192,.6);}
+    .mm-btn-ghost-d:hover{border-color:var(--teal);background:rgba(95,208,192,.10);}
+    .mm-btn-ghost-l{background:#fff;color:var(--ink);border-color:rgba(22,40,45,.35);}
+    .mm-btn-ghost-l:hover{border-color:var(--teal-deep);background:var(--tint);}
+    .mm-textlink{
+      display:inline-block;margin-top:var(--s2);font-weight:600;font-size:15px;
+      color:var(--teal-deep);text-decoration:none;border-bottom:1px solid transparent;
+    }
+    .mm-textlink:hover{border-bottom-color:var(--teal-deep);}
+    .mm-textlink:focus-visible{outline:3px solid var(--teal);outline-offset:3px;}
+
+    /* BOOK FEATURE - the focal point */
+    .mm-feature{background:var(--tint);border-radius:20px;margin:var(--s2) 0;padding:clamp(40px,6vw,72px) var(--s3);}
+    .mm-book{
+      max-width:920px;margin:0 auto;background:#fff;border:1px solid rgba(22,40,45,.1);
+      border-radius:18px;box-shadow:0 18px 50px rgba(13,33,39,.12);overflow:hidden;
+      display:grid;grid-template-columns:260px 1fr;
+    }
+    .mm-book-art{background:linear-gradient(160deg,#0d2127,#16323a);padding:var(--s4);display:flex;align-items:center;justify-content:center;}
+    .mm-cover-ph{width:100%;max-width:200px;aspect-ratio:2/3;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.35);}
+    .mm-cover{width:100%;max-width:200px;height:auto;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.35);display:block;}
+    .mm-cover-ph{
+      background:#f6f4ec;display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;padding:var(--s3);border:1px solid rgba(0,0,0,.06);
+    }
+    .mm-cover-ph .t{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--ink);font-size:20px;line-height:1.1;letter-spacing:.02em;}
+    .mm-cover-ph .d{width:34px;height:2px;background:var(--teal-deep);margin:var(--s2) 0;}
+    .mm-cover-ph .a{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+    .mm-book-body{padding:clamp(28px,4vw,40px);}
+    .mm-book-body h2{font-size:clamp(24px,3.4vw,32px);}
+    .mm-lead{font-size:17px;color:var(--ink);font-weight:500;margin:0 0 var(--s3);}
+    .mm-stat{
+      background:var(--navy);color:rgba(245,243,236,.92);border-left:3px solid var(--teal);
+      border-radius:10px;padding:var(--s2) var(--s3);margin:0 0 var(--s3);font-size:15px;line-height:1.55;
+    }
+    .mm-stat b{color:var(--teal);font-weight:700;}
+    .mm-meta{font-size:13px;color:var(--muted);margin:var(--s3) 0 0;letter-spacing:.02em;}
+
+    /* two-card row */
+    .mm-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);max-width:920px;margin:0 auto;}
+    .mm-card{background:#fff;border:1px solid rgba(22,40,45,.1);border-radius:16px;padding:clamp(24px,3vw,32px);}
+    .mm-card h2{font-size:23px;margin-bottom:var(--s1);}
+    .mm-card p{font-size:15.5px;}
+    .mm-card .mm-btns{margin-top:var(--s3);}
+
+    .mm-rule{height:1px;background:rgba(22,40,45,.12);max-width:680px;margin:0 auto;}
+
+    /* footer */
+    .mm-footer{text-align:center;padding:var(--s5) var(--s3) var(--s3);}
+    .mm-footer .mm-pitch{font-size:14px;color:var(--muted);max-width:640px;margin:0 auto var(--s3);}
+    .mm-links{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s1) var(--s3);font-size:14px;}
+    .mm-links a{color:var(--teal-deep);text-decoration:none;font-weight:600;}
+    .mm-links a:hover{text-decoration:underline;}
+    .mm-links a:focus-visible{outline:3px solid var(--teal);outline-offset:3px;}
+
+    @media(max-width:680px){
+      .mm-book{grid-template-columns:1fr;}
+      .mm-book-art{padding:var(--s5) var(--s4);}
+      .mm-grid{grid-template-columns:1fr;}
+      .mm-btn{width:100%;}
+    }
+  </style>
+
+  <!-- SECTION 1 - HERO (dark) : headline -> subhead -> short copy -> primary CTA -> proof -->
+  <section class="mm-section mm-dark">
+    <div class="mm-inner">
+      <span class="mm-kicker">The book and the podcast</span>
+      <h1>Metrics &amp; Mayhem</h1>
+      <p class="mm-subhead">A CTO's guide to observability that actually works.</p>
+      <p>Your observability spend has never been higher. Your recovery times have never been worse.</p>
+      <p>Reality check: that is not a tooling problem. It is a leadership problem. Metrics &amp; Mayhem is where that gap gets closed.</p>
+      <div class="mm-btns">
+        <a class="mm-btn mm-btn-primary" href="https://amzn.eu/d/0cAuR2K1">Get the book</a>
+        <a class="mm-btn mm-btn-ghost-d" href="https://www.masteringobservability.com/metrics-and-mayhem/podcast">Listen to the podcast</a>
+      </div>
+      <div class="mm-proof">
+        <span><b>11 chapters.</b> Kindle, paperback &amp; hardback.</span>
+        <span>From the Mastering Observability newsletter.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2 - THE BOOK : focal point, bright elevated feature card -->
+  <section class="mm-feature">
+    <div class="mm-book">
+      <div class="mm-book-art">
+        <img class="mm-cover" src="https://beehiiv-images-production.s3.amazonaws.com/uploads/asset/file/6d89b9f2-46e3-4297-9d39-3d003914df23/cover_kindle_metrics_mayhem.png?t=1779878242" alt="Metrics &amp; Mayhem: A CTO's Guide to Observability That Actually Works - book cover">
+      </div>
+      <div class="mm-book-body">
+        <span class="mm-eyebrow">The book · out now</span>
+        <h2>The problem isn't your tooling.</h2>
+        <p class="mm-lead">📕 Metrics &amp; Mayhem: A CTO's Guide to Observability That Actually Works. Kindle is live now; paperback and hardback launched on 1 June.</p>
+        <div class="mm-stat">
+          In 2021, <b>47%</b> of organisations took more than an hour to recover from an incident. By 2024, that figure was <b>82%</b>. More tools, more dashboards, worse outcomes. The book names this the <b>MTTR Paradox</b>.
+        </div>
+        <p>Eleven chapters, written for the CTO who has bought the platforms, run the training, and still can't get a straight answer when the system slows. You'll see what GitHub, Fastly and Atlassian did differently, and a phased plan you can start on Monday.</p>
+        <div class="mm-btns">
+          <a class="mm-btn mm-btn-primary" href="https://amzn.eu/d/0cAuR2K1">Buy on Amazon</a>
+          <a class="mm-btn mm-btn-ghost-l" href="https://www.masteringobservability.com/metrics-and-mayhem/book">Read the overview</a>
+        </div>
+        <a class="mm-textlink" href="https://www.masteringobservability.com/metrics-and-mayhem/free-chapter">Or get the free chapter first &rarr;</a>
+        <p class="mm-meta">Kindle £7.99 &nbsp;·&nbsp; Paperback £13.99 &nbsp;·&nbsp; Hardback £19.99 &nbsp;·&nbsp; 174 pages</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3 + 4 - PODCAST & NEWSLETTER (tint band, two cards) -->
+  <section class="mm-tint">
+    <div class="mm-grid">
+      <div class="mm-card">
+        <h2>Signal Drop, the podcast</h2>
+        <p>Five to seven minute audio notes from the front line of IT Ops. One idea, one habit, no theatre. Not interviews. Not news.</p>
+        <p>Seventeen episodes in, with Deep Dives when a topic earns the longer cut.</p>
+        <div class="mm-btns">
+          <a class="mm-btn mm-btn-ghost-l" href="https://www.masteringobservability.com/metrics-and-mayhem/podcast">Listen on Spotify, Apple &amp; YouTube</a>
+        </div>
+      </div>
+      <div class="mm-card">
+        <h2>The newsletter that started it all</h2>
+        <p>Metrics &amp; Mayhem grew out of Mastering Observability, where the writing lands first, before it becomes a chapter or an episode.</p>
+        <p>One email. No noise. Unsubscribe whenever you like.</p>
+        <div class="mm-btns">
+          <a class="mm-btn mm-btn-ghost-l" href="https://masteringobservability.com">Subscribe free</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5 - ABOUT (light) -->
+  <section class="mm-light">
+    <div class="mm-rule"></div>
+    <div class="mm-inner" style="padding-top:48px;">
+      <span class="mm-eyebrow">Who's behind it</span>
+      <h2>Allan Mann</h2>
+      <p>I've spent my career in IT operations leadership, the part of the org that gets paged when the abstraction leaks. Metrics &amp; Mayhem is where I write down what actually works, what quietly doesn't, and what I got wrong the first time.</p>
+      <p>Comfortable is a warning light. This is the work of staying useful when it stops being comfortable.</p>
+      <div class="mm-btns">
+        <a class="mm-btn mm-btn-ghost-l" href="https://www.linkedin.com/in/allanmann1/">Connect on LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6 - CLOSING CTA (dark) -->
+  <section class="mm-section mm-dark">
+    <div class="mm-inner">
+      <h2>Start with one</h2>
+      <p>Pick the one that fits the week you're having. Pager won't stop? Start with the free chapter. Commute to fill? Start with an episode. The next signal is already being written.</p>
+      <div class="mm-btns">
+        <a class="mm-btn mm-btn-primary" href="https://amzn.eu/d/0cAuR2K1">Get the book</a>
+        <a class="mm-btn mm-btn-ghost-d" href="https://www.masteringobservability.com/metrics-and-mayhem/free-chapter">Free chapter</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER LINKS -->
+  <footer class="mm-footer">
+    <p class="mm-pitch">Metrics &amp; Mayhem: A CTO's Guide to Observability That Actually Works. Kindle is live now; paperback and hardback launched on 1 June.</p>
+    <div class="mm-links">
+      <a href="https://amzn.eu/d/0cAuR2K1">Get the book</a>
+      <a href="https://www.masteringobservability.com/metrics-and-mayhem/free-chapter">Free chapter</a>
+      <a href="https://www.masteringobservability.com/metrics-and-mayhem/podcast">Podcast</a>
+      <a href="https://masteringobservability.com">Newsletter</a>
+      <a href="https://www.linkedin.com/in/allanmann1/">LinkedIn</a>
+    </div>
+  </footer>
+</div>

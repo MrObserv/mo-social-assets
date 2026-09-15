@@ -1,0 +1,138 @@
+<!-- ============================================================================
+     Mastering Observability, /metrics-and-mayhem/podcast: header block.
+
+     FRAGMENT, same pattern as the home blocks. Replaces the page's first
+     Custom HTML block (title, listen buttons, "What is a Signal Drop?").
+     beehiiv's own feeds below it (episodes, Tech Tuesday videos, clips) stay
+     native, so they keep updating; their fonts and colours are set in each
+     feed block's settings.
+
+     Copy is carried over from the live page. "Recorded and hosted by Allan
+     Mann" moves into this block from a separate heading.
+
+     PASTE: Podcast page > the first Custom HTML block > replace its contents.
+     ============================================================================ -->
+<div class="mm-pod">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap');
+
+    .mm-pod {
+      --ground: #F6F8F7;
+      --panel: #FFFFFF;
+      --tint: #EAF6F3;
+      --ink: #16282D;
+      --navy: #0D2127;
+      --muted: #3B5257;
+      --soft: #63797D;
+      --teal: #2F9E8D;
+      --teal-deep: #17695C;
+      --border: #C9DCDC;
+      background: var(--ground);
+      color: var(--ink);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: clamp(15px, 1vw + .4rem, 18px);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      max-width: 100%;
+      overflow-x: hidden;
+      text-align: left;
+    }
+
+    .mm-pod *, .mm-pod *::before, .mm-pod *::after { margin: 0; padding: 0; box-sizing: border-box }
+    .mm-pod a { color: var(--teal-deep); text-decoration: none }
+    .mm-pod .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 28px) }
+
+    .mm-pod .eyebrow {
+      font-family: 'Space Mono', monospace; font-weight: 700; font-size: 12px;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--teal-deep);
+      margin-bottom: 16px; display: inline-flex; align-items: center; gap: 12px
+    }
+    .mm-pod .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--teal); opacity: .8 }
+
+    .mm-pod h1, .mm-pod h2 { font-family: 'Montserrat', 'DM Sans', sans-serif; color: var(--navy); line-height: 1.08; text-wrap: balance }
+    .mm-pod p { color: var(--muted) }
+
+    .mm-pod .btn {
+      display: inline-block; background: var(--teal-deep); color: #FFFFFF;
+      font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: .94rem;
+      padding: 11px 20px; border: 1px solid transparent; border-radius: 4px; text-decoration: none;
+      transition: background-color .18s ease, border-color .18s ease
+    }
+    .mm-pod .btn:hover { background: color-mix(in srgb, var(--teal-deep) 84%, var(--ground)) }
+    .mm-pod .btn-ghost { background: transparent; color: var(--ink); border-color: var(--border) }
+    .mm-pod .btn-ghost:hover { border-color: rgba(47, 158, 141, .38); background: rgba(47, 158, 141, .10) }
+    .mm-pod .btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px }
+
+    /* ---------- hero ---------- */
+    .mm-pod .hero { position: relative; overflow: hidden; padding: clamp(40px, 5vw, 72px) 0 clamp(34px, 4vw, 56px) }
+    .mm-pod .hero::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse at 30% 20%, rgba(47, 158, 141, .10), transparent 62%)
+    }
+    .mm-pod .hero-grid {
+      position: relative; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+      gap: clamp(28px, 3.5vw, 52px); align-items: center
+    }
+    .mm-pod .hero h1 { font-size: clamp(34px, 4.6vw, 56px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.02 }
+    .mm-pod .hero h1 span { color: var(--teal-deep); display: block }
+    .mm-pod .hero .sub { margin-top: 18px; font-size: clamp(16px, 1.35vw, 19px); max-width: 44ch }
+
+    .mm-pod .drop { background: var(--panel); border: 1px solid var(--border); border-radius: 6px; padding: 24px 26px }
+    .mm-pod .drop .k {
+      font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--teal-deep); margin-bottom: 12px
+    }
+    .mm-pod .drop p { font-size: 15.5px; line-height: 1.6 }
+    .mm-pod .drop p + p { margin-top: 10px }
+    .mm-pod .drop .by {
+      margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border);
+      font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--soft)
+    }
+
+    /* ---------- heading above the episodes feed ---------- */
+    .mm-pod .feed-head { border-top: 1px solid var(--border); padding: clamp(34px, 4vw, 48px) 0 18px }
+    .mm-pod .feed-head h2 { font-size: clamp(24px, 2.8vw, 34px); font-weight: 800 }
+
+    /* Site nav on this page: a teal gradient line in place of the nav's grey hairline.
+       Page-wide on purpose; .navbar-list is beehiiv's own class on the nav bar. */
+    nav .navbar-list {
+      border-bottom: 3px solid transparent !important;
+      border-image: linear-gradient(to right, rgba(47,158,141,0), rgba(47,158,141,.55), rgba(47,158,141,0)) 1 !important
+    }
+
+    @media (max-width: 860px) {
+      .mm-pod .hero-grid { grid-template-columns: 1fr }
+      .mm-pod .btn, .mm-pod .btn-ghost { flex: 1 1 calc(50% - 6px); text-align: center }
+    }
+  </style>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">The podcast</div>
+          <h1>Metrics &amp; Mayhem <span>Podcast</span></h1>
+          <p class="sub">Short Signal Drops on IT Ops, observability adoption, and leadership under pressure.</p>
+          <div class="btns">
+            <a class="btn" href="https://open.spotify.com/show/1mC5tQRYnbzdhnqgWJg9cq" target="_blank" rel="noopener">Follow on Spotify</a>
+            <a class="btn btn-ghost" href="https://podcasts.apple.com/gb/podcast/metrics-mayhem/id1875657965" target="_blank" rel="noopener">Listen on Apple</a>
+            <a class="btn btn-ghost" href="https://music.amazon.co.uk/podcasts/316883fd-5c2d-4809-9c1c-25f3184c5a90/metrics-mayhem" target="_blank" rel="noopener">Amazon Music</a>
+            <a class="btn btn-ghost" href="https://www.youtube.com/@MasteringObservability" target="_blank" rel="noopener">YouTube</a>
+          </div>
+        </div>
+        <div class="drop">
+          <div class="k">What is a Signal Drop?</div>
+          <p>Signal Drops are 5&ndash;7 minute audio notes from the front line of IT Ops. One idea, one habit, no theatre.</p>
+          <p>Not interviews. Not news.</p>
+          <p>Pick one episode, apply the habit once next week, and keep what works.</p>
+          <p class="by">Recorded and hosted by Allan Mann &middot; <a href="https://www.masteringobservability.com/subscribe" target="_top">Get The Signal</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap feed-head">
+    <div class="eyebrow">Episodes</div>
+    <h2>The latest Signal Drops</h2>
+  </div>
+</div>

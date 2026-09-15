@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Share card: Book (mode C)</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<!-- Mastering Observability share card, mode C (light), 1200 x 630. Page: Book.
+     Same template as og_home.html: the Claude Design "Blog and OG card" component
+     at its own sizes, in the mode C tokens, with a tint surround. See 39_ in
+     08_SEO_Improvement_Plan for the source of every value. -->
+<style>
+  html, body { margin: 0; padding: 0; background: #EAF6F3 }
+  .card { width: 1200px; height: 630px; position: relative; overflow: hidden; background: #EAF6F3; font-family: 'DM Sans', sans-serif }
+  .panel { position: absolute; inset: 28px; box-sizing: border-box; overflow: hidden; background: #F6F8F7; border: 1px solid #C9DCDC; border-radius: 6px; padding: 46px 54px 44px; display: flex; flex-direction: column; justify-content: space-between }
+  .glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 84% 8%, rgba(47,158,141,0.16), transparent 60%) }
+  .top { position: relative }
+  .kicker { display: flex; align-items: center; gap: 22px }
+  .kicker i { width: 70px; height: 2px; background: #2F9E8D; display: block }
+  .kicker span { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 22px; letter-spacing: 6px; text-transform: uppercase; color: #17695C }
+  h1 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 78px; line-height: 1.04; letter-spacing: -2.5px; color: #0D2127; margin: 40px 0 0 }
+  h1 em { font-style: normal; color: #17695C; display: block }
+  .sub { font-size: 28px; line-height: 1.45; color: #3B5257; margin-top: 26px; max-width: 46ch }
+  .has-cover h1 { max-width: 860px }
+  .has-cover .sub { max-width: 640px }
+  .trace { position: absolute; right: 54px; bottom: 128px; width: 360px; height: 102px }
+  .cover { position: absolute; right: 54px; top: 46px; height: 310px; width: auto; border-radius: 4px; box-shadow: 0 18px 40px rgba(13,33,39,.22) }
+  .foot { position: relative; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #C9DCDC; padding-top: 26px }
+  .foot .house { font-family: 'Space Mono', monospace; font-size: 20px; letter-spacing: 4px; text-transform: uppercase; color: #63797D }
+  .foot .dom { display: flex; align-items: center; gap: 16px; font-family: 'Space Mono', monospace; font-size: 20px; letter-spacing: 4px; text-transform: uppercase; color: #17695C }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="panel has-cover">
+    <div class="glow"></div>
+    <img class="cover" src="https://beehiiv-images-production.s3.amazonaws.com/uploads/asset/file/aedcfbe9-498a-4e8c-8840-6b38fdd44271/cover_kindle_metrics_mayhem.png?t=1779638242" alt="">
+    <div class="top">
+      <div class="kicker"><i></i><span>Metrics &amp; Mayhem &middot; the book</span></div>
+      <h1>Observability that<em>actually works.</em></h1>
+      <div class="sub">Chapter 4 is free, and it stands on its own.</div>
+    </div>
+    <div class="foot">
+      <span class="house">Mastering observability</span>
+      <span class="dom">masteringobservability.com
+        <svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="none" stroke="rgba(47,158,141,0.38)" stroke-width="1"></circle><circle cx="12" cy="12" r="6" fill="none" stroke="rgba(47,158,141,0.38)" stroke-width="1"></circle><circle cx="12" cy="12" r="2.4" fill="#17695C"></circle></svg>
+      </span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

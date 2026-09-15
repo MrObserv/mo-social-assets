@@ -1,0 +1,353 @@
+<!-- ============================================================================
+     Mastering Observability, /metrics-and-mayhem/book. FULL PAGE REPLACEMENT.
+
+     Replaces every block on the Book page (a charcoal hero and bands in the
+     old theme font, plus several Custom HTML blocks) with one fragment on
+     the web surface of the rebuilt home page: ground #F6F8F7, tint #EAF6F3,
+     ink #16282D, navy #0D2127, deep teal #17695C buttons with white text,
+     border #C9DCDC; Montserrat headings, DM Sans body, Space Mono labels;
+     one 1120px column.
+
+     FRAGMENT, not a full document, so beehiiv renders it inline and search
+     engines can read it. All CSS is scoped under .mm-book, apart from the
+     nav rule, which is page-wide on purpose, as on Home.
+
+     Copy is carried over from the live page. What changed, and why, is in
+     08_SEO_Improvement_Plan/40_BOOK_AND_PODCAST_PAGES_CHANGE_RECORD_2026-09-11.md.
+
+     PASTE: Book page > one Custom HTML block > this file.
+     ============================================================================ -->
+<div class="mm-book">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap');
+
+    .mm-book {
+      --ground: #F6F8F7;
+      --panel: #FFFFFF;
+      --tint: #EAF6F3;
+      --ink: #16282D;
+      --navy: #0D2127;
+      --muted: #3B5257;
+      --soft: #63797D;
+      --teal: #2F9E8D;
+      --teal-deep: #17695C;
+      --border: #C9DCDC;
+      background: var(--ground);
+      color: var(--ink);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: clamp(15px, 1vw + .4rem, 18px);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      max-width: 100%;
+      overflow-x: hidden;
+      text-align: left;
+    }
+
+    .mm-book *, .mm-book *::before, .mm-book *::after { margin: 0; padding: 0; box-sizing: border-box }
+    .mm-book img { max-width: 100%; height: auto; display: block }
+    .mm-book a { color: var(--teal-deep); text-decoration: none }
+
+    .mm-book .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 28px) }
+    .mm-book .narrow { max-width: 820px }
+    .mm-book section { padding: clamp(40px, 5vw, 72px) 0 }
+    .mm-book section + section { border-top: 1px solid var(--border) }
+    .mm-book .tint { background: var(--tint) }
+
+    .mm-book .eyebrow {
+      font-family: 'Space Mono', monospace; font-weight: 700; font-size: 12px;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--teal-deep);
+      margin-bottom: 16px; display: inline-flex; align-items: center; gap: 12px
+    }
+    .mm-book .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--teal); opacity: .8 }
+
+    .mm-book h1, .mm-book h2, .mm-book h3 {
+      font-family: 'Montserrat', 'DM Sans', sans-serif; font-weight: 800; color: var(--navy);
+      line-height: 1.12; text-wrap: balance
+    }
+    .mm-book h2 { font-size: clamp(24px, 2.8vw, 36px); margin-bottom: 16px }
+    .mm-book p { color: var(--muted) }
+    .mm-book p + p { margin-top: 14px }
+    .mm-book .lead { font-size: clamp(16px, 1.3vw, 19px); max-width: 62ch }
+    .mm-book strong { color: var(--ink); font-weight: 700 }
+
+    .mm-book .btn {
+      display: inline-block; background: var(--teal-deep); color: #FFFFFF;
+      font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: .94rem;
+      padding: 11px 20px; border: 1px solid transparent; border-radius: 4px; text-decoration: none;
+      transition: background-color .18s ease, border-color .18s ease
+    }
+    .mm-book .btn:hover { background: color-mix(in srgb, var(--teal-deep) 84%, var(--ground)) }
+    .mm-book .btn-ghost { background: transparent; color: var(--ink); border-color: var(--border) }
+    .mm-book .btn-ghost:hover { border-color: rgba(47, 158, 141, .38); background: rgba(47, 158, 141, .10) }
+    .mm-book .btns { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 26px }
+    .mm-book .trust {
+      margin-top: 22px; font-family: 'Space Mono', monospace; font-size: 12px;
+      letter-spacing: 1.5px; text-transform: uppercase; color: var(--soft)
+    }
+
+    /* ---------- hero ---------- */
+    .mm-book .hero { position: relative; overflow: hidden }
+    .mm-book .hero::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse at 70% 20%, rgba(47, 158, 141, .12), transparent 62%)
+    }
+    .mm-book .hero-grid {
+      position: relative; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr);
+      gap: clamp(28px, 4vw, 64px); align-items: center
+    }
+    .mm-book .hero h1 { font-size: clamp(36px, 5vw, 60px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.02 }
+    .mm-book .hero .subtitle {
+      font-family: 'Montserrat', sans-serif; font-weight: 800; color: var(--teal-deep);
+      font-size: clamp(19px, 2vw, 26px); line-height: 1.2; margin-top: 14px; max-width: 26ch
+    }
+    .mm-book .hero .lead { margin-top: 20px }
+    .mm-book .cover { justify-self: center; width: min(300px, 80%) }
+    .mm-book .cover img { width: 100%; border-radius: 4px; box-shadow: 0 22px 48px rgba(13, 33, 39, .24) }
+
+    /* ---------- what you'll get ---------- */
+    .mm-book .gets { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 30px }
+    .mm-book .get { background: var(--panel); border: 1px solid var(--border); border-radius: 6px; padding: 22px 22px 24px }
+    .mm-book .get .k {
+      font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--teal-deep); margin-bottom: 10px
+    }
+    .mm-book .get p { font-size: 15px; line-height: 1.55 }
+
+    /* ---------- who it's for ---------- */
+    .mm-book .fit { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 26px }
+    .mm-book .fit > div { background: var(--panel); border: 1px solid var(--border); border-radius: 6px; padding: 24px 26px }
+    .mm-book .fit h3 { font-size: 19px; margin-bottom: 12px }
+    .mm-book .fit .no h3 { color: var(--muted) }
+    .mm-book .fit ul { list-style: none; display: grid; gap: 10px }
+    .mm-book .fit li { position: relative; padding-left: 22px; color: var(--muted); font-size: 15.5px; line-height: 1.55 }
+    .mm-book .fit li::before { content: ''; position: absolute; left: 0; top: .6em; width: 10px; height: 2px; background: var(--teal) }
+    .mm-book .fit .no li::before { background: var(--border) }
+
+    /* ---------- framework ---------- */
+    .mm-book .steps { list-style: none; display: grid; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-top: 26px }
+    .mm-book .step { background: var(--panel); padding: 20px 22px; display: grid; grid-template-columns: 40px 1fr; gap: 16px; align-items: start }
+    .mm-book .step-n { font-family: 'Space Mono', monospace; font-size: 14px; color: var(--teal-deep); padding-top: 3px }
+    .mm-book .step h3 { font-size: 18px; margin-bottom: 6px }
+    .mm-book .step p { font-size: 15.5px; line-height: 1.6 }
+
+    /* ---------- chapters ---------- */
+    .mm-book .chapters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-top: 26px }
+    .mm-book .ch { background: var(--panel); padding: 18px 22px; display: grid; grid-template-columns: 34px 1fr; gap: 14px }
+    .mm-book .ch-n { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--teal-deep); padding-top: 3px }
+    .mm-book .ch h3 { font-size: 16px; margin-bottom: 4px }
+    .mm-book .ch p { font-size: 14.5px; line-height: 1.5 }
+    .mm-book .ch.free { background: var(--tint) }
+    .mm-book .ch .lnk {
+      display: inline-block; margin-top: 8px; font-family: 'Space Mono', monospace; font-size: 11.5px;
+      letter-spacing: 1.5px; text-transform: uppercase; border-bottom: 1px solid var(--border); padding-bottom: 2px
+    }
+    .mm-book .ch:last-child:nth-child(odd) { grid-column: 1 / -1 }
+
+    /* ---------- author ---------- */
+    .mm-book .author p { max-width: 64ch }
+    .mm-book .author .links { margin-top: 18px; font-weight: 500 }
+    .mm-book .author .links span { color: var(--soft); margin: 0 8px }
+
+    /* ---------- faq ---------- */
+    .mm-book .faq { margin-top: 22px; border-top: 1px solid var(--border) }
+    .mm-book details { border-bottom: 1px solid var(--border) }
+    .mm-book summary {
+      list-style: none; cursor: pointer; padding: 18px 36px 18px 0; position: relative;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 17px; color: var(--navy)
+    }
+    .mm-book summary::-webkit-details-marker { display: none }
+    .mm-book summary::after {
+      content: '+'; position: absolute; right: 4px; top: 14px; font-family: 'Space Mono', monospace;
+      font-size: 20px; font-weight: 400; color: var(--teal-deep)
+    }
+    .mm-book details[open] summary::after { content: '\2212' }
+    .mm-book details p { padding: 0 0 18px; max-width: 66ch; font-size: 15.5px }
+
+    /* ---------- closing ---------- */
+    .mm-book .closing { text-align: center }
+    .mm-book .closing h2 { font-size: clamp(26px, 3.2vw, 42px); font-weight: 900; letter-spacing: -1px }
+    .mm-book .closing p { margin: 12px auto 0 }
+    .mm-book .closing .btns { justify-content: center }
+
+    /* Site nav on this page: a teal gradient line in place of the nav's grey hairline.
+       Page-wide on purpose; .navbar-list is beehiiv's own class on the nav bar. */
+    nav .navbar-list {
+      border-bottom: 3px solid transparent !important;
+      border-image: linear-gradient(to right, rgba(47,158,141,0), rgba(47,158,141,.55), rgba(47,158,141,0)) 1 !important
+    }
+
+    @media (max-width: 860px) {
+      .mm-book .hero-grid { grid-template-columns: 1fr }
+      .mm-book .cover { width: min(240px, 70%); order: -1 }
+      .mm-book .gets, .mm-book .fit, .mm-book .chapters { grid-template-columns: 1fr }
+      .mm-book .btn, .mm-book .btn-ghost { width: 100%; text-align: center }
+    }
+  </style>
+
+  <!-- ============================ HERO ============================ -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">The book</div>
+          <h1>Metrics &amp; Mayhem</h1>
+          <p class="subtitle">A CTO's Guide to Observability That Actually Works</p>
+          <p class="lead">Observability is the ability to understand what's happening inside digital services using the
+            signals they produce. When payments fail, dashboards lie. This book helps you close that gap.</p>
+          <div class="btns">
+            <a class="btn" href="https://amzn.eu/d/09OJjYce" target="_blank" rel="noopener">Buy the book</a>
+            <a class="btn btn-ghost" href="https://www.masteringobservability.com/metrics-and-mayhem/free-chapter" target="_top">Read Chapter 4 free</a>
+          </div>
+          <div class="trust">Written for CTOs &middot; Vendor-neutral &middot; Focused on outcomes</div>
+        </div>
+        <a class="cover" href="https://amzn.eu/d/09OJjYce" target="_blank" rel="noopener">
+          <img src="https://beehiiv-images-production.s3.amazonaws.com/uploads/asset/file/aedcfbe9-498a-4e8c-8840-6b38fdd44271/cover_kindle_metrics_mayhem.png?t=1779638242"
+            alt="Metrics &amp; Mayhem book cover">
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== THE GAP ========================== -->
+  <section>
+    <div class="wrap narrow">
+      <div class="eyebrow">Why it exists</div>
+      <h2>The gap that no dashboard shows</h2>
+      <p>Your monitoring says the payment system is healthy. CPU is fine. Response times look good. Error rates are within tolerance.</p>
+      <p>But customers can't complete transactions. Support lines are ringing. Trust is eroding.</p>
+      <p>This is the reliability gap: the space between systems that look healthy and customers who can't get their work done.
+        Most organisations buy more tools to fix this. But observability isn't a tooling project. It's a decision-making capability.</p>
+      <p><strong>This book shows you how to build that capability through people, process, and technology.</strong></p>
+    </div>
+  </section>
+
+  <!-- ======================= WHAT YOU'LL GET ======================= -->
+  <section class="tint">
+    <div class="wrap">
+      <div class="eyebrow">What you'll get</div>
+      <h2>Six things to take away</h2>
+      <div class="gets">
+        <div class="get"><div class="k">People</div><p>How to shift from firefighting to coordinated incident response. Build a culture where teams own outcomes, not just components.</p></div>
+        <div class="get"><div class="k">Process</div><p>Pair customer outcome measures (like completed payments) with technical signals (like latency and error rates). Build the operating rhythm that makes this repeatable.</p></div>
+        <div class="get"><div class="k">Technology</div><p>Stop chasing every new observability platform. Learn what your tools should actually deliver and how to evaluate them without vendor lock-in.</p></div>
+        <div class="get"><div class="k">The framework</div><p>The three-move framework that connects critical customer journeys to the signals that matter and the teams who respond.</p></div>
+        <div class="get"><div class="k">Regulation</div><p>How to navigate compliance and regulation in banking and finance without turning observability into a burden.</p></div>
+        <div class="get"><div class="k">Real cases</div><p>Real-world case examples from banking, government, and enterprise software.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= WHO IT'S FOR ========================= -->
+  <section>
+    <div class="wrap">
+      <div class="eyebrow">Fit</div>
+      <h2>Who this is for, and who it's not for</h2>
+      <div class="fit">
+        <div>
+          <h3>This is for you if:</h3>
+          <ul>
+            <li>You're a CTO, Head of Engineering, or senior technical leader responsible for reliability.</li>
+            <li>You've bought observability tools but still can't answer the question: "Are customers okay?"</li>
+            <li>You work in banking, finance, or regulated industries where downtime means real consequences.</li>
+            <li>You want a strategic guide, not a tool manual.</li>
+          </ul>
+        </div>
+        <div class="no">
+          <h3>This is not for you if:</h3>
+          <ul>
+            <li>You're looking for a tool comparison or vendor guide.</li>
+            <li>You need step-by-step technical setup instructions.</li>
+            <li>You think observability is only about logs, metrics, and traces.</li>
+            <li>You don't have operational responsibility for live systems.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== FRAMEWORK ========================== -->
+  <section class="tint">
+    <div class="wrap">
+      <div class="eyebrow">The method</div>
+      <h2>The three-move framework</h2>
+      <p class="lead">Observability isn't a tool. It's a decision-making capability built through three connected moves.</p>
+      <ol class="steps">
+        <li class="step"><span class="step-n">01</span><div><h3>Pick your critical journeys</h3><p>You can't observe everything. Start with 3&ndash;5 customer journeys that define your business. Payments is one example. Login is another. Focus your instrumentation and attention where it matters most.</p></div></li>
+        <li class="step"><span class="step-n">02</span><div><h3>Pair outcomes with early warnings</h3><p>Define what "healthy" looks like from the customer's point of view (like completed payments). Then connect that to the technical signals that warn you before customers feel pain. This pairing is where observability becomes actionable.</p></div></li>
+        <li class="step"><span class="step-n">03</span><div><h3>Build the operating model</h3><p>Observability only works if teams know who owns what, when to meet, and how to learn from incidents. This isn't bureaucracy. It's the difference between reactive firefighting and proactive control.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ======================== WHAT'S INSIDE ======================== -->
+  <section>
+    <div class="wrap">
+      <div class="eyebrow">What's inside</div>
+      <h2>Eleven chapters</h2>
+      <p class="lead">Eleven chapters on observability that actually works. Each one earns a single decision before the next.</p>
+      <div class="chapters">
+        <div class="ch"><span class="ch-n">01</span><div><h3>Why This Is a Board-Level Problem</h3><p>The MTTR paradox: more tools, slower recovery.</p></div></div>
+        <div class="ch"><span class="ch-n">02</span><div><h3>What Observability Actually Means for a CTO</h3><p>From watching uptime to answering business questions.</p></div></div>
+        <div class="ch"><span class="ch-n">03</span><div><h3>What It's Really Costing You</h3><p>The real bill below the licence fee.</p></div></div>
+        <div class="ch free"><span class="ch-n">04</span><div><h3>Who Owns What When It Breaks</h3><p>The three-layer ownership model. The CrowdStrike test.</p>
+          <a class="lnk" href="https://www.masteringobservability.com/metrics-and-mayhem/free-chapter" target="_top">Read this chapter free &rarr;</a></div></div>
+        <div class="ch"><span class="ch-n">05</span><div><h3>The People Problem Nobody's Solving</h3><p>Training is not capability. Practice is.</p></div></div>
+        <div class="ch"><span class="ch-n">06</span><div><h3>Why Your Best Engineers Aren't Telling You the Truth</h3><p>Psychological safety, and the cost of silence.</p></div></div>
+        <div class="ch"><span class="ch-n">07</span><div><h3>The Machines Are Getting Better. Are Your Teams?</h3><p>AI in operations, governed properly.</p></div></div>
+        <div class="ch"><span class="ch-n">08</span><div><h3>The CTO Nobody Trained You to Be</h3><p>Three shifts the role has not kept pace with.</p></div></div>
+        <div class="ch"><span class="ch-n">09</span><div><h3>What the Organisations That Get This Right Actually Did</h3><p>GitHub, Fastly, Atlassian: three real recoveries.</p></div></div>
+        <div class="ch"><span class="ch-n">10</span><div><h3>How to Build This Without Burning It Down</h3><p>One outcome, one owner, one quarter.</p></div></div>
+        <div class="ch"><span class="ch-n">11</span><div><h3>What to Do Monday Morning</h3><p>Three conversations, a 90-day plan.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================== AUTHOR =========================== -->
+  <section class="tint">
+    <div class="wrap author">
+      <div class="eyebrow">About the author</div>
+      <h2>Allan Mann</h2>
+      <p>Twenty-five years running IT operations and observability across five tier-1 banks and one UAE government,
+        the environments where "it looked fine on the dashboard" ends up in front of a regulator. He's been on the
+        receiving end of vendor pitches, budget battles, and 3am outages that weren't supposed to happen.</p>
+      <p>He writes The Signal, a weekly newsletter, and hosts the Metrics &amp; Mayhem podcast. No vendor agenda.
+        No fluff. Just hard-won experience.</p>
+      <p class="links">
+        <a href="https://www.masteringobservability.com/subscribe" target="_top">The Signal</a><span>&middot;</span>
+        <a href="https://www.masteringobservability.com/metrics-and-mayhem/podcast" target="_top">Podcast</a><span>&middot;</span>
+        <a href="https://www.linkedin.com/in/allanmann1/" target="_blank" rel="noopener">LinkedIn</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================ FAQ ============================ -->
+  <section>
+    <div class="wrap narrow">
+      <div class="eyebrow">Questions</div>
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Is this technical?</summary><p>It's strategic first, technical second. You won't need to code, but you will need to understand how systems produce signals and why those signals matter for decision-making. If you can read a dashboard and ask questions about what it means, you're technical enough.</p></details>
+        <details><summary>Do I need a specific tool?</summary><p>No. This book is vendor-neutral. It covers principles and practices that work regardless of which monitoring, logging, or tracing tools you use. The framework applies whether you're using open source, commercial platforms, or a mix of both.</p></details>
+        <details><summary>How long is it?</summary><p>Approximately 200 pages. It's designed to be read in 3&ndash;4 focused sessions, or you can jump to the chapters most relevant to your current challenges. Each chapter stands alone, so you don't need to read cover to cover.</p></details>
+        <details><summary>Is it suitable for regulated industries?</summary><p>Yes. It draws on real-world experience in banking and government, and addresses compliance, audit requirements, data sovereignty, and how to build trust without compromising control.</p></details>
+        <details><summary>What will I be able to do after reading?</summary><p>You'll be able to identify your critical customer journeys, define what healthy looks like, set up early warning signals, assign ownership, and build the operating cadence needed to turn signals into decisions. You'll also have a clear 90-day roadmap to get started.</p></details>
+        <details><summary>How does this relate to SLOs?</summary><p>SLOs (Service Level Objectives) are service promises: commitments you make about how reliable your systems will be. This book shows you how to set SLOs that matter to customers, not just technical teams. You'll learn how to tie them to business outcomes and use them as decision-making tools.</p></details>
+        <details><summary>Who is this not for?</summary><p>This isn't a tool comparison guide, a vendor evaluation checklist, or a step-by-step configuration manual. If you're looking for "how to set up Prometheus" or "which APM tool to buy", this isn't the book. It's for leaders who need to build the capability, not just buy the tools.</p></details>
+        <details><summary>Can I share this with my team?</summary><p>Yes. Many CTOs buy copies for their direct reports, SRE leads, and product owners. The book works as a shared language for aligning technical and business stakeholders around what observability actually means.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== CLOSING ========================== -->
+  <section class="tint closing">
+    <div class="wrap">
+      <h2>Ready when you are.</h2>
+      <p>Start with a chapter, or pick the edition that suits you.</p>
+      <div class="btns">
+        <a class="btn" href="https://amzn.eu/d/09OJjYce" target="_blank" rel="noopener">Get the book on Amazon</a>
+        <a class="btn btn-ghost" href="https://www.masteringobservability.com/metrics-and-mayhem/free-chapter" target="_top">Read Chapter 4 free</a>
+      </div>
+      <div class="trust">Kindle &middot; Paperback &middot; Hardback</div>
+    </div>
+  </section>
+</div>

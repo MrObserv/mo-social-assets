@@ -1,0 +1,80 @@
+<!-- ============================================================================
+     Mastering Observability, /archive: heading, plus styling for the archive.
+
+     FRAGMENT, same pattern as the home blocks. Replaces beehiiv's default
+     "Archive / All of our previous posts" heading with the home page's
+     section-head style.
+
+     The <style> is page-wide on purpose. It dresses beehiiv's native archive
+     block below it (post-root-element, .grid, .embla__slide, the search
+     input and the Load more button) to match the home page's feed: one
+     1064px column, hairline grid, full-width lead card, white hover. The
+     cards themselves (text only: tag, date, read time, title, summary) are
+     set in the archive block's own card layout, copied from the home feed.
+     It also draws the teal line under the site nav, as on Home and /advisory.
+
+     PASTE: /archive > Custom HTML block directly ABOVE the archive block.
+     ============================================================================ -->
+<div class="mm-arc">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap');
+
+    .mm-arc {
+      background: #F6F8F7; color: #16282D; text-align: left;
+      font-family: 'DM Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased
+    }
+    .mm-arc *, .mm-arc *::before, .mm-arc *::after { margin: 0; padding: 0; box-sizing: border-box }
+    .mm-arc .wrap {
+      width: 100%; max-width: 1120px; margin: 0 auto;
+      padding: clamp(40px, 5vw, 72px) clamp(16px, 4vw, 28px) 28px
+    }
+    .mm-arc .eyebrow {
+      font-family: 'Space Mono', monospace; font-weight: 700; font-size: 12px;
+      letter-spacing: 4px; text-transform: uppercase; color: #17695C;
+      margin-bottom: 16px; display: inline-flex; align-items: center; gap: 12px
+    }
+    .mm-arc .eyebrow::before { content: ''; width: 28px; height: 1px; background: #2F9E8D; opacity: .8 }
+    .mm-arc h1 {
+      font-family: 'Montserrat', 'DM Sans', sans-serif; font-weight: 900; color: #0D2127;
+      font-size: clamp(32px, 4.4vw, 52px); line-height: 1.04; letter-spacing: -1.5px; text-wrap: balance
+    }
+    .mm-arc h1 span { color: #17695C }
+    .mm-arc p {
+      margin-top: 16px; max-width: 60ch; color: #3B5257;
+      font-size: clamp(16px, 1.35vw, 19px); line-height: 1.6
+    }
+
+    /* Site nav on this page: a teal gradient line in place of the nav's grey hairline.
+       Page-wide on purpose; .navbar-list is beehiiv's own class on the nav bar. */
+    nav .navbar-list {
+      border-bottom: 3px solid transparent !important;
+      border-image: linear-gradient(to right, rgba(47,158,141,0), rgba(47,158,141,.55), rgba(47,158,141,0)) 1 !important
+    }
+
+    /* beehiiv's archive block, dressed as the home feed. Page-wide on purpose. */
+    .post-root-element { max-width: 1064px; margin-left: auto !important; margin-right: auto !important }
+    .post-root-element .grid { gap: 1px !important; background: #DCE7E5; border: 1px solid #DCE7E5 }
+    .post-root-element .grid > .embla__slide { background: #F6F8F7; transition: background-color .18s ease }
+    .post-root-element .grid > .embla__slide:hover { background: #FFFFFF }
+    .post-root-element .grid > .embla__slide [data-json-path="0"] { background: transparent !important }
+    /* Card meta row left-aligned as in the prototype (beehiiv centres it), one tag only,
+       and full titles. Hooks are the card-layout paths beehiiv renders. */
+    .post-root-element .grid > .embla__slide [data-json-path="0"],
+    .post-root-element .grid > .embla__slide [data-json-path="0,0"],
+    .post-root-element .grid > .embla__slide [data-json-path="0,1"] { text-align: left !important; justify-content: flex-start !important }
+    .post-root-element .grid > .embla__slide [data-json-path="0,0,0"] > :nth-child(n+2) { display: none !important }
+    .post-root-element .grid > .embla__slide [data-json-path="0,1,0"] { -webkit-line-clamp: none !important; line-clamp: none !important }
+    .post-root-element .grid > .embla__slide:first-child,
+    .post-root-element .grid > .embla__slide:last-child:nth-child(even) { grid-column: 1 / -1 }
+    .post-root-element .grid > .embla__slide:first-child [data-json-path="0,1,0"] span {
+      font-size: clamp(24px, 2.4vw, 32px) !important; font-weight: 800 !important; line-height: 1.12
+    }
+    .post-root-element input[name="q"] { font-family: 'DM Sans', system-ui, sans-serif }
+    .post-root-element [id$="__load_more"] { border-radius: 4px !important; font-family: 'DM Sans', system-ui, sans-serif }
+  </style>
+  <div class="wrap">
+    <div class="eyebrow">The archive</div>
+    <h1>Everything, <span>in public.</span></h1>
+    <p>Every piece, newest first: The Signal, the Observability Digest, deep dives and byte-size explainers.</p>
+  </div>
+</div>
