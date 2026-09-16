@@ -80,7 +80,7 @@ A light card in a dark player reads as a broken render, and a face only separate
 - **teal is not a text colour on light.** It measures 3.08:1 on ground. Text and links use teal-deep.
 - **soft is light-mode only.** On dark use on-dark-soft.
 - **Semantic pairs are mode-dependent.** Same meaning, different hex. Using #FFD166 on a light ground is a fail.
-- **One radial teal wash per dark canvas**, 10 to 22 per cent. Never two, never on light.
+- **One radial teal wash per canvas**, 10 to 22 per cent. Never two. **20 per cent on dark, 12 per cent on light** — values in `design-tokens.json` `structure.wash`, never hardcoded in a producer. Amended 2026-09-14 by Al, reversing "never on light": the original rule was written before anyone had rendered a light card, and a light card with no wash reads flat. Three alternatives were built and rejected — a flat `tint` field, the `signal_line` motif as the card graphic, and a white panel on `tint`.
 
 ### Retired, do not use
 
@@ -123,7 +123,7 @@ Full standard: `Logo_and_Marks_Standard.md`. In short:
 
 - **Ring mark** identifies. Minimum 24px, clear space equal to the inner ring radius, three colour versions only.
 - **Crosshair** is furniture. Document and diagram surfaces, top right, one per page, drawn never typed.
-- **Lens wash** is texture. Dark surfaces only, one per canvas.
+- **Lens wash** is texture. One per canvas, both modes — 20 per cent on dark, 12 per cent on light.
 
 **Lockup by lane.** Podcast lane carries METRICS & MAYHEM. Everything else carries MASTERING OBSERVABILITY.
 

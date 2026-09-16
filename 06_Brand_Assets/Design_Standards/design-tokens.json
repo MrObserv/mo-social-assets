@@ -1,10 +1,10 @@
 {
   "$schema": "mo-design-tokens/1",
-  "version": "3.1.7",
+  "version": "3.1.8",
   "status": "ratified",
   "updated": "2026-09-14",
   "owner": "Growth",
-  "note": "Generated from the MO Design System page. Never hand-edit a producer palette; read this file. Changed in 3.1.7: eyebrow vocabulary ruled, with the length-not-topic choice rule. The four standards amendments are applied in standards/ and are no longer owed. NO colour value changed.",
+  "note": "Generated from the MO Design System page. Never hand-edit a producer palette; read this file. Changed in 3.1.8: png_output.size_expectation replaced with measured values (the lossless files are SMALLER, not 4-8x larger as previously estimated) and an explicit acceptance test that reads colour type rather than size. NO colour value changed.",
   "mode": {
     "default": "light",
     "rule": "Writing renders light. A blog, article, newsletter or any card fronting written material uses the website palette, because it is the same reading surface. Everything else — podcast, YouTube, episode art, short-form, feed cards for non-writing assets — renders dark.",
@@ -309,10 +309,14 @@
       "rule": "No `quality` option on PNG output. In sharp, quality implies palette: true, which quantises.",
       "measured": "2026-09-14: cards rendered INDEXED with 25 to 28 colours; a vertical slice through the radial wash held only 5 to 7 distinct values, i.e. visible banding rings. Present since the kit was written — every card it ever produced is banded, dark worse than light.",
       "fix": "png({ compressionLevel: 9, palette: false }) — lossless truecolour.",
-      "size_expectation": "Roughly 290KB to 575KB against the previous ~72KB. Content measured 14 live cards: 49KB smallest, 91KB median, 251KB largest, already 11 RGB to 2 palette. Truecolour is the existing majority, not a new regime.",
-      "ceiling": "1MB, as a smoke alarm rather than a target — high enough never to bind on a real card, low enough to catch a producer emitting something absurd. Content's suggestion, adopted.",
+      "size_expectation": "MEASURED 2026-09-15 on the six evergreen renders: 39,430 to 53,997 bytes (mean ~50KB), RGBA truecolour, no palette. The indexed originals were 69,210 to 88,823 bytes, so the lossless files are SMALLER — roughly 30 per cent smaller, not larger.",
+      "ceiling": "1MB, as a smoke alarm rather than a target. Retained, but note it is now ~20x the real output rather than ~2x: it will only ever catch a producer emitting something absurd.",
       "second_reason_for_the_sweep": "The banding is independent of the palette flip, so the six evergreen winners need re-rendering for image quality as well as for mode.",
-      "note_on_writing_surfaces": "byte_size and monthly_digest share the og_card canvas via surface_aliases. They are NOT dual-mode: writing renders light, so --mode dark throws on them. blog_og is dual-mode because an OG card can front a non-writing asset."
+      "note_on_writing_surfaces": "byte_size and monthly_digest share the og_card canvas via surface_aliases. They are NOT dual-mode: writing renders light, so --mode dark throws on them. blog_og is dual-mode because an OG card can front a non-writing asset.",
+      "why_smaller": "Inferred, not measured: sharp's palette quantiser appears to dither, and dither is high-frequency noise that defeats PNG's row filters, whereas a smooth truecolour gradient reduces to near-zero deltas and compresses very well. The OUTCOME is measured; this explanation is not.",
+      "corrected_estimate": "A prior estimate of 290KB-575KB (4x to 8x) was recorded here and in the Content Management letter. It was reasoned from 'lossless is bigger' and never measured. It was wrong in the wrong direction and is corrected here rather than quietly dropped.",
+      "acceptance": "FILE SIZE IS NOT THE ACCEPTANCE TEST. Read PNG byte 25: colour type 2 or 6 passes, colour type 3 (indexed) means the quantised producer is still in use. Size moved in the opposite direction to the prediction, so a size check would have read as a failure when the fix had worked.",
+      "alpha_note": "Output is RGBA. All pixels are opaque, so this is harmless, but an OG card carries no transparency by design and the alpha channel is dead weight. Not changed, because it is measured to cost little and changing it is a new render of everything."
     }
   },
   "lockup": {
@@ -669,7 +673,7 @@
     ],
     "preflight": "node mo_visual_kit.js preflight — runs every gate, writes nothing."
   },
-  "amended": "2026-09-15 by Al — 3.1.6 and earlier as recorded; 3.1.7 eyebrow vocabulary ruled, chosen by length and treatment rather than topic.",
+  "amended": "2026-09-15 by Al — 3.1.7 and earlier as recorded; 3.1.8 corrects the PNG size expectation against measured output.",
   "surface_aliases": {
     "blog_og": "og_card",
     "byte_size": "og_card",

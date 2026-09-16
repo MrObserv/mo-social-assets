@@ -39,7 +39,7 @@ Two rules crossing. It marks a page as ours from the inside. It is never an iden
 
 A single radial teal wash, and at larger scale the concentric rings bleeding off an edge.
 
-- Dark surfaces only. One per canvas, 10 to 22 per cent opacity.
+- Both modes. One per canvas, 10 to 22 per cent opacity: 20 per cent on dark, 12 per cent on light. Amended 2026-09-14 by Al — see `Brand_Design_System_v3.md` §3.
 - Decoration. It carries no meaning, so nothing important sits on it and nothing is read through it.
 - **The faint mint grid is retired** (Al, 2026-09-11). It came from the pre-v2.0 dark surface and does nothing the wash does not do better. Producers still drawing it need updating.
 
