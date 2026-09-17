@@ -1,0 +1,45 @@
+# Line-ending normalisation. Added 2026-09-17 on Al's instruction.
+#
+# WHY THIS EXISTS. Before this file, core.autocrlf was false with no
+# normalisation, on a Windows working copy inside OneDrive. Any tool that
+# rewrote a file with different line endings produced a whole-file diff, so
+# `git status --porcelain` reported nine modified files when the real change
+# count was zero. SYNC.md names that command as the one cheap check against
+# clone drift, so the only safeguard in this repo was returning false
+# positives every time and no true ones. A check that always fires is not a
+# check.
+#
+# Text is stored LF in the repo and checked out per platform.
+
+* text=auto
+
+# Binaries. Never converted, never diffed as text.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.webp binary
+*.mp4  binary
+*.mov  binary
+*.wav  binary
+*.mp3  binary
+*.pdf  binary
+*.xlsx binary
+*.pptx binary
+*.docx binary
+*.zip  binary
+*.ttf  binary
+*.otf  binary
+*.woff  binary
+*.woff2 binary
+
+# SVG is text and should diff as text.
+*.svg text
+
+# Scripts, pinned. Batch files are run on Windows and keep CRLF; shell
+# scripts keep LF or they fail on the runner.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+*.sh  text eol=lf
