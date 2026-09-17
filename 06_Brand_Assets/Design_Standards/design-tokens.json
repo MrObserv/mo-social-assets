@@ -1,10 +1,10 @@
 {
   "$schema": "mo-design-tokens/1",
-  "version": "3.1.8",
+  "version": "3.2.2",
   "status": "ratified",
   "updated": "2026-09-14",
   "owner": "Growth",
-  "note": "Generated from the MO Design System page. Never hand-edit a producer palette; read this file. Changed in 3.1.8: png_output.size_expectation replaced with measured values (the lossless files are SMALLER, not 4-8x larger as previously estimated) and an explicit acceptance test that reads colour type rather than size. NO colour value changed.",
+  "note": "Generated from the MO Design System page. Never hand-edit a producer palette; read this file. 3.2.1 is a POINTER-CORRECTION release: consumers.status keys now name the real producer paths, marks.commit_order no longer instructs a commit of two deleted files, and Diagram_Standard.md is repointed - it had told the next person to add hexes to mo_diagram.js, which is now a defect. NO colour value changed and no new token added.",
   "mode": {
     "default": "light",
     "rule": "Writing renders light. A blog, article, newsletter or any card fronting written material uses the website palette, because it is the same reading surface. Everything else — podcast, YouTube, episode art, short-form, feed cards for non-writing assets — renders dark.",
@@ -63,13 +63,14 @@
       "on-dark-body": "#D5E0E1",
       "on-dark-soft": "#9FB0BD",
       "semantic-high": "#FFD166",
-      "semantic-low": "#7BD88F"
+      "semantic-low": "#7BD88F",
+      "dark-border": "#2E535C"
     },
     "retired": {
       "#0a0e17": "old dark ground, superseded by dark-ground",
       "#64ffda": "old mint accent, superseded by teal-bright",
       "#0d7377": "old deep teal, superseded by teal-deep",
-      "#2dd4bf": "old mint, superseded by teal-bright",
+      "#2dd4bf": "old mint, superseded by teal #2F9E8D. Ruled by Al 2026-09-16 after Content Management flagged it as Design's call: it maps to teal, NOT teal-bright. In mo_diagram it was the mid accent, and teal is the mid accent in v3; teal-bright is the raised accent and would have brightened every diagram.",
       "#F5F3EC": "cream slide ground, superseded by ground",
       "#FBFCFC": "architecture white, superseded by ground",
       "#63797D": "old soft grey, failed 4.5:1 on ground, superseded by soft",
@@ -86,7 +87,8 @@
       "#e9ecec": "old light-figure gridline, superseded by hairline",
       "#cccccc": "old light-figure neutral bar, superseded by border",
       "#1a1a1a": "old light-figure ink, superseded by ink #16282D"
-    }
+    },
+    "dark_border_provenance": "NEW IN 3.2.0, and the only invented value in this change. The dark set had no border or hairline token at all, so mo_diagram's arrow/card strokes (#4a6272, undeclared) had nowhere to map. Derived in-family by lightening dark-panel #1C3C45 along the same hue; it is decoration, not text, so the 4.5:1 rule does not apply. FLAGGED FOR RATIFICATION: Al has not approved this hex. The alternative that invents nothing is teal at 0.35 opacity as the stroke, which was not taken because a teal hairline tints every box on a dark diagram."
   },
   "usage_rules": [
     "teal #2F9E8D is a graphic colour on light, never body text. Use teal-deep for text and links.",
@@ -351,12 +353,27 @@
     ],
     "name_trap": "the_signal is the NEWSLETTER and is house lane. signal_drop is the PODCAST and is podcast lane. One word apart, opposite wordmarks. Al's 2026-09-14 ruling on the Digest, The Signal and byte-size covers the newsletter only.",
     "prohibition": "Metrics & Mayhem must NOT appear on a house asset. That name is reserved for the book and the podcast.",
-    "open_question": "OPEN, Al to rule before the re-render sweep: the two wordmarks are currently mutually exclusive and there is NO endorsement anywhere — podcast assets carry METRICS & MAYHEM, a format badge, and no reference to the parent. Should the hierarchy stay purely organisational, or should podcast assets carry a small endorsement? It changes every YouTube thumbnail, episode square, title card, bookend and video card. Not decided here.",
     "beehiiv_slugs": {
       "note": "Surface keys here are an INTERNAL namespace and follow this file's snake_case convention. Beehiiv content tags are a different namespace with different rules. Recorded so the mismatch is found by reading rather than by an outage — the LG- inbox sat invisible for seven days on exactly this class of mismatch.",
       "monthly_digest": "monthly-digest (hyphen, on Beehiiv)",
       "byte_size": "byte_size (underscore, matches both conventions)"
-    }
+    },
+    "endorsement": {
+      "rule": "PER SURFACE, ruled by Al 2026-09-16. Not blanket. A surface absent from this block has NO endorsement and renders nothing, so one cannot be acquired by accident — turning one on is an edit here, never in a producer. House surfaces throw if asked: a house asset cannot endorse itself.",
+      "youtube_thumbnail": "FROM MASTERING OBSERVABILITY",
+      "episode_square": null,
+      "title_card": null,
+      "series_badge": null,
+      "bookend": null,
+      "video_card": null,
+      "x_header": null,
+      "youtube_channel_art": null,
+      "signal_drop": null,
+      "tech_tuesday": null,
+      "wording_note": "\"FROM MASTERING OBSERVABILITY\" claims a source, not a format — it stays true if the show changes shape. Design's wording, not Al's ruling; the ruling was which surfaces, not which words. Change it here if the phrasing is wrong.",
+      "why_youtube_only": "YouTube is where a cold viewer meets the podcast with no other context, so the parent brand has work to do. An episode square appears inside a feed the listener has already chosen, where the endorsement is noise. That is the distinction Al drew."
+    },
+    "endorsement_ruling": "CLOSED 2026-09-16. The question was: should the hierarchy stay purely organisational, or should podcast assets carry an endorsement? Al ruled PER SURFACE — YouTube yes, episode squares no. See lockup.endorsement. Previously recorded here as open, with the note that it changes every thumbnail, square, title card, bookend and video card; in the event it changes one of them."
   },
   "marks": {
     "rule": "Resolve a mark by NAME from this manifest. Never by searching the tree — a search finds logo-master.svg and favicon.svg, which predate the ring mark. If a mark is not listed here it does not exist yet.",
@@ -375,7 +392,27 @@
       "mono_white": "marks/mo_ring_mark_mono_white.svg",
       "mono_black_small": "marks/mo_ring_mark_mono_black_small.svg",
       "mono_white_small": "marks/mo_ring_mark_mono_white_small.svg",
-      "mono_rule": "One colour, no opacity, 1.2px stroke so it holds at a single ink weight. For single-colour print, stamping, watermarks and any surface where the two-tone mark cannot be reproduced. Never use mono where the full mark will render."
+      "mono_rule": "One colour, no opacity, 1.2px stroke so it holds at a single ink weight. For single-colour print, stamping, watermarks and any surface where the two-tone mark cannot be reproduced. Never use mono where the full mark will render.",
+      "og_card_px": 80,
+      "og_card_rule": "80px on a 1200-wide og_card. RULED by Al 2026-09-16, replacing 44px. At LinkedIn's ~552px render width 80px lands near 37px, comfortably over the 24px floor in Logo_and_Marks_Standard §1; 44px landed near 20px, under it. Above crossover_px so the FULL variant is used. Full opacity — the mark carries its own ring opacity in the file, so a producer opacity double-applies it.",
+      "og_card_placement": "TOP RIGHT, opposite the eyebrow, x = W-60-80, y = 40. It was bottom right in the footer at 44px. It had to move: the footer band is 78px tall (rule at H-78 to the H-40 baseline) and cannot hold an 80px mark, and enlarging the band would push the rule into the subtitle. Top right balances the eyebrow and gives the mark the presence Al asked for. Design's layout call, 2026-09-16 — flagged as a call rather than a consequence.",
+      "favicon": {
+        "role": "Browser tab, bookmark bar, home screen. The site icon.",
+        "ruled": "Al picked mo_ring_mark_favicon_32.png on 2026-09-17 over the manifest small variant. Recorded here because it existed in NO manifest: nothing generated it, no standard described it, and its treatment appears in no other file. That is why the favicon question kept reopening — the good answer was undocumented, so each conversation rediscovered only the two documented-but-worse options.",
+        "treatment": "TWO concentric rings, 2px stroke, teal #2F9E8D at 0.70, plus a solid centre dot in teal-deep #17695C, on an opaque light ground #F6F8F7. Distinct from BOTH manifest variants: the full variant has 1px hairlines at 0.28 that disappear below the crossover, and the small variant collapses to a single ring in flat teal-deep, which reads as a circle with a dot rather than as the ring mark.",
+        "why_not_the_small_variant": "The small variant is correct for a mark sitting INSIDE another design at small size, where one ring is enough and simplicity wins. A favicon is the mark standing alone as the only brand signal on screen, so keeping the concentric idea matters more than absolute simplicity. Both are right for their own job; this is a third job.",
+        "ground": "OPAQUE, not transparent. All four PNGs carry their own light ground, which is why they hold on dark browser chrome as well as light. Do not regenerate these with a transparent background.",
+        "files": {
+          "ico": "website/favicon.ico — 16 and 32 in one file. The 32 entry is the byte-identical payload of mo_ring_mark_favicon_32.png, not a re-encode. The 16 is a high-quality downscale of it.",
+          "png_32": "07_Website/Pages/brand/ring_mark/mo_ring_mark_favicon_32.png",
+          "png_180": "…_favicon_180.png (apple-touch-icon)",
+          "png_192": "…_favicon_192.png (webmanifest)",
+          "png_512": "…_favicon_512.png (webmanifest, splash)"
+        },
+        "measured_2026_09_17": "Ground #F6F8F7 = light.ground exact and centre #17695C = light.teal-deep exact, in all four. Full-strength ring #6BB9AD = teal at 0.70 over ground, blend matching on all three channels — reached in the 180, 192 and 512. In the 32 NO ring pixel reaches full strength: 46 distinct values, all partial coverage, darkest #70BCAF at 0.67. So for the 32 the ring colour is teal by inheritance from its build family, not by direct measurement. Zero retired colour in any of the four.",
+        "do_not": "Do NOT rebuild a favicon from mo_ring_mark_on_light.svg or mo_ring_mark_on_dark.svg. Those are the full variant: 1px hairlines at 0.28 opacity, which vanish at 32px and below. That mistake is what produced the retired-eye favicon lingering beside correct ring-mark PNGs."
+      },
+      "favicon_history": "06_Brand_Assets/favicon.svg was the retired eye-and-crosshair with six retired hexes. Recorded as owed from the day the ring mark landed, never actioned, deleted by Al 2026-09-17."
     },
     "signal_line": {
       "role": "Second motif. The latency trace from the website hero: teal at one weight, breach segment in caution, dashed threshold. Use as the graphic on a card that needs one.",
@@ -402,16 +439,13 @@
       "illustrated metaphors",
       "gradient text"
     ],
-    "commit_order": {
-      "problem": "mo_visual_kit.v3.js calls T.mark(\"ring_mark\", variant) and reads marks.ring_mark.crossover_px. A token file whose marks block is the older descriptive shape (\"ring-mark\" with a versions list) has neither, so the producer throws on first run.",
-      "order": [
-        "1. Commit the eight SVGs into 06_Brand_Assets/marks/.",
-        "2. Commit THIS design-tokens.json, which carries the manifest shape with file paths.",
-        "3. Only then commit producers/mo_visual_kit.v3.js over templates/mo_visual_kit.js.",
-        "4. node mo_visual_kit.js preflight — it resolves every mark and every font before writing anything."
-      ],
-      "note": "Steps 1 and 2 in either order, 3 never before both. This is the sequencing Growth flagged, and the cause was a loader written against a manifest shape that had not shipped."
-    },
+    "commit_order": [
+      "1. Commit the ten SVGs into 06_Brand_Assets/Design_Standards/marks/.",
+      "2. Commit design-tokens.json, which carries the manifest shape with file paths.",
+      "3. Commit the producers into 06_Brand_Assets/Design_Standards/producers/.",
+      "4. node mo_visual_kit.js preflight - it resolves every mark and every font before writing anything.",
+      "HISTORICAL NOTE: step 3 formerly instructed a commit of the v3 kit over the templates/ copy. Both of those files were deleted on 2026-09-14 when the two diverged kits were merged into one. Corrected 2026-09-16. The old filenames are described rather than written, so a grep for them returns only real references."
+    ],
     "canonical_dir_note": "Verified against the repo 2026-09-14: this is where the eleven variants live, and it is what the loaders resolve to (mo-tokens.js walks up from producers/, so the relative paths below are correct). 06_Brand_Assets/marks/ is the OLDER folder holding three pre-variant files and is NOT canonical. Two marks directories now exist; the legacy one should be emptied once every producer resolves by name.",
     "metadata_rule": "A mark file is geometry only. If an SVG arrives carrying a <metadata> block — provenance manifests, editor cruft — strip it before committing. Each injected manifest is ~7.8KB against ~380 bytes of geometry, the producer base64-embeds the whole file at render time, and a re-download rewrites the manifest with fresh UUIDs so git reports every mark as modified. Strip: sed -i 's|<metadata>.*</metadata>||g' *.svg",
     "committed": {
@@ -441,7 +475,7 @@
       "history": "templates/mo_visual_kit.js embedded one of them on EVERY OG card and never called assertRenderClean, so nothing caught it. Every card that kit produced shipped four non-v3 hexes.",
       "rule": "No producer resolves a logo by filename. The identifier is the ring mark, resolved by name from this manifest. Archive these two files rather than delete — that is a Design decision, not cleanup."
     },
-    "min_size_owed": "The kit draws the ring mark at 44px on a 1200-wide og_card. LinkedIn renders an OG at roughly 552px, putting the mark near 20px on screen — below the 24px floor in Logo_and_Marks_Standard.md §1. A number needs choosing; this is a Design call and is NOT yet fixed."
+    "min_size_resolved": "CLOSED 2026-09-16 by Al's 80px ruling. See ring_mark.og_card_rule."
   },
   "contrast": {
     "standard": "WCAG 2.1 AA",
@@ -461,15 +495,15 @@
     ],
     "build_check": "Call assertNoRetired / assert_no_retired on your own source in the build. It fails on any retired hex.",
     "status": {
-      "templates/mo_diagram.js": "NOT CONSUMING — and the v3 table's \"10 retired-token hits\" UNDERCOUNTS it. Content Management measured the real file (288 lines, does not require mo-tokens.js at all): 6 retired hexes in 13 places, 5 already-valid v3 tokens in 12, and FOURTEEN UNDECLARED COLOURS in 23 places with no v3 equivalent. So the repoint is not a find-and-replace of ten values; it is fourteen mapping decisions, each either a fold into an existing token or a CR to add one. A blind repoint would have gone wrong. A diagram rendered off this file is LIVE on a published post.",
       "Slide_System/mo_slide_template.js": "not yet consuming",
       "templates/long_form_pdf/reference_strategy_template.html": "not yet consuming",
       "tools/thumbnail_builder.py": "not yet consuming",
-      "templates/mo_quote_card.js": "not yet consuming",
+      "templates/mo_quote_card.js": "NOT CONSUMING. Carries the retired dark palette, so a quote card rendered today is off-brand. Quote_Card_Standard.md was repointed 2026-09-16 and now names this gap explicitly.",
       "templates/render_arch_kit.py": "not yet consuming",
-      "producers/mo_visual_kit.js": "CONSUMING — merged, single home, ring mark by name, all three gates, density 72."
+      "producers/mo_visual_kit.js": "CONSUMING since 2026-09-12. Declares no colour. Retired hexes: zero, enforced by assertNoRetired on its own source at load and assertRenderClean on every composed render.",
+      "producers/mo_diagram.js": "REPOINTED 2026-09-16 to consume mo-tokens.js. Declares no colour of its own. Retired hexes: zero. See consumers.mo_diagram_mapping for the fourteen decisions and the five unflagged defects found while doing it. MOVED from templates/ to producers/ on the same date, because it requires ./mo-tokens.js by relative path. The old path is deleted."
     },
-    "single_home": "The kit lives at Design_Standards/producers/mo_visual_kit.js and nowhere else. Two copies of a producer is the same defect class as two canonical trees. The two that existed had DIVERGED, not aged: templates/ had a font-file check but embedded the eye mark and never called assertRenderClean; producers/ resolved the ring mark and ran all three gates but lacked the font check. The surviving file is the merge of both.",
+    "single_home": "Producers live at Design_Standards/producers/ and nowhere else: mo-tokens.js, mo_visual_kit.js, mo_diagram.js, normalise_font_names.py. Two copies of a producer is the same defect class as two canonical trees. Three instances have now been resolved: two diverged visual kits (09-14); a duplicate normalise_font_names.py whose copy checked only name ID 1 and so passed fonts the real one flags as DRIFT (09-16); and mo_diagram.js living in templates/ away from the loader it needs (09-16).",
     "token_resolution": "mo-tokens.js walks UP from its own directory to find this file (5 levels, MO_TOKENS still wins when set). The earlier version looked only beside itself, so every producer run needed MO_TOKENS set by hand.",
     "producer_contract": "blogthumb requires --surface AND --eyebrow. Neither is defaulted. It previously called lockupFor(\"blog_og\") literally, so every card returned MASTERING OBSERVABILITY whatever it was — the right answer for the wrong reason, routing around the throw that exists to stop a surface defaulting into a wordmark. --eyebrow defaulted to THE OBSERVABILITY DIGEST, correct for one surface and wrong for four. A silent default that is right once and wrong four times is the same failure class as the font fallback that produced the blank card.",
     "mo_diagram_scope": {
@@ -497,7 +531,56 @@
       ],
       "already_ruled": "v3 §3 states #5f6d75 passed AA, so the twelve shipped light diagrams are NOT re-rendered and the 2026-09-01 acceptance holds. The repoint is forward-looking; only the one live figure on the published post needs a re-render.",
       "also_owed": "That figure hotlinks raw.githubusercontent.com. In-body images are uploaded to the publishing platform's CDN, never hotlinked."
-    }
+    },
+    "mo_diagram_mapping": {
+      "ruled": "Al 2026-09-16: full job — all fourteen decided, CRs where a token is needed.",
+      "correction_to_the_count": "Content Management reported 6 retired hexes and 14 undeclared. Measured against colour.retired, the retired count is ELEVEN, not six: #14a3a8, #6c7a82, #c2c9cc, #e9ecec and #2F9E57 are already listed as retired and were counted as undeclared. The undeclared set is correspondingly smaller and almost all of it folds into existing tokens.",
+      "dark": {
+        "navy #0a0e17": "retired -> dark-ground #0D2127",
+        "navy2 #0c1929": "retired -> dark-motif #13313A",
+        "navy3 #0e1f35": "retired -> dark-panel #1C3C45",
+        "cardBg #0e2038": "undeclared -> dark-panel #1C3C45",
+        "bandBg #10233a": "undeclared -> dark-motif #13313A",
+        "teal #14a3a8": "retired -> teal #2F9E8D",
+        "mint #2dd4bf": "retired -> teal #2F9E8D (Al's ruling)",
+        "bright #64ffda": "retired -> teal-bright #74DDCD",
+        "ink #ffffff": "kept as #FFFFFF; the dark set has no pure-white token and headings on dark are white. Body text uses on-dark-body.",
+        "grey #9fb0bd": "already valid -> on-dark-soft",
+        "greyMute #aab7c4": "undeclared -> folded into on-dark-soft #9FB0BD. A second grey one step apart was a distinction without a difference, exactly as #5f6d75 was in the light set.",
+        "green #7bd88f": "already valid -> semantic-low",
+        "amber #ffd166": "already valid -> semantic-high",
+        "arrow #4a6272": "undeclared, NO EQUIVALENT EXISTED -> new dark-border #2E535C. The one genuine CR.",
+        "grid #64ffda @0.03": "REMOVED ENTIRELY. The faint mint grid is itself retired (Al, 2026-09-11), so this needed deleting rather than repointing.",
+        "glow #64ffda @0.045": "retired -> the standard radial wash in teal at structure.wash.dark"
+      },
+      "light": {
+        "navy/navy2/bg1/bg2 #ffffff": "-> panel #FFFFFF",
+        "navy3 #f1f6fa": "undeclared -> tint #EAF6F3",
+        "bg3 #f9fbfd": "undeclared -> ground #F6F8F7",
+        "cardBg #f1f6fa": "undeclared -> panel #FFFFFF. A card sits ON the ground, so it is panel; tint is a field, not a card.",
+        "bandBg #f1f6fa": "undeclared -> tint #EAF6F3",
+        "teal #0d7377": "retired -> teal-deep #17695C",
+        "mint #2f9e8d": "already valid -> teal",
+        "bright #0d7377": "retired -> teal-deep #17695C",
+        "ink #12233d": "undeclared -> ink #16282D",
+        "grey #5f6d75": "retired -> soft #5A6E72",
+        "greyMute #5f6d75": "retired -> soft #5A6E72",
+        "green #2f9e57": "retired -> semantic-low #237A45",
+        "amber #b8790a": "undeclared and one step from retired #A8720B -> semantic-high #8F6109. Landed deliberately, not by proximity.",
+        "arrow #c2c9cc": "retired -> border #C9DCDC",
+        "grid #e9ecec @0.3": "retired AND the grid concept is retired -> REMOVED",
+        "glow #ffffff @0": "was drawing nothing -> the standard wash at structure.wash.light"
+      },
+      "defects_found_that_no_one_flagged": [
+        "density: 96 in render() — the same defect that made og_card rasterise at 1600x840. Every diagram this file produced is 25 per cent oversized.",
+        "quality: 92 on the PNG — the same palette-quantising banding defect fixed in mo_visual_kit on 09-15.",
+        "FONT.display was 'Archivo Black', which is not a brand face and is not in fonts.required. It resolves to nothing and falls back silently — the blank-card class of defect. The brand display face is Montserrat ExtraBold.",
+        "background() drew a three-stop linear gradient plus the grid plus a glow. All three are retired by v3; the flat ground plus one wash replaces them.",
+        "footer() hardcoded MASTERING OBSERVABILITY, so a diagram on a podcast surface would carry the wrong wordmark. Now resolved by lockupFor(surface)."
+      ]
+    },
+    "font_gate_note": "mo_diagram.js has NO font gate of its own. It renders brand-face text, so an un-normalised font store produces a silently blank or fallback diagram. Run `node mo_visual_kit.js preflight` before any diagram render - it resolves every brand face and every mark and writes nothing. Recorded rather than fixed with a second gate, because one preflight for the whole producer set is the simpler contract. Noted 2026-09-16.",
+    "doc_pointers_audited": "2026-09-16: every Design_Standards document was grepped for templates/mo_visual_kit.js, templates/mo_diagram.js and mo_visual_kit.v3.js after the producers moved. Seven documents carried stale paths and are corrected: Brand_Design_System_v3, Diagram_Standard, Blog_Thumbnail_Standard, Logo_and_Marks_Standard, Thumbnail_Producer_Routing, YouTube_Thumbnail_Standard, Quote_Card_Standard. Left as historical narrative on purpose: MIGRATION_v3.1.0.md (a dated migration record) and Shortform_Bookend_Standard.md (which correctly says the old Node bookends command is retired). RUNBOOK.md in Design_Standards is a spent handover runbook whose git rm commands have been executed; it should be deleted rather than amended."
   },
   "canonical_tree": {
     "decision": "SETTLED — mo-social-assets is canonical (Al, 2026-09-14).",
@@ -673,7 +756,7 @@
     ],
     "preflight": "node mo_visual_kit.js preflight — runs every gate, writes nothing."
   },
-  "amended": "2026-09-15 by Al — 3.1.7 and earlier as recorded; 3.1.8 corrects the PNG size expectation against measured output.",
+  "amended": "2026-09-17 by Al — 3.2.x as recorded; 3.2.2 favicon treatment documented in the marks manifest, retired eye favicon deleted, .ico and webmanifest added. NO colour value changed and no producer touched.",
   "surface_aliases": {
     "blog_og": "og_card",
     "byte_size": "og_card",

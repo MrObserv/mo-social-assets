@@ -1,0 +1,22 @@
+{
+  "name": "Mastering Observability",
+  "short_name": "Mastering Obs",
+  "description": "Observability, practised rather than purchased.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F6F8F7",
+  "theme_color": "#17695C",
+  "icons": [
+    {
+      "src": "/brand/ring_mark/mo_ring_mark_favicon_192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/brand/ring_mark/mo_ring_mark_favicon_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
