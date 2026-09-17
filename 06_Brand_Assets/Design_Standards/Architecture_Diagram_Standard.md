@@ -1,8 +1,8 @@
 # Mastering Observability: Architecture Diagram Standard
 
-**Registered:** 2026-07-30 (Growth / Brand). **Revised:** 2026-07-31 after Allan's direction: no plain boxes, real architectural layout, consultant standard. **Hardened:** 2026-08-03 with the build-level lessons from the NatWest baseline deck (see §2a and the expanded §6 checklist). **Scope:** every architecture, estate, pipeline, topology and platform diagram Mastering Observability produces, for client-facing engineering audiences, the blog, and the book. This is the sibling to `Diagram_Standard.md` (concept / flow); the two share one visual language and one QA gate, so from this revision they operate as a single system. UK English, Voice Codex §5 (no em dashes, banlist, confirmed figures only).
+**Registered:** 2026-07-30 (Growth / Brand). **Revised:** 2026-07-31 after Allan's direction: no plain boxes, real architectural layout, consultant standard. **Hardened:** 2026-08-03 with the build-level lessons from a client baseline deck (see §2a and the expanded §6 checklist). **Scope:** every architecture, estate, pipeline, topology and platform diagram Mastering Observability produces, for client-facing engineering audiences, the blog, and the book. This is the sibling to `Diagram_Standard.md` (concept / flow); the two share one visual language and one QA gate, so from this revision they operate as a single system. UK English, Voice Codex §5 (no em dashes, banlist, confirmed figures only).
 
-The proving ground is a NatWest / Fujitsu engineering-desktop observability baseline shown to architects (Deputy CTO, Lead Architect, service owners). The bar: read as a recognised notation an architect trusts, and hold together as one brand.
+The proving ground is a client engineering-desktop observability baseline (a tier-1 UK bank) shown to architects (Deputy CTO, Lead Architect, service owners). The bar: read as a recognised notation an architect trusts, and hold together as one brand.
 
 ---
 
@@ -18,7 +18,7 @@ The proving ground is a NatWest / Fujitsu engineering-desktop observability base
 - **Surface: clean white engineering ground** (`#FBFCFC`). The brand lives in the furniture (kicker, title, footer, teal accent), not a coloured canvas. This keeps the diagram reading as engineering, not marketing, and matches how architects expect reference diagrams to look.
 - **Components are teal line-icons in a tint circle.** Single-colour (`#2F9E8D`) line icons in a `#EAF6F3` tint disc, sized consistently (about a 40px icon in a 40-44px disc), one recognisable glyph per component type (gateway, portal, monitor, server rack, hyperconverged nodes, hypervisor layers, storage array, switch, service hexagon, collector funnel, database cylinder, dashboard).
 - **Zones are containers.** A white card with a `#EAF6F3` header band carrying a DM Sans caps kicker; components stack inside. Zones group a tier, a plane, or a layer.
-- **Ownership / boundary is a dashed line or dashed container**, always labelled (for example a data-centre boundary, or a Fujitsu | NatWest split).
+- **Ownership / boundary is a dashed line or dashed container**, always labelled (for example a data-centre boundary, or a service provider | client split).
 - **Two edge types where needed:** solid = a call or the main flow; dashed = telemetry / secondary. Keyed on every diagram that uses both.
 
 ## 2a. Construction rules (hardening, added 2026-08-03)
@@ -102,10 +102,10 @@ All build brand-accurate SVG rendered to PNG through the brand fonts (installed 
 
 ## 8. Reuse and confidentiality
 
-The **standard and the blank templates** are Mastering Observability brand IP. **Worked client diagrams** (for example the NatWest / Fujitsu estate) are client-confidential: built to this standard, stored only in the private client workspace, never in the public asset repository. The generic reference examples (open-source stack, sample services) are brand examples and may be reused.
+The **standard and the blank templates** are Mastering Observability brand IP. **Worked client diagrams** (for example a client's desktop estate) are client-confidential: built to this standard, stored only in the private client workspace, never in the public asset repository. The generic reference examples (open-source stack, sample services) are brand examples and may be reused.
 
 ---
 
 **Companion:** `Diagram_Standard.md` (concept / flow) shares this language and this gate; the 2026-08-03 hardening (§2a, §4 glyph rule, §6 items 9 to 13, and the renderer caveat) still needs carrying into it so the two stay level. **Slide system:** `../Slide_System/Slide_Design_System.md`. **Tokens:** `Brand_Design_System_v2.md`. This standard supersedes the 2026-07-30 boxes-and-arrows draft (retired to `_superseded_boxes` in the client folder).
 
-**Sync note (2026-08-06, Growth):** the 2026-08-03 hardening originated in the NatWest client copy and was folded back into this canonical master, so the two are level again. This file is canonical; the client-project copy reconciles to it.
+**Sync note (2026-08-06, Growth):** the 2026-08-03 hardening originated in the client copy and was folded back into this canonical master, so the two are level again. This file is canonical; the client-project copy reconciles to it.

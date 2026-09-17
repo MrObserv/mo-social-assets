@@ -36,7 +36,7 @@ The Downloads originals are untouched and remain the rollback for the edited `Pa
 **Questions, all Al's and all before Publish (full wording in `35_` §4):**
 1. Block 3's "Get the free chapter" links to the product page; the canonical file wants `/metrics-and-mayhem/free-chapter`.
 2. Public subscriber count "561" in blocks 1 and 2 (the harvest recommended none). "103 issues of The Signal" is out of date from today, when issue 104 goes out.
-3. Client names in block 1: Standard Chartered, TAMM, Lloyds.
+3. Client names in block 1: three clients named.
 4. The 47% to 82% recovery statistic is Logz.io's and unsourced, on Home and `/advisory`.
 5. Home no longer has an inline signup form; the prototype's hero has an email box.
 6. A one-character fix to block 1's H1, so it reads "signal. Rent" rather than "signal.Rent".

@@ -25,7 +25,7 @@
 **Tier 3 — foundational concepts, evergreen:**
 7. What Is an SLO/SLI? · 8. What Is Cardinality? · 9. What Is Sampling? (8 and 9 tie into the observability-cost angle) · What Is Alertmanager? · What Is the ELK Stack?
 
-**Hub asset (the anchor that ties it together):** upgrade the existing *"The Open-Source Observability Stack: A Field Guide"* into an **end-to-end learning-path hub** that links every byte-size in stack order (metrics → logs → traces → OTel → K8s → SLOs). This becomes the cluster home and a genuinely useful asset for the NatWest local build.
+**Hub asset (the anchor that ties it together):** upgrade the existing *"The Open-Source Observability Stack: A Field Guide"* into an **end-to-end learning-path hub** that links every byte-size in stack order (metrics → logs → traces → OTel → K8s → SLOs). This becomes the cluster home and a genuinely useful asset for the client local build.
 
 ## 3. SEO
 

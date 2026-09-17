@@ -34,7 +34,7 @@ By targeted search only:
 - Outside the workspace: the Claude auto-memory note on this builder, updated with this pass's lessons.
 
 **Changes applied to the beehiiv draft**, each confirmed by a fresh builder reload (details and rollback in `36_`):
-- **Client names.** Home and /advisory now say "five tier-1 banks and one UAE government" and name no client. Nothing in `Pages/` names Standard Chartered, TAMM, Lloyds, NatWest, HSBC or Credit Suisse.
+- **Client names.** Home and /advisory now say "five tier-1 banks and one UAE government" and name no client. Nothing in `Pages/` names a client.
 - **Nav fixes.** Al's 06:13 publish put two nav defects live:
   - a line break in nav text renders as two spans that run together, so the name read "MASTERINGOBSERVABILITY";
   - nav text never wraps, so on phones Subscribe and the menu button sat off screen and visitors could not reach the menu.

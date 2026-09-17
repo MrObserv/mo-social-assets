@@ -60,7 +60,7 @@ The Command Center runs a **single-writer invariant**. It exists because the sha
 - **UK English.**
 - **No em dashes anywhere.** The ban is global and register-independent, and there is a linter: `python3 00_Command_Center/s5_lint.py`. Run it on anything you write.
 - **Never use page, pager or paged as alerting vocabulary.** "Page one" and "page views" are fine; an alert never pages anyone.
-- **Never name NatWest, Fujitsu or TEKsystems.** A client is "a tier-1 UK bank".
+- **Never name a client, employer or partner.** A client is "a tier-1 UK bank".
 - **Defensible numbers only.** 562 active subscribers, roughly 407 genuinely engaged, verified 2026-08-31. Never "around 600".
 - **Nothing sends, publishes, schedules, deletes or spends.** Drafts and proposals only. Al holds every irreversible action.
 

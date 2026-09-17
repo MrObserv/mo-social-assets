@@ -18,7 +18,7 @@ Mid-session he added two more:
 - **Desktop nav.** The name rendered as "MASTERINGOBSERVABILITY". beehiiv turns a line break in nav text into two spans inside a flex link, so the two words run together.
 - **Phone nav.** The same run-together name was 201px wide, and nav text never wraps (`white-space: nowrap`). The row needed 440px in a 319px space, so Subscribe and the menu button sat off a 375px screen and phone visitors could not reach the menu.
 - **Nav Subscribe.** It opened beehiiv's sign-up modal instead of going to /subscribe.
-- **Client names.** Home named Standard Chartered, TAMM (Abu Dhabi) and Lloyds Banking Group. /advisory named Standard Chartered, "Abu Dhabi's TAMM platform" and Lloyds.
+- **Client names.** Home and /advisory named three clients.
 - **Teal line.** It sat about 40px below the nav, because the Home section had 40px of top padding.
 - **/subscribe.** See section 4.
 
@@ -43,7 +43,7 @@ Until Al publishes, the live site itself is the rollback for everything above. T
 - **Home block 1, bio:** now reads "across five tier-1 banks and one UAE government".
 - **Home block 1, role cards:** retitled "A global tier-1 bank", "A UAE government platform" and "A tier-1 UK bank". Their descriptions are unchanged.
 - **/advisory, credentials paragraph:** now opens "across five tier-1 banks and one UAE government" and refers to "a global bank", "a government platform" and "a UK bank's". No other copy changed on either page.
-- **Check:** a search of every file in `Pages/` finds no Standard Chartered, TAMM, Lloyds, NatWest, HSBC or Credit Suisse.
+- **Check:** a search of every file in `Pages/` finds no client name.
 
 **3.2 Teal line.**
 - **Home:** block 1 no longer draws its own `.edge` line. Instead it carries one page-wide rule that turns the nav's bottom border into the same teal gradient at the same 55% strength. The rule targets `nav .navbar-list`, beehiiv's own class, and uses `border-image`. The line now sits on the nav and stays with it when the nav sticks. The Home section's top padding is 0, so the hero starts directly under the nav.

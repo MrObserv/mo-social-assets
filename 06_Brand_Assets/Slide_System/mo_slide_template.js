@@ -98,7 +98,7 @@ async function buildDeck(themeKey, outFile) {
   s.addShape("line", { x: rc.cx - 0.16, y: rc.cy + 1.85, w: 0.32, h: 0, line: { color: T.mint, width: 2 } });
   s.addShape("line", { x: rc.cx - 2.05, y: rc.cy, w: 0.32, h: 0, line: { color: T.mint, width: 2 } });
   s.addImage({ data: logo, x: M, y: 0.42, w: 0.85, h: 0.85 });
-  s.addText("FIRST ABU DHABI BANK   ·   PRINCIPAL LEAD, OBSERVABILITY & AI OPS", {
+  s.addText("A UAE TIER-1 BANK   ·   PRINCIPAL LEAD, OBSERVABILITY & AI OPS", {
     x: M, y: 1.62, w: 7.4, h: 0.3, fontFace: F.mono, fontSize: 10, color: T.mid, margin: 0, valign: "top",
   });
   s.addText("One version of operational truth", {
@@ -277,9 +277,9 @@ async function buildDeck(themeKey, outFile) {
   s.addShape("rect", { x: M, y: 3.00, w: 9.16, h: 1.60, fill: { color: T.panel2 }, line: { color: T.border, width: 0.75 } });
   s.addText("The receipts (confirmed figures only)", { x: M + 0.14, y: 3.12, w: 8.8, h: 0.26, fontFace: F.body, fontSize: 11.5, bold: true, color: T.ink, margin: 0, valign: "top" });
   const proofs = [
-    ["TAMM, ABU DHABI", "45% alert noise down, 50% MTTR down, 99.99% uptime. Team of ~15 built from scratch. UN WSIS Prize 2025."],
-    ["STANDARD CHARTERED", "Monitoring modernised across 40+ countries. Around £8m operational savings. Zero MAS and ASIC audit findings."],
-    ["LLOYDS BANKING GROUP", "Important Business Services observability under PRA, FCA and Bank of England scrutiny. Payments resilience."],
+    ["UAE GOVERNMENT PLATFORM", "45% alert noise down, 50% MTTR down, 99.99% uptime. Team of ~15 built from scratch. UN WSIS Prize 2025."],
+    ["GLOBAL TIER-1 BANK", "Monitoring modernised across 40+ countries. Around £8m operational savings. Zero MAS and ASIC audit findings."],
+    ["TIER-1 UK BANK", "Important Business Services observability under PRA, FCA and Bank of England scrutiny. Payments resilience."],
   ];
   proofs.forEach(([nm, d], i) => {
     const x = COLX[i] + 0.14;

@@ -200,7 +200,7 @@ The nav is global: once published it replaces the nav on every page, not only Ho
 
 1. **Free chapter link.** Block 3's "Get the free chapter" button (embed `deb9370d-0f5c-4a08-9ab7-2082f2503b85`) points at `/products/metrics-mayhem-chapter-4`. `00_Command_Center/Free_Chapter_Path_Canonical.md` requires every CTA to point at `/metrics-and-mayhem/free-chapter`, and says the product is never promoted directly in copy.
 2. **Subscriber count.** "561" appears in block 1 (proof strip) and block 2 (closing line). `34_SATELLITE_HARVEST_2026-09-06.md` Q2 recommended no count on a public page; no ruling is recorded. The strip's other numbers also drift: "103 issues" goes out of date when The Signal 104 goes out (dated Fri 11 Sep), "147 pieces" read 148 on 2026-09-07, and "36.2%" matches no figure in the weekly reports (38.98% four-week on 2026-09-07).
-3. **Client names.** Block 1 names Standard Chartered, TAMM and Lloyds (`34_` Q4, not yet ruled).
+3. **Client names.** Block 1 names three clients (`34_` Q4, not yet ruled).
 4. **Vendor statistic.** The 47% to 82% recovery figure in block 2 and on `/advisory` is Logz.io's Observability Pulse (`01_Book/Archive/metrics_mayhem_revised.md`). Codex §5 (no vendor numbers) and §7.4 allow a vendor statistic only when sourced and dated; it is dated, not sourced.
 5. **Inline signup form.** The draft removes form `03b93cd1-e57b-4601-b036-f46e40fdc14a`, so every "Get The Signal" on Home goes to `/subscribe`. The prototype's hero has an email box at that point.
 6. **Small markup fix.** Block 1's H1 is `Own the signal.<span>Rent the platform.</span>`, so its text reads "signal.Rent" to search engines and screen readers. A space before `<span>` fixes it with no visual change.

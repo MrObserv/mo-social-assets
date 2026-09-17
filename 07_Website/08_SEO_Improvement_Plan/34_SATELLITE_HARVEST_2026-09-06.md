@@ -136,7 +136,7 @@ The satellite declared this honestly in its own section 5: it did not read the b
 
 **Q3, which headline leads.** Closed by Al on 2026-09-06. Home leads with "Own the signal. Rent the platform." The 2:47am line is reserved for the book. The advisory block on the home page leads with "More tools. More dashboards. Worse recovery." **Still open: whether the `/advisory` hero itself moves off the 2:47am line.**
 
-**Q4, client naming, and this needs care rather than a reflex.** The house rule names **NatWest, Fujitsu and TEKsystems** and says a client is "a tier-1 UK bank". **Standard Chartered, Lloyds and TAMM Abu Dhabi are not on that list.** The rule as written does not forbid them, and they are already published on Al's own live page, so the satellite carrying them into the prototype was reasonable and it was right to flag it rather than assume.
+**Q4, client naming, and this needs care rather than a reflex.** The house rule names three clients and says a client is "a tier-1 UK bank". **The three clients named on the live site are not on that list.** The rule as written does not forbid them, and they are already published on Al's own live page, so the satellite carrying them into the prototype was reasonable and it was right to flag it rather than assume.
 
 **What I will not do is silently widen the rule to cover three more names, or silently narrow it to a literal three.** This is Al's to rule on, and it is worth ruling once: either the prohibition is those three specific relationships for specific reasons, or it is a general principle about naming clients, in which case the live page needs changing and not just the prototype.
 
