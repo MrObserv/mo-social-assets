@@ -36,8 +36,8 @@ If you want two, make the second the podcast RSS and put it directly above block
 | Subtitle colour | `#3B5257` |
 | Author font | **DM Sans** |
 | Author size | text-xs |
-| Author colour | `#63797D` |
-| Timestamp colour | `#63797D` |
+| Author colour | `#5A6E72` |
+| Timestamp colour | `#5A6E72` |
 
 ## Tags
 
@@ -86,7 +86,7 @@ These are the same button tokens as blocks 1, 2 and 3, taken from `Brand_Design_
 | Border colour | `#C9DCDC` |
 | Border radius | 4px |
 | Text colour | `#16282D` |
-| Placeholder colour | `#63797D` |
+| Placeholder colour | `#5A6E72` |
 
 ## Empty state
 

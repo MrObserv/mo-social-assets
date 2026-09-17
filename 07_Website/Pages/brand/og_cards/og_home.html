@@ -5,6 +5,9 @@
 <title>Share card: Home (mode C)</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <!--
+  Updated 2026-09-17 by the website build satellite, at Al's request: footer mark reverted to the two-ring light mark used before 2026-09-16 (pale rings, deep teal centre, 34px). Colours and wash unchanged from 2026-09-16.
+  Updated 2026-09-16 by the website build satellite: retired colours swapped (soft #5A6E72, semantic-high #8F6109), wash at 12 per cent on light (design-tokens.json v3.1.7), footer mark now small_on_light at 52px so it shows at about 24px in a LinkedIn feed.
+
   Mastering Observability share card, mode C (light), 1200 x 630. Page: Home.
 
   Draft by the website build satellite, 2026-09-11. Built from the "Blog and OG
@@ -17,7 +20,7 @@
 
   Mode C values come from the same file's token table: ground #F6F8F7, tint
   #EAF6F3, navy #0D2127, teal-deep #17695C, teal #2F9E8D, muted #3B5257, soft
-  #63797D, border #C9DCDC, caution #A8720B. The tint surround follows the
+  #5A6E72, border #C9DCDC, caution #8F6109. The tint surround follows the
   file's LinkedIn rule: a teal-tinted panel behind the card so it does not
   dissolve into LinkedIn's white chrome. One radial teal wash, as the file
   allows. Graphic: the signal line from the Home hero (the file's second motif).
@@ -30,7 +33,7 @@
     background: #F6F8F7; border: 1px solid #C9DCDC; border-radius: 6px;
     padding: 46px 54px 44px; display: flex; flex-direction: column; justify-content: space-between
   }
-  .glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 84% 8%, rgba(47,158,141,0.16), transparent 60%) }
+  .glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 84% 8%, rgba(47,158,141,0.12), transparent 60%) }
   .top { position: relative }
   .kicker { display: flex; align-items: center; gap: 22px }
   .kicker i { width: 70px; height: 2px; background: #2F9E8D; display: block }
@@ -46,7 +49,7 @@
     position: relative; display: flex; align-items: center; justify-content: space-between;
     border-top: 1px solid #C9DCDC; padding-top: 26px
   }
-  .foot .house { font-family: 'Space Mono', monospace; font-size: 20px; letter-spacing: 4px; text-transform: uppercase; color: #63797D }
+  .foot .house { font-family: 'Space Mono', monospace; font-size: 20px; letter-spacing: 4px; text-transform: uppercase; color: #5A6E72 }
   .foot .dom { display: flex; align-items: center; gap: 16px; font-family: 'Space Mono', monospace; font-size: 20px; letter-spacing: 4px; text-transform: uppercase; color: #17695C }
 </style>
 </head>
@@ -61,11 +64,11 @@
           <stop offset="100%" stop-color="#2F9E8D" stop-opacity="0"></stop>
         </linearGradient>
       </defs>
-      <line x1="0" y1="52" x2="600" y2="52" stroke="#A8720B" stroke-width="1.6" stroke-dasharray="7 7" opacity="0.8"></line>
+      <line x1="0" y1="52" x2="600" y2="52" stroke="#8F6109" stroke-width="1.6" stroke-dasharray="7 7" opacity="0.8"></line>
       <polygon fill="url(#fade)" points="0,118 15,112 30,121 45,108 60,116 75,104 90,119 105,110 120,122 135,113 150,105 165,117 180,109 195,120 210,111 225,102 240,115 255,107 270,119 285,110 300,116 315,99 330,112 345,104 360,118 375,96 390,88 405,64 420,38 435,26 450,44 465,72 480,95 495,106 510,113 525,104 540,116 555,108 570,119 585,111 600,115 600,170 0,170"></polygon>
       <polyline fill="none" stroke="#2F9E8D" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" points="0,118 15,112 30,121 45,108 60,116 75,104 90,119 105,110 120,122 135,113 150,105 165,117 180,109 195,120 210,111 225,102 240,115 255,107 270,119 285,110 300,116 315,99 330,112 345,104 360,118 375,96 390,88 405,64 420,38 435,26 450,44 465,72 480,95 495,106 510,113 525,104 540,116 555,108 570,119 585,111 600,115"></polyline>
-      <polyline fill="none" stroke="#A8720B" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" points="390,88 405,64 420,38 435,26 450,44 465,72"></polyline>
-      <circle cx="435" cy="26" r="6" fill="#A8720B"></circle>
+      <polyline fill="none" stroke="#8F6109" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" points="390,88 405,64 420,38 435,26 450,44 465,72"></polyline>
+      <circle cx="435" cy="26" r="6" fill="#8F6109"></circle>
     </svg>
     <div class="top">
       <div class="kicker"><i></i><span>Vendor-neutral &middot; Weekly since 2024</span></div>
