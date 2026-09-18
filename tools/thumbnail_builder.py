@@ -64,7 +64,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageEnhance, ImageFont
 from PIL.PngImagePlugin import PngInfo
 
-BUILDER_VERSION = "1.6.0"
+BUILDER_VERSION = "1.6.1"
 
 # GAZE / EXPRESSION CAPTURE IS A HUMAN PROCESS HABIT, NOT CODE (ID-2026-07-03-03,
 # codex 24.15): capture a look-left / look-right gaze-still and a calm-direct
@@ -292,17 +292,30 @@ CONFIG = {
         #   rule full-width at 0.35  -> 150px solid teal
         #   accent tick after the headline -> deleted; the 150px rule IS the tick
         #   filled footer band + watermark -> hairline rule, EVERY FRIDAY copy
+        # ABSOLUTE Y POSITIONS, measured off the ratified mockup's live DOM at
+        # 1200x630 on 2026-09-18 (third pass). The second pass matched sizes and
+        # order but derived each y from the previous element's height as
+        # size * 1.2 - the mockup's line boxes are ~1.65x, so the whole stack
+        # crept upward cumulatively: rule 28px high, headline 36px high. Pixel-
+        # scanning the rendered PNG against DOM getBoundingClientRect measurements
+        # is what caught it; absolute values remove the whole error class.
         "margin": 80,
+        "lockup_y": 64, "lockup_mark_px": 40, "lockup_gap": 18, "lockup_text_size": 21,
         "nameplate_y": 104, "nameplate_size": 92, "nameplate_tracking": -3,
         "issue_size": 22, "issue_tracking": 3, "issue_gap": 28, "issue_gap_min": 16,
-        "descriptor_size": 26, "descriptor_gap": 14,
-        "rule_len": 150, "rule_width": 2, "rule_gap_above": 34, "rule_gap_below": 30,
-        "kicker_size": 19, "kicker_tracking": 5, "kicker_gap_below": 16,
-        "footer_size": 19, "footer_tracking": 4, "footer_pad": 22, "footer_inset": 64,
+        "descriptor_y": 226, "descriptor_size": 26,
+        "rule_y": 303, "rule_len": 150, "rule_width": 2,
+        "kicker_y": 335, "kicker_size": 19, "kicker_tracking": 5,
+        "headline_y": 382,
+        "footer_size": 19, "footer_tracking": 4, "footer_rule_y": 512, "footer_text_y": 534,
         "footer_text": "EVERY FRIDAY · MASTERINGOBSERVABILITY.COM",
         "headline_upper": False,
         "headline_max_width": 1040,
-        "size_by_lines": {1: 58, 2: 52, 3: 46, 4: 38},
+        # Refit to the measured envelope: headline_y 382 to footer rule 512
+        # minus 8px clearance. 3- and 4-line steps drop (46->36, 38->28); at the
+        # old sizes a 3-line lead ended 24px past the rule. The mockup itself is
+        # a 2-line lead, and 52px at two lines is its exact setting.
+        "size_by_lines": {1: 58, 2: 52, 3: 36, 4: 28},
         "headline_min_size": 28,
         "headline_line_height": 1.1, "headline_tracking": -1, "wrap_chars": 24,
         # accent_line, watermark, footer_left and footer_right were DELETED at
@@ -886,16 +899,22 @@ def compose_signal(args):
     im = make_canvas(w, h, 0.18).convert("RGBA")
     draw = ImageDraw.Draw(im)
 
-    # -- house lockup: MO lens + MASTERING OBSERVABILITY (master brand) --
-    mark = render_logo(lk["mark_px"])
-    im.paste(mark, (m, lk["y"]), mark)
-    mono_lk = font("mono", lk["size"])
-    mark_box = mark.getchannel("A").getbbox() or (0, 0, lk["mark_px"], lk["mark_px"])
+    # -- house lockup: ring mark + MASTERING OBSERVABILITY (master brand) --
+    # Signal-local geometry, not CONFIG["lockup"]: that block is the episode
+    # cards' (y 30, mark 38px) and 38px sits BELOW the ring mark's 40px
+    # crossover, so the episode lockup takes the small single-ring variant.
+    # The mockup places this card's mark at y 64 at 40px - ON the crossover -
+    # so it takes the full concentric rings. One configured pixel was the
+    # difference between the two variants.
+    mark = render_logo(sc["lockup_mark_px"])
+    im.paste(mark, (m, sc["lockup_y"]), mark)
+    mono_lk = font("mono", sc["lockup_text_size"])
+    mark_box = mark.getchannel("A").getbbox() or (0, 0, sc["lockup_mark_px"], sc["lockup_mark_px"])
     tb = mono_lk.getbbox(house)
-    text_y = round((lk["y"] + (mark_box[1] + mark_box[3] - 1) / 2) - (tb[1] + tb[3] - 1) / 2)
+    text_y = round((sc["lockup_y"] + (mark_box[1] + mark_box[3] - 1) / 2) - (tb[1] + tb[3] - 1) / 2)
     # soft, not accent: on light the wordmark is furniture, and teal here would
     # compete with the nameplate for the eye.
-    draw_tracked(draw, (m + lk["mark_px"] + lk["gap_mark_to_text"], text_y),
+    draw_tracked(draw, (m + sc["lockup_mark_px"] + sc["lockup_gap"], text_y),
                  house, mono_lk, hx("grey"), lk["tracking"])
 
     # -- masthead nameplate: THE SIGNAL, with the issue line set on its baseline --
@@ -915,7 +934,9 @@ def compose_signal(args):
     # different object from the mockup. Baseline alignment needs real font
     # metrics, because a 92px face and a 22px face have different ascents.
     issue_f = font("mono", sc["issue_size"])
-    issue_txt = "ISSUE %d  ·  %s" % (issue_n, (args.date or "").upper())
+    # Single spaces around the middot, matching the mockup; the double-spaced
+    # version measured 22px wider than the DOM text at the same tracking.
+    issue_txt = "ISSUE %d · %s" % (issue_n, (args.date or "").upper())
     iw = tracked_width(issue_f, issue_txt, sc["issue_tracking"])
     baseline = np_y + plate_f.getmetrics()[0]
     iy = baseline - issue_f.getmetrics()[0]
@@ -932,20 +953,18 @@ def compose_signal(args):
     draw_tracked(draw, (ix, iy), issue_txt, issue_f, hx("teal_mid"), sc["issue_tracking"])
 
     # -- descriptor: says exactly what this is (never the podcast) --
-    desc_y = plate_bottom + sc["descriptor_gap"]
-    draw.text((m, desc_y), sc["descriptor"], font=font("subtitle", sc["descriptor_size"]),
-              fill=hx("grey"))
+    draw.text((m, sc["descriptor_y"]), sc["descriptor"],
+              font=font("subtitle", sc["descriptor_size"]), fill=hx("grey"))
 
     # -- the masthead rule: 150px of solid teal, not a full-width wash --
     # One teal mark on the card. It was previously a 1080px line at 35 per cent
     # AND a second teal tick under the headline, so the card carried two
     # competing accents where the mockup has one.
-    rule_y = desc_y + round(sc["descriptor_size"] * 1.2) + sc["rule_gap_above"]
-    draw.rectangle([m, rule_y, m + sc["rule_len"], rule_y + sc["rule_width"] - 1],
+    draw.rectangle([m, sc["rule_y"], m + sc["rule_len"], sc["rule_y"] + sc["rule_width"] - 1],
                    fill=hx("mint"))
 
     # -- kicker --
-    kick_y = rule_y + sc["rule_width"] + sc["rule_gap_below"]
+    kick_y = sc["kicker_y"]
     draw_tracked(draw, (m, kick_y), sc["kicker"], font("mono", sc["kicker_size"]),
                  hx("teal_mid"), sc["kicker_tracking"])
 
@@ -963,7 +982,7 @@ def compose_signal(args):
         fnt = font("title", size)
     asc, _ = fnt.getmetrics()
     pitch = int(size * sc["headline_line_height"])
-    y = kick_y + round(sc["kicker_size"] * 1.2) + sc["kicker_gap_below"]
+    y = sc["headline_y"]
     for ln in lines:
         draw_tracked(draw, (m, y - int(asc * 0.22)), ln, fnt, hx("ink"), tr)
         y += pitch
@@ -974,8 +993,8 @@ def compose_signal(args):
     # "THE SIGNAL / ALLAN MANN" - none of which the mockup has. The band gave the
     # card a heavy foot that read as an episode asset rather than a masthead.
     ff = font("mono", sc["footer_size"])
-    fy = h - sc["footer_inset"] - sc["footer_size"]
-    frule_y = fy - sc["footer_pad"]
+    fy = sc["footer_text_y"]
+    frule_y = sc["footer_rule_y"]
     if headline_bottom > frule_y - 8:
         raise AssertionError(
             "compose_signal: headline bottom %d collides with the footer rule at "
@@ -1485,6 +1504,18 @@ if __name__ == "__main__":
 # v1.3.2 (2026-07-26): optically centre the top wordmark on the lens mark's
 #   visible centreline and remove the duplicated site name from the OG footer's
 #   left side. The site remains once, right-aligned; other surfaces are unchanged.
+# v1.6.1 (2026-09-18): SIGNAL VERTICAL GEOMETRY MADE ABSOLUTE, measured off the
+#   mockup's live DOM and cross-checked by pixel-scanning the v1.6.0 render.
+#   v1.6.0 derived each y from the previous element's height as size*1.2; the
+#   mockup's line boxes are ~1.65x, so the stack crept up cumulatively (rule
+#   28px high, headline 36px). Also: the lockup was the EPISODE lockup (y 30,
+#   38px mark) - and 38px is below the ring mark's 40px crossover, so the card
+#   carried the small single-ring variant where the mockup's 40px mark carries
+#   the full concentric rings. One pixel of config was the variant difference.
+#   Signal-local lockup geometry added (y 64, 40px, gap 18, text 21). Issue
+#   line middot single-spaced to match the DOM width. Footer pinned at rule 512
+#   text 534. Headline steps refit to the 382..504 envelope: 3-line 36, 4-line
+#   28; at the old steps a 3-line lead ended 24px past the footer rule.
 # v1.6.0 (2026-09-18): SIGNAL LAYOUT RECONCILED TO THE RATIFIED MOCKUP. v1.5.2
 #   fixed the type SIZES and left the PLACEMENT as the dark episode card's, so
 #   the card still read as a different object. Five measured divergences, taken
