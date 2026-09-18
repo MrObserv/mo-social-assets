@@ -761,6 +761,7 @@
     "blog_og": "og_card",
     "byte_size": "og_card",
     "monthly_digest": "og_card",
+    "the_signal": "og_card",
     "note": "Surface name -> CANVAS/MODE name. This estate carried two names for one thing: blog_og is the lockup-lane name, og_card the canvas name. That was invisible while blogthumb hardcoded \"og_card\" for its size and \"blog_og\" for its lockup separately; the moment the producer resolved both from the real surface, T.size('blog_og') threw. Found by test, 2026-09-14.",
     "why_not_duplicate": "byte_size and monthly_digest were briefly given their own canvas entries of [1200,630]. That was reverted: two canvas entries for one canvas is exactly how the two names arose. An alias is one declared fact; a duplicate is two facts that can drift.",
     "reading": "mo-tokens resolves aliases inside size() and modeFor() ONLY. variantFor() does not alias, because dual-mode is a property of the surface rather than the canvas. lockupFor() does not alias either, because lane membership is a property of the surface — og_card is listed in house_lane in its own right."
