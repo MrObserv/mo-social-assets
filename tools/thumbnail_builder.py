@@ -64,7 +64,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageEnhance, ImageFont
 from PIL.PngImagePlugin import PngInfo
 
-BUILDER_VERSION = "1.5.2"
+BUILDER_VERSION = "1.6.0"
 
 # GAZE / EXPRESSION CAPTURE IS A HUMAN PROCESS HABIT, NOT CODE (ID-2026-07-03-03,
 # codex 24.15): capture a look-left / look-right gaze-still and a calm-direct
@@ -130,6 +130,7 @@ def _dark_roles():
         "mint":   d["teal-bright"],      # accent on dark
         "teal_mid": d["on-dark-soft"],   # footer label
         "grey":   d["on-dark-soft"],     # bookend subtitle / CTA detail
+        "border": d["dark-border"],      # hairline rules
         "ink":    "#FFFFFF",             # the dark set has no pure-white token
     }
 
@@ -144,6 +145,7 @@ def _light_roles():
         "mint":   lt["teal"],            # accent on light
         "teal_mid": lt["teal-deep"],     # label / issue line
         "grey":   lt["soft"],
+        "border": lt["border"],          # hairline rules
         "ink":    lt["ink"],
     }
 
@@ -263,7 +265,9 @@ CONFIG = {
         # Continuing counter: the 2026-08-21 rebrand is ISSUE 101, never "01".
         # See Design_Standards/The_Signal_Card_Standard.md.
         "w": 1200, "h": 630,
-        "house": "MASTERING OBSERVABILITY",
+        # No "house" string: the wordmark is resolved through T.lockup_for(),
+        # which raises for a surface in neither lockup lane. A literal here is a
+        # literal somebody can edit into the wrong brand.
         "masthead": "THE SIGNAL",
         "descriptor": "The weekly observability newsletter",
         "kicker": "THIS WEEK'S LEAD",
@@ -279,19 +283,32 @@ CONFIG = {
         # measured at 1200x630: nameplate 92, issue 22, descriptor 26,
         # kicker 19, headline 52 at two lines. The nameplate must stay LARGER
         # than the largest headline step; assert_signal_hierarchy() enforces it.
+        # GEOMETRY reconciled to the ratified mockup 2026-09-18 (second pass).
+        # The type SIZES were corrected earlier today; the PLACEMENT was not, and
+        # was still the dark episode card's. Five divergences, all measured off
+        # the mockup on the MO Design System page rather than judged by eye:
+        #   margin 60 -> 80          (mockup padding is 64px 80px)
+        #   issue line right-margin  -> baseline-adjacent, 28px after the plate
+        #   rule full-width at 0.35  -> 150px solid teal
+        #   accent tick after the headline -> deleted; the 150px rule IS the tick
+        #   filled footer band + watermark -> hairline rule, EVERY FRIDAY copy
+        "margin": 80,
         "nameplate_y": 104, "nameplate_size": 92, "nameplate_tracking": -3,
-        "issue_size": 22, "issue_tracking": 3,
-        "descriptor_size": 26,
-        "rule_opacity": 0.35, "rule_width": 2,
-        "kicker_size": 19, "kicker_tracking": 5,
-        "headline_max_width": 1080,
-        "size_by_lines": {1: 58, 2: 52, 3: 46, 4: 40},
+        "issue_size": 22, "issue_tracking": 3, "issue_gap": 28, "issue_gap_min": 16,
+        "descriptor_size": 26, "descriptor_gap": 14,
+        "rule_len": 150, "rule_width": 2, "rule_gap_above": 34, "rule_gap_below": 30,
+        "kicker_size": 19, "kicker_tracking": 5, "kicker_gap_below": 16,
+        "footer_size": 19, "footer_tracking": 4, "footer_pad": 22, "footer_inset": 64,
+        "footer_text": "EVERY FRIDAY · MASTERINGOBSERVABILITY.COM",
+        "headline_upper": False,
+        "headline_max_width": 1040,
+        "size_by_lines": {1: 58, 2: 52, 3: 46, 4: 38},
         "headline_min_size": 28,
-        "headline_line_height": 1.08, "headline_tracking": -1, "wrap_chars": 24,
-        "accent_line": {"width": 72, "height": 5, "gap": 26},
-        "watermark": {"px": 80, "opacity": 0.28, "inset": 60},
-        "footer_left": "THE SIGNAL • ALLAN MANN",
-        "footer_right": "MASTERINGOBSERVABILITY.COM",
+        "headline_line_height": 1.1, "headline_tracking": -1, "wrap_chars": 24,
+        # accent_line, watermark, footer_left and footer_right were DELETED at
+        # v1.6.0, not merely left unused: keeping them implied this card has a
+        # ring watermark and a two-part footer bar, which is what the mockup
+        # does not have. A dead config key reads as a spec.
     },
     "art": {                        # square Spotify episode art ("giant numeral", v1.9.17)
         "size": 3000,               # 1:1, JPEG sRGB; Spotify min 640, Apple min 1400
@@ -487,8 +504,17 @@ def wrap_words(text, wrap_chars):
     return lines
 
 
-def title_lines(title, wrap_chars):
-    title = title.strip().upper()
+def title_lines(title, wrap_chars, upper=True):
+    """upper=False preserves the author's case.
+
+    This function has ALWAYS uppercased, unconditionally. That is right for the
+    episode cards, whose headline is a shouted title, and wrong for The Signal,
+    whose mockup sets the lead in sentence case as running prose. I previously
+    told Al the uppercase came from his input string; it did not, it came from
+    this line."""
+    title = title.strip()
+    if upper:
+        title = title.upper()
     if "/" in title:
         return [seg.strip() for seg in title.split("/") if seg.strip()]
     return wrap_words(title, wrap_chars)
@@ -831,8 +857,12 @@ def compose_signal(args):
     # surface. The dark masthead that shipped issues 101 to 105 is RETIRED,
     # not a variant. variant_for refuses dark on this surface, so asking for
     # it raises rather than quietly rendering the old card.
-    T.variant_for("the_signal", "light") if False else None
-    set_mode("light")
+    mode = T.variant_for("the_signal")      # returns light, or raises
+    if mode != "light":
+        raise AssertionError(
+            "compose_signal: the_signal resolved to %r. This composer is light "
+            "only; a dark masthead is retired, not a variant." % mode)
+    set_mode(mode)
 
     # The issue number, validated through the token gate. It enforces the 101
     # anchor and the never-01 rule, and it is the SAME call the OG-card
@@ -847,8 +877,8 @@ def compose_signal(args):
     assert_signal_hierarchy()
 
     sc = CONFIG["signal"]
-    w, h, m = sc["w"], sc["h"], CONFIG["margin"]
-    lk, fcfg = CONFIG["lockup"], CONFIG["footer"]
+    w, h, m = sc["w"], sc["h"], sc["margin"]
+    lk = CONFIG["lockup"]   # CONFIG["footer"] is the episode band; this card has none
     # Resolved, not read from CONFIG. A literal wordmark in a config block is a
     # literal that can be edited; lockup_for raises for a surface in neither
     # lane, so the house lockup is proved rather than trusted.
@@ -868,41 +898,59 @@ def compose_signal(args):
     draw_tracked(draw, (m + lk["mark_px"] + lk["gap_mark_to_text"], text_y),
                  house, mono_lk, hx("grey"), lk["tracking"])
 
-    # -- masthead nameplate: THE SIGNAL (left) + ISSUE/date (right) --
+    # -- masthead nameplate: THE SIGNAL, with the issue line set on its baseline --
     np_y = sc["nameplate_y"]
+    plate_f = font("title", sc["nameplate_size"])
     # ink, not accent. On dark the nameplate was mint because mint was the only
     # bright value; on light the nameplate is the loudest thing on the card and
-    # takes ink, with teal kept for the rule and the accent tick.
-    draw_tracked(draw, (m, np_y), sc["masthead"], font("title", sc["nameplate_size"]),
+    # takes ink, with teal kept for the rule.
+    draw_tracked(draw, (m, np_y), sc["masthead"], plate_f,
                  hx("ink"), sc["nameplate_tracking"])
+    plate_w = tracked_width(plate_f, sc["masthead"], sc["nameplate_tracking"])
     plate_bottom = np_y + sc["nameplate_size"]
+
+    # The issue line sits 28px after the nameplate, sharing its BASELINE - not
+    # pushed to the right margin, and not centred on the nameplate's box. Those
+    # were the dark episode card's rules and they are what made this read as a
+    # different object from the mockup. Baseline alignment needs real font
+    # metrics, because a 92px face and a 22px face have different ascents.
     issue_f = font("mono", sc["issue_size"])
     issue_txt = "ISSUE %d  ·  %s" % (issue_n, (args.date or "").upper())
     iw = tracked_width(issue_f, issue_txt, sc["issue_tracking"])
-    iy = np_y + (sc["nameplate_size"] - sc["issue_size"]) // 2 + 2
-    draw_tracked(draw, (w - m - iw, iy), issue_txt, issue_f, hx("teal_mid"), sc["issue_tracking"])
+    baseline = np_y + plate_f.getmetrics()[0]
+    iy = baseline - issue_f.getmetrics()[0]
+    gap = sc["issue_gap"]
+    if m + plate_w + gap + iw > w - m:
+        gap = sc["issue_gap_min"]
+    ix = m + plate_w + gap
+    if ix + iw > w - m:
+        # Last resort rather than a silent overrun: a long date cannot run off
+        # the card, but falling back IS a layout divergence and says so.
+        ix = w - m - iw
+        print("  WARN: issue line too wide to sit beside the nameplate; "
+              "right-aligned instead (date %r)" % (args.date or ""))
+    draw_tracked(draw, (ix, iy), issue_txt, issue_f, hx("teal_mid"), sc["issue_tracking"])
 
     # -- descriptor: says exactly what this is (never the podcast) --
-    desc_y = plate_bottom + 6
+    desc_y = plate_bottom + sc["descriptor_gap"]
     draw.text((m, desc_y), sc["descriptor"], font=font("subtitle", sc["descriptor_size"]),
               fill=hx("grey"))
 
-    # -- full-width masthead rule --
-    rule_y = desc_y + sc["descriptor_size"] + 16
-    rov = Image.new("RGBA", im.size, (0, 0, 0, 0))
-    ImageDraw.Draw(rov).line([m, rule_y, w - m, rule_y],
-                             fill=hx("mint") + (int(255 * sc["rule_opacity"]),),
-                             width=sc["rule_width"])
-    im.alpha_composite(rov)
-    draw = ImageDraw.Draw(im)
+    # -- the masthead rule: 150px of solid teal, not a full-width wash --
+    # One teal mark on the card. It was previously a 1080px line at 35 per cent
+    # AND a second teal tick under the headline, so the card carried two
+    # competing accents where the mockup has one.
+    rule_y = desc_y + round(sc["descriptor_size"] * 1.2) + sc["rule_gap_above"]
+    draw.rectangle([m, rule_y, m + sc["rule_len"], rule_y + sc["rule_width"] - 1],
+                   fill=hx("mint"))
 
     # -- kicker --
-    kick_y = rule_y + 36
+    kick_y = rule_y + sc["rule_width"] + sc["rule_gap_below"]
     draw_tracked(draw, (m, kick_y), sc["kicker"], font("mono", sc["kicker_size"]),
                  hx("teal_mid"), sc["kicker_tracking"])
 
     # -- hero headline (white), sized by line count --
-    lines = title_lines(args.title, sc["wrap_chars"])
+    lines = title_lines(args.title, sc["wrap_chars"], upper=sc["headline_upper"])
     size = sc["size_by_lines"].get(len(lines), min(sc["size_by_lines"].values()))
     fnt = font("title", size)
     tr = sc["headline_tracking"]
@@ -915,36 +963,26 @@ def compose_signal(args):
         fnt = font("title", size)
     asc, _ = fnt.getmetrics()
     pitch = int(size * sc["headline_line_height"])
-    y = kick_y + 38
+    y = kick_y + round(sc["kicker_size"] * 1.2) + sc["kicker_gap_below"]
     for ln in lines:
         draw_tracked(draw, (m, y - int(asc * 0.22)), ln, fnt, hx("ink"), tr)
         y += pitch
-    y = y - pitch + size
-    al = sc["accent_line"]
-    y += al["gap"]
-    draw.rectangle([m, y, m + al["width"], y + al["height"]], fill=hx("mint"))
+    headline_bottom = y - pitch + size
 
-    # -- footer bar + watermark lens --
-    bar_top = h - fcfg["bar_height"]
-    fov = Image.new("RGBA", im.size, (0, 0, 0, 0))
-    od = ImageDraw.Draw(fov)
-    od.rectangle([0, bar_top, w, h], fill=hx("bar") + (255,))
-    od.line([0, bar_top, w, bar_top], fill=hx("mint") + (int(255 * fcfg["rule_opacity"]),), width=1)
-    im.alpha_composite(fov)
-    draw = ImageDraw.Draw(im)
-    ff = font("mono", fcfg["size"])
-    ty = bar_top + (fcfg["bar_height"] - fcfg["size"]) // 2 - 2
-    left_segs = sc["footer_left"].split("•")
-    x = m
-    for i, seg in enumerate(left_segs):
-        x = draw_tracked(draw, (x, ty), seg, ff, hx("teal_mid"), fcfg["tracking"])
-        if i < len(left_segs) - 1:
-            x = draw_tracked(draw, (x, ty), "•", ff, hx("mint"), fcfg["tracking"])
-    rw = tracked_width(ff, sc["footer_right"], fcfg["tracking"])
-    draw_tracked(draw, (w - m - rw, ty), sc["footer_right"], ff, hx("teal_mid"), fcfg["tracking"])
-    wm = sc["watermark"]
-    lens = render_logo(wm["px"], opacity=wm["opacity"])
-    im.paste(lens, (w - wm["inset"] - wm["px"], bar_top - 30 - wm["px"]), lens)
+    # -- footer: a hairline rule and one line of mono, per the mockup --
+    # Was a filled tint band across the full width, plus a ring watermark, plus
+    # "THE SIGNAL / ALLAN MANN" - none of which the mockup has. The band gave the
+    # card a heavy foot that read as an episode asset rather than a masthead.
+    ff = font("mono", sc["footer_size"])
+    fy = h - sc["footer_inset"] - sc["footer_size"]
+    frule_y = fy - sc["footer_pad"]
+    if headline_bottom > frule_y - 8:
+        raise AssertionError(
+            "compose_signal: headline bottom %d collides with the footer rule at "
+            "%d. %d lines at %dpx do not fit; shorten the title or add a step to "
+            "size_by_lines." % (headline_bottom, frule_y, len(lines), size))
+    draw.line([m, frule_y, w - m, frule_y], fill=hx("border"), width=1)
+    draw_tracked(draw, (m, fy), sc["footer_text"], ff, hx("grey"), sc["footer_tracking"])
     out = im.convert("RGB")
     set_mode("dark")            # restore: this is the only light surface here
     return out
@@ -1447,6 +1485,20 @@ if __name__ == "__main__":
 # v1.3.2 (2026-07-26): optically centre the top wordmark on the lens mark's
 #   visible centreline and remove the duplicated site name from the OG footer's
 #   left side. The site remains once, right-aligned; other surfaces are unchanged.
+# v1.6.0 (2026-09-18): SIGNAL LAYOUT RECONCILED TO THE RATIFIED MOCKUP. v1.5.2
+#   fixed the type SIZES and left the PLACEMENT as the dark episode card's, so
+#   the card still read as a different object. Five measured divergences, taken
+#   off the mockup rather than judged by eye: margin 60->80; the issue line moved
+#   from the right margin to 28px after the nameplate ON ITS BASELINE (real font
+#   metrics, two faces with different ascents); the rule from 1080px at 35 per
+#   cent to 150px of solid teal; the second teal tick under the headline DELETED,
+#   because the card carried two competing accents where the mockup has one; and
+#   the filled footer band plus ring watermark plus "THE SIGNAL / ALLAN MANN"
+#   replaced by a hairline rule and EVERY FRIDAY. title_lines() gained upper=; it
+#   had ALWAYS uppercased unconditionally, right for an episode title and wrong
+#   for a newsletter lead set as prose. The 4-line step went 40->38: at 40 the
+#   block ended 7px above the footer rule, inside the clearance the new collision
+#   assert requires. That assert replaces the deleted tick as bottom protection.
 # v1.5.2 (2026-09-18): THE SIGNAL TYPE SCALE WAS INVERTED. Nameplate 58px against
 #   a 90px headline, so the masthead of the publication was the third-largest
 #   thing on its own masthead card. CONFIG["signal"] had been inherited wholesale
