@@ -64,7 +64,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageEnhance, ImageFont
 from PIL.PngImagePlugin import PngInfo
 
-BUILDER_VERSION = "1.6.1"
+BUILDER_VERSION = "1.6.2"
 
 # GAZE / EXPRESSION CAPTURE IS A HUMAN PROCESS HABIT, NOT CODE (ID-2026-07-03-03,
 # codex 24.15): capture a look-left / look-right gaze-still and a calm-direct
@@ -158,6 +158,7 @@ CONFIG = {
         "subtitle": "DMSans-Regular.ttf",
         "pill":     "DMSans-Bold.ttf",
         "mono":     "SpaceMono-Bold.ttf",
+        "mono_light": "SpaceMono-Regular.ttf",  # issue line only (bot ink-coverage evidence 2026-09-18)
     },
     "margin": 60,                   # global left/right content margin
     "lockup": {                     # lens mark + wordmark, top corner
@@ -300,24 +301,31 @@ CONFIG = {
         # scanning the rendered PNG against DOM getBoundingClientRect measurements
         # is what caught it; absolute values remove the whole error class.
         "margin": 80,
+        # v1.6.2: values re-tuned from the bot's pixel-diff of the v1.6.1 render
+        # against the mockup (vertical deltas -7..-17, widening down the stack;
+        # line pitch measured 64 vs 57 rendered). Vertical numbers only - the
+        # bot's own caveat: horizontal extents from a 2.04x screenshot are not
+        # trustworthy, issue_size excepted because monospace advance is
+        # arithmetic (378 mockup = size 20 at tracking 3).
         "lockup_y": 64, "lockup_mark_px": 40, "lockup_gap": 18, "lockup_text_size": 21,
-        "nameplate_y": 104, "nameplate_size": 92, "nameplate_tracking": -3,
-        "issue_size": 22, "issue_tracking": 3, "issue_gap": 28, "issue_gap_min": 16,
-        "descriptor_y": 226, "descriptor_size": 26,
-        "rule_y": 303, "rule_len": 150, "rule_width": 2,
-        "kicker_y": 335, "kicker_size": 19, "kicker_tracking": 5,
-        "headline_y": 382,
-        "footer_size": 19, "footer_tracking": 4, "footer_rule_y": 512, "footer_text_y": 534,
+        "nameplate_y": 111, "nameplate_size": 92, "nameplate_tracking": -3,
+        "issue_size": 20, "issue_tracking": 3, "issue_gap": 28, "issue_gap_min": 16,
+        "descriptor_y": 239, "descriptor_size": 26,
+        "rule_y": 310, "rule_len": 150, "rule_width": 2,
+        "kicker_y": 342, "kicker_size": 19, "kicker_tracking": 5,
+        "headline_y": 392,
+        "footer_size": 19, "footer_tracking": 4, "footer_rule_y": 517, "footer_text_y": 539,
         "footer_text": "EVERY FRIDAY · MASTERINGOBSERVABILITY.COM",
         "headline_upper": False,
         "headline_max_width": 1040,
-        # Refit to the measured envelope: headline_y 382 to footer rule 512
-        # minus 8px clearance. 3- and 4-line steps drop (46->36, 38->28); at the
-        # old sizes a 3-line lead ended 24px past the rule. The mockup itself is
-        # a 2-line lead, and 52px at two lines is its exact setting.
-        "size_by_lines": {1: 58, 2: 52, 3: 36, 4: 28},
-        "headline_min_size": 28,
-        "headline_line_height": 1.1, "headline_tracking": -1, "wrap_chars": 24,
+        # Refit to the v1.6.2 envelope: headline_y 392 to footer rule 517 minus
+        # 8px, at the measured line-height 1.23. The bot's numbers kept 36/28,
+        # which OVERFLOW that envelope (3-line @36 ends 516 vs limit 509) - the
+        # collision assert would refuse every 3-line lead. 34/24 fit with 1/6px
+        # clearance. The mockup is a 2-line lead; 52 is its exact setting.
+        "size_by_lines": {1: 58, 2: 52, 3: 34, 4: 24},
+        "headline_min_size": 24,
+        "headline_line_height": 1.23, "headline_tracking": -1, "wrap_chars": 24,
         # accent_line, watermark, footer_left and footer_right were DELETED at
         # v1.6.0, not merely left unused: keeping them implied this card has a
         # ring watermark and a two-part footer bar, which is what the mockup
@@ -933,7 +941,9 @@ def compose_signal(args):
     # were the dark episode card's rules and they are what made this read as a
     # different object from the mockup. Baseline alignment needs real font
     # metrics, because a 92px face and a 22px face have different ascents.
-    issue_f = font("mono", sc["issue_size"])
+    # The one lighter-weight element on the card: mono Regular, per ink-coverage
+    # measurement (issue 0.174 regular vs 0.260 bold against mockup 0.159).
+    issue_f = font("mono_light", sc["issue_size"])
     # Single spaces around the middot, matching the mockup; the double-spaced
     # version measured 22px wider than the DOM text at the same tracking.
     issue_txt = "ISSUE %d · %s" % (issue_n, (args.date or "").upper())
@@ -1504,6 +1514,16 @@ if __name__ == "__main__":
 # v1.3.2 (2026-07-26): optically centre the top wordmark on the lens mark's
 #   visible centreline and remove the duplicated site name from the OG footer's
 #   left side. The site remains once, right-aligned; other surfaces are unchanged.
+# v1.6.2 (2026-09-18): tuned from the bot's pixel-diff of the v1.6.1 render vs
+#   the mockup. Nine vertical values (+7..+13 down the stack), line-height
+#   1.1->1.23 (pitch measured 64, rendered 57), issue line to Space Mono
+#   REGULAR at 20px - the only light-weight element on the card; size 20 is
+#   arithmetic, not eyeballed (monospace advance 13.47, mockup line 378px).
+#   The bot's 3/4-line steps (36/28) overflowed its own tightened envelope and
+#   would have made the collision assert refuse every 3+ line lead; refit to
+#   34/24 (clearance 1/6px), headline_min_size 28->24 to match. NOTE the foot
+#   is now deliberately tight: 2-line clearance is 10px, 3-line is 1px. That
+#   matches the mockup; a longer lead refuses to render rather than overlaps.
 # v1.6.1 (2026-09-18): SIGNAL VERTICAL GEOMETRY MADE ABSOLUTE, measured off the
 #   mockup's live DOM and cross-checked by pixel-scanning the v1.6.0 render.
 #   v1.6.0 derived each y from the previous element's height as size*1.2; the
