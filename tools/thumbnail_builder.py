@@ -64,7 +64,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageEnhance, ImageFont
 from PIL.PngImagePlugin import PngInfo
 
-BUILDER_VERSION = "1.5.1"
+BUILDER_VERSION = "1.5.2"
 
 # GAZE / EXPRESSION CAPTURE IS A HUMAN PROCESS HABIT, NOT CODE (ID-2026-07-03-03,
 # codex 24.15): capture a look-left / look-right gaze-still and a calm-direct
@@ -267,14 +267,27 @@ CONFIG = {
         "masthead": "THE SIGNAL",
         "descriptor": "The weekly observability newsletter",
         "kicker": "THIS WEEK'S LEAD",
-        "nameplate_y": 104, "nameplate_size": 58, "nameplate_tracking": 1,
-        "issue_size": 16, "issue_tracking": 3,
-        "descriptor_size": 20,
+        # TYPE SCALE, corrected 2026-09-18. THE NAMEPLATE IS THE HERO, not the
+        # lead headline. This block was inherited wholesale from the dark
+        # v1.4.0 card, where the headline WAS the hero at 90-100px against a
+        # 58px nameplate. The 2026-09-18 repoint changed the palette, the mode,
+        # the mark and the lockup and NEVER TOUCHED THE TYPE SCALE, so the card
+        # rendered with its hierarchy inverted: the masthead of the publication
+        # was the third-largest thing on its own masthead card.
+        #
+        # These values are the ratified mockup on the MO Design System page,
+        # measured at 1200x630: nameplate 92, issue 22, descriptor 26,
+        # kicker 19, headline 52 at two lines. The nameplate must stay LARGER
+        # than the largest headline step; assert_signal_hierarchy() enforces it.
+        "nameplate_y": 104, "nameplate_size": 92, "nameplate_tracking": -3,
+        "issue_size": 22, "issue_tracking": 3,
+        "descriptor_size": 26,
         "rule_opacity": 0.35, "rule_width": 2,
-        "kicker_size": 14, "kicker_tracking": 3,
+        "kicker_size": 19, "kicker_tracking": 5,
         "headline_max_width": 1080,
-        "size_by_lines": {1: 100, 2: 90, 3: 76, 4: 58},
-        "headline_line_height": 0.98, "headline_tracking": -1, "wrap_chars": 20,
+        "size_by_lines": {1: 58, 2: 52, 3: 46, 4: 40},
+        "headline_min_size": 28,
+        "headline_line_height": 1.08, "headline_tracking": -1, "wrap_chars": 24,
         "accent_line": {"width": 72, "height": 5, "gap": 26},
         "watermark": {"px": 80, "opacity": 0.28, "inset": 60},
         "footer_left": "THE SIGNAL • ALLAN MANN",
@@ -776,6 +789,36 @@ def compose_og(args):
     return im.convert("RGB")
 
 
+def assert_signal_hierarchy():
+    """The nameplate is the hero of the masthead card.
+
+    Ratified on the MO Design System page: nameplate 92, headline 52 at two
+    lines. The inverse shipped once, because the type scale was inherited from
+    the dark episode card and never re-read when the surface became light.
+    A gate that only checks colour cannot catch that, so this checks SIZE."""
+    sc = CONFIG["signal"]
+    plate = sc["nameplate_size"]
+    biggest_headline = max(sc["size_by_lines"].values())
+    if plate <= biggest_headline:
+        raise AssertionError(
+            "compose_signal: nameplate is %dpx but the largest headline step is "
+            "%dpx. The masthead must be the largest type on its own card; this "
+            "is the inversion that shipped on 2026-09-18." % (plate, biggest_headline))
+    order = [("nameplate", plate), ("headline", biggest_headline),
+             ("descriptor", sc["descriptor_size"]), ("issue", sc["issue_size"]),
+             ("kicker", sc["kicker_size"])]
+    for (an, a), (bn, b) in zip(order, order[1:]):
+        if a <= b:
+            raise AssertionError(
+                "compose_signal: type scale out of order - %s (%dpx) must be "
+                "larger than %s (%dpx)." % (an, a, bn, b))
+    if min(sc["size_by_lines"].values()) < sc["headline_min_size"]:
+        raise AssertionError(
+            "compose_signal: a headline step is below headline_min_size, so the "
+            "width-protection loop can never run for it.")
+    return True
+
+
 def compose_signal(args):
     """1200x630 The Signal newsletter masthead card, no portrait (The Signal Card
     Standard, 2026-08-21). House lockup = MASTERING OBSERVABILITY (the master brand,
@@ -801,6 +844,7 @@ def compose_signal(args):
             "renders ISSUE NNN. Al ruled one vocabulary on 2026-09-18; the "
             "token template and this composer have diverged." % eyebrow)
     issue_n = int(str(args.episode).strip())
+    assert_signal_hierarchy()
 
     sc = CONFIG["signal"]
     w, h, m = sc["w"], sc["h"], CONFIG["margin"]
@@ -862,7 +906,11 @@ def compose_signal(args):
     size = sc["size_by_lines"].get(len(lines), min(sc["size_by_lines"].values()))
     fnt = font("title", size)
     tr = sc["headline_tracking"]
-    while size > 44 and any(tracked_width(fnt, ln, tr) > sc["headline_max_width"] for ln in lines):
+    # The floor was hardcoded at 44, which sat ABOVE three of the four new
+    # headline steps - so the width-protection loop could never run and a long
+    # headline would have overflowed the measure instead of shrinking.
+    while size > sc["headline_min_size"] and any(
+            tracked_width(fnt, ln, tr) > sc["headline_max_width"] for ln in lines):
         size -= 2
         fnt = font("title", size)
     asc, _ = fnt.getmetrics()
@@ -1399,6 +1447,17 @@ if __name__ == "__main__":
 # v1.3.2 (2026-07-26): optically centre the top wordmark on the lens mark's
 #   visible centreline and remove the duplicated site name from the OG footer's
 #   left side. The site remains once, right-aligned; other surfaces are unchanged.
+# v1.5.2 (2026-09-18): THE SIGNAL TYPE SCALE WAS INVERTED. Nameplate 58px against
+#   a 90px headline, so the masthead of the publication was the third-largest
+#   thing on its own masthead card. CONFIG["signal"] had been inherited wholesale
+#   from the dark v1.4.0 episode card, where the headline IS the hero; the v1.5.0
+#   repoint changed palette, mode, mark and lockup and never re-read the type
+#   scale. Corrected to the ratified mockup: nameplate 92, issue 22, descriptor
+#   26, kicker 19, headline 52 at two lines. Also: the width-shrink floor was
+#   hardcoded at 44, ABOVE three of the four new headline steps, so it could
+#   never fire; it now reads headline_min_size. assert_signal_hierarchy() gates
+#   the ordering on every render, because every gate in this file checked colour
+#   and nothing checked SIZE.
 # v1.5.1 (2026-09-18): save_png/save_jpg encode to memory and report len(data)
 #   instead of os.path.getsize() after the write. On the G: Google Drive virtual
 #   filesystem getsize() returns 0 straight after a save, so every size line
