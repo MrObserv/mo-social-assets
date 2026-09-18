@@ -120,7 +120,7 @@ const FONT = {
   body:    "'" + T.type.body.family + "','Liberation Sans','DejaVu Sans',sans-serif",
   mono:    "'" + T.type.label.family + "','DejaVu Sans Mono','Noto Sans Mono',monospace",
 };
-const DISPLAY_WEIGHT = T.type.display.weight; // 900. Archivo Black is retired.
+const DISPLAY_WEIGHT = T.type.display.weight; // 800 from 3.1.1. The old non-brand display face is retired.
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const b64 = (p) => fs.readFileSync(p).toString("base64");
@@ -218,12 +218,25 @@ async function blogthumb(opts) {
     "THE OBSERVABILITY DIGEST.");
   const S = surface(opts.surface, T.variantFor(opts.surface, opts.mode));
   const [W, H] = T.size(opts.surface);
-  const eyebrow = opts.eyebrow;
+  // The Signal carries its issue number, so this surface does not accept a
+  // hand-typed eyebrow. The gate above proves only that an eyebrow was
+  // PASSED: "THE SIGNAL" satisfies it and ships a card with no number on it.
+  // Presence, not correctness -- the same failure class as the eyebrow that
+  // used to default to THE OBSERVABILITY DIGEST. The number is composed from
+  // the token template instead, and eyebrowFor throws below the 101 anchor.
+  let eyebrow = opts.eyebrow;
+  if (T.requiresIssue(opts.surface)) {
+    if (!opts.issue) throw new Error(
+      "mo_visual_kit: --issue is required for --surface " + opts.surface + ". The Signal " +
+      "is a continuing publication and its issue number is load-bearing. Pass " +
+      "--issue 105; do not put the number in --eyebrow.");
+    eyebrow = T.eyebrowFor(opts.surface, opts.issue);
+  }
   const lines = wrapLines(opts.title || "Untitled", 24);
   const sub = opts.sub || "";
   const titleSize = lines.length >= 3 ? 64 : 76;
   const startY = H / 2 - ((lines.length - 1) * (titleSize * 1.12)) / 2 + (sub ? -20 : 10);
-  const ringHref = ringMarkHref(S.mode, 44);
+  const ringHref = ringMarkHref(S.mode, T.marks.ring_mark.og_card_px);
   let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`;
   svg += bgDefs(S, W, H, W / 2, 0);
   svg += kicker(60, 66, eyebrow, 19, S.accent2, S.accent);
@@ -233,8 +246,20 @@ async function blogthumb(opts) {
   if (sub) svg += `<text x="60" y="${startY + lines.length * titleSize * 1.12 + 8}" font-family=${ff(FONT.body)} font-size="26" fill="${S.body}">${esc(sub)}</text>`;
   svg += `<line x1="60" y1="${H - 78}" x2="${W - 60}" y2="${H - 78}" stroke="${S.rule}" stroke-opacity="${S.ruleOpacity}" stroke-width="1"/>`;
   svg += monoLabel(60, H - 44, T.lockupFor(opts.surface), 17, S.soft);
-  svg += monoLabel(W - 128, H - 44, "MASTERINGOBSERVABILITY.COM", 17, S.accent, "end");
-  svg += `<image href="${ringHref}" x="${W - 104}" y="${H - 66}" width="44" height="44"/>`;
+  svg += monoLabel(W - 60, H - 44, "MASTERINGOBSERVABILITY.COM", 17, S.accent, "end");
+  // Mark TOP RIGHT, opposite the eyebrow, at og_card_px (80 from 2026-09-16).
+  // It used to sit in the footer at 44px. Two reasons it moved:
+  //   1. 44px on 1200 renders near 20px at LinkedIn's ~552px width, under the
+  //      24px floor in Logo_and_Marks_Standard §1. Al ruled 80px, which lands
+  //      near 37px.
+  //   2. 80px does not FIT the footer band — that band is 78px tall (rule at
+  //      H-78 to the H-40 baseline). Enlarging the band to hold the mark would
+  //      have pushed the rule up into the subtitle.
+  // Top right balances the eyebrow and gives the mark the presence Al asked
+  // for. Full opacity: the mark carries its own ring opacity in the file, so a
+  // producer opacity double-applies it.
+  const mk = T.marks.ring_mark.og_card_px;
+  svg += `<image href="${ringHref}" x="${W - 60 - mk}" y="40" width="${mk}" height="${mk}"/>`;
   svg += `</svg>`;
   await renderPng(svg, opts.out || "blog_thumbnail.png");
 }
@@ -271,6 +296,12 @@ async function ytthumb(opts) {
   });
   if (sub) svg += `<text x="56" y="${startY + (lines.length - 1) * titleSize * 1.06 + 56}" font-family=${ff(FONT.body)} font-size="30" font-weight="600" fill="${S.accent}">${esc(sub)}</text>`;
   svg += `<rect x="56" y="${H - 88}" width="160" height="6" fill="${S.accent2}"/>`;
+  // Endorsement of the parent brand. Al ruled 2026-09-16: PER SURFACE, not
+  // blanket — YouTube carries it, episode squares do not. The token file
+  // decides; a null entry means no endorsement and renders nothing, so adding
+  // a surface to the block is the only way to turn one on.
+  const endorse = T.endorsementFor("youtube_thumbnail");
+  if (endorse) svg += monoLabel(56, H - 40, endorse, 18, S.soft, "start", 3);
   svg += `</svg>`;
   await renderPng(svg, opts.out || "yt_thumbnail.png");
 }
@@ -354,6 +385,7 @@ function parseArgs(argv) {
   }
   else console.log("usage: node mo_visual_kit.js blogthumb|ytthumb|diagram-sample|preflight|tokens\n" +
     "  blogthumb --surface <blog_og|byte_size|monthly_digest|the_signal> --eyebrow \"...\" --title \"...\"\n" +
-    "            [--sub ...] [--mode light|dark] [--out file]\n" +
-    "  --surface and --eyebrow are REQUIRED. Neither is defaulted, on purpose.");
+    "            [--sub ...] [--mode light|dark] [--issue NNN] [--out file]\n" +
+    "  --surface and --eyebrow are REQUIRED. Neither is defaulted, on purpose.\n" +
+    "  --issue is REQUIRED for --surface the_signal and composes the eyebrow itself.");
 })().catch((e) => { console.error(e.message || e); process.exit(1); });

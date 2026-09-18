@@ -92,6 +92,31 @@
         return a || surface;
       },
 
+      /** Endorsement line for a surface, or null.
+       *
+       *  Al ruled 2026-09-16: endorsement is PER SURFACE, not blanket —
+       *  YouTube carries it, episode squares do not. Absence from the block
+       *  means no endorsement, so a surface cannot acquire one by accident;
+       *  turning one on is an edit to the token file, not to a producer.
+       *
+       *  Returns null rather than throwing, because "no endorsement" is the
+       *  correct answer for most surfaces and must not fail a render. */
+      endorsementFor: function (surface) {
+        if (!surface) throw new Error('mo-tokens: endorsementFor needs a surface name');
+        // House check FIRST. It used to sit after the null return, which made
+        // it unreachable: a house surface is absent from the endorsement
+        // block, so v was undefined and the function returned null before the
+        // guard ran. A gate that cannot fire is theatre. Caught by test
+        // 2026-09-16.
+        if ((raw.lockup.house_lane || []).indexOf(surface) > -1) throw new Error(
+          'mo-tokens: "' + surface + '" is a HOUSE surface and cannot endorse itself. ' +
+          'Endorsement exists so a podcast asset can point at the parent brand.');
+        var e = (raw.lockup && raw.lockup.endorsement) || {};
+        var v = e[surface];
+        if (v === undefined || v === null) return null;
+        return v;
+      },
+
       /** Which mode a named surface renders in, per the v3 rule. */
       modeFor: function (surface) {
         if (!surface) throw new Error('mo-tokens: modeFor needs a surface name');
@@ -126,6 +151,45 @@
         if (raw.lockup.house_lane.indexOf(surface) > -1) return 'MASTERING OBSERVABILITY';
         throw new Error('mo-tokens: surface "' + surface + '" is in neither lockup lane. ' +
           'Which wordmark it carries is a brand decision, not a default. Add it to design-tokens.json.');
+      },
+
+      /** Does this surface have to carry an issue number? */
+      requiresIssue: function (surface) {
+        if (!surface) throw new Error('mo-tokens: requiresIssue needs a surface name');
+        var ev = (raw.copy && raw.copy.eyebrow_vocabulary) || {};
+        var ni = ev.newsletter_issue || {};
+        return (ni.surfaces || []).indexOf(surface) > -1;
+      },
+
+      /** The eyebrow for a surface that carries an issue number.
+       *
+       *  copy.eyebrow_vocabulary.newsletter is a TEMPLATE, "THE SIGNAL . NO.
+       *  {issue}", not a literal. The Signal is a continuing publication and
+       *  its issue number is load-bearing (Al 2026-09-18).
+       *
+       *  This exists because --eyebrow was free text checked only for
+       *  PRESENCE, so a hand-typed "THE SIGNAL" passed the gate and shipped a
+       *  card with no number on it. The number is composed here, from the
+       *  token file, so it cannot be omitted at the command line.
+       *
+       *  Throws below the 101 anchor: The Signal never restarts at 01, which
+       *  is the one rule the old standard stated and nothing enforced. */
+      eyebrowFor: function (surface, issue) {
+        if (!T.requiresIssue(surface)) throw new Error(
+          'mo-tokens: "' + surface + '" does not carry an issue number. Surfaces that do ' +
+          'are listed in copy.eyebrow_vocabulary.newsletter_issue.surfaces.');
+        var ev = raw.copy.eyebrow_vocabulary, ni = ev.newsletter_issue, tpl = String(ev.newsletter);
+        if (tpl.indexOf('{issue}') === -1) throw new Error(
+          'mo-tokens: the newsletter eyebrow "' + tpl + '" carries no {issue} placeholder. It is ' +
+          'a template, not a literal, and a flattened one silently drops the number.');
+        var n = Number(issue);
+        if (!isFinite(n) || n <= 0 || n !== Math.floor(n)) throw new Error(
+          'mo-tokens: issue must be a positive whole number, got "' + issue + '".');
+        var floor = ni.first || 101;
+        if (n < floor) throw new Error(
+          'mo-tokens: issue ' + n + ' is below the ' + floor + ' anchor. The Signal is a continuing ' +
+          'publication and never restarts \u2014 issue ' + floor + ' is 2026-08-21. Check the number.');
+        return tpl.replace('{issue}', String(n));
       },
 
       /** Canvas size for a named asset, [w, h]. */

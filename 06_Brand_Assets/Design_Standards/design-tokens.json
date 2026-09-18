@@ -1,10 +1,10 @@
 {
   "$schema": "mo-design-tokens/1",
-  "version": "3.2.2",
+  "version": "3.3.0",
   "status": "ratified",
-  "updated": "2026-09-14",
+  "updated": "2026-09-18",
   "owner": "Growth",
-  "note": "Generated from the MO Design System page. Never hand-edit a producer palette; read this file. 3.2.1 is a POINTER-CORRECTION release: consumers.status keys now name the real producer paths, marks.commit_order no longer instructs a commit of two deleted files, and Diagram_Standard.md is repointed - it had told the next person to add hexes to mo_diagram.js, which is now a defect. NO colour value changed and no new token added.",
+  "note": "Generated from the MO Design System page. Never hand-edit a producer palette; read this file. 3.3.0 adds ONE rule and ONE required producer flag: The Signal carries its issue number, and blogthumb requires --issue for surface the_signal. See copy.eyebrow_vocabulary.newsletter_issue. NO colour value changed. 3.2.1 was a POINTER-CORRECTION release: consumers.status keys now name the real producer paths, marks.commit_order no longer instructs a commit of two deleted files, and Diagram_Standard.md is repointed - it had told the next person to add hexes to mo_diagram.js, which is now a defect. NO colour value changed and no new token added.",
   "mode": {
     "default": "light",
     "rule": "Writing renders light. A blog, article, newsletter or any card fronting written material uses the website palette, because it is the same reading surface. Everything else — podcast, YouTube, episode art, short-form, feed cards for non-writing assets — renders dark.",
@@ -35,6 +35,8 @@
       },
       "note": "Only blog_og and og_card are dual-mode. Writing surfaces (byte_size, monthly_digest) render light only."
     },
+    "the_signal_dark_retired": "RETIRED by Al 2026-09-18. The dark masthead is not a variant and not a permitted exception: it is withdrawn. Five issues shipped dark (101 to 105) and are not re-rendered, consistent with how shipped assets have been treated elsewhere in this system. The token reader already refused dark on this surface, so nothing in the resolution chain changes; what changes is that the dark mockup is deleted from the MO Design System page and compose_signal() is rebuilt light rather than kept as a dark composer.",
+    "the_signal_mode": "LIGHT, and light ONLY. Confirmed by Al 2026-09-18: light is the website standard for anything that is writing, and The Signal is writing. modeFor('the_signal') already returned light and the surface is deliberately absent from dual_mode, so --mode dark throws. TWO ARTEFACTS CONTRADICT THIS AND ARE THE DRIFT, not the rule: the masthead mockup on the MO Design System page rendered dark, and thumbnail_builder.py compose_signal() renders dark on the RETIRED palette. The token system was right before either was fixed.",
     "writing_surfaces_note": "blog_og is dual-mode (light default, dark for an OG fronting a non-writing asset). byte_size and monthly_digest are NOT dual-mode and render light only, so --mode dark throws on them. That is deliberate: a byte-size is writing."
   },
   "colour": {
@@ -699,9 +701,24 @@
       "status": "RULED by Al 2026-09-15.",
       "technical_blog": "TECHNICAL",
       "leadership_blog": "LEADERSHIP",
-      "newsletter": "THE SIGNAL",
+      "newsletter": "THE SIGNAL · ISSUE {issue}",
       "byte_size": "BYTE-SIZE",
       "digest": "THE OBSERVABILITY DIGEST",
+      "newsletter_issue": {
+        "status": "RULED by Al 2026-09-18.",
+        "rule": "The Signal carries its issue number wherever it is named. The newsletter entry above is a TEMPLATE, not a literal: {issue} is interpolated. A the_signal render without an issue number fails.",
+        "surfaces": [
+          "the_signal"
+        ],
+        "first": 101,
+        "format": "ISSUE then the integer, middot-separated, uppercase: THE SIGNAL · ISSUE 105. Middot per §5, never an em dash.",
+        "anchor": "Issue 101 = 2026-08-21, the rebrand issue. Weekly, published Friday, and the counter never restarts. The Signal is a continuing publication (first issue 21 Feb 2024, over 100 before the rebrand), which is why it starts at 101 and why 01 is always wrong.",
+        "derivable": "The number is CHECKABLE, not remembered: the anchor plus weekly cadence gives it. 101 + 4 weeks = 105 on 2026-09-18, which is the number Al gave. Independently corroborated at 102 = 2026-08-28 by a live LinkedIn first comment (\"Read The Signal, issue 102\"). Two fixed points and a cadence, so a wrong number is arithmetic, not opinion.",
+        "floor": "eyebrowFor throws below 101. That is the gate that catches a restart at 01 — the failure The_Signal_Card_Standard.md called out and no producer enforced.",
+        "producer_note": "The template lives HERE. mo-tokens.js eyebrowFor() interpolates it; mo_visual_kit.js blogthumb REQUIRES --issue for the_signal and composes the eyebrow rather than accepting one. The defect this closes: --eyebrow was free text and its gate only proved an eyebrow had been PASSED, so a hand-typed \"THE SIGNAL\" satisfied it and shipped a numberless card. Presence, not correctness — the same failure class as the eyebrow that defaulted to THE OBSERVABILITY DIGEST.",
+        "owed": "The MASTHEAD card is not fixed by this release. The_Signal_Card_Standard.md is NOT in the v3 repo tree, still points at thumbnail_builder.py compose_signal() which consumers.status records as not consuming tokens, and names two retired hexes in its own header. So the masthead still renders off-palette. Flagged for Al, not fixed here.",
+        "divergence": "RESOLVED by Al 2026-09-18: ISSUE NNN everywhere. The eyebrow was briefly NO. NNN, drafted earlier the same day; it was changed rather than kept, because the masthead nameplate already said ISSUE NNN and one counter cannot carry two vocabularies. NO. NNN is now a banned render for this surface."
+      },
       "choice_rule": "LENGTH AND TREATMENT decide it, not topic. Short and to the point is BYTE-SIZE. A larger technical explainer carrying diagrams is TECHNICAL. So a short post on a technical subject takes BYTE-SIZE.",
       "worked_example": "what-is-grafana-alloy is BYTE-SIZE. It is a technical subject, but it is written short and to the point, and length is what decides.",
       "required": "Required on every render, no default. A missing eyebrow fails the render rather than guessing."
@@ -756,14 +773,16 @@
     ],
     "preflight": "node mo_visual_kit.js preflight — runs every gate, writes nothing."
   },
+  "amended_3_3_0": "2026-09-18 by Al — The Signal carries its issue number. The newsletter eyebrow became a template, blogthumb gained a required --issue for surface the_signal, and eyebrowFor() throws below the 101 anchor so a restart at 01 fails the render. NO colour value changed and no new colour token added. Two items recorded as owed, not fixed: the masthead producer is still off-palette, and ISSUE NNN vs NO. NNN is an unruled divergence.",
   "amended": "2026-09-17 by Al — 3.2.x as recorded; 3.2.2 favicon treatment documented in the marks manifest, retired eye favicon deleted, .ico and webmanifest added. NO colour value changed and no producer touched.",
   "surface_aliases": {
+    "the_signal": "signal_masthead",
     "blog_og": "og_card",
     "byte_size": "og_card",
     "monthly_digest": "og_card",
-    "the_signal": "og_card",
     "note": "Surface name -> CANVAS/MODE name. This estate carried two names for one thing: blog_og is the lockup-lane name, og_card the canvas name. That was invisible while blogthumb hardcoded \"og_card\" for its size and \"blog_og\" for its lockup separately; the moment the producer resolved both from the real surface, T.size('blog_og') threw. Found by test, 2026-09-14.",
     "why_not_duplicate": "byte_size and monthly_digest were briefly given their own canvas entries of [1200,630]. That was reverted: two canvas entries for one canvas is exactly how the two names arose. An alias is one declared fact; a duplicate is two facts that can drift.",
+    "the_signal_defect": "ADDED 2026-09-18. the_signal had NO canvas entry and NO alias, so T.size('the_signal') threw — while mo_visual_kit.js advertised the surface in its usage line AND in both of its required-flag error messages. The surface has therefore never rendered through the v3 producer; it died one line after the flag gates. Found by probing the reader rather than reading the usage string. Aliased to the existing, correctly-named signal_masthead canvas rather than given a duplicate [1200,630] entry, per why_not_duplicate.",
     "reading": "mo-tokens resolves aliases inside size() and modeFor() ONLY. variantFor() does not alias, because dual-mode is a property of the surface rather than the canvas. lockupFor() does not alias either, because lane membership is a property of the surface — og_card is listed in house_lane in its own right."
   }
 }
