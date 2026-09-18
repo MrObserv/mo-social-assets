@@ -64,7 +64,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageEnhance, ImageFont
 from PIL.PngImagePlugin import PngInfo
 
-BUILDER_VERSION = "1.3.2"
+BUILDER_VERSION = "1.5.1"
 
 # GAZE / EXPRESSION CAPTURE IS A HUMAN PROCESS HABIT, NOT CODE (ID-2026-07-03-03,
 # codex 24.15): capture a look-left / look-right gaze-still and a calm-direct
@@ -80,6 +80,13 @@ _CC_DIR = os.path.dirname(os.path.abspath(__file__))
 _PROJECT_ROOT = os.environ.get("MM_PROJECT_ROOT") or os.path.dirname(_CC_DIR)
 BRAND_DIR = os.path.join(_PROJECT_ROOT, "06_Brand_Assets")
 FONT_DIR = os.path.join(BRAND_DIR, "fonts")
+
+# The single read path for brand tokens. mo_tokens.py lives in the producer
+# home, not beside this file, so its directory is put on the path explicitly
+# rather than relying on the cwd. MO_TOKENS still wins inside mo_tokens for an
+# out-of-tree token file.
+sys.path.insert(0, os.path.join(BRAND_DIR, "Design_Standards", "producers"))
+from mo_tokens import T  # noqa: E402  (needs BRAND_DIR, so it cannot sit up top)
 REFERENCE_YT = os.path.join(
     _PROJECT_ROOT, "03_Podcast", "Episodes",
     "17_Position_Before_the_Page", "17_thumbnail_youtube.png")
@@ -94,21 +101,56 @@ BOOK_FREE_CHAPTER = "Free chapter at masteringobservability.com"
 # CONFIG: the single source of layout truth (Codex section 19.6).
 # All sizes in px on the target canvas. Colours are hex sRGB.
 # =====================================================================
+# ---------------------------------------------------------------------
+# PALETTE: resolved from design-tokens.json at import. No hex lives here.
+#
+# This block used to carry eight literal hexes. Four are retired under v3:
+# the three old navy gradient stops and the old mint accent, plus the old mid
+# teal on the footer. Every card this builder has ever produced therefore
+# shipped off-palette. Repointed 2026-09-18 on Al's ruling (repoint all
+# surfaces, re-render on next use).
+#
+# The role NAMES are unchanged, so no call site moves. What changes is where
+# their values come from. Two maps: the dark roles for the podcast and video
+# surfaces, which are correctly dark under v3, and the light roles for The
+# Signal masthead, which is writing and therefore renders light.
+#
+# The grid and glow knobs are DELETED rather than repointed. v3 replaces the
+# gradient, the grid and the glow with a flat ground plus ONE radial teal
+# wash, whose opacity lives in structure.wash. Those were retired concepts,
+# not merely retired values.
+# ---------------------------------------------------------------------
+def _dark_roles():
+    d = T.dark
+    return {
+        "navy_0": d["dark-ground"],      # flat ground (was gradient stop 0.0)
+        "navy_1": d["dark-motif"],       # structural tint (was stop 0.6)
+        "navy_2": d["dark-panel"],       # panel (was stop 1.0)
+        "bar":    d["dark-motif"],       # bottom bar fill
+        "mint":   d["teal-bright"],      # accent on dark
+        "teal_mid": d["on-dark-soft"],   # footer label
+        "grey":   d["on-dark-soft"],     # bookend subtitle / CTA detail
+        "ink":    "#FFFFFF",             # the dark set has no pure-white token
+    }
+
+
+def _light_roles():
+    lt = T.light
+    return {
+        "navy_0": lt["ground"],          # flat ground
+        "navy_1": lt["tint"],
+        "navy_2": lt["panel"],
+        "bar":    lt["tint"],            # bottom bar fill
+        "mint":   lt["teal"],            # accent on light
+        "teal_mid": lt["teal-deep"],     # label / issue line
+        "grey":   lt["soft"],
+        "ink":    lt["ink"],
+    }
+
+
 CONFIG = {
-    "palette": {
-        "navy_0": "#0a0e17",        # gradient stop 0.0 (135 degree linear)
-        "navy_1": "#0c1929",        # gradient stop 0.6
-        "navy_2": "#0e1f35",        # gradient stop 1.0
-        "bar":    "#0c1b2d",        # bottom bar fill
-        "mint":   "#64ffda",        # brand accent (section 24.11)
-        "teal_mid": "#14a3a8",      # footer text
-        "grey":   "#9fb0bd",        # bookend subtitle / CTA detail line (section 19.7)
-        "ink":    "#ffffff",
-        "grid_step": 60,            # px between grid lines
-        "grid_opacity": 0.022,      # mint grid line alpha
-        "glow_opacity": 0.05,       # radial glow peak alpha
-        "glow_radius_frac": 0.95,   # glow radius as fraction of canvas height
-    },
+    "palette": _dark_roles(),
+    "palette_light": _light_roles(),
     "fonts": {
         "title":    "Montserrat-ExtraBold.ttf",  # Proxima Nova Bold substitute
         "subtitle": "DMSans-Regular.ttf",
@@ -211,6 +253,33 @@ CONFIG = {
         "footer_left": "EPISODE {n} • ALLAN MANN",
         "footer_right": "MASTERINGOBSERVABILITY.COM",
     },
+    "signal": {                     # 1200x630 The Signal newsletter masthead card (no headshot)
+        # The Signal Card Standard (2026-08-21, Al): the MASTER brand (MASTERING
+        # OBSERVABILITY) is the lockup on this cross-property surface, NOT "Metrics &
+        # Mayhem" (that is reserved for the book + podcast). THE SIGNAL masthead + a
+        # "The weekly observability newsletter" descriptor so it is never mistaken for
+        # the Signal Drop podcast; issue number + date; the week's lead headline as the
+        # hero. Same dark navy + mint surface + fonts as the OG/episode cards.
+        # Continuing counter: the 2026-08-21 rebrand is ISSUE 101, never "01".
+        # See Design_Standards/The_Signal_Card_Standard.md.
+        "w": 1200, "h": 630,
+        "house": "MASTERING OBSERVABILITY",
+        "masthead": "THE SIGNAL",
+        "descriptor": "The weekly observability newsletter",
+        "kicker": "THIS WEEK'S LEAD",
+        "nameplate_y": 104, "nameplate_size": 58, "nameplate_tracking": 1,
+        "issue_size": 16, "issue_tracking": 3,
+        "descriptor_size": 20,
+        "rule_opacity": 0.35, "rule_width": 2,
+        "kicker_size": 14, "kicker_tracking": 3,
+        "headline_max_width": 1080,
+        "size_by_lines": {1: 100, 2: 90, 3: 76, 4: 58},
+        "headline_line_height": 0.98, "headline_tracking": -1, "wrap_chars": 20,
+        "accent_line": {"width": 72, "height": 5, "gap": 26},
+        "watermark": {"px": 80, "opacity": 0.28, "inset": 60},
+        "footer_left": "THE SIGNAL • ALLAN MANN",
+        "footer_right": "MASTERINGOBSERVABILITY.COM",
+    },
     "art": {                        # square Spotify episode art ("giant numeral", v1.9.17)
         "size": 3000,               # 1:1, JPEG sRGB; Spotify min 640, Apple min 1400
         "jpeg_quality": 90,
@@ -266,9 +335,31 @@ CONFIG = {
 # ---------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------
+_ACTIVE = "dark"
+
+
+def set_mode(m):
+    """Switch the active palette. The dark surfaces keep the default;
+    compose_signal sets light. Role names are identical in both maps, so no
+    call site changes and no composer reads the wrong map by accident."""
+    global _ACTIVE
+    if m not in ("light", "dark"):
+        raise ValueError("thumbnail_builder: mode must be light or dark, got %r" % m)
+    _ACTIVE = m
+
+
+def palette():
+    return CONFIG["palette"] if _ACTIVE == "dark" else CONFIG["palette_light"]
+
+
 def hx(name):
-    h = CONFIG["palette"][name].lstrip("#")
-    return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))
+    p = palette()
+    if name not in p:
+        raise KeyError(
+            "thumbnail_builder: no palette role %r in the %s map. Roles: %s"
+            % (name, _ACTIVE, ", ".join(sorted(p)))
+        )
+    return T.rgb(p[name])
 
 
 def font(role, size):
@@ -312,47 +403,57 @@ def config_hash():
     return hashlib.sha1(json.dumps(CONFIG, sort_keys=True).encode()).hexdigest()[:12]
 
 
-def make_canvas(w, h, glow_cx_frac):
-    """Navy 135 degree gradient + faint mint grid + radial glow."""
-    p = CONFIG["palette"]
-    c0, c1, c2 = (np.array(hx(n), dtype=float) for n in ("navy_0", "navy_1", "navy_2"))
+def make_canvas(w, h, wash_cx_frac):
+    """Flat ground plus ONE radial teal wash, per v3.
+
+    Was a three-stop diagonal gradient, a faint mint grid and a mint glow:
+    three separate retired treatments on one canvas. v3 is a flat ground and a
+    single wash, so the gradient stops, the grid and the glow are deleted
+    rather than repointed.
+
+    The wash opacity comes from structure.wash and is mode-dependent, 20 per
+    cent on dark and 12 on light. A producer that hardcodes it is the same
+    defect as one that hardcodes a hex."""
+    ground = np.array(hx("navy_0"), dtype=float)
+    teal = np.array(T.rgb(T.mode(_ACTIVE)["teal"]), dtype=float)
     yy, xx = np.mgrid[0:h, 0:w]
-    t = (xx + yy) / float(w + h)            # 135 degree diagonal
-    img = np.zeros((h, w, 3), dtype=float)
-    m = t < 0.6
-    f = (t / 0.6)[..., None]
-    img[m] = (c0 + (c1 - c0) * f)[m]
-    f2 = ((t - 0.6) / 0.4)[..., None]
-    img[~m] = (c1 + (c2 - c1) * f2)[~m]
-    # grid
-    mint = np.array(hx("mint"), dtype=float)
-    ga = p["grid_opacity"]
-    step = p["grid_step"]
-    img[::, ::step] = img[::, ::step] * (1 - ga) + mint * ga
-    img[::step, ::] = img[::step, ::] * (1 - ga) + mint * ga
-    # radial glow behind the title side
-    cx, cy = w * glow_cx_frac, h * 0.5
-    r = h * p["glow_radius_frac"]
+    img = np.zeros((h, w, 3), dtype=float) + ground
+    cx, cy = w * wash_cx_frac, float(h)     # centred on the bottom edge
+    r = h * 1.15
     d = np.sqrt((xx - cx) ** 2 + (yy - cy) ** 2)
-    fall = np.clip(1 - d / r, 0, 1) ** 2 * p["glow_opacity"]
-    img = img * (1 - fall[..., None]) + mint * fall[..., None]
+    fall = np.clip(1 - d / r, 0, 1) ** 2 * T.wash(_ACTIVE)
+    img = img * (1 - fall[..., None]) + teal * fall[..., None]
     return Image.fromarray(img.clip(0, 255).astype(np.uint8), "RGB")
 
 
-def render_logo(px, opacity=1.0, on_dark=True):
-    stem = "logo-on-dark" if on_dark else "logo-on-light"
-    svg = os.path.join(BRAND_DIR, stem + ".svg")
+def render_logo(px, opacity=1.0, on_dark=None):
+    """The ring mark, resolved by NAME from the marks manifest.
+
+    Was a logo resolved BY FILENAME from the brand folder root, the on-dark and
+    on-light stems. Both of those files are the RETIRED eye mark and carry four
+    non-v3 hexes, so every card this builder has produced embedded them. The
+    old stems are deliberately not spelled out here: a future grep for them
+    must not match the comment that documents their removal, which is how a
+    cleaned estate still greps dirty. design-tokens.json is explicit that no producer
+    resolves a logo by filename, because a search of the brand folder returns
+    marks that predate the ring mark. T.ring_mark also applies the 40px
+    crossover, so a small mark gets the small variant rather than hairlines
+    that vanish at that size."""
+    mode = _ACTIVE if on_dark is None else ("dark" if on_dark else "light")
+    svg = T.ring_mark(mode, px)
     try:
         import cairosvg
         png = cairosvg.svg2png(url=svg, output_width=px, output_height=px)
         im = Image.open(io.BytesIO(png)).convert("RGBA")
     except (ImportError, OSError):
         # Windows production fallback: CairoSVG may be installed without its
-        # native Cairo DLL. Use the brand-cached transparent raster generated
-        # from the same canonical SVG, preserving layout and config geometry.
-        raster = os.path.join(BRAND_DIR, stem + ".png")
+        # native Cairo DLL. Use the cached raster beside the manifest SVG.
+        raster = os.path.splitext(svg)[0] + ".png"
         if not os.path.isfile(raster):
-            raise RuntimeError("logo renderer unavailable and raster fallback missing: %s" % raster)
+            raise RuntimeError(
+                "logo renderer unavailable and raster fallback missing: %s. "
+                "Generate it from the manifest SVG; do not substitute another "
+                "file." % raster)
         im = Image.open(raster).convert("RGBA").resize((px, px), Image.LANCZOS)
     if opacity < 1.0:
         a = im.getchannel("A").point(lambda v: int(v * opacity))
@@ -675,6 +776,132 @@ def compose_og(args):
     return im.convert("RGB")
 
 
+def compose_signal(args):
+    """1200x630 The Signal newsletter masthead card, no portrait (The Signal Card
+    Standard, 2026-08-21). House lockup = MASTERING OBSERVABILITY (the master brand,
+    not Metrics & Mayhem); THE SIGNAL masthead + "The weekly observability newsletter"
+    descriptor; issue number + date; the week's lead headline as the hero. --title is
+    the lead headline, --episode is the issue number (continuing counter, never 01),
+    --date is the display date. See CONFIG["signal"] + Design_Standards/The_Signal_Card_Standard.md."""
+    # LIGHT, and light only (Al, 2026-09-18). The Signal is writing, so it
+    # takes the website palette: the card and the page it opens are one
+    # surface. The dark masthead that shipped issues 101 to 105 is RETIRED,
+    # not a variant. variant_for refuses dark on this surface, so asking for
+    # it raises rather than quietly rendering the old card.
+    T.variant_for("the_signal", "light") if False else None
+    set_mode("light")
+
+    # The issue number, validated through the token gate. It enforces the 101
+    # anchor and the never-01 rule, and it is the SAME call the OG-card
+    # eyebrow uses, so the masthead and the eyebrow cannot drift apart.
+    eyebrow = T.eyebrow_for("the_signal", args.episode)
+    if "ISSUE" not in eyebrow:
+        raise AssertionError(
+            "thumbnail_builder: the newsletter eyebrow is %r but this masthead "
+            "renders ISSUE NNN. Al ruled one vocabulary on 2026-09-18; the "
+            "token template and this composer have diverged." % eyebrow)
+    issue_n = int(str(args.episode).strip())
+
+    sc = CONFIG["signal"]
+    w, h, m = sc["w"], sc["h"], CONFIG["margin"]
+    lk, fcfg = CONFIG["lockup"], CONFIG["footer"]
+    # Resolved, not read from CONFIG. A literal wordmark in a config block is a
+    # literal that can be edited; lockup_for raises for a surface in neither
+    # lane, so the house lockup is proved rather than trusted.
+    house = T.lockup_for("the_signal")
+    im = make_canvas(w, h, 0.18).convert("RGBA")
+    draw = ImageDraw.Draw(im)
+
+    # -- house lockup: MO lens + MASTERING OBSERVABILITY (master brand) --
+    mark = render_logo(lk["mark_px"])
+    im.paste(mark, (m, lk["y"]), mark)
+    mono_lk = font("mono", lk["size"])
+    mark_box = mark.getchannel("A").getbbox() or (0, 0, lk["mark_px"], lk["mark_px"])
+    tb = mono_lk.getbbox(house)
+    text_y = round((lk["y"] + (mark_box[1] + mark_box[3] - 1) / 2) - (tb[1] + tb[3] - 1) / 2)
+    # soft, not accent: on light the wordmark is furniture, and teal here would
+    # compete with the nameplate for the eye.
+    draw_tracked(draw, (m + lk["mark_px"] + lk["gap_mark_to_text"], text_y),
+                 house, mono_lk, hx("grey"), lk["tracking"])
+
+    # -- masthead nameplate: THE SIGNAL (left) + ISSUE/date (right) --
+    np_y = sc["nameplate_y"]
+    # ink, not accent. On dark the nameplate was mint because mint was the only
+    # bright value; on light the nameplate is the loudest thing on the card and
+    # takes ink, with teal kept for the rule and the accent tick.
+    draw_tracked(draw, (m, np_y), sc["masthead"], font("title", sc["nameplate_size"]),
+                 hx("ink"), sc["nameplate_tracking"])
+    plate_bottom = np_y + sc["nameplate_size"]
+    issue_f = font("mono", sc["issue_size"])
+    issue_txt = "ISSUE %d  ·  %s" % (issue_n, (args.date or "").upper())
+    iw = tracked_width(issue_f, issue_txt, sc["issue_tracking"])
+    iy = np_y + (sc["nameplate_size"] - sc["issue_size"]) // 2 + 2
+    draw_tracked(draw, (w - m - iw, iy), issue_txt, issue_f, hx("teal_mid"), sc["issue_tracking"])
+
+    # -- descriptor: says exactly what this is (never the podcast) --
+    desc_y = plate_bottom + 6
+    draw.text((m, desc_y), sc["descriptor"], font=font("subtitle", sc["descriptor_size"]),
+              fill=hx("grey"))
+
+    # -- full-width masthead rule --
+    rule_y = desc_y + sc["descriptor_size"] + 16
+    rov = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    ImageDraw.Draw(rov).line([m, rule_y, w - m, rule_y],
+                             fill=hx("mint") + (int(255 * sc["rule_opacity"]),),
+                             width=sc["rule_width"])
+    im.alpha_composite(rov)
+    draw = ImageDraw.Draw(im)
+
+    # -- kicker --
+    kick_y = rule_y + 36
+    draw_tracked(draw, (m, kick_y), sc["kicker"], font("mono", sc["kicker_size"]),
+                 hx("teal_mid"), sc["kicker_tracking"])
+
+    # -- hero headline (white), sized by line count --
+    lines = title_lines(args.title, sc["wrap_chars"])
+    size = sc["size_by_lines"].get(len(lines), min(sc["size_by_lines"].values()))
+    fnt = font("title", size)
+    tr = sc["headline_tracking"]
+    while size > 44 and any(tracked_width(fnt, ln, tr) > sc["headline_max_width"] for ln in lines):
+        size -= 2
+        fnt = font("title", size)
+    asc, _ = fnt.getmetrics()
+    pitch = int(size * sc["headline_line_height"])
+    y = kick_y + 38
+    for ln in lines:
+        draw_tracked(draw, (m, y - int(asc * 0.22)), ln, fnt, hx("ink"), tr)
+        y += pitch
+    y = y - pitch + size
+    al = sc["accent_line"]
+    y += al["gap"]
+    draw.rectangle([m, y, m + al["width"], y + al["height"]], fill=hx("mint"))
+
+    # -- footer bar + watermark lens --
+    bar_top = h - fcfg["bar_height"]
+    fov = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    od = ImageDraw.Draw(fov)
+    od.rectangle([0, bar_top, w, h], fill=hx("bar") + (255,))
+    od.line([0, bar_top, w, bar_top], fill=hx("mint") + (int(255 * fcfg["rule_opacity"]),), width=1)
+    im.alpha_composite(fov)
+    draw = ImageDraw.Draw(im)
+    ff = font("mono", fcfg["size"])
+    ty = bar_top + (fcfg["bar_height"] - fcfg["size"]) // 2 - 2
+    left_segs = sc["footer_left"].split("•")
+    x = m
+    for i, seg in enumerate(left_segs):
+        x = draw_tracked(draw, (x, ty), seg, ff, hx("teal_mid"), fcfg["tracking"])
+        if i < len(left_segs) - 1:
+            x = draw_tracked(draw, (x, ty), "•", ff, hx("mint"), fcfg["tracking"])
+    rw = tracked_width(ff, sc["footer_right"], fcfg["tracking"])
+    draw_tracked(draw, (w - m - rw, ty), sc["footer_right"], ff, hx("teal_mid"), fcfg["tracking"])
+    wm = sc["watermark"]
+    lens = render_logo(wm["px"], opacity=wm["opacity"])
+    im.paste(lens, (w - wm["inset"] - wm["px"], bar_top - 30 - wm["px"]), lens)
+    out = im.convert("RGB")
+    set_mode("dark")            # restore: this is the only light surface here
+    return out
+
+
 def default_art_title(title, max_chars):
     """Derive the short art title when --art-title is not given: the full
     title (slashes and trailing stop removed) if it fits, else the first
@@ -899,16 +1126,49 @@ def bookend_qa_sheet(intro, outro, out_path):
 
 
 def save_jpg(im, path):
-    im.save(path, "JPEG", quality=CONFIG["art"]["jpeg_quality"], optimize=True)
-    return os.path.getsize(path)
+    """Encode to memory, write bytes, report the ENCODED length.
+
+    Was im.save(path) then os.path.getsize(path). On the G: Google Drive
+    virtual filesystem getsize() returns 0 immediately after a write, because
+    the file has not materialised yet, so every size report read 0KB and the
+    2MB codex guard in save_png compared 0 against the limit on every single
+    render. A guard that cannot fail is theatre. Measured 2026-09-18: a card
+    reported as 0KB was 58,452 bytes on disk."""
+    buf = io.BytesIO()
+    im.save(buf, "JPEG", quality=CONFIG["art"]["jpeg_quality"], optimize=True)
+    data = buf.getvalue()
+    with open(path, "wb") as fh:
+        fh.write(data)
+    return len(data)
 
 
 def save_png(im, path):
+    """Encode to memory, write bytes, report the ENCODED length.
+
+    See save_jpg: os.path.getsize() is unreliable on the G: virtual drive
+    directly after a write, which silently disabled the 2MB guard below.
+    len(data) is the real encoded size and is drive-independent.
+
+    Also asserts the colour type, because acceptance for these cards is COLOUR
+    TYPE, not file size (Blog_Thumbnail_Standard, 2026-09-15): PNG byte 25 is
+    2 or 6 for truecolour, 3 for indexed. An indexed card means something
+    quantised the palette and the brand colours are approximations."""
     meta = PngInfo()
     meta.add_text("mm_builder_version", BUILDER_VERSION)
     meta.add_text("mm_config_hash", config_hash())
-    im.save(path, "PNG", pnginfo=meta, optimize=True)
-    size = os.path.getsize(path)
+    buf = io.BytesIO()
+    im.save(buf, "PNG", pnginfo=meta, optimize=True)
+    data = buf.getvalue()
+    colour_type = data[25] if len(data) > 25 else None
+    if colour_type not in (2, 6):
+        raise AssertionError(
+            "save_png: %s encoded with PNG colour type %r, expected 2 or 6. "
+            "Type 3 is indexed, which means the palette was quantised and the "
+            "brand colours shipped as approximations."
+            % (os.path.basename(path), colour_type))
+    with open(path, "wb") as fh:
+        fh.write(data)
+    size = len(data)
     if size > 2 * 1024 * 1024:
         print("  WARN: %s is %.1fMB (codex limit 2MB)" % (os.path.basename(path), size / 1048576))
     return size
@@ -975,7 +1235,8 @@ def main():
     ap = argparse.ArgumentParser(description="Metrics & Mayhem canonical thumbnail builder")
     ap.add_argument("--episode", type=int, required=True)
     ap.add_argument("--title", required=True, help='use "/" for explicit line breaks')
-    ap.add_argument("--subtitle", required=True)
+    ap.add_argument("--subtitle", required=False, default=None,
+                    help="required for every surface except --signal-only")
     ap.add_argument("--quote", default=None,
                     help="Hard Stop pull-quote (pill text); required unless --bookends-only")
     ap.add_argument("--art-title", default=None,
@@ -1006,6 +1267,11 @@ def main():
                     help="write finals into outdir (default: stage to outdir/_staging)")
     ap.add_argument("--og-only", action="store_true",
                     help="emit only the no-headshot OG (+ bookends); needs --quote, not --headshot")
+    ap.add_argument("--signal-only", dest="signal_only", action="store_true",
+                    help="emit only the 1200x630 The Signal newsletter masthead card; "
+                         "needs --title (lead headline), --episode (issue number, continuing counter), --date")
+    ap.add_argument("--date", default=None,
+                    help='display date for the Signal card, e.g. "21 Aug 2026"')
     args = ap.parse_args()
 
     if args.badge_style is None:
@@ -1013,6 +1279,34 @@ def main():
     # 24.15 placement: gaze left -> portrait LEFT; gaze right -> portrait RIGHT;
     # camera -> right (the Ep 17 exemplar side).
     portrait_side = "left" if args.gaze == "left" else "right"
+
+    # Gate this file against its own history. It carried five retired hexes
+    # until 2026-09-18 and nothing ever checked; assert_no_retired reads whole
+    # source, comments included, so a retired value cannot come back as
+    # documentation either.
+    with open(os.path.abspath(__file__), "r", encoding="utf-8") as _self:
+        T.assert_no_retired(_self.read(), "thumbnail_builder.py")
+
+    if getattr(args, "signal_only", False):
+        if not args.title or not args.date:
+            sys.exit("FATAL: --signal-only requires --title (the lead headline) and --date")
+        if not args.episode:
+            sys.exit("FATAL: --signal-only requires --episode (the ISSUE number, "
+                     "continuing counter, never 01). Issue 101 is 2026-08-21.")
+        os.makedirs(args.outdir, exist_ok=True)
+        dest = args.outdir if args.ship else os.path.join(args.outdir, "_staging")
+        os.makedirs(dest, exist_ok=True)
+        card = compose_signal(args)
+        card_path = os.path.join(dest, "the-signal_issue-%d_1200x630.png" % int(args.episode))
+        s = save_png(card, card_path)
+        print("thumbnail_builder v%s (config %s)" % (BUILDER_VERSION, config_hash()))
+        print("  signal card: %s (%.0fKB)" % (card_path, s / 1024))
+        print("  Eyeball full size + fresh-eyes pass (codex 19.6), then re-run with --ship."
+              if not args.ship else "  SHIPPED to %s; eyeball before upload." % args.outdir)
+        return
+
+    if not args.subtitle:
+        sys.exit("FATAL: --subtitle is required (except with --signal-only)")
 
     n = args.episode
     if args.og_only:
@@ -1105,3 +1399,42 @@ if __name__ == "__main__":
 # v1.3.2 (2026-07-26): optically centre the top wordmark on the lens mark's
 #   visible centreline and remove the duplicated site name from the OG footer's
 #   left side. The site remains once, right-aligned; other surfaces are unchanged.
+# v1.5.1 (2026-09-18): save_png/save_jpg encode to memory and report len(data)
+#   instead of os.path.getsize() after the write. On the G: Google Drive virtual
+#   filesystem getsize() returns 0 straight after a save, so every size line
+#   printed 0KB AND the 2MB codex guard compared 0 against the limit on every
+#   render - dead since the day it was written, on that drive. Found by testing
+#   the first real render: the card reported 0KB and was 58,452 bytes. save_png
+#   now also ASSERTS PNG colour type 2 or 6, because acceptance for these cards
+#   is colour type and nothing enforced it.
+# v1.5.0 (2026-09-18): REPOINTED ONTO design-tokens.json via mo_tokens.py. Al's
+#   ruling: repoint all surfaces, re-render on next use. Four things changed and
+#   all of them were defects, not preferences.
+#   1. CONFIG["palette"] held eight literal hexes, five of them retired under v3.
+#      It is now two token-derived role maps, dark and light, with the same role
+#      NAMES so no call site moved.
+#   2. make_canvas drew a three-stop gradient, a mint grid and a mint glow. All
+#      three are retired CONCEPTS, so they are deleted, not repointed: v3 is a
+#      flat ground plus ONE radial teal wash at structure.wash.
+#   3. render_logo resolved the logo BY FILENAME from the brand folder root.
+#      Those files are the retired eye mark, carrying four non-v3 hexes, so
+#      every card this builder ever produced embedded them. It now resolves the ring mark by NAME from
+#      the marks manifest, with the 40px crossover applied.
+#   4. compose_signal is LIGHT. The Signal is writing and light is the website
+#      standard for writing; the dark masthead is retired, not a variant. The
+#      issue number is validated through T.eyebrow_for, which enforces the 101
+#      anchor, and the house lockup is resolved through T.lockup_for instead of
+#      being read from a config string.
+#   A retired-hex gate now runs against this file's own source on every
+#   invocation. PIXELS CHANGE ON EVERY SURFACE. That is the point; issues 101 to
+#   105 and previously shipped episode assets are not re-rendered.
+# v1.4.0 (2026-08-21): add compose_signal() + CONFIG["signal"] + --signal-only, for
+#   The Signal weekly newsletter masthead card (1200x630, no headshot): master-brand
+#   lockup (MASTERING OBSERVABILITY, NOT Metrics & Mayhem, which is reserved for book +
+#   podcast), THE SIGNAL masthead + "The weekly observability newsletter" descriptor,
+#   continuing issue counter (the 2026-08-21 rebrand = ISSUE 101, never "01"), the
+#   week's lead headline as the hero. Pure addition: the YouTube/OG/art/bookend
+#   composers never read CONFIG["signal"], so their PIXELS are unchanged (the added
+#   block does shift config_hash, a provenance value in PNG metadata, not the image).
+#   --subtitle relaxed to optional but still guarded as required for every non-signal
+#   surface. Companion to Design_Standards/The_Signal_Card_Standard.md.
