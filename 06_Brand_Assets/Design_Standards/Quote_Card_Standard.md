@@ -6,13 +6,17 @@ Branded quote cards for social. One generator, one look, every channel. Born fro
 
 **Locked layout rule:** brand + counter are fixed at the top, the footer is fixed at the bottom, and the eyebrow + quote + accent bar stack as one group centred in the band between them. The quote auto-sizes to fit both width and band height. This guarantees even spacing at any text length and the accent bar never collides with the footer (the bug fixed on 2026-06-17).
 
-Brand source of truth: `06_Brand_Assets` palette and fonts (see `templates/mo_visual_kit.js`). Voice Codex §8.2 (4:30am Thoughts), §8.1.3 (Closing Declarative is the natural card line). House rules still apply: UK English, no em dashes.
+Brand source of truth: `06_Brand_Assets/Design_Standards/design-tokens.json`, read through `mo-tokens.js`. **Not a producer** — `producers/mo_visual_kit.js` is a reference implementation, not the palette. `templates/mo_quote_card.js` is still on the retired palette and has not been repointed; see `consumers.status`. Voice Codex §8.2 (4:30am Thoughts), §8.1.3 (Closing Declarative is the natural card line). House rules still apply: UK English, no em dashes.
 
 ---
 
 ## The look (locked)
 
-- Background: navy gradient (#0a0e17 to #0e1f35), faint grid, soft mint glow. Same as bookends and thumbnails.
+- Background: flat `dark-ground` with ONE radial teal wash at 20 per cent, from `structure.wash`. Same ground as the other dark surfaces.
+
+  **Superseded 2026-09-11 / amended 2026-09-14.** This line specified the navy gradient, a faint grid and a mint glow. The gradient and the grid are retired; the wash replaced the glow and is now permitted on light as well as dark. Retired values are named by role here on purpose — `assertNoRetired` scans whole file source including prose, so a standard that quotes a retired hex fails the build that reads it.
+
+  A quote card is not writing, so it stays dark. `templates/mo_quote_card.js` has NOT been repointed and still carries the retired palette: a card rendered from it today is off-brand. Tracked in `consumers.status`.
 - Type: Archivo Black display for the quote, Space Mono for the labels.
 - Top label: `METRICS & MAYHEM` (mint, letter-spaced).
 - Eyebrow (optional): the format name, e.g. `4.30AM THOUGHTS` (mint).

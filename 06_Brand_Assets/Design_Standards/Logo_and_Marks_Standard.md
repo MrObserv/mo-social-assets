@@ -40,6 +40,42 @@ Two rules crossing. It marks a page as ours from the inside. It is never an iden
 A single radial teal wash, and at larger scale the concentric rings bleeding off an edge.
 
 - Both modes. One per canvas, 10 to 22 per cent opacity: 20 per cent on dark, 12 per cent on light. Amended 2026-09-14 by Al — see `Brand_Design_System_v3.md` §3.
+
+## 3a. Mark size on a share card
+
+The 24px floor in §1 is a floor **as rendered**, not as authored. A share card is
+scaled down by whatever platform shows it, so an authored size that clears 24px
+on the canvas can land under it on screen.
+
+- **OG card: 80px on a 1200-wide canvas, top right.** Ruled by Al 2026-09-16.
+  At LinkedIn's ~552px render width that lands near 37px. The previous 44px
+  landed near 20px, under the floor.
+- Placement is top right, opposite the eyebrow, because an 80px mark does not
+  fit the 78px footer band. Design's call, same date.
+- Value lives in `design-tokens.json` `marks.ring_mark.og_card_px`. Never
+  typed into a producer.
+
+**When adding any new scaled-down surface, do this arithmetic first:**
+authored px × (render width ÷ canvas width) must clear 24.
+
+## 3b. Endorsement
+
+Podcast assets may carry a line endorsing the parent brand. **Per surface, not
+blanket** — ruled by Al 2026-09-16.
+
+- **YouTube thumbnails: yes.** `FROM MASTERING OBSERVABILITY`. YouTube is
+  where a cold viewer meets the show with no other context, so the parent
+  brand has work to do there.
+- **Episode squares, title cards, series badges, bookends, video cards: no.**
+  These appear inside a feed the listener has already chosen, where an
+  endorsement is noise.
+- A house asset **cannot** endorse itself; asking for one throws.
+- Surfaces are listed in `lockup.endorsement`. A surface absent from that
+  block renders no endorsement, so one cannot be acquired by accident —
+  turning one on is an edit to the token file, never to a producer.
+
+This does not change the prohibition in §5: **Metrics & Mayhem still never
+appears on a house asset.** Endorsement points child → parent only.
 - Decoration. It carries no meaning, so nothing important sits on it and nothing is read through it.
 - **The faint mint grid is retired** (Al, 2026-09-11). It came from the pre-v2.0 dark surface and does nothing the wash does not do better. Producers still drawing it need updating.
 

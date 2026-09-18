@@ -499,7 +499,7 @@
     "status": {
       "Slide_System/mo_slide_template.js": "not yet consuming",
       "templates/long_form_pdf/reference_strategy_template.html": "not yet consuming",
-      "tools/thumbnail_builder.py": "not yet consuming",
+      "thumbnail_builder.py": "CONSUMING since 2026-09-18 (builder v1.5.0). TWO PATHS, BOTH REAL, which is the point: it is 00_Command_Center/thumbnail_builder.py in the Metrics And Mayhem WORKSPACE tree and tools/thumbnail_builder.py in the mo-social-assets REPO. This register said tools/ and on 2026-09-18 I corrected it to 00_Command_Center/ — that correction was itself wrong, because it assumed a single tree. Keyed unqualified here so neither path is asserted as the only one. The producer resolves BRAND_DIR as dirname(its own directory)/06_Brand_Assets, so it runs in EITHER tree provided design-tokens.json and producers/mo_tokens.py sit in the SAME tree as the builder. Split across two trees is exactly the failure Al hit on first run.",
       "templates/mo_quote_card.js": "NOT CONSUMING. Carries the retired dark palette, so a quote card rendered today is off-brand. Quote_Card_Standard.md was repointed 2026-09-16 and now names this gap explicitly.",
       "templates/render_arch_kit.py": "not yet consuming",
       "producers/mo_visual_kit.js": "CONSUMING since 2026-09-12. Declares no colour. Retired hexes: zero, enforced by assertNoRetired on its own source at load and assertRenderClean on every composed render.",

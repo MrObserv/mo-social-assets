@@ -14,7 +14,11 @@
 
 ## Production
 
-`node templates/mo_visual_kit.js ytthumb --title "..." --sub "..." --badge "SIGNAL DROP" --headshot <clean-portrait.jpg> --out yt.png`
+`node producers/mo_visual_kit.js ytthumb --title "..." --sub "..." --badge "SIGNAL DROP" --headshot <clean-portrait.jpg> --out yt.png`
+
+Run `node producers/mo_visual_kit.js preflight` first. The kit moved from `templates/` to `producers/` on 2026-09-16 and now reads `design-tokens.json`; it declares no colour.
+
+**Endorsement (Al, 2026-09-16):** a YouTube thumbnail carries `FROM MASTERING OBSERVABILITY` in mono at the bottom left, under the podcast wordmark. This is the ONE podcast surface that endorses the parent brand — episode squares, title cards, series badges, bookends and video cards do not. YouTube is where a cold viewer meets the show with no other context. The producer resolves it from `lockup.endorsement`; it is never typed.
 
 Supply a clean portrait (plain background, no text), ideally shot on a dark background from Riverside. The template grades and feathers it; it does not fix a bright background — prefer dark-background source photos, or tint per Codex §24.15 background-integration rules.
 

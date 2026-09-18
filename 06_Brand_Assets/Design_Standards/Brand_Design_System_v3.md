@@ -192,6 +192,17 @@ Diagrams clear the fourteen-point gate, carried verbatim in both diagram standar
 
 ## 10. Changelog
 
+### 3.3.0 — 2026-09-18 · ruled by Al
+**The Signal carries its issue number.** The newsletter eyebrow becomes a template, `THE SIGNAL · NO. {issue}`, and `mo_visual_kit.js blogthumb` requires `--issue` for surface `the_signal` — it composes the eyebrow rather than accepting one. `eyebrowFor()` throws below the 101 anchor, so a restart at "01" fails a render instead of shipping.
+
+The defect this closes: `--eyebrow` was free text and its gate proved only that an eyebrow had been PASSED. A hand-typed `THE SIGNAL` satisfied it and shipped a numberless card. Presence, not correctness — the same failure class as the eyebrow that once defaulted to THE OBSERVABILITY DIGEST.
+
+The number is checkable rather than remembered: issue 101 is 2026-08-21 and the cadence is weekly, so 2026-09-18 is 105. Corroborated at 102 = 2026-08-28 by a live first comment.
+
+**Resolved the same day, after Al ruled.** `The_Signal_Card_Standard.md` is rewritten against v3 and now sits in this tree, naming tokens and quoting no hex at all. `thumbnail_builder.py` is repointed onto `design-tokens.json` via `mo_tokens.py` (v1.5.0), the masthead is light, the dark masthead is retired, and `ISSUE NNN` is the single vocabulary. The Python is verified statically but NOT executed — there was no interpreter available — so its first invocation is the real test; the runbook carries three commands, two of which must fail.
+
+No colour value changed.
+
 ### 3.1.0 — 2026-09-11 · ratified
 The first ratified release of v3. Full surface coverage. Marks and motion added as foundations, neither of which had a standard anywhere. Email layout, dark-mode guidance and the text-only signature. Quote card specced for the producer. Video surfaces: full card, lower third, corner insert, title card, bookend, series badge, studio backgrounds. Contrast audit run for the first time; **six of twenty-six pairings failed AA**. soft #63797D, light caution #A8720B and light safe #2F9E57 replaced with **#5A6E72**, **#8F6109** and **#237A45**; the other three failures became usage rules. Canva retired. Arrow grammar ratified as QA point 14.
 
@@ -341,27 +352,57 @@ The business card cannot hold the 12pt print floor. Recorded as a 5pt floor *wit
 
 **A producer that defines a hex is a defect.** `mo-tokens.js` and `mo_tokens.py` are the read path; both throw on an unknown token and both expose `assertNoRetired` so a build fails on a retired hex rather than shipping one.
 
-As of 2026-09-11, **nothing consumes this file yet.** Until one producer does, v3 is a document rather than a system and the next colour change costs the same manual sweep as the last one.
+**Two producers now consume this file end to end.** v3 stopped being a document
+on 2026-09-12 and stopped being a partial system on 2026-09-16.
 
-| Producer | Retired-token hits | Status |
-|---|---|---|
-| `templates/mo_diagram.js` | 10 | Not consuming. **Do this one first** — it already has a theme switch, so it is the smallest honest proof. |
-| `templates/long_form_pdf/reference_strategy_template.html` | 13 | Not consuming |
-| `Slide_System/mo_slide_template.js` | 8 | Not consuming |
-| `templates/mo_visual_kit.js` | 2 | Not consuming |
-| `tools/thumbnail_builder.py` | 2 | Not consuming |
-| `templates/mo_quote_card.js` | 1 | Not consuming |
-| `templates/render_arch_kit.py` | 1 | Not consuming |
+| Producer | Status |
+|---|---|
+| `producers/mo_visual_kit.js` | **Consuming** since 2026-09-12. Declares no colour. |
+| `producers/mo_diagram.js` | **Consuming** since 2026-09-16. Declares no colour but white. |
+| `templates/long_form_pdf/reference_strategy_template.html` | Not consuming |
+| `Slide_System/mo_slide_template.js` | Not consuming |
+| `00_Command_Center/thumbnail_builder.py` | **CONSUMING** since 2026-09-18 |
+| `templates/mo_quote_card.js` | Not consuming |
+| `templates/render_arch_kit.py` | Not consuming |
+
+Live status is in `design-tokens.json` `consumers.status`, which is the one
+that gets updated. This table is a summary and will drift; that file will not.
+
+**A retired-hit count is not a scope estimate.** This table used to carry one
+per producer, and `mo_diagram.js` was listed at 10. The real repoint was
+**eleven retired values plus fourteen with no v3 equivalent** — fourteen mapping
+decisions, one of which needed a new token. Before repointing anything on this
+list, count against `colour.retired` rather than trusting a number here.
 
 ## 12. The two trees
 
 `mo-social-assets` mirrors `06_Brand_Assets` in full and carries none of v3. It is the tree Buffer pulls from, so **the copy that renders published assets is the one still on the retired palette.** GR-2026-08-24-04 logged this drift for a single file; it is the whole system.
 
-**Owed decision (Al):** one tree is canonical and the other is a build output. Recommendation: `06_Brand_Assets` is canonical; `mo-social-assets` becomes a publish target written by a sync step and never hand-edited. A hand-synced twin is the same failure as a hand-synced Canva kit, at larger scale.
+**RULED (Al, 2026-09-14): `mo-social-assets` is canonical.** The opposite way
+round from the recommendation that stood here. The working copy under OneDrive
+is where editing happens, because that is where node and the fonts are, but it
+is not authoritative: a file that exists only there does not exist. Recorded in
+`06_Brand_Assets/SYNC.md`, which also states the failure mode this leaves open
+— the working copy drifts through ordinary work, and `git status --porcelain`
+in the clone is the cheap check.
+
+Measured 2026-09-16: the working copy was at tokens 3.1.0 and still held two
+producers deleted from the repo on 09-14. The drift is not hypothetical.
 
 ## 13. Still owed
 
-1. **Make one producer consume the token file end to end.** Nothing else on this list matters until that exists. Then the rest: `mo_diagram.js`, `mo_visual_kit.js`, `thumbnail_builder.py`, `tt_thumbnail_builder.py`, `sd_terminal_square.py`, `render_arch_kit.py`, `render_carousel.py`, the podcast renderers.
+1. ~~**Make one producer consume the token file end to end.**~~ **DONE** —
+   `mo_visual_kit.js` 2026-09-12, `mo_diagram.js` 2026-09-16,
+   `thumbnail_builder.py` 2026-09-18. Still owed, in
+   rough order of exposure: `tt_thumbnail_builder.py`,
+   `sd_terminal_square.py`, `render_arch_kit.py`, `render_carousel.py`,
+   `mo_slide_template.js`, `mo_quote_card.js`, the long-form PDF template, the
+   podcast renderers.
+
+   **One unratified value is outstanding:** `dark-border` was added in 3.2.0
+   because the dark set had no border or hairline token and a repointed diagram
+   needed one. It is the only invented hex in the v3 work. See
+   `colour.dark_border_provenance`.
 2. Strip the palette tables out of the per-asset standards and point them here.
 3. Amend `Architecture_Diagram_Standard.md` §2 and §4 for the Space Mono kicker reversal.
 4. Build the five new diagram patterns as `build_*` functions.

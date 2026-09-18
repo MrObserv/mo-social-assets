@@ -13,7 +13,9 @@
 - **Title:** display face, `ink` **#16282D**, left-aligned, 2 lines preferred, 3 maximum. **Use the post's og:title.** Where the headline is long or buries the point, write a distilled line instead: one insight, 12 words or fewer. Card and share preview should say the same thing wherever the headline already is the insight. (Al, 2026-09-14.)
 - **Subtitle:** optional, one line, `muted` **#3B5257**, body face.
 - **Footer:** mono caps. Wordmark left in `soft` **#5A6E72**, domain right in `teal-deep` **#17695C**. The wordmark is resolved by `lockupFor(surface)`, never typed — blog, byte-size, Digest and newsletter are all house lane and carry MASTERING OBSERVABILITY. Podcast surfaces carry METRICS & MAYHEM.
-- **Mark:** ring mark bottom right, resolved by name from the marks manifest with the 40px crossover applied. **Full opacity** — the mark carries its own ring opacity in the file, so a producer opacity double-applies it. The 40–60 per cent rule described the retired lens mark.
+- **Mark:** ring mark **top right at 80px**, resolved by name from the marks manifest with the 40px crossover applied (80 is above it, so the full variant is used). **Full opacity** — the mark carries its own ring opacity in the file, so a producer opacity double-applies it. The 40–60 per cent rule described the retired lens mark.
+
+  It was bottom right at 44px until 2026-09-16. Two reasons it moved: 44px on a 1200 canvas renders near 20px at LinkedIn’s ~552px width, under the 24px floor in `Logo_and_Marks_Standard.md` §1; and 80px does not *fit* the footer band, which is 78px tall. Al ruled the size, Design chose the placement. Value lives in `marks.ring_mark.og_card_px`.
 - **No:** icons, emoji, stock humans, gradients on text, more than one message.
 
 ## Eyebrow

@@ -1,9 +1,18 @@
-# Standards amendments — drafted 2026-09-14
+# Standards amendments — APPLIED 2026-09-16
 
-Three documents now contradict `design-tokens.json`. Drafted from the verbatim
-blocks Content Management supplied. **Not applied — I do not have these files.**
+> **STATUS: APPLIED. This is an audit record, not a to-do.**
+>
+> All four amendments below are live in `main` — verified by reading the repo
+> at `709a07d`: `Brand_Design_System_v3.md` lines 83 and 126,
+> `Logo_and_Marks_Standard.md` line 42, and the rewritten
+> `Blog_Thumbnail_Standard.md` Spec block.
+>
+> **The "Current" blocks below quote the OLD, RETIRED wording.** They are here
+> so the change is auditable. Do not read them as current standards, and do not
+> copy text out of them. The live standards are the three `.md` files beside
+> this one.
 
-Order matters only for the third: it depends on the first two being true.
+Drafted from the verbatim blocks Content Management supplied, applied 2026-09-16.
 
 ---
 
@@ -131,169 +140,3 @@ That is a separate piece of work and should not be attempted as a sweep task.
 its evergreen card sits unattached in two folders. Content is attaching it with
 the sweep. Worth noting that re-rendering a card nobody is serving would have
 looked like success.
-
----
----
-
-# Addendum, drafted 2026-09-18
-
-Two more documents contradict `design-tokens.json`, found while verifying which
-design system The Signal Issue 105 assets were built against. **Not applied.**
-
-**The unusual part, and the reason to trust the direction of the fix: the
-artefact is current and the document is stale.** The shipped Issue 105 masthead
-card was sampled pixel by pixel before anything below was written. Its painted
-palette is `ground` #F6F8F7 (77 per cent), `ink` #16282D, `teal-deep` #17695C
-and `soft` #5A6E72, over a radial teal wash whose blend ramp is the long tail of
-near-ground values. That is four current v3 light tokens and a light-mode wash,
-which is to say **the card has already been migrated to the same v3 light spec
-as the blog cards, and only the prose describing it was left behind.** No
-retired hex is painted anywhere in it. (One `#E9ECEC` pair of pixels appears on
-a glyph edge. Non-contiguous, both neighbours on an antialiasing ramp between
-ground and ink, so a blend coincidence rather than a painted element. Checked
-rather than assumed, because a retired hex in a shipped card would otherwise be
-the headline here.)
-
-So these amendments do not change the card. They make the standard describe the
-card that is already shipping.
-
----
-
-## 4. `The_Signal_Card_Standard.md` — header line, layout block and closing section
-
-Three separate places, all stale in the same direction.
-
-### 4a. The header line (line 3)
-
-**Current:**
-
-```markdown
-**Owner:** Growth (brand/design) · **Producer:** `00_Command_Center/thumbnail_builder.py` `compose_signal()` (builder v1.4.0+, `--signal-only`) · **Surface:** dark-asset (navy `#0a0e17` + mint `#64ffda`, Montserrat ExtraBold / Space Mono / DM Sans) · **Registered:** 2026-08-21 (Al-approved, this session).
-```
-
-**Replace with:**
-
-```markdown
-**Owner:** Growth (brand/design) · **Producer:** `thumbnail_builder.py` `compose_signal()` (builder v1.4.0+, `--signal-only`); see the producer note below, the copy in this repo at `tools/` is NOT it · **Surface:** light. `ground` #F6F8F7 with a 12 per cent radial `teal` wash, `ink` #16282D, `teal-deep` #17695C, `soft` #5A6E72 (Montserrat ExtraBold / Space Mono / DM Sans) · **Registered:** 2026-08-21 (Al-approved) · **Migrated to v3 light:** palette amended 2026-09-18 to match the artefact; `#0a0e17` and `#64ffda` are retired hexes and were removed from this line.
-```
-
-**Why:** `#0a0e17` and `#64ffda` are both in `design-tokens.json` `colour.retired`.
-A standard is a thing people copy values out of, so a retired hex sitting in a
-header line is a retired hex waiting to be pasted into a producer. The mode
-change is not cosmetic either: `mode.rule` in the tokens is "writing renders
-light... a blog, article, newsletter or any card fronting written material uses
-the website palette", and `surface_aliases` now carries `the_signal` to
-`og_card` (committed 2026-09-18, auto-sync `94186bd`), whose `dual_mode` default
-is light. Three sources agree with the artefact and only this line disagreed.
-
-### 4b. The Layout block, items 1 to 7
-
-**Current** (colour words only; the geometry is unaffected and stays):
-
-```markdown
-1. **House lockup** — MO lens + `MASTERING OBSERVABILITY` (Space Mono, mint), top-left.
-2. **Masthead nameplate** — `THE SIGNAL` (Montserrat ExtraBold ~58px, mint) left; `ISSUE NNN · <DD MON YYYY>` (Space Mono, teal) right, aligned to the nameplate's optical centre.
-3. **Descriptor** — `The weekly observability newsletter` (DM Sans, grey) under the masthead.
-4. **Full-width mint rule** (2px, 35% opacity) — separates the nameplate from the content.
-5. **Kicker** — `THIS WEEK'S LEAD` (Space Mono, teal, tracked).
-6. **Hero headline** — the week's lead headline (Montserrat ExtraBold, white, uppercased, `/`-broken or wrapped ~20 chars, sized by line count 100/90/76/58, stepped down to fit 1080px), with a mint accent tick beneath.
-7. **Footer bar** — `THE SIGNAL • ALLAN MANN` left, `MASTERINGOBSERVABILITY.COM` right; watermark lens bottom-right.
-```
-
-**Replace with:**
-
-```markdown
-1. **House lockup** — ring mark + `MASTERING OBSERVABILITY` (Space Mono, `teal-deep` #17695C), top-left. Resolved by `lockupFor(surface)`, never typed: The Signal is house lane.
-2. **Masthead nameplate** — `THE SIGNAL` (Montserrat ExtraBold ~58px, `ink` #16282D) left; `ISSUE NNN · <DD MON YYYY>` (Space Mono, `teal-deep` #17695C) right, aligned to the nameplate's optical centre.
-3. **Descriptor** — `The weekly observability newsletter` (DM Sans, `soft` #5A6E72) under the masthead.
-4. **Full-width rule** (2px, `teal` #2F9E8D at 35% opacity) — separates the nameplate from the content.
-5. **Kicker** — `THIS WEEK'S LEAD` (Space Mono, `teal-deep` #17695C, tracked). Preceded by a 70px `teal` rule, matching the blog-card eyebrow.
-6. **Hero headline** — the week's lead headline (Montserrat ExtraBold, `ink` #16282D, uppercased, `/`-broken or wrapped ~20 chars, sized by line count 100/90/76/58, stepped down to fit 1080px), with a `teal` accent tick beneath.
-7. **Footer bar** — `THE SIGNAL • ALLAN MANN` left in `soft` #5A6E72, `MASTERINGOBSERVABILITY.COM` right in `teal-deep` #17695C; ring mark bottom-right at full opacity (the mark carries its own ring opacity in the file, so a producer opacity double-applies it).
-```
-
-**Two notes on this block.** The lens is gone, not recoloured: v3 replaced the
-crosshair and lens treatment with the ring mark as the identifier, and the
-sampled card's bottom-right corner carries teal-deep and light-teal blends
-consistent with `mo_ring_mark_on_light.svg`, not a lens. And "white" in item 6
-was never right on a light canvas; the artefact draws the headline in `ink`.
-
-### 4c. The closing section
-
-**Current:**
-
-```markdown
-## Where this sits in the MO brand
-
-The dark visual-asset surface (navy + mint + Montserrat/Space Mono), same family as `OG_Card_Standard`, the YouTube thumbnail, and the square episode art. See `Brand_Design_System_v2.md` "three surfaces, one identity".
-```
-
-**Replace with:**
-
-```markdown
-## Where this sits in the MO brand
-
-The **light** reading surface, same family as the blog and byte-size OG cards, because the card and the issue it opens are one reading surface. It is NOT in the dark visual-asset family with the YouTube thumbnail and the square episode art; those front non-writing assets. See `Brand_Design_System_v3.md` and the `mode` block in `design-tokens.json`. Token source is `design-tokens.json`, never this file.
-```
-
-**Why:** the current text cites `Brand_Design_System_v2.md`, which is a
-superseded tombstone whose own first line is "Do not read, cite or edit this
-file." A live standard pointing at it is how the retired set keeps finding its
-way back in.
-
----
-
-## 5. `The_Signal/README.md` line 14
-
-**Current:**
-
-```markdown
-Cards are built by the canonical thumbnail builder (`00_Command_Center/thumbnail_builder.py`, `compose_signal`), per `06_Brand_Assets/Design_Standards/The_Signal_Card_Standard.md`. Dark navy + mint surface, Mastering Observability house lockup, THE SIGNAL masthead, "The weekly observability newsletter" descriptor, issue number + date, and that week's lead headline.
-```
-
-**Replace with:**
-
-```markdown
-Cards are built by the canonical thumbnail builder (`thumbnail_builder.py`, `compose_signal`), per `06_Brand_Assets/Design_Standards/The_Signal_Card_Standard.md`. Light `ground` surface with a 12 per cent teal wash, Mastering Observability house lockup, THE SIGNAL masthead, "The weekly observability newsletter" descriptor, issue number + date, and that week's lead headline.
-```
-
-Depends on 4 being true. Amend in the same patch or not at all, because a README
-and a standard disagreeing is worse than both being stale.
-
----
-
-## Still open, and deliberately not drafted
-
-**The producer is not where two standards say it is, and the copy that is
-reachable cannot build the card.** Stated plainly because it is now a blocker
-rather than an irritation:
-
-- `The_Signal_Card_Standard.md` and `Thumbnail_Producer_Routing.md` both name the
-  producer as `00_Command_Center/thumbnail_builder.py`, which is a path on the
-  `G:` workspace, not in this repo.
-- The copy in this repo, `tools/thumbnail_builder.py`, is **`BUILDER_VERSION = "1.3.2"`,
-  dated 26 July**. It has **no `compose_signal` and no `--signal-only`**, so it
-  cannot render this card at all, and it carries **five retired hexes**:
-  `#0a0e17`, `#64ffda`, `#0c1929`, `#0e1f35`, `#14a3a8`.
-- Confirmed two ways, through the shell and through the OneDrive-aware file
-  reader, because a stale read was the likelier explanation and had to be ruled
-  out first. `compose_signal` has never existed anywhere in this repo's history.
-
-So as things stand, anyone rebuilding a Signal card from what is reachable, using
-the standard as written, would produce a retired-palette dark card. **The fix is
-to bring canonical v1.4.0 into this repo and make it the single copy, not to
-maintain two.** A producer that exists twice is a producer that will diverge,
-and this one already has, for five consecutive weekly runs.
-
-**Not drafted here** because it is code movement rather than a standards edit,
-and because the canonical file was on `G:`, which is not attached to the session
-that found this.
-
-**One repo-integrity note, unrelated to brand but found in the same pass.**
-`git fsck --connectivity-only` reports a broken link, tree `e71d3687` to missing
-tree `2bceabdf`. HEAD is sound, `origin/main` is in sync at 0 ahead and 0 behind,
-all 107 commits on `main` walk, and the missing object is not in the 40 most
-recent commits, so nothing in normal use is affected. It does make
-`git log -S <string> --all` fail partway. This is the exact failure `SYNC.md`
-predicts from hosting a git working tree inside OneDrive, and the repair it
-names is a fresh clone. Flagging rather than acting.
