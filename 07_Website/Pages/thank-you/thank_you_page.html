@@ -1,0 +1,224 @@
+<!-- ============================================================================
+     Mastering Observability, /metrics-and-mayhem/thank-you. FULL BLOCK REPLACEMENT.
+
+     The page a reader lands on after signing up for the free Chapter 4.
+     Replaces the one Custom HTML block on the Thank you page, which was a full
+     DOCTYPE document on the retired dark design.
+
+     Brings it onto the web surface of the rebuilt home page: ground #F6F8F7,
+     ink #16282D, navy #0D2127, deep teal #17695C buttons with white text,
+     border #C9DCDC, tint #EAF6F3; Montserrat headings, DM Sans body, Space
+     Mono labels; the light two-ring mark.
+
+     FRAGMENT, not a full document: beehiiv puts a full DOCTYPE document in a
+     frame. All CSS is scoped under .mm-ty. The site nav and footer stay ON for
+     this page, so the block carries no nav and no footer of its own.
+
+     Copy corrected against the live site on 2026-09-21: the weekly email is
+     The Signal (every Friday); the podcast is Metrics & Mayhem (short Signal
+     Drops); the archive card links to /archive; the book is out now on
+     Kindle, paperback and hardback.
+
+     Draft by the website build satellite, 2026-09-21, for Al's approval.
+     ============================================================================ -->
+<div class="mm-ty">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap');
+
+    .mm-ty {
+      --ground: #F6F8F7;
+      --panel: #FFFFFF;
+      --tint: #EAF6F3;
+      --ink: #16282D;
+      --navy: #0D2127;
+      --muted: #3B5257;
+      --soft: #5A6E72;
+      --teal: #2F9E8D;
+      --teal-deep: #17695C;
+      --border: #C9DCDC;
+      --hairline: #DCE7E5;
+      background: var(--ground);
+      color: var(--ink);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: clamp(15px, 1vw + .4rem, 18px);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      max-width: 100%;
+      overflow-x: hidden;
+      text-align: left;
+    }
+
+    .mm-ty *, .mm-ty *::before, .mm-ty *::after { margin: 0; padding: 0; box-sizing: border-box }
+    .mm-ty a { color: var(--teal-deep); text-decoration: none }
+
+    .mm-ty .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 28px) }
+    .mm-ty section { padding: clamp(36px, 4.5vw, 64px) 0 }
+    .mm-ty .divider { height: 1px; background: var(--border) }
+
+    .mm-ty .eyebrow {
+      font-family: 'Space Mono', monospace; font-weight: 700; font-size: 12px;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--teal-deep);
+      margin-bottom: 16px; display: inline-flex; align-items: center; gap: 12px
+    }
+    .mm-ty .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--teal); opacity: .8 }
+    .mm-ty .centre { text-align: center }
+    .mm-ty .centre .eyebrow { justify-content: center }
+
+    .mm-ty h1, .mm-ty h2, .mm-ty h3 {
+      font-family: 'Montserrat', 'DM Sans', sans-serif; font-weight: 800; color: var(--navy); line-height: 1.12;
+      text-wrap: balance
+    }
+    .mm-ty p { color: var(--muted) }
+    .mm-ty em { color: var(--ink); font-style: italic }
+
+    .mm-ty .btn {
+      display: inline-block; background: var(--teal-deep); color: #FFFFFF;
+      font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: .94rem;
+      padding: 11px 20px; border: 1px solid transparent; border-radius: 4px; text-decoration: none;
+      transition: background-color .18s ease
+    }
+    .mm-ty .btn:hover { background: color-mix(in srgb, var(--teal-deep) 84%, var(--ground)) }
+
+    /* ---------- confirmation ---------- */
+    .mm-ty .hero { position: relative; overflow: hidden; padding-top: clamp(48px, 6vw, 88px) }
+    .mm-ty .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 18%, rgba(47, 158, 141, .12), transparent 62%);
+      pointer-events: none
+    }
+    .mm-ty .hero .inner { position: relative; max-width: 720px; margin: 0 auto }
+    .mm-ty .mark { width: 72px; height: 72px; margin: 0 auto 22px; display: block }
+    .mm-ty .hero h1 {
+      font-size: clamp(34px, 4.6vw, 56px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.04;
+      margin-bottom: 18px
+    }
+    .mm-ty .hero .lede { font-size: clamp(16px, 1.35vw, 19px); max-width: 44ch; margin: 0 auto 24px }
+    .mm-ty .note {
+      display: inline-block; font-family: 'Space Mono', monospace; font-size: 12.5px; letter-spacing: .5px;
+      line-height: 1.55; color: var(--soft); background: var(--panel);
+      border: 1px dashed var(--border); border-radius: 4px; padding: 10px 16px; max-width: 52ch
+    }
+
+    /* ---------- the one decision ---------- */
+    .mm-ty .promise {
+      max-width: 760px; margin: 0 auto; background: var(--panel); border: 1px solid var(--border);
+      border-top: 3px solid var(--teal-deep); border-radius: 6px; padding: clamp(26px, 3.4vw, 44px)
+    }
+    .mm-ty .promise h2 { font-size: clamp(24px, 2.7vw, 34px); letter-spacing: -.5px; margin-bottom: 14px }
+    .mm-ty .promise h2 span { color: var(--teal-deep); display: block }
+    .mm-ty .promise p { max-width: 56ch; margin: 0 auto }
+
+    /* ---------- while you wait ---------- */
+    .mm-ty .head { max-width: 640px; margin: 0 auto clamp(26px, 3vw, 40px) }
+    .mm-ty .head h2 { font-size: clamp(24px, 2.7vw, 34px); letter-spacing: -.5px; margin-bottom: 12px }
+    .mm-ty .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 1.6vw, 22px) }
+    .mm-ty .card {
+      display: flex; flex-direction: column; background: var(--panel); border: 1px solid var(--border);
+      border-radius: 6px; padding: clamp(20px, 2.2vw, 28px); color: var(--ink);
+      transition: border-color .18s ease, transform .18s ease
+    }
+    .mm-ty .card:hover { border-color: var(--teal); transform: translateY(-2px) }
+    .mm-ty .card .kicker {
+      font-family: 'Space Mono', monospace; font-weight: 700; font-size: 11px; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--soft); margin-bottom: 10px
+    }
+    .mm-ty .card h3 { font-size: 19px; margin-bottom: 8px }
+    .mm-ty .card p { font-size: 15px; line-height: 1.55; margin-bottom: 16px }
+    .mm-ty .card .go {
+      margin-top: auto; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 12px;
+      letter-spacing: 2px; text-transform: uppercase; color: var(--teal-deep)
+    }
+
+    /* ---------- the whole book ---------- */
+    .mm-ty .book {
+      display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(20px, 3vw, 40px); align-items: center;
+      background: var(--tint); border: 1px solid var(--border); border-radius: 6px; padding: clamp(24px, 3.2vw, 40px)
+    }
+    .mm-ty .book h2 { font-size: clamp(22px, 2.4vw, 30px); letter-spacing: -.4px; margin-bottom: 10px }
+    .mm-ty .book h2 span { color: var(--teal-deep) }
+    .mm-ty .book p { max-width: 58ch }
+    .mm-ty .book .formats {
+      margin-top: 12px; font-family: 'Space Mono', monospace; font-size: 11.5px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--soft)
+    }
+    .mm-ty .last { padding-bottom: clamp(48px, 6vw, 88px) }
+
+    @media (max-width: 860px) {
+      .mm-ty .cards { grid-template-columns: 1fr }
+      .mm-ty .book { grid-template-columns: 1fr }
+    }
+  </style>
+
+  <!-- ========================= CONFIRMATION ========================= -->
+  <section class="hero centre">
+    <div class="wrap"><div class="inner">
+      <svg class="mark" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="10.5" fill="none" stroke="rgba(47,158,141,0.38)" stroke-width="1"></circle>
+        <circle cx="12" cy="12" r="6" fill="none" stroke="rgba(47,158,141,0.38)" stroke-width="1"></circle>
+        <circle cx="12" cy="12" r="2.4" fill="#17695C"></circle>
+      </svg>
+      <div class="eyebrow">You're in</div>
+      <h1>Chapter 4 is on its way.</h1>
+      <p class="lede">Look for an email in the next few minutes. It has a direct link to your free copy of Chapter 4 of <em>Metrics &amp; Mayhem</em>.</p>
+      <div class="note">Nothing yet? Check spam or promotions. A first email from a new sender often lands there.</div>
+    </div></div>
+  </section>
+
+  <!-- ========================= THE ONE DECISION ========================= -->
+  <section class="centre">
+    <div class="wrap">
+      <div class="promise">
+        <h2>Read it on Monday. <span>Pick your outcome owner by Wednesday.</span></h2>
+        <p>That is the whole point of Chapter 4. The work starts with one decision. One person. One outcome. End to end.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ========================= WHILE YOU WAIT ========================= -->
+  <section>
+    <div class="wrap">
+      <div class="head centre">
+        <div class="eyebrow">While you wait</div>
+        <h2>Three more places to start.</h2>
+        <p>You're also on the list for <em>The Signal</em>: one email every Friday, no vendor pitch.</p>
+      </div>
+      <div class="cards">
+        <a class="card" href="https://www.masteringobservability.com/metrics-and-mayhem/podcast" target="_top">
+          <div class="kicker">Podcast</div>
+          <h3>Metrics &amp; Mayhem</h3>
+          <p>One lesson, one habit, no theatre. Short Signal Drops, hosted by Allan Mann.</p>
+          <span class="go">Listen &rarr;</span>
+        </a>
+        <a class="card" href="https://www.masteringobservability.com/archive" target="_top">
+          <div class="kicker">Archive</div>
+          <h3>Everything, in public</h3>
+          <p>Every issue of The Signal and every article, newest first. Start with the one that fits your week.</p>
+          <span class="go">Browse the archive &rarr;</span>
+        </a>
+        <a class="card" href="https://www.linkedin.com/company/mastering-observability/" target="_blank" rel="noopener">
+          <div class="kicker">LinkedIn</div>
+          <h3>The daily conversation</h3>
+          <p>Where the observability conversation happens between issues. Say hello when Chapter 4 lands for you.</p>
+          <span class="go">Follow &rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= THE WHOLE BOOK ========================= -->
+  <section class="last">
+    <div class="wrap">
+      <div class="book">
+        <div>
+          <div class="eyebrow">The whole book</div>
+          <h2>Chapter 4 is one of eleven. <span>The full book is out now.</span></h2>
+          <p>Eleven chapters on observability that actually works. Each one earns a single decision before the next.</p>
+          <div class="formats">Kindle &middot; Paperback &middot; Hardback</div>
+        </div>
+        <a class="btn" href="https://www.masteringobservability.com/metrics-and-mayhem/book" target="_top">See the book</a>
+      </div>
+    </div>
+  </section>
+</div>
