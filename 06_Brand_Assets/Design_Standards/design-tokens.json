@@ -1,8 +1,8 @@
 {
   "$schema": "mo-design-tokens/1",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "status": "ratified",
-  "updated": "2026-09-18",
+  "updated": "2026-09-21",
   "owner": "Growth",
   "note": "Generated from the MO Design System page. Never hand-edit a producer palette; read this file. 3.3.0 adds ONE rule and ONE required producer flag: The Signal carries its issue number, and blogthumb requires --issue for surface the_signal. See copy.eyebrow_vocabulary.newsletter_issue. NO colour value changed. 3.2.1 was a POINTER-CORRECTION release: consumers.status keys now name the real producer paths, marks.commit_order no longer instructs a commit of two deleted files, and Diagram_Standard.md is repointed - it had told the next person to add hexes to mo_diagram.js, which is now a defect. NO colour value changed and no new token added.",
   "mode": {
@@ -497,7 +497,8 @@
     ],
     "build_check": "Call assertNoRetired / assert_no_retired on your own source in the build. It fails on any retired hex.",
     "status": {
-      "Slide_System/mo_slide_template.js": "not yet consuming",
+      "Slide_System/mo_slide_template.js": "SUPERSEDED 2026-06-15, not pending. Slide_Design_System.md v2.0 retired it (dark master, Archivo Black) and retains it ONLY for the existing FAB teaser deck. It sat on this register as 'not yet consuming' for three months, which misread supersession as owed work — repointing it would have polished a dead artefact while the live producer drifted unlisted.",
+      "08_Revenue/Vendor_Engagement_Toolkit/_deck_source/build_deck.js": "CONSUMING since 2026-09-21 (v2.1.0). THE LIVE DECK PRODUCER — the v2.0 slide system's real implementation — which was in NO standard and absent from this register while its superseded predecessor sat on it. Emits .pptx via pptxgenjs (the deck is presented live, so output format is load-bearing). Reads tokens through mo-tokens.js by relative require from the workspace root; MO_TOKENS overrides. Also fixed at repoint: a dead sandbox path for icons and output that broke every re-run, one retired cream ground, three undeclared near-miss greys collapsed onto on-dark-body / on-dark-soft / soft, one unused constant deleted. Lives in the WORKSPACE tree (08_Revenue is not in the assets repo).",
       "templates/long_form_pdf/reference_strategy_template.html": "not yet consuming",
       "thumbnail_builder.py": "CONSUMING since 2026-09-18 (builder v1.5.0). TWO PATHS, BOTH REAL, which is the point: it is 00_Command_Center/thumbnail_builder.py in the Metrics And Mayhem WORKSPACE tree and tools/thumbnail_builder.py in the mo-social-assets REPO. This register said tools/ and on 2026-09-18 I corrected it to 00_Command_Center/ — that correction was itself wrong, because it assumed a single tree. Keyed unqualified here so neither path is asserted as the only one. The producer resolves BRAND_DIR as dirname(its own directory)/06_Brand_Assets, so it runs in EITHER tree provided design-tokens.json and producers/mo_tokens.py sit in the SAME tree as the builder. Split across two trees is exactly the failure Al hit on first run.",
       "templates/mo_quote_card.js": "NOT CONSUMING. Carries the retired dark palette, so a quote card rendered today is off-brand. Quote_Card_Standard.md was repointed 2026-09-16 and now names this gap explicitly.",
@@ -773,6 +774,7 @@
     ],
     "preflight": "node mo_visual_kit.js preflight — runs every gate, writes nothing."
   },
+  "amended_3_3_1": "2026-09-21 by Al's rulings of 09-15/20 — the video estate. NO colour value changed and no token added: the near-misses in build_deck.js mapped onto EXISTING tokens rather than earning new ones. Consumer register corrected: mo_slide_template.js was superseded, not pending; build_deck.js added as the live deck producer. Video_Card_System_Standard.md amended to LOWER THIRD only (deck absorbs full-frame types; corner insert retired unused). templates/mo_diagram.js — the 14-retired-hit DUPLICATE of the clean producers/mo_diagram.js — filed for git rm, the same duplicate class deleted for mo_visual_kit.js on 09-14.",
   "amended_3_3_0": "2026-09-18 by Al — The Signal carries its issue number. The newsletter eyebrow became a template, blogthumb gained a required --issue for surface the_signal, and eyebrowFor() throws below the 101 anchor so a restart at 01 fails the render. NO colour value changed and no new colour token added. Two items recorded as owed, not fixed: the masthead producer is still off-palette, and ISSUE NNN vs NO. NNN is an unruled divergence.",
   "amended": "2026-09-17 by Al — 3.2.x as recorded; 3.2.2 favicon treatment documented in the marks manifest, retired eye favicon deleted, .ico and webmanifest added. NO colour value changed and no producer touched.",
   "surface_aliases": {

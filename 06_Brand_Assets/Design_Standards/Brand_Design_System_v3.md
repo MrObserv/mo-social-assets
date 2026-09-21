@@ -359,8 +359,10 @@ on 2026-09-12 and stopped being a partial system on 2026-09-16.
 |---|---|
 | `producers/mo_visual_kit.js` | **Consuming** since 2026-09-12. Declares no colour. |
 | `producers/mo_diagram.js` | **Consuming** since 2026-09-16. Declares no colour but white. |
+| `templates/mo_diagram.js` | **DUPLICATE, filed for deletion 2026-09-21.** 14 retired hits; nothing points at it. Same class as the mo_visual_kit.js duplicate deleted 09-14. |
 | `templates/long_form_pdf/reference_strategy_template.html` | Not consuming |
-| `Slide_System/mo_slide_template.js` | Not consuming |
+| `Slide_System/mo_slide_template.js` | **SUPERSEDED 2026-06-15** (Slide_Design_System.md v2.0); FAB teaser deck only. Never repoint. |
+| `08_Revenue/.../_deck_source/build_deck.js` | **CONSUMING** since 2026-09-21 (v2.1.0). The LIVE deck producer; was in no standard and off this list while its superseded predecessor sat on it. |
 | `00_Command_Center/thumbnail_builder.py` | **CONSUMING** since 2026-09-18 |
 | `templates/mo_quote_card.js` | Not consuming |
 | `templates/render_arch_kit.py` | Not consuming |
@@ -396,8 +398,8 @@ producers deleted from the repo on 09-14. The drift is not hypothetical.
    `thumbnail_builder.py` 2026-09-18. Still owed, in
    rough order of exposure: `tt_thumbnail_builder.py`,
    `sd_terminal_square.py`, `render_arch_kit.py`, `render_carousel.py`,
-   `mo_slide_template.js`, `mo_quote_card.js`, the long-form PDF template, the
-   podcast renderers.
+   `mo_quote_card.js`, the long-form PDF template, the
+   podcast renderers. (`mo_slide_template.js` came OFF this list 2026-09-21: superseded, not owed.)
 
    **One unratified value is outstanding:** `dark-border` was added in 3.2.0
    because the dark set had no border or hairline token and a repointed diagram
