@@ -1,6 +1,6 @@
 # Long-Form PDF Standard v2.0
 
-**Version:** 2.0. **Status:** ratified 2026-09-11. **Supersedes:** v1.0 (2026-06-10) on palette and display face only. **Owner:** Growth.
+**Version:** 2.1. **Status:** ratified 2026-09-11; 2.1 amended 2026-09-23 (template repointed, see section 6). **Supersedes:** v1.0 (2026-06-10) on palette and display face only. **Owner:** Growth.
 
 Covers ebooks, lead magnets, strategy papers and client deliverables. v1.0 was written fourteen days before Brand Design System v2.0 and never repointed, so every token in it was retired. This version changes the colours and the display face. **The layout grammar, pagination discipline, chrome and QA gates of v1.0 all survive intact** — they were the best rules in the file.
 
@@ -20,8 +20,8 @@ Tokens: `design-tokens.json`. This file holds no hexes.
 
 | Role | Face | A4 size |
 |---|---|---|
-| Cover title | Montserrat 900 | 42pt |
-| Section heading | Montserrat 800 | 18pt |
+| Cover title | Montserrat 800 (`type.display.weight`) | 42pt |
+| Section heading | Montserrat 800 (`type.heading.weight`) | 18pt |
 | Body | DM Sans 400/700 | 10pt body, 10.5pt h3 |
 | Kicker, footer, table label | Space Mono 700 | 7.5pt kicker, 7pt footer, 8.5pt table label |
 
@@ -49,7 +49,7 @@ A section too long for one page gets a forced break before it. Aim for three or 
 
 ## 5. Archetypes
 
-**Cover.** Ring mark and wordmark top left, crosshair suppressed, mono kicker with a teal rule prefix naming the document type, Montserrat 900 title of three to five words with the payoff line in bright teal, lead paragraph, author line, vertical teal band.
+**Cover.** Ring mark and wordmark top left, crosshair suppressed, mono kicker with a teal rule prefix naming the document type, Montserrat 800 title of three to five words with the payoff line in bright teal, lead paragraph, author line, vertical teal band.
 
 **Section opener.** Large ghost numeral, kicker, Montserrat 800 heading, one intro paragraph. No body content.
 
@@ -65,7 +65,11 @@ WeasyPrint 69 or later, A4 portrait. CSS uses `@page` for chrome and `@page :fir
 
 Output: `[Topic] - [Subject] (MO Branded).pdf`, filed in the relevant project folder. HTML source lives in `templates/long_form_pdf/`.
 
-**Owed:** `reference_strategy_template.html` still carries 13 retired-token hits and must be repointed before the next build.
+**Build:** `python render_long_form.py <template>.html --pdf "<out>.pdf"`, from `templates/long_form_pdf/`. Opening a template directly renders colourless by design: colour exists only after resolution. The renderer refuses a template carrying any colour literal (hex, `rgb()`, named; comments are not exempt), any unknown token, any unresolved placeholder, any retired hex, and any output hex that is not a declared token value.
+
+**Cleared 2026-09-23:** `reference_strategy_template.html` repointed (v2.1.0). The Owed line here said 13 retired-token hits; the file measured 51 hex literals across 12 distinct values, plus three `rgba()` literals no count had included. All now resolve by token name; the template greps to zero. Brought to v2.0 in the same pass, because a repoint that kept a dark interior would have been token-clean and still off-standard: interior light, Archivo Black replaced by Montserrat at the token weights, cover crosshair glyph replaced by the ring mark resolved by name, body crosshair drawn rather than typed, 6px card radius on panels. Section opener and closing archetypes added (section 5), since the template had neither and both were needed to prove it.
+
+**Weight note:** section 2 said 900 for the cover title. `design-tokens.json` ruled 800 on 2026-09-14 (no Black face in the estate). Tokens win; the table now names the token rather than a number.
 
 ## 7. QA gate
 

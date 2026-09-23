@@ -3,18 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <title>Enterprise Observability and AIOps Strategy</title>
+<!--
+  reference_strategy_template.html v2.1.0, 2026-09-23. Long_Form_PDF_Standard_v2.md.
+  Holds NO colour literal. Every colour is an mo placeholder, resolved from
+  design-tokens.json by render_long_form.py (beside this file) through mo_tokens.py.
+  Opening this file directly in a browser or WeasyPrint renders colourless: that is
+  deliberate, so an unresolved build cannot pass for a finished one. Build with:
+    python render_long_form.py reference_strategy_template.html --pdf out.pdf
+-->
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 
 @page {
   size: A4;
   margin: 14mm 14mm 16mm 14mm;
-  background: #0A0E17;
+  background: {{mo:light.ground}};
   @bottom-left {
     content: "ALLAN MANN \00B7 MASTERINGOBSERVABILITY.COM \00B7 PREPARED FOR [REDACTED CLIENT]";
     font-family: 'Space Mono', monospace;
     font-size: 7pt;
-    color: #7F94A8;
+    color: {{mo:light.soft}};
     letter-spacing: 0.12em;
     padding-top: 3mm;
   }
@@ -22,21 +30,20 @@
     content: "STRATEGY \00B7 " counter(page);
     font-family: 'Space Mono', monospace;
     font-size: 7pt;
-    color: #7F94A8;
+    color: {{mo:light.soft}};
     letter-spacing: 0.12em;
     padding-top: 3mm;
   }
   @top-right {
-    content: "+";
-    font-family: 'Space Mono', monospace;
-    font-size: 14pt;
-    color: #2DD4BF;
+    /* Crosshair is DRAWN, never a typed glyph (standard section 3). */
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath d='M7 0V14M0 7H14' stroke='{{mo:url:light.teal}}' stroke-width='1.2'/%3E%3C/svg%3E");
     padding-right: 0;
   }
 }
 
 @page :first {
   margin: 0;
+  background: {{mo:dark.dark-ground}};
   @bottom-left { content: ""; }
   @bottom-right { content: ""; }
   @top-right { content: ""; }
@@ -50,15 +57,15 @@ html, body {
   font-family: 'DM Sans', sans-serif;
   font-size: 10pt;
   line-height: 1.45;
-  color: #E8E8E8;
-  background: #0A0E17;
+  color: {{mo:light.ink}};
+  background: {{mo:light.ground}};
 }
 
 /* COVER */
 .cover {
   width: 210mm;
   height: 297mm;
-  background: #0A0E17;
+  background: {{mo:dark.dark-ground}};
   position: relative;
   padding: 26mm 22mm 18mm 22mm;
   page-break-after: always;
@@ -73,7 +80,7 @@ html, body {
   width: 280mm;
   height: 280mm;
   border-radius: 50%;
-  border: 1px solid rgba(45,212,191,0.10);
+  border: 1px solid {{mo:rgba:dark.teal:0.10}};
   pointer-events: none;
 }
 .cover::after {
@@ -84,25 +91,24 @@ html, body {
   width: 220mm;
   height: 220mm;
   border-radius: 50%;
-  border: 1px solid rgba(45,212,191,0.06);
+  border: 1px solid {{mo:rgba:dark.teal:0.06}};
   pointer-events: none;
 }
 
-.cover-corner {
-  position: absolute;
-  top: 14mm;
-  right: 14mm;
-  font-family: 'Space Mono', monospace;
-  font-size: 16pt;
-  color: #2DD4BF;
-  line-height: 1;
+/* Cover carries the ring mark with the wordmark, top left; the crosshair is
+   suppressed on the cover (standard section 5). */
+.cover-mark {
+  display: block;
+  width: 12mm;
+  height: 12mm;
+  margin-bottom: 5mm;
 }
 
 .cover-brand {
   font-family: 'DM Sans', sans-serif;
   font-size: 11pt;
   font-weight: 700;
-  color: #ffffff;
+  color: {{mo:light.panel}};
   letter-spacing: 0.05em;
   margin-bottom: 2mm;
 }
@@ -113,7 +119,7 @@ html, body {
   font-weight: 400;
   letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
+  color: {{mo:dark.on-dark-soft}};
   margin-top: 2mm;
 }
 
@@ -122,7 +128,7 @@ html, body {
   font-size: 8.5pt;
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: #14A3A8;
+  color: {{mo:dark.teal-bright}};
   font-weight: 700;
   margin-top: 28mm;
   margin-bottom: 16mm;
@@ -136,21 +142,21 @@ html, body {
   top: 50%;
   width: 12mm;
   height: 1px;
-  background: #14A3A8;
+  background: {{mo:dark.teal}};
 }
 
 .cover-title {
-  font-family: 'Archivo Black', sans-serif;
-  font-weight: 400;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: {{mo:raw:type.display.weight}};
   font-size: 42pt;
   line-height: 1.05;
   letter-spacing: -0.02em;
-  color: #ffffff;
+  color: {{mo:light.panel}};
   margin-bottom: 4mm;
   text-transform: none;
 }
 .cover-title .accent {
-  color: #64FFDA;
+  color: {{mo:dark.teal-bright}};
 }
 
 .cover-lede {
@@ -158,7 +164,7 @@ html, body {
   font-weight: 400;
   font-size: 12.5pt;
   line-height: 1.5;
-  color: #A8D8EA;
+  color: {{mo:dark.on-dark-body}};
   max-width: 150mm;
   margin-top: 8mm;
 }
@@ -168,7 +174,7 @@ html, body {
   bottom: 22mm;
   left: 22mm;
   right: 22mm;
-  border-top: 1px solid #0F3D3F;
+  border-top: 1px solid {{mo:dark.dark-border}};
   padding-top: 6mm;
 }
 
@@ -176,17 +182,17 @@ html, body {
   font-family: 'DM Sans', sans-serif;
   font-size: 9.5pt;
   font-weight: 500;
-  color: #E8E8E8;
+  color: {{mo:dark.on-dark-body}};
   margin-bottom: 3mm;
 }
-.cover-foot .author .dot { color: #14A3A8; margin: 0 6px; font-weight: 400; }
-.cover-foot .author .em { color: #64FFDA; font-weight: 600; }
+.cover-foot .author .dot { color: {{mo:dark.teal}}; margin: 0 6px; font-weight: 400; }
+.cover-foot .author .em { color: {{mo:dark.teal-bright}}; font-weight: 600; }
 
 .cover-foot .note {
   font-family: 'Space Mono', monospace;
   font-size: 7pt;
   line-height: 1.55;
-  color: #7F94A8;
+  color: {{mo:dark.on-dark-soft}};
   letter-spacing: 0.04em;
   max-width: 150mm;
   margin-top: 4mm;
@@ -198,7 +204,7 @@ html, body {
   bottom: 0;
   width: 8mm;
   height: 40mm;
-  background: #14A3A8;
+  background: {{mo:dark.teal}};
 }
 
 /* BODY */
@@ -217,7 +223,7 @@ html, body {
   font-size: 7.5pt;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: #14A3A8;
+  color: {{mo:light.teal-deep}};
   font-weight: 700;
   margin-bottom: 2mm;
 }
@@ -225,16 +231,16 @@ html, body {
 h2 {
   page-break-after: avoid;
   break-after: avoid;
-  font-family: 'Archivo Black', sans-serif;
-  font-weight: 400;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: {{mo:raw:type.heading.weight}};
   font-size: 18pt;
   line-height: 1.15;
-  color: #ffffff;
+  color: {{mo:light.ink}};
   margin-bottom: 4mm;
   letter-spacing: -0.005em;
 }
 h2 .num {
-  color: #64FFDA;
+  color: {{mo:light.teal-deep}};
   margin-right: 4mm;
   font-family: 'Space Mono', monospace;
   font-size: 12pt;
@@ -247,20 +253,20 @@ h3 {
   font-family: 'DM Sans', sans-serif;
   font-weight: 700;
   font-size: 10.5pt;
-  color: #ffffff;
+  color: {{mo:light.ink}};
   margin-top: 4mm;
   margin-bottom: 2mm;
   letter-spacing: 0.005em;
 }
 
-p { margin-bottom: 3mm; color: #E8E8E8; }
+p { margin-bottom: 3mm; color: {{mo:light.ink}}; }
 
 ul { padding-left: 5mm; margin-bottom: 4mm; list-style: none; }
 li {
   margin-bottom: 1.5mm;
   padding-left: 5mm;
   position: relative;
-  color: #E8E8E8;
+  color: {{mo:light.ink}};
 }
 li::before {
   content: "";
@@ -269,17 +275,19 @@ li::before {
   top: 8px;
   width: 2.5mm;
   height: 1px;
-  background: #2DD4BF;
+  background: {{mo:light.teal}};
 }
 
-strong { color: #ffffff; font-weight: 700; }
+strong { color: {{mo:light.navy}}; font-weight: 700; }
 
+/* Panels carry the card radius (standard section 3, changed from v1.0). */
 .pull {
-  background: #0F2B2D;
-  border-left: 2.5pt solid #2DD4BF;
+  background: {{mo:light.tint}};
+  border-left: 2.5pt solid {{mo:light.teal}};
+  border-radius: {{mo:raw:structure.radius.card}};
   padding: 5mm 6mm;
   margin: 5mm 0;
-  color: #ffffff;
+  color: {{mo:light.ink}};
   font-family: 'DM Sans', sans-serif;
   font-size: 11pt;
   line-height: 1.5;
@@ -291,8 +299,12 @@ table {
   border-collapse: collapse;
   margin: 4mm 0;
   font-size: 9pt;
-  background: #0C1929;
-  border: 1px solid #0F3D3F;
+  background: {{mo:light.panel}};
+  border: 1px solid {{mo:light.border}};
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: {{mo:raw:structure.radius.card}};
+  overflow: hidden;
 }
 
 th {
@@ -300,20 +312,20 @@ th {
   font-weight: 700;
   font-size: 7.5pt;
   text-align: left;
-  background: #0F2B2D;
-  color: #64FFDA;
+  background: {{mo:light.tint}};
+  color: {{mo:light.teal-deep}};
   padding: 3mm 4mm;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  border-bottom: 1px solid #0F3D3F;
+  border-bottom: 1px solid {{mo:light.border}};
 }
 
 td {
-  border-bottom: 1px solid #0F3D3F;
+  border-bottom: 1px solid {{mo:light.hairline}};
   padding: 3mm 4mm;
   vertical-align: top;
   line-height: 1.45;
-  color: #E8E8E8;
+  color: {{mo:light.ink}};
 }
 td:last-child { border-right: none; }
 tr:last-child td { border-bottom: none; }
@@ -322,7 +334,7 @@ td.label {
   font-family: 'Space Mono', monospace;
   font-weight: 700;
   font-size: 8.5pt;
-  color: #64FFDA;
+  color: {{mo:light.teal-deep}};
   white-space: nowrap;
   letter-spacing: 0.06em;
 }
@@ -335,11 +347,12 @@ td.label {
 }
 
 .three-year .col {
-  background: #0F2B2D;
-  border-top: 2.5pt solid #2DD4BF;
-  border-bottom: 1px solid #0F3D3F;
-  border-left: 1px solid #0F3D3F;
-  border-right: 1px solid #0F3D3F;
+  background: {{mo:light.panel}};
+  border-top: 2.5pt solid {{mo:light.teal}};
+  border-bottom: 1px solid {{mo:light.border}};
+  border-left: 1px solid {{mo:light.border}};
+  border-right: 1px solid {{mo:light.border}};
+  border-radius: {{mo:raw:structure.radius.card}};
   padding: 5mm 5mm 6mm 5mm;
 }
 
@@ -349,7 +362,7 @@ td.label {
   letter-spacing: 0.22em;
   text-transform: uppercase;
   font-weight: 700;
-  color: #14A3A8;
+  color: {{mo:light.teal-deep}};
   margin-bottom: 3mm;
 }
 
@@ -357,13 +370,15 @@ td.label {
   font-family: 'DM Sans', sans-serif;
   font-size: 9pt;
   line-height: 1.5;
-  color: #E8E8E8;
+  color: {{mo:light.ink}};
 }
 
 .callout {
-  background: #0F2B2D;
-  border-left: 3pt solid #FFD166;
-  color: #ffffff;
+  background: {{mo:light.panel}};
+  border: 1px solid {{mo:light.border}};
+  border-left: 3pt solid {{mo:light.semantic-high}};
+  border-radius: {{mo:raw:structure.radius.card}};
+  color: {{mo:light.ink}};
   padding: 5mm 6mm;
   margin: 6mm 0;
   font-family: 'DM Sans', sans-serif;
@@ -372,7 +387,7 @@ td.label {
   font-weight: 500;
 }
 .callout strong {
-  color: #FFD166;
+  color: {{mo:light.semantic-high}};
   font-weight: 700;
 }
 
@@ -380,20 +395,85 @@ td.label {
   font-family: 'Space Mono', monospace;
   font-weight: 700;
   font-size: 8pt;
-  color: #FFD166;
+  color: {{mo:light.semantic-high}};
   letter-spacing: 0.08em;
 }
 
 .pagebreak { page-break-before: always; }
+
+/* SECTION OPENER archetype (standard section 5): ghost numeral, kicker,
+   heading, one intro paragraph, no body content. Owns its page. */
+.opener {
+  page-break-before: always;
+  page-break-after: always;
+  break-inside: avoid;
+  padding-top: 70mm;
+  position: relative;
+}
+.opener .ghost {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: {{mo:raw:type.display.weight}};
+  font-size: 150pt;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  color: {{mo:light.hairline}};
+  margin-bottom: 8mm;
+}
+.opener h2 { font-size: 30pt; line-height: 1.08; margin-bottom: 6mm; }
+.opener p { font-size: 12pt; line-height: 1.5; max-width: 140mm; color: {{mo:light.muted}}; }
+
+/* CLOSING archetype (standard section 5): numbered actions, then ONE dark
+   card carrying the single ask. Never two asks. */
+.closing { page-break-before: always; break-inside: avoid; }
+.closing ol { list-style: none; counter-reset: act; margin: 2mm 0 8mm 0; }
+.closing ol li {
+  counter-increment: act;
+  padding: 4mm 0 4mm 14mm;
+  border-bottom: 1px solid {{mo:light.hairline}};
+  margin: 0;
+}
+.closing ol li::before {
+  content: counter(act, decimal-leading-zero);
+  background: none;
+  width: auto;
+  height: auto;
+  top: 4mm;
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 10pt;
+  color: {{mo:light.teal-deep}};
+}
+.ask {
+  background: {{mo:dark.dark-ground}};
+  border-radius: {{mo:raw:structure.radius.panel_large}};
+  padding: 9mm 10mm;
+  break-inside: avoid;
+}
+.ask .kicker { color: {{mo:dark.teal-bright}}; }
+.ask .line {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: {{mo:raw:type.heading.weight}};
+  font-size: 18pt;
+  line-height: 1.2;
+  color: {{mo:light.panel}};
+  margin: 2mm 0 4mm 0;
+}
+.ask .how { color: {{mo:dark.on-dark-body}}; margin-bottom: 5mm; }
+.ask .contact {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 10pt;
+  letter-spacing: 0.04em;
+  color: {{mo:dark.teal-bright}};
+}
 
 </style>
 </head>
 <body>
 
 <div class="cover">
-  <div class="cover-corner">+</div>
-
   <div class="cover-brand">
+    <img class="cover-mark" src="{{mo:mark:ring_mark:on_dark}}" alt="">
     Mastering Observability
     <span class="sub">advisory &middot; strategy &middot; practice</span>
   </div>
@@ -460,7 +540,12 @@ td.label {
   </ul>
 </div>
 
-<div class="pagebreak"></div>
+<div class="opener">
+  <div class="ghost">02</div>
+  <div class="kicker">Part two &middot; Delivery</div>
+  <h2>From the plan to the<br>running function</h2>
+  <p>Part one set the destination. Part two is how the group gets there: the platform decision, the gated AIOps roadmap, the team, the first hundred days and the money.</p>
+</div>
 
 <div class="section">
   <div class="kicker">Section 04 &middot; Platform decision</div>
@@ -574,19 +659,36 @@ td.label {
     </thead>
     <tbody>
       <tr>
-        <td class="label">A UAE government platform</td>
+        <td class="label">TAMM, Abu Dhabi</td>
         <td>45% alert-noise reduction, 50% MTTR reduction, 99.99% uptime. Observability function and around 15-person team built from scratch. UN WSIS Prize 2025. The stage-2-done-well and GCC-delivery proof.</td>
       </tr>
       <tr>
-        <td class="label">A global tier-1 bank</td>
+        <td class="label">Standard Chartered</td>
         <td>Monitoring modernised across 40+ countries. Around &pound;8m operational savings, $1.7m downtime cost avoidance. ServiceNow Event Management across the estate. Zero MAS and ASIC audit findings. The correlation-at-scale and operating-model proof.</td>
       </tr>
       <tr>
-        <td class="label">A tier-1 UK bank</td>
+        <td class="label">Lloyds Banking Group</td>
         <td>Important Business Services observability under PRA, FCA and Bank of England scrutiny. Metric methodology and Dynatrace business events on three of the bank's largest payment applications. The regulator-grade proof.</td>
       </tr>
     </tbody>
   </table>
+</div>
+
+<div class="closing">
+  <div class="kicker">Section 10 &middot; Next steps</div>
+  <h2><span class="num">10</span>What happens next</h2>
+  <ol>
+    <li><strong>Ratify the strategy.</strong> Exec sponsor and risk committee sign the three-year arc and the gate definitions.</li>
+    <li><strong>Lock the RFP criteria.</strong> Procurement and the CISO co-own them before any vendor conversation resumes.</li>
+    <li><strong>Start the noise sprint.</strong> The top three alert-storm sources, measured before and after, reported at day 60.</li>
+    <li><strong>Name the SLI / SLO pilot.</strong> One critical business service, end to end, owned jointly with its engineering team.</li>
+  </ol>
+  <div class="ask">
+    <div class="kicker">The one ask</div>
+    <div class="line">A 45-minute working session with the exec sponsor to pressure-test the gates.</div>
+    <div class="how">Bring the last three major-incident post-mortems. The gates are argued against real failures, not slides.</div>
+    <div class="contact">{{mo:raw:contact.email}} &middot; {{mo:raw:contact.domain}}</div>
+  </div>
 </div>
 
 </div>
