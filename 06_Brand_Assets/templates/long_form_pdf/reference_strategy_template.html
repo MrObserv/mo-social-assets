@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Enterprise Observability and AIOps Strategy</title>
 <!--
-  reference_strategy_template.html v2.1.0, 2026-09-23. Long_Form_PDF_Standard_v2.md.
+  reference_strategy_template.html v2.2.0, 2026-09-27 (v2.2 archetypes added). Long_Form_PDF_Standard_v2.md.
   Holds NO colour literal. Every colour is an mo placeholder, resolved from
   design-tokens.json by render_long_form.py (beside this file) through mo_tokens.py.
   Opening this file directly in a browser or WeasyPrint renders colourless: that is
@@ -401,6 +401,181 @@ td.label {
 
 .pagebreak { page-break-before: always; }
 
+/* ---- v2.2 archetypes (standard section 5), 2026-09-27 ---- */
+
+/* AT A GLANCE: side 2, always. Question, up to five findings, contents,
+   sourcing note. Owns its side. */
+.glance { page-break-before: always; page-break-after: always; break-inside: avoid; }
+.glance .question {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: {{mo:raw:type.heading.weight}};
+  font-size: 22pt;
+  line-height: 1.12;
+  color: {{mo:light.ink}};
+  margin: 2mm 0 7mm 0;
+}
+.findings { border-top: 1px solid {{mo:light.border}}; margin-bottom: 7mm; }
+.findings .f {
+  display: flex;
+  gap: 5mm;
+  padding: 3.5mm 0;
+  border-bottom: 1px solid {{mo:light.hairline}};
+  break-inside: avoid;
+}
+.findings .n {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 10pt;
+  color: {{mo:light.teal-deep}};
+  width: 9mm;
+  flex: none;
+}
+.findings .claim {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: {{mo:raw:type.heading.weight}};
+  font-size: 12pt;
+  line-height: 1.2;
+  color: {{mo:light.ink}};
+  margin-bottom: 1mm;
+}
+.findings .why { font-size: 10pt; color: {{mo:light.muted}}; margin: 0; }
+.contents { display: flex; gap: 4mm; margin-bottom: 7mm; }
+.contents div {
+  flex: 1;
+  border-top: 2.5pt solid {{mo:light.teal}};
+  padding-top: 2mm;
+  font-size: 9.5pt;
+  color: {{mo:light.ink}};
+}
+.contents b {
+  display: block;
+  font-family: 'Space Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.12em;
+  color: {{mo:light.teal-deep}};
+}
+.sourcing {
+  background: {{mo:light.panel}};
+  border: 1px solid {{mo:light.border}};
+  border-radius: {{mo:raw:structure.radius.card}};
+  padding: 4mm 5mm;
+  font-size: 9pt;
+  color: {{mo:light.muted}};
+}
+.sourcing .kicker { margin-bottom: 1mm; }
+
+/* EVIDENCE: a hero number, or one or two chart modules. Claim, read, chart,
+   source, in that order. A module never splits (break-inside) and never
+   starts in the bottom third of a side (QA gate: CSS cannot enforce it). */
+.hero { break-inside: avoid; margin: 4mm 0 6mm 0; }
+.hero .v {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: {{mo:raw:type.display.weight}};
+  font-size: 72pt;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: {{mo:light.teal-deep}};
+}
+.hero .v small { font-size: 22pt; letter-spacing: 0; }
+.hero .cap {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 8.5pt;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: {{mo:light.muted}};
+  margin-top: 2mm;
+}
+.fig {
+  background: {{mo:light.panel}};
+  border: 1px solid {{mo:light.border}};
+  border-radius: {{mo:raw:structure.radius.card}};
+  padding: 5mm 6mm;
+  margin: 4mm 0 1.5mm 0;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.fig .claim {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: {{mo:raw:type.heading.weight}};
+  font-size: 12.5pt;
+  line-height: 1.25;
+  color: {{mo:light.ink}};
+  margin-bottom: 1mm;
+}
+.fig .measure { font-size: 9.5pt; color: {{mo:light.muted}}; margin-bottom: 4mm; }
+.bars { width: 100%; border: 0; background: none; border-radius: 0; margin: 0; overflow: visible; }
+.bars td { border: 0; padding: 1.2mm 0; vertical-align: middle; font-size: 9.5pt; }
+.bars td.l { width: 38mm; padding-right: 3mm; }
+.bars .bar { display: inline-block; height: 4mm; vertical-align: middle; border-radius: 0 1mm 1mm 0; background: {{mo:light.border}}; }
+.bars .hi .bar { background: {{mo:light.teal-deep}}; }
+.bars .val { font-family: 'Space Mono', monospace; font-size: 8.5pt; color: {{mo:light.muted}}; padding-left: 2mm; }
+.bars .hi .val { font-weight: 700; color: {{mo:light.teal-deep}}; }
+.source {
+  font-family: 'Space Mono', monospace;
+  font-size: 7.5pt;
+  letter-spacing: 0.04em;
+  color: {{mo:light.soft}};
+  margin-bottom: 6mm;
+}
+
+/* FRAMEWORK: numbered, at most five. Closes a section, never opens one. */
+.framework { list-style: none; margin: 4mm 0; }
+.framework li {
+  padding: 5mm 6mm 5mm 20mm;
+  margin-bottom: 3mm;
+  background: {{mo:light.panel}};
+  border: 1px solid {{mo:light.border}};
+  border-top: 2.5pt solid {{mo:light.teal}};
+  border-radius: {{mo:raw:structure.radius.card}};
+  break-inside: avoid;
+  counter-increment: fw;
+}
+.framework { counter-reset: fw; }
+.framework li::before {
+  content: counter(fw);
+  background: none;
+  width: auto;
+  height: auto;
+  left: 6mm;
+  top: 4mm;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: {{mo:raw:type.display.weight}};
+  font-size: 26pt;
+  line-height: 1;
+  color: {{mo:light.teal-deep}};
+}
+.framework .tag {
+  display: block;
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 8pt;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: {{mo:light.teal-deep}};
+}
+
+/* FIELD: the author's first-hand story. Label text is fixed. */
+.field {
+  background: {{mo:light.tint}};
+  border-left: 2.5pt solid {{mo:light.teal}};
+  border-radius: {{mo:raw:structure.radius.card}};
+  padding: 5mm 6mm;
+  margin: 5mm 0;
+  break-inside: avoid;
+}
+.field .label {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 8pt;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: {{mo:light.teal-deep}};
+  margin-bottom: 2mm;
+}
+.field p { margin-bottom: 2mm; }
+.field p:last-child { margin-bottom: 0; }
+
 /* SECTION OPENER archetype (standard section 5): ghost numeral, kicker,
    heading, one intro paragraph, no body content. Owns its page. */
 .opener {
@@ -494,6 +669,26 @@ td.label {
 
 <div class="body">
 
+<div class="glance">
+  <div class="kicker">At a glance</div>
+  <div class="question">What would change if this function were measured on outcomes, not activity?</div>
+  <div class="findings">
+    <div class="f"><span class="n">01</span><div><div class="claim">Outcomes decide the tooling, not the reverse</div><p class="why">Six outcomes define the seat; every platform choice is tested against them.</p></div></div>
+    <div class="f"><span class="n">02</span><div><div class="claim">AIOps is earned through gates</div><p class="why">Each phase unlocks only when the one before it has measurably held.</p></div></div>
+    <div class="f"><span class="n">03</span><div><div class="claim">Noise is the first thing to fix</div><p class="why">Alert volume falls before anything new is added.</p></div></div>
+  </div>
+  <div class="contents">
+    <div><b>01</b>Outcomes</div>
+    <div><b>02</b>Delivery</div>
+    <div><b>03</b>Team and money</div>
+    <div><b>10</b>Next steps</div>
+  </div>
+  <div class="sourcing">
+    <div class="kicker">How this was sourced</div>
+    The author's own practice, public standards and published post-mortems. Figures are illustrative in this reference template; every piece replaces them and keeps a source line under each.
+  </div>
+</div>
+
 <div class="section">
   <div class="kicker">Section 01 &middot; Outcomes</div>
   <h2><span class="num">01</span>What success in this seat is</h2>
@@ -506,6 +701,11 @@ td.label {
     <li>A high-performing team that runs this as a product, not a project.</li>
     <li>Executive and risk-committee reporting that leadership can act on, and that stands up in front of auditors and the regulator.</li>
   </ul>
+  <div class="field">
+    <div class="label">From the field</div>
+    <p>The first estate I audited had every host green and a customer journey that had been failing for two weeks. Nothing was wrong with the tooling. Nobody owned the journey.</p>
+  </div>
+
   <div class="pull">Year one: a single operational truth and a defended platform decision. Year two: the bank stops finding out about incidents from customers. Year three: the converged platform is the regulator's favourite exhibit, not its concern.</div>
 </div>
 
@@ -538,6 +738,23 @@ td.label {
     <li><strong>Intelligence.</strong> The platform decision plus the AIOps engine: correlation, anomaly detection, noise reduction, assisted RCA. Governed by the gates.</li>
     <li><strong>Engagement.</strong> ServiceNow as the workflow spine: event-to-incident automation, MIM embedding, change correlation, CMDB / CSDM as the topology backbone. Executive and risk-committee reporting from one curated metrics store, not screenshots.</li>
   </ul>
+</div>
+
+<div class="section" style="page-break-before: always">
+  <div class="kicker">Evidence 1.1 &middot; Detection</div>
+  <h2>Most of an outage passes before anyone knows</h2>
+  <p>The clock that matters starts at the fault, not at the alert.</p>
+  <div class="hero"><div class="v">41<small> min</small></div><div class="cap">Illustrative mean time to detect</div></div>
+  <div class="fig">
+    <div class="claim">Detection, not repair, is the larger share</div>
+    <div class="measure">Minutes per high-impact incident, illustrative</div>
+    <table class="bars">
+      <tr class="hi"><td class="l">Detect</td><td><span class="bar" style="width: 62%"></span><span class="val">41</span></td></tr>
+      <tr><td class="l">Diagnose</td><td><span class="bar" style="width: 38%"></span><span class="val">25</span></td></tr>
+      <tr><td class="l">Repair</td><td><span class="bar" style="width: 20%"></span><span class="val">13</span></td></tr>
+    </table>
+  </div>
+  <div class="source">Source: illustrative figures for the reference template; replace per piece</div>
 </div>
 
 <div class="opener">
@@ -659,19 +876,29 @@ td.label {
     </thead>
     <tbody>
       <tr>
-        <td class="label">TAMM, Abu Dhabi</td>
+        <td class="label">Government services, GCC</td>
         <td>45% alert-noise reduction, 50% MTTR reduction, 99.99% uptime. Observability function and around 15-person team built from scratch. UN WSIS Prize 2025. The stage-2-done-well and GCC-delivery proof.</td>
       </tr>
       <tr>
-        <td class="label">Standard Chartered</td>
+        <td class="label">Global bank, 40+ countries</td>
         <td>Monitoring modernised across 40+ countries. Around &pound;8m operational savings, $1.7m downtime cost avoidance. ServiceNow Event Management across the estate. Zero MAS and ASIC audit findings. The correlation-at-scale and operating-model proof.</td>
       </tr>
       <tr>
-        <td class="label">Lloyds Banking Group</td>
+        <td class="label">UK retail bank</td>
         <td>Important Business Services observability under PRA, FCA and Bank of England scrutiny. Metric methodology and Dynatrace business events on three of the bank's largest payment applications. The regulator-grade proof.</td>
       </tr>
     </tbody>
   </table>
+</div>
+
+<div class="section">
+  <div class="kicker">Framework 1 &middot; Coverage</div>
+  <h2>Three things must be true before an alert is coverage</h2>
+  <ol class="framework">
+    <li><span class="tag">Signal</span><strong>The fault emits something.</strong> A metric, log or span changes when the journey breaks, not only when a host does.</li>
+    <li><span class="tag">Rule</span><strong>Something is watching for it.</strong> An alert condition exists, is enabled, and has fired in the last quarter.</li>
+    <li><span class="tag">Route</span><strong>A human who can act receives it.</strong> The page reaches an owner with authority, not a shared channel.</li>
+  </ol>
 </div>
 
 <div class="closing">

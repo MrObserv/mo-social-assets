@@ -1,6 +1,6 @@
 # Long-Form PDF Standard v2.0
 
-**Version:** 2.1. **Status:** ratified 2026-09-11; 2.1 amended 2026-09-23 (template repointed, see section 6). **Supersedes:** v1.0 (2026-06-10) on palette and display face only. **Owner:** Growth.
+**Version:** 2.2. **Status:** ratified 2026-09-11; 2.1 amended 2026-09-23 (template repointed, see section 6); 2.2 amended 2026-09-27 (four archetypes and chart rules, from the vendor ebook review agreed by Design and Long-Form). **Supersedes:** v1.0 (2026-06-10) on palette and display face only. **Owner:** Growth.
 
 Covers ebooks, lead magnets, strategy papers and client deliverables. v1.0 was written fourteen days before Brand Design System v2.0 and never repointed, so every token in it was retired. This version changes the colours and the display face. **The layout grammar, pagination discipline, chrome and QA gates of v1.0 all survive intact** — they were the best rules in the file.
 
@@ -59,6 +59,35 @@ A section too long for one page gets a forced break before it. Aim for three or 
 
 **Closing page.** Numbered actions, then one dark card carrying the single ask. Never two asks.
 
+**At a glance (v2.2).** Side 2 of every ebook, always. The question, at most five findings (each a claim plus one sentence), a contents strip of at most five items, and a "How this was sourced" box at the foot. It replaces a separate contents side, so it adds no side to a signed count. Class `.glance`.
+
+**Evidence (v2.2).** A hero number (Montserrat at the display weight, Space Mono caption) or one or two chart modules, each in a `.fig` card: claim, measure, bars, then a `.source` line. Classes `.hero`, `.fig`, `.bars`, `.source`.
+
+**Framework (v2.2).** A numbered list of at most five cards, each with a mono tag and a one-line bold claim. Closes a section, never opens one. Class `.framework`.
+
+**Field sidebar (v2.2).** The author's first-hand story, labelled FROM THE FIELD, fixed text. Tinted panel with a teal left rule. No client or employer names, because the repo is public. Class `.field`.
+
+**Section openers are light.** The cover is the only dark side; inside, the ask card is the only dark element. At most three openers per ebook.
+
+### Headings state the claim (v2.2)
+
+A heading is the finding as a sentence, never the name of the topic ("Most of an outage passes before anyone knows", not "Detection"). Two lines at most: about 60 characters at h2, about 40 on an opener. A longer claim is a copy fix, not a smaller size.
+
+### Chart and placement rules (v2.2)
+
+1. Claim, read, chart, source, in that order.
+2. Two modules a side, at most.
+3. Full text-column width, never floated; no text wraps a chart.
+4. A module never splits and never starts in the bottom third of a side; it moves to the next side and the prose closes the gap.
+5. On the side where it is first cited, labelled the same in prose and kicker ("Evidence 1.1").
+6. No more than three prose sides without a figure; no two hero-number sides in a row.
+7. Horizontal bars, sorted, labelled directly, value at the bar end. One highlight bar (`light.teal-deep`): the one the claim names. The rest `light.border`. No axis, gridlines or legend.
+8. Banned: pie, donut, 3D, dual axes, stacked bars of more than two parts, legends, and any number without a source line, including the author's own. A derived number says it is derived. A vendor figure is cited, never restyled as our finding; whether a piece uses vendor figures at all is Content's call.
+
+### Series rule (v2.2)
+
+Every framework ebook and the Signal Audit workbook build on these archetypes from the template, not piece-local CSS, so the set reads as one family.
+
 ## 6. Production
 
 WeasyPrint 69 or later, A4 portrait. CSS uses `@page` for chrome and `@page :first` to suppress it on the cover. Colours come from `design-tokens.json` via `mo_tokens.py`; the template holds no hexes.
@@ -72,6 +101,9 @@ Output: `[Topic] - [Subject] (MO Branded).pdf`, filed in the relevant project fo
 **Weight note:** section 2 said 900 for the cover title. `design-tokens.json` ruled 800 on 2026-09-14 (no Black face in the estate). Tokens win; the table now names the token rather than a number.
 
 ## 7. QA gate
+
+**v2.2 additions:** every number has a source line; no chart module starts in the bottom third of a side (checked by eye at full size, since CSS cannot enforce it); every heading is a claim of two lines or fewer; side 2 is At a glance.
+
 
 1. Render the full document and look at every page, thumbnail and full size.
 2. No orphaned headings. Every heading travels with at least its first paragraph.
