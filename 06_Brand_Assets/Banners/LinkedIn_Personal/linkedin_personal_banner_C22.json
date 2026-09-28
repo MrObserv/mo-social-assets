@@ -1,0 +1,65 @@
+{
+  "claim": "C22",
+  "text": "Observability that survives the bridge call.",
+  "lines": [
+    "Observability that",
+    "survives the bridge call."
+  ],
+  "kicker": "IT OPERATIONS LEADER",
+  "lockup": "MASTERING OBSERVABILITY",
+  "safe": [
+    228,
+    1356
+  ],
+  "column": [
+    665,
+    1316
+  ],
+  "titleSize": 52,
+  "avatars": {
+    "token": {
+      "cx": 228,
+      "cy": 396,
+      "r": 132
+    },
+    "desktop": {
+      "cx": 208,
+      "cy": 364,
+      "r": 152.6
+    },
+    "mobileWeb": {
+      "cx": 354.43793287160366,
+      "cy": 353.5940330314332,
+      "r": 270.04794885455516
+    }
+  },
+  "kickerY": 108,
+  "titleY": 188,
+  "titleBottom": 256.64,
+  "mark": {
+    "size": 171,
+    "x": 1377,
+    "y": 88
+  },
+  "footerDx": 204,
+  "ink": {
+    "title": {
+      "minX": 666,
+      "maxX": 1300,
+      "minY": 146,
+      "maxY": 254
+    },
+    "kicker": {
+      "minX": 665,
+      "maxX": 1196,
+      "minY": 91,
+      "maxY": 107
+    },
+    "footer": {
+      "minX": 665,
+      "maxX": 1326,
+      "minY": 351,
+      "maxY": 361
+    }
+  }
+}
