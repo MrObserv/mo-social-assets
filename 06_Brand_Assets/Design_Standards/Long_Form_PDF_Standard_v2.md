@@ -1,6 +1,6 @@
 # Long-Form PDF Standard v2.0
 
-**Version:** 2.2. **Status:** ratified 2026-09-11; 2.1 amended 2026-09-23 (template repointed, see section 6); 2.2 amended 2026-09-27 (four archetypes and chart rules, from the vendor ebook review agreed by Design and Long-Form). **Supersedes:** v1.0 (2026-06-10) on palette and display face only. **Owner:** Growth.
+**Version:** 2.2. **Status:** ratified 2026-09-11; 2.1 amended 2026-09-23 (template repointed, see section 6); 2.2 amended 2026-09-27 (four archetypes and chart rules, from the vendor ebook review agreed by Design and Long-Form); 2.3 amended 2026-10-05 (six findings from the first two builds on 2.2.0, ruled by Design). **Supersedes:** v1.0 (2026-06-10) on palette and display face only. **Owner:** Growth.
 
 Covers ebooks, lead magnets, strategy papers and client deliverables. v1.0 was written fourteen days before Brand Design System v2.0 and never repointed, so every token in it was retired. This version changes the colours and the display face. **The layout grammar, pagination discipline, chrome and QA gates of v1.0 all survive intact** — they were the best rules in the file.
 
@@ -69,6 +69,12 @@ A section too long for one page gets a forced break before it. Aim for three or 
 
 **Section openers are light.** The cover is the only dark side; inside, the ask card is the only dark element. At most three openers per ebook.
 
+**When an opener earns its side (v2.3).** Only when the part it opens runs to four sides or more, and only when the side before it can be set at least three-quarters full. If either fails, the part starts in flow with its kicker ("Part two") over the section heading, and no side is spent. A piece under 16 sides takes at most one opener.
+
+**Section split (v2.3).** A section that would leave a side under three-quarters full is marked `.section.split`: kicker, heading and first paragraph in `.head`, which never breaks; the rest in `.cont`, which breaks between blocks. Panels, tables and figures inside still never split. This replaces piece-local splitting.
+
+**Worksheet (v2.3).** For workbooks and any page the reader writes on. A prompt in Montserrat, a one-line hint, then drawn answer lines (`.lines`) or a checklist (`.check`), closing with an optional score box (`.score`). Owns its side so it prints alone. Lines are drawn borders, never typed underscores. Class `.worksheet`.
+
 ### Headings state the claim (v2.2)
 
 A heading is the finding as a sentence, never the name of the topic ("Most of an outage passes before anyone knows", not "Detection"). Two lines at most: about 60 characters at h2, about 40 on an opener. A longer claim is a copy fix, not a smaller size.
@@ -90,6 +96,11 @@ Every framework ebook and the Signal Audit workbook build on these archetypes fr
 
 ## 6. Production
 
+**Example body (v2.3).** The template's example content is neutral by rule: bracketed placeholders for the field story and the receipts, illustrative figures labelled as such. The repo is public, so the template never carries the author's career facts or a field story; those live with each piece and come from the recorded sources.
+
+**PDF metadata (v2.3).** The template head carries `author`, `description`, `keywords` and `generator` meta tags. Each piece fills description and keywords; WeasyPrint writes all four into the PDF.
+
+
 WeasyPrint 69 or later, A4 portrait. CSS uses `@page` for chrome and `@page :first` to suppress it on the cover. Colours come from `design-tokens.json` via `mo_tokens.py`; the template holds no hexes.
 
 Output: `[Topic] - [Subject] (MO Branded).pdf`, filed in the relevant project folder. HTML source lives in `templates/long_form_pdf/`.
@@ -101,6 +112,8 @@ Output: `[Topic] - [Subject] (MO Branded).pdf`, filed in the relevant project fo
 **Weight note:** section 2 said 900 for the cover title. `design-tokens.json` ruled 800 on 2026-09-14 (no Black face in the estate). Tokens win; the table now names the token rather than a number.
 
 ## 7. QA gate
+
+**v2.3 additions:** the PDF carries author, description and keywords metadata, with no template placeholder left; the footer prints one space after every middle dot; no side is under three-quarters full unless it ends a part; no opener stands before a part shorter than four sides.
 
 **v2.2 additions:** every number has a source line; no chart module starts in the bottom third of a side (checked by eye at full size, since CSS cannot enforce it); every heading is a claim of two lines or fewer; side 2 is At a glance.
 
