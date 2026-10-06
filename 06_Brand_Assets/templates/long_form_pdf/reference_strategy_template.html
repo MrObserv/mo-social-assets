@@ -9,7 +9,7 @@
 <meta name="keywords" content="[FIVE OR FEWER, COMMA SEPARATED]">
 <meta name="generator" content="render_long_form.py, Long_Form_PDF_Standard_v2.md">
 <!--
-  reference_strategy_template.html v2.3.0, 2026-10-05 (v2.3: footer spacing, section split, worksheet, PDF metadata, neutral example body). Long_Form_PDF_Standard_v2.md.
+  reference_strategy_template.html v2.3.1, 2026-10-05 (2.3.1: section split R1 and R2 fixed, worksheet inline by default with steps, short lines and write-in tables). Long_Form_PDF_Standard_v2.md.
   Holds NO colour literal. Every colour is an mo placeholder, resolved from
   design-tokens.json by render_long_form.py (beside this file) through mo_tokens.py.
   Opening this file directly in a browser or WeasyPrint renders colourless: that is
@@ -225,12 +225,20 @@ html, body {
 /* SECTION SPLIT (v2.3, Long-Form finding 2). Default .section stays unbroken.
    A section long enough to leave a side under three-quarters full is marked
    up as .section.split: the .head block (kicker, heading, first paragraph)
-   never breaks, so QA point 2 holds; the rest flows in .cont and may break
-   between blocks. Panels inside .cont still never split. */
+   never breaks inside, so QA point 2 holds. A side MAY end between .head and
+   .cont: that break is the point of the class (2.3.1, R1). Inside .cont only
+   panels, tables and figures are held whole; lists break between items,
+   each item whole (2.3.1, R2). */
 .section.split { page-break-inside: auto; break-inside: auto; }
-.section.split .head { break-inside: avoid; page-break-inside: avoid; break-after: avoid; page-break-after: avoid; }
-.section.split .cont > * { break-inside: avoid; page-break-inside: avoid; }
-.section.split .cont > p { break-inside: auto; page-break-inside: auto; }
+.section.split .head { break-inside: avoid; page-break-inside: avoid; }
+.section.split .cont .fig,
+.section.split .cont .hero,
+.section.split .cont .field,
+.section.split .cont .callout,
+.section.split .cont .pull,
+.section.split .cont .three-year,
+.section.split .cont table { break-inside: avoid; page-break-inside: avoid; }
+.section.split .cont li { break-inside: avoid; page-break-inside: avoid; }
 
 .kicker {
   page-break-after: avoid;
@@ -592,23 +600,51 @@ td.label {
 .field p { margin-bottom: 2mm; }
 .field p:last-child { margin-bottom: 0; }
 
-/* WORKSHEET (v2.3, Long-Form finding 5): the reader writes on the page.
-   Prompt, then ruled answer lines or a scored checklist. Lines are drawn
-   borders, never underscores. A worksheet owns its side so it prints alone. */
-.worksheet { page-break-before: always; break-inside: avoid; }
+/* WORKSHEET (v2.3, revised 2.3.1). INLINE BY DEFAULT: a panel inside its
+   section, so the intro, the steps and "what you just found" read as one
+   unit, and it never forces a side. It is held whole. .worksheet.own is the
+   opt-in tear-out that starts its own side; use it only when the worksheet
+   fills three-quarters of a side by itself. */
+.worksheet {
+  background: {{mo:light.panel}};
+  border: 1px solid {{mo:light.border}};
+  border-top: 2.5pt solid {{mo:light.teal}};
+  border-radius: {{mo:raw:structure.radius.card}};
+  padding: 5mm 6mm;
+  margin: 5mm 0;
+  break-inside: avoid;
+  page-break-inside: avoid;
+  counter-reset: step;
+}
+.worksheet.own { page-break-before: always; break-before: page; }
+/* Steps are numbered by the template: copy cites "step 2", so the number must
+   be stable and never typed into the prompt. Counter restarts per worksheet. */
 .worksheet .prompt {
+  counter-increment: step;
   font-family: 'Montserrat', sans-serif;
   font-weight: {{mo:raw:type.heading.weight}};
   font-size: 12pt;
   line-height: 1.25;
   color: {{mo:light.ink}};
-  margin: 6mm 0 1mm 0;
+  margin: 5mm 0 1mm 0;
   break-after: avoid;
 }
+.worksheet .prompt::before {
+  content: "STEP " counter(step);
+  display: block;
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 8pt;
+  letter-spacing: 0.15em;
+  color: {{mo:light.teal-deep}};
+  margin-bottom: 1mm;
+}
+.worksheet .prompt:first-of-type { margin-top: 2mm; }
 .worksheet .hint { font-size: 9.5pt; color: {{mo:light.muted}}; margin-bottom: 2mm; break-after: avoid; }
-.worksheet .lines { break-inside: avoid; margin-bottom: 4mm; }
+.worksheet .lines { margin-bottom: 3mm; }
 .worksheet .lines div { height: 9mm; border-bottom: 1px solid {{mo:light.border}}; }
-.worksheet .check { width: 100%; margin: 3mm 0 5mm 0; }
+.worksheet .lines.short div { width: 55%; }
+.worksheet .check { width: 100%; margin: 3mm 0 4mm 0; }
 .worksheet .check td.box { width: 12mm; text-align: center; }
 .worksheet .check td.box span {
   display: inline-block;
@@ -618,6 +654,12 @@ td.label {
   border-radius: 1mm;
   vertical-align: middle;
 }
+/* WRITE-IN TABLE: the reader fills the cells by hand. Rows 14mm; .tall 20mm
+   for a cell that takes a sentence. Empty cells, hairline rules. */
+table.writein td { height: 14mm; vertical-align: top; }
+table.writein.tall td { height: 20mm; }
+table.writein tr.tall td { height: 20mm; }
+table.writein td.label { height: auto; }
 .worksheet .score {
   display: flex;
   justify-content: space-between;
@@ -625,7 +667,7 @@ td.label {
   background: {{mo:light.tint}};
   border-radius: {{mo:raw:structure.radius.card}};
   padding: 4mm 6mm;
-  break-inside: avoid;
+  margin-top: 3mm;
 }
 .worksheet .score .kicker { margin: 0; }
 .worksheet .score .slot { width: 24mm; height: 9mm; border-bottom: 1.2pt solid {{mo:light.teal-deep}}; }
@@ -955,21 +997,37 @@ td.label {
   </ol>
 </div>
 
-<div class="worksheet">
+<div class="section">
   <div class="kicker">Worksheet 1 &middot; Coverage</div>
   <h2>Score one journey against the three tests</h2>
-  <div class="prompt">Which customer journey would hurt most if it failed silently?</div>
-  <div class="hint">Name it the way a customer would describe it.</div>
-  <div class="lines"><div></div><div></div></div>
-  <table class="check">
-    <thead><tr><th>Test</th><th style="width:12mm">Yes</th></tr></thead>
-    <tbody>
-      <tr><td>The fault emits a signal when the journey breaks</td><td class="box"><span></span></td></tr>
-      <tr><td>An enabled rule watches that signal</td><td class="box"><span></span></td></tr>
-      <tr><td>The page reaches an owner who can act</td><td class="box"><span></span></td></tr>
-    </tbody>
-  </table>
-  <div class="score"><div class="kicker">Score out of 3</div><div class="slot"></div></div>
+  <p>Ten minutes, one journey. Answer from what exists today, not what is planned.</p>
+  <div class="worksheet">
+    <div class="prompt">Which customer journey would hurt most if it failed silently?</div>
+    <div class="hint">Name it the way a customer would describe it.</div>
+    <div class="lines"><div></div></div>
+    <div class="prompt">Did it fail silently in the last quarter?</div>
+    <div class="hint">Yes or no.</div>
+    <div class="lines short"><div></div></div>
+    <div class="prompt">Run the three tests.</div>
+    <table class="check">
+      <thead><tr><th>Test</th><th style="width:12mm">Yes</th></tr></thead>
+      <tbody>
+        <tr><td>The fault emits a signal when the journey breaks</td><td class="box"><span></span></td></tr>
+        <tr><td>An enabled rule watches that signal</td><td class="box"><span></span></td></tr>
+        <tr><td>The page reaches an owner who can act</td><td class="box"><span></span></td></tr>
+      </tbody>
+    </table>
+    <div class="prompt">For each test you could not tick, name who fixes it.</div>
+    <table class="writein">
+      <thead><tr><th style="width:30%">Test</th><th style="width:40%">Owner</th><th style="width:30%">By when</th></tr></thead>
+      <tbody>
+        <tr><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+    <div class="score"><div class="kicker">Score out of 3</div><div class="slot"></div></div>
+  </div>
+  <p>If step 2 said yes and step 3 scored under 3, the gap you just found is the first thing to fix.</p>
 </div>
 
 <div class="closing">

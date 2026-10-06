@@ -1,6 +1,6 @@
 # Long-Form PDF Standard v2.0
 
-**Version:** 2.2. **Status:** ratified 2026-09-11; 2.1 amended 2026-09-23 (template repointed, see section 6); 2.2 amended 2026-09-27 (four archetypes and chart rules, from the vendor ebook review agreed by Design and Long-Form); 2.3 amended 2026-10-05 (six findings from the first two builds on 2.2.0, ruled by Design). **Supersedes:** v1.0 (2026-06-10) on palette and display face only. **Owner:** Growth.
+**Version:** 2.2. **Status:** ratified 2026-09-11; 2.1 amended 2026-09-23 (template repointed, see section 6); 2.2 amended 2026-09-27 (four archetypes and chart rules, from the vendor ebook review agreed by Design and Long-Form); 2.3 amended 2026-10-05 (six findings from the first two builds on 2.2.0, ruled by Design); 2.3.1 the same day (two section-split regressions and the worksheet, from Long-Form's 2.3.0 re-render). **Supersedes:** v1.0 (2026-06-10) on palette and display face only. **Owner:** Growth.
 
 Covers ebooks, lead magnets, strategy papers and client deliverables. v1.0 was written fourteen days before Brand Design System v2.0 and never repointed, so every token in it was retired. This version changes the colours and the display face. **The layout grammar, pagination discipline, chrome and QA gates of v1.0 all survive intact** — they were the best rules in the file.
 
@@ -71,9 +71,9 @@ A section too long for one page gets a forced break before it. Aim for three or 
 
 **When an opener earns its side (v2.3).** Only when the part it opens runs to four sides or more, and only when the side before it can be set at least three-quarters full. If either fails, the part starts in flow with its kicker ("Part two") over the section heading, and no side is spent. A piece under 16 sides takes at most one opener.
 
-**Section split (v2.3).** A section that would leave a side under three-quarters full is marked `.section.split`: kicker, heading and first paragraph in `.head`, which never breaks; the rest in `.cont`, which breaks between blocks. Panels, tables and figures inside still never split. This replaces piece-local splitting.
+**Section split (v2.3).** A section that would leave a side under three-quarters full is marked `.section.split`: kicker, heading and first paragraph in `.head`, which never breaks inside; the rest in `.cont`. A side may end between `.head` and `.cont`: that is the split. Inside `.cont`, panels, tables and figures never split; lists break between items, each item whole. This replaces piece-local splitting.
 
-**Worksheet (v2.3).** For workbooks and any page the reader writes on. A prompt in Montserrat, a one-line hint, then drawn answer lines (`.lines`) or a checklist (`.check`), closing with an optional score box (`.score`). Owns its side so it prints alone. Lines are drawn borders, never typed underscores. Class `.worksheet`.
+**Worksheet (v2.3, revised 2.3.1).** For workbooks and any page the reader writes on. Inline by default: a panel inside its section, held whole, so the intro, the steps and the read-out after it stay one unit, and it never forces a side. Each `.prompt` is a numbered step (STEP 1, STEP 2, restarting per worksheet), numbered by the template so copy can cite steps by number; never type the number into the prompt. Answers: `.lines` (full width), `.lines.short` (55 per cent, for one-word answers), `.check` (checklist), `table.writein` (rows 14mm; `.tall` 20mm), closing with an optional `.score`. Lines are drawn borders, never typed underscores. `.worksheet.own` starts its own side; use it only for a tear-out that fills three-quarters of a side by itself, so the three-quarters rule always wins. Class `.worksheet`.
 
 ### Headings state the claim (v2.2)
 
