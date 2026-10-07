@@ -1,0 +1,84 @@
+{
+  "built": "2026-10-07",
+  "builder": "1.1.0",
+  "tokens": "3.3.5",
+  "kicker": [
+    "OBSERVABILITY ADVISORY",
+    "NEWSLETTER · PODCAST"
+  ],
+  "wordmark": "MASTERING OBSERVABILITY",
+  "column": [
+    411,
+    934
+  ],
+  "visibleMedium": [
+    153.5,
+    974.5
+  ],
+  "logos": {
+    "desktop": [
+      33.7,
+      99.7,
+      213.3,
+      191
+    ],
+    "medium": [
+      187.7,
+      99.8,
+      370.1,
+      191
+    ],
+    "mobileWeb": [
+      48.2,
+      99.5,
+      337.6,
+      191
+    ]
+  },
+  "sizes": {
+    "kicker": 25,
+    "wordmark": 16
+  },
+  "baselines": {
+    "kicker": [
+      69,
+      103
+    ],
+    "wordmark": 140
+  },
+  "rings": {
+    "size": 194,
+    "cx": 1150,
+    "cy": 96,
+    "inkFromX": 1061
+  },
+  "ink": {
+    "kicker": [
+      {
+        "minX": 412,
+        "maxX": 914,
+        "minY": 51,
+        "maxY": 68,
+        "w": 503,
+        "h": 18
+      },
+      {
+        "minX": 413,
+        "maxX": 866,
+        "minY": 85,
+        "maxY": 102,
+        "w": 454,
+        "h": 18
+      }
+    ],
+    "wordmark": {
+      "minX": 412,
+      "maxX": 722,
+      "minY": 129,
+      "maxY": 139,
+      "w": 311,
+      "h": 11
+    }
+  },
+  "gates": 32
+}
