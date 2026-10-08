@@ -1,27 +1,27 @@
 {
   "built": "2026-10-07",
   "builder": "1.2.0",
-  "variant": "B",
-  "ruled": true,
+  "variant": "C",
+  "ruled": false,
   "tokens": "3.3.5",
-  "mode": "light",
-  "ground": "#EAF6F3",
+  "mode": "dark",
+  "ground": "#0D2127",
   "lead": {
     "lines": [
-      "Observability advisory,",
-      "newsletter and podcast."
+      "OBSERVABILITY ADVISORY",
+      "NEWSLETTER · PODCAST"
     ],
-    "font": "display",
-    "size": 43,
+    "font": "mono",
+    "size": 32,
     "baselines": [
-      110,
-      159
+      66,
+      108
     ]
   },
   "second": {
     "line": "MASTERING OBSERVABILITY",
-    "size": 18,
-    "baseline": 46
+    "size": 20,
+    "baseline": 148
   },
   "column": [
     411,
@@ -61,27 +61,27 @@
   "ink": {
     "lead line 1": {
       "minX": 413,
-      "maxX": 900,
-      "minY": 76,
-      "maxY": 117,
-      "w": 488,
-      "h": 42
+      "maxX": 921,
+      "minY": 43,
+      "maxY": 65,
+      "w": 509,
+      "h": 23
     },
     "lead line 2": {
-      "minX": 414,
-      "maxX": 931,
-      "minY": 127,
-      "maxY": 166,
-      "w": 518,
-      "h": 40
+      "minX": 413,
+      "maxX": 873,
+      "minY": 85,
+      "maxY": 107,
+      "w": 461,
+      "h": 23
     },
     "second line": {
       "minX": 412,
-      "maxX": 761,
-      "minY": 33,
-      "maxY": 45,
-      "w": 350,
-      "h": 13
+      "maxX": 801,
+      "minY": 134,
+      "maxY": 147,
+      "w": 390,
+      "h": 14
     }
   },
   "gates": 34
