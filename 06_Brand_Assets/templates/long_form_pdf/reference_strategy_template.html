@@ -9,7 +9,7 @@
 <meta name="keywords" content="[FIVE OR FEWER, COMMA SEPARATED]">
 <meta name="generator" content="render_long_form.py, Long_Form_PDF_Standard_v2.md">
 <!--
-  reference_strategy_template.html v2.3.1, 2026-10-05 (2.3.1: section split R1 and R2 fixed, worksheet inline by default with steps, short lines and write-in tables). Long_Form_PDF_Standard_v2.md.
+  reference_strategy_template.html v2.3.2, 2026-10-06 (2.3.2: compact worksheet is the default, .worksheet.display keeps the large size for a single-prompt tear-out; tables held whole everywhere). Long_Form_PDF_Standard_v2.md.
   Holds NO colour literal. Every colour is an mo placeholder, resolved from
   design-tokens.json by render_long_form.py (beside this file) through mo_tokens.py.
   Opening this file directly in a browser or WeasyPrint renders colourless: that is
@@ -236,8 +236,10 @@ html, body {
 .section.split .cont .field,
 .section.split .cont .callout,
 .section.split .cont .pull,
-.section.split .cont .three-year,
-.section.split .cont table { break-inside: avoid; page-break-inside: avoid; }
+.section.split .cont .three-year { break-inside: avoid; page-break-inside: avoid; }
+/* TABLES NEVER SPLIT, anywhere (2.3.2): not only inside .cont. Covers
+   table.writein and every table inside a .worksheet. */
+table { break-inside: avoid; page-break-inside: avoid; }
 .section.split .cont li { break-inside: avoid; page-break-inside: avoid; }
 
 .kicker {
@@ -600,18 +602,20 @@ td.label {
 .field p { margin-bottom: 2mm; }
 .field p:last-child { margin-bottom: 0; }
 
-/* WORKSHEET (v2.3, revised 2.3.1). INLINE BY DEFAULT: a panel inside its
-   section, so the intro, the steps and "what you just found" read as one
-   unit, and it never forces a side. It is held whole. .worksheet.own is the
-   opt-in tear-out that starts its own side; use it only when the worksheet
-   fills three-quarters of a side by itself. */
+/* WORKSHEET (v2.3, revised 2.3.1 and 2.3.2). INLINE BY DEFAULT: a panel
+   inside its section, held whole, never forcing a side. COMPACT BY DEFAULT
+   (2.3.2): a workbook step is a sentence, not a headline, so the prompt is
+   bold body type with the STEP label inline. .worksheet.display is the large
+   size, for a single-prompt tear-out. .worksheet.own starts its own side; use
+   it only when the worksheet fills three-quarters of a side by itself.
+   Answer lines are 7mm: the floor for comfortable handwriting. */
 .worksheet {
   background: {{mo:light.panel}};
   border: 1px solid {{mo:light.border}};
   border-top: 2.5pt solid {{mo:light.teal}};
   border-radius: {{mo:raw:structure.radius.card}};
-  padding: 5mm 6mm;
-  margin: 5mm 0;
+  padding: 4mm 5mm;
+  margin: 4mm 0;
   break-inside: avoid;
   page-break-inside: avoid;
   counter-reset: step;
@@ -621,30 +625,30 @@ td.label {
    be stable and never typed into the prompt. Counter restarts per worksheet. */
 .worksheet .prompt {
   counter-increment: step;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: {{mo:raw:type.heading.weight}};
-  font-size: 12pt;
-  line-height: 1.25;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 10pt;
+  line-height: 1.4;
   color: {{mo:light.ink}};
-  margin: 5mm 0 1mm 0;
+  margin: 3mm 0 0.5mm 0;
   break-after: avoid;
 }
 .worksheet .prompt::before {
   content: "STEP " counter(step);
-  display: block;
+  display: inline;
   font-family: 'Space Mono', monospace;
   font-weight: 700;
-  font-size: 8pt;
+  font-size: 7.5pt;
   letter-spacing: 0.15em;
   color: {{mo:light.teal-deep}};
-  margin-bottom: 1mm;
+  margin-right: 2.5mm;
 }
-.worksheet .prompt:first-of-type { margin-top: 2mm; }
-.worksheet .hint { font-size: 9.5pt; color: {{mo:light.muted}}; margin-bottom: 2mm; break-after: avoid; }
-.worksheet .lines { margin-bottom: 3mm; }
-.worksheet .lines div { height: 9mm; border-bottom: 1px solid {{mo:light.border}}; }
+.worksheet .prompt:first-of-type { margin-top: 1mm; }
+.worksheet .hint { font-size: 9pt; color: {{mo:light.muted}}; margin-bottom: 1mm; break-after: avoid; }
+.worksheet .lines { margin-bottom: 2mm; }
+.worksheet .lines div { height: 7mm; border-bottom: 1px solid {{mo:light.border}}; }
 .worksheet .lines.short div { width: 55%; }
-.worksheet .check { width: 100%; margin: 3mm 0 4mm 0; }
+.worksheet .check { width: 100%; margin: 2mm 0 3mm 0; }
 .worksheet .check td.box { width: 12mm; text-align: center; }
 .worksheet .check td.box span {
   display: inline-block;
@@ -654,11 +658,11 @@ td.label {
   border-radius: 1mm;
   vertical-align: middle;
 }
-/* WRITE-IN TABLE: the reader fills the cells by hand. Rows 14mm; .tall 20mm
-   for a cell that takes a sentence. Empty cells, hairline rules. */
-table.writein td { height: 14mm; vertical-align: top; }
-table.writein.tall td { height: 20mm; }
-table.writein tr.tall td { height: 20mm; }
+/* WRITE-IN TABLE: the reader fills the cells by hand. Rows 11mm; .tall 16mm
+   for a cell that takes a sentence (display size: 14mm and 20mm). */
+table.writein td { height: 11mm; vertical-align: top; }
+table.writein.tall td { height: 16mm; }
+table.writein tr.tall td { height: 16mm; }
 table.writein td.label { height: auto; }
 .worksheet .score {
   display: flex;
@@ -666,11 +670,32 @@ table.writein td.label { height: auto; }
   align-items: center;
   background: {{mo:light.tint}};
   border-radius: {{mo:raw:structure.radius.card}};
-  padding: 4mm 6mm;
-  margin-top: 3mm;
+  padding: 3mm 5mm;
+  margin-top: 2mm;
 }
 .worksheet .score .kicker { margin: 0; }
-.worksheet .score .slot { width: 24mm; height: 9mm; border-bottom: 1.2pt solid {{mo:light.teal-deep}}; }
+.worksheet .score .slot { width: 24mm; height: 7mm; border-bottom: 1.2pt solid {{mo:light.teal-deep}}; }
+/* DISPLAY SIZE: the 2.3.1 sizes, for a single-prompt tear-out. */
+.worksheet.display { padding: 5mm 6mm; margin: 5mm 0; }
+.worksheet.display .prompt {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: {{mo:raw:type.heading.weight}};
+  font-size: 12pt;
+  line-height: 1.25;
+  margin: 5mm 0 1mm 0;
+}
+.worksheet.display .prompt::before { display: block; font-size: 8pt; margin-right: 0; margin-bottom: 1mm; }
+.worksheet.display .prompt:first-of-type { margin-top: 2mm; }
+.worksheet.display .hint { font-size: 9.5pt; margin-bottom: 2mm; }
+.worksheet.display .lines { margin-bottom: 3mm; }
+.worksheet.display .lines div { height: 9mm; }
+.worksheet.display .check { margin: 3mm 0 4mm 0; }
+.worksheet.display table.writein td { height: 14mm; }
+.worksheet.display table.writein.tall td,
+.worksheet.display table.writein tr.tall td { height: 20mm; }
+.worksheet.display table.writein td.label { height: auto; }
+.worksheet.display .score { padding: 4mm 6mm; margin-top: 3mm; }
+.worksheet.display .score .slot { height: 9mm; }
 
 /* SECTION OPENER archetype (standard section 5): ghost numeral, kicker,
    heading, one intro paragraph, no body content. Owns its page. */
