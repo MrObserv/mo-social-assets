@@ -1,112 +1,89 @@
-# Quote Card Standard (v1.0 — LOCKED 2026-06-17)
+# Quote Card Standard v3.0
 
-**Locked.** This is the official quote-card spec for Metrics & Mayhem. The look, sizes, and the generator (`templates/mo_quote_card.js`) are frozen at v1.0. Change them only with a deliberate version bump (v1.1, etc.), the same way the Voice Codex is versioned.
+**v3.0, 2026-10-12.** Rebuilt on the v3 system. The producer is `producers/mo_quote_card.js`. `templates/mo_quote_card.js` is retired and refuses to run. Colours come from `design-tokens.json` through `mo-tokens.js` and are named here by role only.
 
-Branded quote cards for social. One generator, one look, every channel. Born from the 2026-06-17 Instagram card for the "panicking room" 4:30am post, which Allan asked to make the standard.
-
-**Locked layout rule:** brand + counter are fixed at the top, the footer is fixed at the bottom, and the eyebrow + quote + accent bar stack as one group centred in the band between them. The quote auto-sizes to fit both width and band height. This guarantees even spacing at any text length and the accent bar never collides with the footer (the bug fixed on 2026-06-17).
-
-Brand source of truth: `06_Brand_Assets/Design_Standards/design-tokens.json`, read through `mo-tokens.js`. **Not a producer** — `producers/mo_visual_kit.js` is a reference implementation, not the palette. `templates/mo_quote_card.js` is still on the retired palette and has not been repointed; see `consumers.status`. Voice Codex §8.2 (4:30am Thoughts), §8.1.3 (Closing Declarative is the natural card line). House rules still apply: UK English, no em dashes.
+Branded quote cards for social: one producer, one look, every channel.
 
 ---
 
-## The look (locked)
+## Rulings (2026-10-12, Design, for Content)
 
-- Background: flat `dark-ground` with ONE radial teal wash at 20 per cent, from `structure.wash`. Same ground as the other dark surfaces.
+- **Mode: light only.** The tokens disagreed with themselves: `mode.rule` said feed cards for non-writing assets render dark, `mode.dark_surfaces` left `quote_card` out so `modeFor` returned light, v1.0 of this standard said dark, and Brand v3 §2 said light. The §2 test decides it: a quote card does not render inside someone else's dark UI. `mode.rule` now says so, `mode.quote_card_mode` records the ruling, and `quote_card` is not dual-mode, so there is no dark variant to ask for. The 26 Sep Stoic set shipped dark and is not re-rendered.
+- **Wordmark:** `T.lockupFor("quote_card")`, MASTERING OBSERVABILITY. Never typed.
+- **Attribution.** Somebody else's words (`kind: "quote"`) MUST carry an attribution, and the producer throws without one. Under the quote: a short teal-deep rule, the name in DM Sans Bold 36px ink, the source (book, show, paper) in DM Sans 32px muted. House lines (`kind: "line"`) take an attribution only if one is given.
 
-  **Superseded 2026-09-11 / amended 2026-09-14.** This line specified the navy gradient, a faint grid and a mint glow. The gradient and the grid are retired; the wash replaced the glow and is now permitted on light as well as dark. Retired values are named by role here on purpose — `assertNoRetired` scans whole file source including prose, so a standard that quotes a retired hex fails the build that reads it.
+## The look
 
-  A quote card is not writing, so it stays dark. `templates/mo_quote_card.js` has NOT been repointed and still carries the retired palette: a card rendered from it today is off-brand. Tracked in `consumers.status`.
-- Type: Archivo Black display for the quote, Space Mono for the labels.
-- Top label: `METRICS & MAYHEM` (mint, letter-spaced).
-- Eyebrow (optional): the format name, e.g. `4.30AM THOUGHTS` (mint).
-- Quote: white, centred, auto-sized to fill the card. The final wrapped line renders in mint (the punch).
-- Accent: short mint bar under the quote.
-- Footer: `MASTERINGOBSERVABILITY.COM` (grey mono).
+- Ground: light, with the house radial wash from `structure.wash`.
+- Ring mark top left. `n / N` counter top right in a set. Wordmark centred in the footer, teal-deep.
+- Optional eyebrow (kicker rule and mono label, teal-deep), for example `4.30AM THOUGHTS`.
+- **Quote:** Montserrat ExtraBold in ink, left aligned, auto-fitted from the size's maximum (square 96, portrait 104, Pinterest 100) down to the 56px floor; at most 7 lines. A `kind: "quote"` card gets curly quotation marks from the template; put none in the copy, or it throws.
+- The group (eyebrow, quote, rule, attribution) is centred in the band between the top row and the footer.
+- **Retired from v1.0:** the dark gradient ground, the grid, the old display face, the mint final line. The final-line colour change is dropped: which words land on the last line depends on the wrap, so it emphasised the wrong words as often as the right ones.
 
 ## Sizes
 
-| Format | Pixels | Use |
-|---|---|---|
-| square | 1080 x 1080 | LinkedIn single image, X, fallback everywhere |
-| portrait | 1080 x 1350 | Instagram feed, LinkedIn (taller = more feed space), carousel cards |
-| pinterest | 1000 x 1500 (2:3) | Pinterest pins |
+| Size | Canvas token | Pixels | Use |
+|---|---|---|---|
+| `square` | `quote_card` | 1080 x 1080 | LinkedIn single image, X, fallback |
+| `portrait` | `quote_card_portrait` | 1080 x 1350 | Instagram feed, LinkedIn |
+| `pinterest` | `quote_card_pinterest` | 1000 x 1500 | Pinterest pins |
 
----
+## Gates (the producer throws)
 
-## Generator
+Text fit measured from the repo fonts; floors from `canvas.floors.quote_card` at a 375px phone; 4.5:1 contrast against the real ground under every string; no em dashes; `assertNoRetired` on source, `assertRenderClean` on every SVG, PNG byte 25 must be 2 or 6.
 
-Canonical script: `06_Brand_Assets/Design_Standards/templates/mo_quote_card.js`
-Runtime: Node + `sharp` (and `pdfkit` for carousel PDFs). The auto-sizer fits the quote to both width and height so text never overflows.
+## Production
 
-Single card (auto: last wrapped line goes mint):
 ```
-node mo_quote_card.js \
-  --line "You cannot debug a system through a panicking room." \
-  --eyebrow "4.30AM THOUGHTS" --format all --slug panicking_room --outdir ./out
-```
-`--format` = `square` | `portrait` | `pinterest` | `all`.
-
-Carousel (pipe-separated cards; last card all-mint; adds an "n / N" counter). Add `--pdf` for the swipeable LinkedIn document post:
-```
-node mo_quote_card.js \
-  --carousel "Setup line|The turn line|The closing punch" \
-  --eyebrow "4.30AM THOUGHTS" --slug panicking_room --outdir ./out --pdf
+node 06_Brand_Assets/Design_Standards/producers/mo_quote_card.js build <spec.json> --out <dir> [--size square|portrait|pinterest|all]
+node 06_Brand_Assets/Design_Standards/producers/mo_quote_card.js check <spec.json>
+node 06_Brand_Assets/Design_Standards/producers/mo_quote_card.js sample --out <dir>
 ```
 
-Samples live in `06_Brand_Assets/Design_Standards/samples/`.
+```json
+{
+  "slug": "2026-10-14_quotes_example",
+  "size": "all",
+  "eyebrow": "optional",
+  "uniform": false,
+  "cards": [
+    { "kind": "quote", "text": "Somebody else's words, no quotation marks.",
+      "attribution": { "name": "Their name", "source": "optional work" } },
+    { "kind": "line", "text": "A house line." }
+  ]
+}
+```
+
+`uniform: true` gives every card in a set the smallest fitted size, for sets posted side by side. **Out:** `<slug>[_n]_<size>_<WxH>.png` per card and size, and `<slug>_manifest.json` with alt text (the line plus its attribution), fitted size, line count and gate results.
+
+Specs live with the post, not in the repo; the repo holds only `producers/samples/quote_card_sample.json`, placeholder copy.
 
 ---
 
 ## Standing rule: every 4:30am post ships with a card
 
-From 2026-06-17, the default 4:30am Thoughts deliverable is text plus a portrait card built from the Closing Declarative (the line that already does the work). Pull-quotes from Substantive Nuclears get the same treatment when the close is strong enough to stand alone.
+The default 4:30am Thoughts deliverable is text plus a portrait card built from the Closing Declarative. Pull-quotes from Substantive Nuclears get the same treatment when the close stands alone.
 
-Channels per 4:30am:
-- LinkedIn: text post (the full 4:30am) with the portrait card attached, or the square card. Via Buffer.
-- Instagram: portrait card + caption (caption = the 4:30am text + IG hashtags). Manual via Chrome extension. Posted at 4:5 crop to keep the whole card.
-- X: text post, card optional. Via Buffer.
+- LinkedIn: the text post with the portrait or square card. Via Buffer.
+- Instagram: the portrait card, caption = the 4:30am text plus IG hashtags, 4:5 crop.
+- X: text post, card optional.
 
-### Hub-ready step (paste into the daily-ops-hub skill, MODE B)
+### Hub-ready step (daily-ops-hub skill, MODE B)
 
-When Allan approves a 4:30am line (or asks for a card), before posting:
-1. Run `mo_quote_card.js --line "<the closing line>" --eyebrow "4.30AM THOUGHTS" --format all --slug <slug> --outdir 05_Social_Media`.
-2. Save the cards next to the post draft in `05_Social_Media` (and the episode folder if tied to a Signal Drop).
-3. Instagram: upload the portrait card via the extension, caption = 4:30am text + IG hashtags, 4:5 crop.
-4. Log the card filenames in the post draft file and the day file.
+1. Write a one-card spec: `{"slug": "<date>_<slug>", "size": "all", "eyebrow": "4.30AM THOUGHTS", "cards": [{"kind": "line", "text": "<the closing line>"}]}`.
+2. `node .../producers/mo_quote_card.js build <spec.json> --out 05_Social_Media/<date>_<slug>`.
+3. Upload the portrait card to Instagram with the manifest's alt text.
+4. Log the card filenames in the post draft and the day file.
 
-(The skill file itself is edited in Settings, not from a Cowork session. This block is ready to drop in.)
+## Multi-card sets
 
----
-
-## LinkedIn carousels
-
-Two routes, both supported by the generator:
-
-- Multi-image carousel: post `carousel_<slug>_1..N.png` as a multi-image LinkedIn post (Buffer supports multi-image on LinkedIn). Swipeable, native.
-- Document (PDF) post: post `carousel_<slug>.pdf` as a LinkedIn document. LinkedIn gives document posts strong dwell-time reach. Usually a manual upload via the Chrome extension, like Instagram.
-
-Shape: 3 cards as setup / turn / closing punch. Card 1 carries the eyebrow; the last card is all-mint as the payoff. Keep each card to one short sentence so the font stays large. A Substantive Nuclear can run as a 4 to 5 card carousel (hook / reality / lesson / micro-proof / close).
-
----
+A set of 2 to 10 cards carries an `n / N` counter. For a swipeable multi-part argument (setup, turn, close), use a carousel instead: that is what `mo_carousel.js` is for, and it writes the LinkedIn PDF.
 
 ## Pinterest
 
-Strong fit: quote cards are native Pinterest content, and unlike LinkedIn it is a search and evergreen engine, so a pin keeps surfacing for months. Each pin should carry a destination link (the podcast hub `[PODCAST_URL]` or newsletter `[NEWSLETTER_URL]` per Codex §26) and sit on a themed board (e.g. "Observability Truths", "On-Call & Incidents", "4.30am Thoughts").
-
-Format: use `--format pinterest` (1000 x 1500).
-
-Channel decision (open, needs Allan): the Buffer Free plan is capped at 3 channels and all three are used (LinkedIn personal, LinkedIn company page, X). To add Pinterest:
-- Option A: post Pinterest manually via the Chrome extension (no Buffer change, zero cost, more manual). Recommended to start.
-- Option B: upgrade Buffer to a paid tier and connect Pinterest as a 4th channel (scheduled, hands-off).
-- Option C: swap a Buffer channel (e.g. drop the company page from Buffer and post it manually) to free a slot for Pinterest. Not recommended; the company page is low effort to keep.
-
-Recommendation: start with Option A (manual pins via extension) to prove the channel, then move to Option B if Pinterest earns its place.
+Quote cards are native Pinterest content and a pin keeps surfacing for months. Each pin carries a destination link and sits on a themed board. Build with `--size pinterest`. Channel route is still Al's call: manual pins through the extension (recommended to start), or a paid Buffer tier as a fourth channel.
 
 ---
 
-## File naming
-
-- Single: `card_<slug>_<format>.png`
-- Carousel: `carousel_<slug>_<n>.png` and `carousel_<slug>.pdf`
-- Date-prefix when tied to a dated post: `YYYY-MM-DD_<slug>_...`
+**Last updated:** 2026-10-12, v3.0. v1.0 (2026-06-17, dark, `templates/mo_quote_card.js`) is superseded. Its layout rule (top row fixed, footer fixed, the group centred between them, the quote auto-sized to width and height) carries over.

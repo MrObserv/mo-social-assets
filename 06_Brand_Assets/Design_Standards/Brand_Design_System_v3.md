@@ -34,6 +34,8 @@ A brand change never lives only in a chat.
 |---|---|
 | YouTube thumbnails · square episode art · video cards and lower thirds · 9:16 bookends · studio and call backgrounds · deck opener, dividers and closer · ebook covers | Website · email · blog and OG cards · carousels · quote cards · all three diagram families · deck content slides · print and the book |
 
+**Ruled 2026-10-12:** carousels and quote cards are light only, and every carousel is house lane. `design-tokens.json` `mode.quote_card_mode` and `lockup.carousel_lane`.
+
 A light card in a dark player reads as a broken render, and a face only separates from a dark ground at 160px. That is a technical constraint, not a preference, which is why it does not get re-litigated.
 
 **Deck punctuation budget:** three to five dark slides in a twenty-five slide deck. Never two dark slides in a row outside the open and close.
@@ -191,6 +193,9 @@ Diagrams clear the fourteen-point gate, carried verbatim in both diagram standar
 ---
 
 ## 10. Changelog
+
+### tokens 3.3.8, 2026-10-12, Design for Content
+**Carousel and quote card producers.** `producers/mo_carousel.js` and `producers/mo_quote_card.js`, sharing `producers/mo_social.js`, replace the two retired templates and the two September stopgaps. Quote cards ruled light only (the tokens contradicted themselves; §2 decides). Every carousel ruled house lane. Portrait and Pinterest canvases and two floor sets added to the tokens. Every string is gated for fit, floor at phone width and 4.5:1 contrast against the ground under it.
 
 ### 3.3.0 — 2026-09-18 · ruled by Al
 **The Signal carries its issue number.** The newsletter eyebrow becomes a template, `THE SIGNAL · NO. {issue}`, and `mo_visual_kit.js blogthumb` requires `--issue` for surface `the_signal` — it composes the eyebrow rather than accepting one. `eyebrowFor()` throws below the 101 anchor, so a restart at "01" fails a render instead of shipping.
@@ -364,7 +369,11 @@ on 2026-09-12 and stopped being a partial system on 2026-09-16.
 | `Slide_System/mo_slide_template.js` | **SUPERSEDED 2026-06-15** (Slide_Design_System.md v2.0); FAB teaser deck only. Never repoint. |
 | `08_Revenue/.../_deck_source/build_deck.js` | **CONSUMING** since 2026-09-21 (v2.1.0). The LIVE deck producer; was in no standard and off this list while its superseded predecessor sat on it. |
 | `00_Command_Center/thumbnail_builder.py` | **CONSUMING** since 2026-09-18 |
-| `templates/mo_quote_card.js` | Not consuming |
+| `producers/mo_social.js` | **CONSUMING** since 2026-10-12. Shared kit for the feed surfaces: ledger, fit, floor and contrast gates, truecolour render, PDF. |
+| `producers/mo_carousel.js` | **CONSUMING** since 2026-10-12. THE carousel producer. |
+| `producers/mo_quote_card.js` | **CONSUMING** since 2026-10-12. THE quote card producer. |
+| `templates/mo_quote_card.js` | **RETIRED 2026-10-12.** Throws on load, pointing at the producer. |
+| `templates/render_carousel.py` | **RETIRED 2026-10-12.** Exits 1, pointing at the producer. |
 | `templates/render_arch_kit.py` | Not consuming |
 
 Live status is in `design-tokens.json` `consumers.status`, which is the one
@@ -397,8 +406,9 @@ producers deleted from the repo on 09-14. The drift is not hypothetical.
    `mo_visual_kit.js` 2026-09-12, `mo_diagram.js` 2026-09-16,
    `thumbnail_builder.py` 2026-09-18. Still owed, in
    rough order of exposure: `tt_thumbnail_builder.py`,
-   `sd_terminal_square.py`, `render_arch_kit.py`, `render_carousel.py`,
-   `mo_quote_card.js`, the long-form PDF template, the
+   `sd_terminal_square.py`, `render_arch_kit.py`, ~~`render_carousel.py`~~,
+   ~~`mo_quote_card.js`~~ (both retired 2026-10-12, replaced by `producers/mo_carousel.js`
+   and `producers/mo_quote_card.js`), the long-form PDF template, the
    podcast renderers. (`mo_slide_template.js` came OFF this list 2026-09-21: superseded, not owed.)
 
    **One unratified value is outstanding:** `dark-border` was added in 3.2.0
@@ -408,7 +418,7 @@ producers deleted from the repo on 09-14. The drift is not hypothetical.
 2. Strip the palette tables out of the per-asset standards and point them here.
 3. Amend `Architecture_Diagram_Standard.md` §2 and §4 for the Space Mono kicker reversal.
 4. Build the five new diagram patterns as `build_*` functions.
-5. Build the quote card and move the carousel fully off Canva.
+5. ~~Build the quote card and move the carousel fully off Canva.~~ **DONE 2026-10-12**: `producers/mo_carousel.js` and `producers/mo_quote_card.js`, on the tokens, gated.
 6. Dark and mono ring mark SVGs, favicon set, locked-up wordmark asset.
 7. Move the eleven `.bak` files to `_archive/`.
 8. Send a dark-mode email test to Outlook, Gmail and Apple Mail.

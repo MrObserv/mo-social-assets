@@ -86,14 +86,38 @@ The house composition, top to bottom:
 
 - **Eyebrow:** mono caps, bright mint, top-left (the diagram's category, e.g. the post series name).
 - **Title + optional subtitle:** white bold display + grey one-liner. One insight, plain English.
-- **Cards / nodes:** rounded `dark-panel` / `panel` box (by theme) with a 6px coloured accent left-border, ~28px padding, hairline muted border. Inside: mono eyebrow (accent colour), bold white heading, grey wrapped body, 1.4–1.45 line-height. Body is always wrapped to the inner width, never a fixed string.
+- **Cards / nodes:** rounded `dark-panel` / `panel` box (by theme) with a 6px coloured accent left-border clipped to the card's own corner radius (v2.0.0: it no longer notches the corners), ~28px padding (40px in-body), hairline muted border. Inside: mono eyebrow (accent colour), bold white heading, grey wrapped body, 1.4–1.45 line-height. Body is always wrapped to the inner width, never a fixed string.
 - **Spectrum bar** (when the point is a gradient of risk): green→amber, mono end-labels in the matching semantic colour.
-- **Headline band** (the one-line takeaway): `dark-motif` / `tint` fill (by theme), accent border at 0.55 / 0.9 opacity, bold ink text.
-- **Footer:** mono caps teal `MASTERING OBSERVABILITY · MASTERINGOBSERVABILITY.COM`, centered. (Cross-property surface = the house brand, realigned 2026-08-24 per the brand architecture; podcast/episode visuals keep `METRICS & MAYHEM`.)
+- **Headline band** (the one-line takeaway): `dark-motif` / `tint` fill (by theme), accent border at 0.55 / 0.9 opacity, bold ink text. `band(..., { align: 'middle' })` centres it; the default is `start`.
+- **Footer:** mono caps teal `MASTERING OBSERVABILITY · MASTERINGOBSERVABILITY.COM`, centred by default. `footer()` takes `size`, `anchor` (`start`, `middle`, `end`) and `margin`, and throws if the line does not fit. (Cross-property surface = the house brand, realigned 2026-08-24 per the brand architecture; podcast/episode visuals keep `METRICS & MAYHEM`.)
 
 Concept diagrams (icebergs, layers, staircases): same palette and flatness, horizontal tiers or simple silhouettes, accent on the waterline/gate/turning point only. The Trust-Gated maturity staircase in the slide system is the house stage-model pattern.
 
 ---
+
+## In-body diagrams (v2.0.0, 2026-10-09)
+
+**An in-body diagram is judged at the 600px email column, not at its own pixels.** The canvas is 1200 wide, so everything on it reads at half size on screen. Two floors follow, held in `design-tokens.json` `canvas.floors.diagram_inbody`:
+
+- **Text at least 32px** on the canvas (16px on screen): body, headings, bands, subtitles.
+- **Mono at least 24px** on the canvas (12px on screen): eyebrows, labels, spectrum end-labels, footer. This is the same 24px floor the deck holds.
+
+**The canvas is `diagram_inbody`, and it is the default for theme light.** One stacked column, 1200 wide, up to 1350 tall. Cards stack; they do not sit three-up, because three columns at 600px is three columns of 8px text. `diagram_concept` (1200x680, multi-column) stays for standalone assets and slides.
+
+**Build it with `inbody()`.** It is `themed('light')` with in-body default sizes (cards: eyebrow 24, heading 40, body 32, padding 40; bands 40; labels and footer 24). Caller values still win.
+
+```js
+const D = require('.../producers/mo_diagram.js');
+const I = D.inbody();                    // light, diagram_inbody
+let inner = '', y = 70;
+const c = I.card(60, y, 1080, { eyebrow: 'LOW BLAST RADIUS', heading: '...', body: '...' });
+inner += c.svg; y += c.height + 24;
+I.render(I.canvas(I.W, I.H, inner, { fitTo: y }), out);   // trims the frame to the content
+```
+
+**It is gated, on the composed SVG.** `canvas(..., { canvas: 'diagram_inbody' })`, which `inbody()` sets for you, reads every `<text>` actually emitted and throws on any string under its floor, including a bespoke `line()` that bypassed the helpers. `fitTo` throws if the content plus the footer band would exceed the 1350 frame: a stacked diagram that outgrows it is doing too much.
+
+**Published diagrams stay as they are** (Al, 2026-10-05). This applies to new work. Do not re-render a shipped figure to meet it.
 
 ## The text-fit rule (mandatory, non-negotiable)
 
@@ -101,7 +125,7 @@ Concept diagrams (icebergs, layers, staircases): same palette and flatness, hori
 
 - Build family-2 diagrams from `producers/mo_diagram.js`. Its `wpx()` measures glyph width, `wrap()` breaks text to a pixel width, and `card()` / `band()` / `paragraph()` return their own computed height so a box always contains its content and the next element lays out below it.
 - If you must write a bespoke diagram, `require('./mo_diagram.js')` and use `paragraph`, `card`, `band`, `spectrum`, `arrow`, `label`. Do not re-invent fixed `<text>` placement.
-- Wrapping errs generous: `wpx` slightly over-estimates width so text fits rather than clips. If a heading still runs long, shorten the words, do not shrink the font below the spec.
+- Wrapping errs generous by design, not by accident: `wpx` (v2.0.0) measures each face from advance tables taken from the repo's own TTFs, adds letter-spacing, and adds a 2 per cent margin. Measured against the real faces it reads 2 to 6 per cent wide. The four-bucket estimate it replaced over-read DM Sans by 10 to 15 per cent, which wrapped lines early and wasted width. If a heading still runs long, shorten the words, do not shrink the font below the spec.
 - One message per box. If a card needs more than ~4 body lines, the diagram is doing too much: split it or cut copy.
 
 ## Text rules (§5, house voice)
@@ -121,11 +145,12 @@ All diagram copy is Allan-voiced output and obeys Codex §5 exactly:
 ```
 node producers/mo_visual_kit.js preflight
 node producers/mo_diagram.js concept-sample --out <post-folder>/<slug>_<name>_1200x680.png
-node producers/mo_diagram.js concept-sample --theme light --out <post-folder>/<slug>_<name>_light_1200x680.png
+node producers/mo_diagram.js concept-sample --theme light --out <post-folder>/<slug>_<name>_inbody.png
+node producers/mo_diagram.js concept-sample --theme light --canvas concept --out <post-folder>/<slug>_<name>_light_1200x680.png
 ```
-`--theme` takes `dark` (default) or `light`. Pick it from the destination: dark for a standalone asset, light for an in-body embed.
+`--theme` takes `dark` (default) or `light`. Pick it from the destination: dark for a standalone asset, light for an in-body embed. Light defaults to `--canvas inbody` (see "In-body diagrams"); `--canvas concept` forces the 1200x680 multi-column frame.
 
-For a real (non-sample) diagram, write a short build script that requires `mo_diagram.js` and composes `card`/`band`/`spectrum`/`arrow`, or extend the CLI. Keep the geometry: 60px margins, 30px gutters, cards on a 3-up grid at ~340px.
+For a real (non-sample) diagram, write a short build script that requires `mo_diagram.js` and composes `card`/`band`/`spectrum`/`arrow`, or extend the CLI. Keep the geometry: 60px margins, 30px gutters. On `diagram_concept`, cards on a 3-up grid at ~340px; on `diagram_inbody`, one column at 1080px.
 
 **Picking the theme in a build script.** Three equivalent forms, all backed by the same helpers:
 
@@ -144,11 +169,11 @@ L.card(x, y, w, { heading: '...', body: '...' });
 L.render(L.canvas(1200, 680, inner), out);
 ```
 
-Exports: `DARK`, `LIGHT`, `PALETTES`, `palette(name)`, `setTheme`, `getTheme`, `themed(name)`, alongside the original `C` (which still means the dark palette) and every original helper with its original signature.
+Exports: `DARK`, `LIGHT`, `PALETTES`, `palette(name)`, `setTheme`, `getTheme`, `themed(name)`, `inbody(name)`, `assertFloors`, `footerBand`, `METRICS`, alongside the original `C` (which still means the dark palette) and every original helper with its original signature.
 
 **Data figure (family 1):** copy the `diagramSample` function in `mo_visual_kit.js`, swap the data and labels, keep the geometry discipline (axis 250px left, plot 1270px wide, bars ~180px), render both light and dark.
 
-**Output location (mandatory).** `--out` writes into the post's own per-post folder under `04_Newsletter_and_Blog/<date>_<slug>/`, named `<slug>_<diagram-name>_1200x680.png` (data figures `_1600x1080`). Never a shared scratch folder. One diagram, one home, next to its post. (Same rule as `Blog_Thumbnail_Standard.md`.)
+**Output location (mandatory).** `--out` writes into the post's own per-post folder under `04_Newsletter_and_Blog/<date>_<slug>/`, named `<slug>_<diagram-name>_1200x680.png` (in-body `_inbody.png`, since its height is fitted; data figures `_1600x1080`). Never a shared scratch folder. One diagram, one home, next to its post. (Same rule as `Blog_Thumbnail_Standard.md`.)
 
 **Hosting + embed (beehiiv).** Diagrams embed the same way as OG cards: Al pushes the PNG to the `MrObserv/mo-social-assets` repo root via `push_asset.sh` (needs `$GH_TOKEN`, runs on Al's machine, never in the sandbox). The raw URL is `https://raw.githubusercontent.com/MrObserv/mo-social-assets/main/<filename>`. Then `save_image(raw_url)` to bring it into beehiiv media, and embed as an `imageBlock` node with a caption. beehiiv 404s if the file is not yet hosted, which doubles as the existence check.
 

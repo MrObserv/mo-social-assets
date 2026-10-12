@@ -1,0 +1,18 @@
+{
+  "slug": "sample_quote_cards",
+  "eyebrow": "SAMPLE SERIES",
+  "cards": [
+    {
+      "kind": "quote",
+      "text": "A short attributed line from somebody else.",
+      "attribution": {
+        "name": "A. Person",
+        "source": "A Book Title"
+      }
+    },
+    {
+      "kind": "line",
+      "text": "A house line with no quotation marks, a little longer than the first one."
+    }
+  ]
+}

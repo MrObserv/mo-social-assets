@@ -1,6 +1,6 @@
 # The Signal — Masthead Card Standard
 
-**Owner:** Growth (brand/design) · **Producer:** `00_Command_Center/thumbnail_builder.py` `compose_signal()` (builder v1.5.0+, `--signal-only`) · **Surface:** `the_signal`, house lane, **light only** · **Canvas:** `signal_masthead`, 1200x630 · **Registered:** 2026-08-21 · **Rewritten against v3:** 2026-09-18
+**Owner:** Growth (brand/design) · **Producer:** `tools/thumbnail_builder.py` `compose_signal()` in the repo (builder v1.6.2+, `--signal-only`; run from the repo root, which is what the bot runs. The `00_Command_Center` copy on G: is retired) · **Surface:** `the_signal`, house lane, **light only** · **Canvas:** `signal_masthead`, 1200x630 · **Registered:** 2026-08-21 · **Rewritten against v3:** 2026-09-18
 
 The masthead card for **The Signal** weekly newsletter. It is the web-archive image and the social-share preview when an issue's link is posted. Sibling to `OG_Card_Standard.md`, same canvas and fonts, but a distinct **newsletter** identity, not an episode card.
 
@@ -58,7 +58,7 @@ All layout values live in `CONFIG["signal"]` in the producer: single source of l
 ## 5. How to build it
 
 ```
-python 00_Command_Center/thumbnail_builder.py --signal-only \
+python tools/thumbnail_builder.py --signal-only \
   --episode <ISSUE_NUMBER> \
   --title "<the week's lead headline>"   # use "/" to force a line break \
   --date "<DD Mon YYYY>" \
@@ -77,8 +77,8 @@ The builder runs `assert_no_retired` against its own source on every invocation,
 **Prove the gates fire, once, after any change to the producer.** A gate that cannot fail is theatre:
 
 ```
-python 00_Command_Center/thumbnail_builder.py --signal-only --episode 1 --title X --date "25 Sep 2026" --outdir .
-python 00_Command_Center/thumbnail_builder.py --signal-only --title X --date "25 Sep 2026" --outdir .
+python tools/thumbnail_builder.py --signal-only --episode 1 --title X --date "25 Sep 2026" --outdir .
+python tools/thumbnail_builder.py --signal-only --title X --date "25 Sep 2026" --outdir .
 ```
 
 The first must refuse issue 1 as below the anchor. The second must refuse the missing `--episode`. If either writes a PNG, the gate is not wired.

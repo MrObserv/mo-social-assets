@@ -1,0 +1,34 @@
+{
+  "slug": "sample_carousel",
+  "cover": {
+    "eyebrow": "SAMPLE STREAM",
+    "hook": "A placeholder hook that runs to two lines.",
+    "sub": "One line of supporting copy for the cover slide."
+  },
+  "points": [
+    {
+      "tone": "problem",
+      "label": "The problem",
+      "head": "A headline for the problem point",
+      "body": "Body copy for the first point. It runs to two or three lines at the body size.",
+      "source": "Placeholder source line, Journal of Examples"
+    },
+    {
+      "tone": "neutral",
+      "label": "The context",
+      "head": "A headline for the context",
+      "body": "Body copy for the second point, kept to the same length as the others."
+    },
+    {
+      "tone": "fix",
+      "label": "The fix",
+      "head": "A headline for the fix",
+      "body": "Body copy for the fix. One idea per slide; if it needs more, it is a blog."
+    }
+  ],
+  "cta": {
+    "eyebrow": "ON THE BLOG",
+    "head": "The title of the piece it routes to",
+    "button": "Read it"
+  }
+}
