@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// mo_carousel.js v1.1.0 (2026-10-15): THE carousel producer (Carousel_Standard.md v3.1).
+// mo_carousel.js v1.1.1 (2026-10-16): THE carousel producer (Carousel_Standard.md v3.1).
 // One JSON in; N slides, the LinkedIn document PDF and a manifest with alt text out.
 // Light, house lane, from design-tokens.json. Declares no colour.
 // Replaces templates/render_carousel.py (retired, retired palette) and the
@@ -18,6 +18,11 @@
 //   no n / N counter (TikTok draws its own photo dots);
 //   the wordmark moves to the top, beside the ring mark, on every slide (the
 //     4:5 footer position is TikTok's caption zone).
+//
+// v1.1.1 (2026-10-16): the safe-box gate and the TikTok mock move to
+// mo_social.js 1.1.0, shared with mo_share_card.js. No output changes: every
+// SVG, filename, alt text and proof for all three variants is byte-identical
+// to 1.1.0 (tested). The manifest records 1.1.1.
 //
 //   node mo_carousel.js build <spec.json> --out <dir> [--variant both|linkedin|instagram|tiktok|all] [--proof]
 //   node mo_carousel.js check <spec.json> [--variant ...]   gates only, writes nothing (no sharp needed)
@@ -40,7 +45,7 @@ const path = require("path");
 const S = require(path.join(__dirname, "mo_social.js"));
 const { T, C, TONE } = S;
 S.T.assertNoRetired(fs.readFileSync(__filename, "utf8"), "mo_carousel.js");
-const VERSION = "1.1.0";
+const VERSION = "1.1.1";
 
 const SURFACE = "carousel";
 if (T.modeFor(SURFACE) !== "light") throw new Error("mo_carousel: carousel no longer resolves light; re-read design-tokens.json mode");
@@ -236,27 +241,12 @@ function cta(g, spec, N, variant) {
     alt: c.alt ? c.alt + " " + v.alt : `${S.sentence(S.plain(c.eyebrow))} ${S.sentence(c.head)} ${c.sub ? S.sentence(c.sub) + " " : ""}${S.sentence(c.button)} ${v.alt}` };
 }
 
-/* The TikTok gate. Every string on the ledger, and the ring mark, must sit
- * wholly inside the ruled safe box. Same text box as mo_social gate():
- * measured width, cap line at 0.78 of the size above the baseline, descender
- * at 0.24 below. Throws listing every offender. */
-function inBox(it, s) {
-  const wpx = s.width(it.str, it.role, it.size, it.ls);
-  const x0 = it.anchor === "middle" ? it.x - wpx / 2 : it.anchor === "end" ? it.x - wpx : it.x;
-  return { x0, x1: x0 + wpx, y0: it.y - it.size * 0.78, y1: it.y + it.size * 0.24 };
-}
+/* The TikTok gate: every string and the ring mark inside the ruled box.
+ * Since 1.1.1 it lives in mo_social.js, shared with mo_share_card.js, so the
+ * carousel and the 9:16 card cannot run different copies of it. */
 function assertSafe(sl, g) {
   if (!g.safe) return null;
-  const { x0, y0, x1, y1 } = g.safe, bad = [];
-  const boxes = sl.s.items.map((it) => Object.assign(inBox(it, sl.s), { what: it.what, str: it.str }))
-    .concat((sl.s.marks || []).map((m) => Object.assign({ str: "" }, m)));
-  for (const b of boxes) {
-    if (b.x0 < x0 - 0.5 || b.x1 > x1 + 0.5 || b.y0 < y0 - 0.5 || b.y1 > y1 + 0.5)
-      bad.push(`${b.what} "${b.str}" spans x${Math.round(b.x0)}-${Math.round(b.x1)}, y${Math.round(b.y0)}-${Math.round(b.y1)}`);
-  }
-  if (bad.length) throw new Error("mo_carousel: " + sl.name + " (tiktok) has " + bad.length + " item(s) outside the safe box x" + x0 + "-" + x1 +
-    ", y" + y0 + "-" + y1 + " (safe_areas.tiktok_photo):\n  " + bad.join("\n  "));
-  return { box: [x0, y0, x1, y1], items: boxes.length };
+  return S.assertSafe(sl.s, [g.safe.x0, g.safe.y0, g.safe.x1, g.safe.y1], "mo_carousel: " + sl.name + " (tiktok)");
 }
 
 /* Pure: spec in, composed and GATED slides out. No disk, no sharp. */
@@ -295,29 +285,11 @@ function gateSlide(sl) {
   return r;
 }
 
-/* A MOCK of TikTok's photo-post interface, for the overlay proof only. Never
- * part of a shipped slide. Geometry is the stricter published figure on each
- * edge: tabs to y131, the action column 150px wide on the right from y700,
- * the caption block from the bottom up to y1553, photo dots at y1560. Black
- * and white only, because it stands for the platform, not the brand. */
-function tiktokChrome(w, h) {
-  const col = w - 150;
-  let m = `<g opacity="0.55"><rect x="0" y="0" width="${w}" height="131" fill="#000000"/>` +
-    `<rect x="${col}" y="700" width="150" height="800" fill="#000000"/>` +
-    `<rect x="0" y="1553" width="${w}" height="${h - 1553}" fill="#000000"/></g>`;
-  m += `<g fill="#FFFFFF" font-family="sans-serif" font-weight="700">` +
-    `<text x="${w / 2 - 60}" y="86" font-size="34" text-anchor="end">Following</text><text x="${w / 2 + 60}" y="86" font-size="34">For You</text>`;
-  for (let i = 0; i < 5; i++) m += `<circle cx="${col + 75}" cy="${790 + i * 150}" r="40" fill="none" stroke="#FFFFFF" stroke-width="6"/>`;
-  m += `<text x="40" y="1640" font-size="36">@masteringobservability</text>` +
-    `<text x="40" y="1700" font-size="30" font-weight="400">Caption text runs here, two lines, then more...</text>` +
-    `<text x="40" y="1760" font-size="28" font-weight="400">Original sound</text></g>`;
-  for (let i = 0; i < 6; i++) m += `<circle cx="${w / 2 - 75 + i * 30}" cy="1580" r="7" fill="#FFFFFF" opacity="${i === 0 ? 1 : 0.5}"/>`;
-  return m;
-}
+/* The TikTok mock and the proof overlay live in mo_social.js since 1.1.1. */
+const tiktokChrome = S.tiktokChrome;
 function proofSvg(sl) {
-  const g = sl.g, [x0, y0, x1, y1] = [g.safe.x0, g.safe.y0, g.safe.x1, g.safe.y1];
-  return sl.svg.replace(/<\/svg>$/, tiktokChrome(g.W, g.H) +
-    `<rect x="${x0}" y="${y0}" width="${x1 - x0}" height="${y1 - y0}" fill="none" stroke="#FF0000" stroke-width="3" stroke-dasharray="14 10"/></svg>`);
+  const g = sl.g;
+  return S.proofSvg(sl.svg, [g.safe.x0, g.safe.y0, g.safe.x1, g.safe.y1], g.W, g.H);
 }
 
 async function build(spec, out, { variant = "both", proof = false } = {}) {

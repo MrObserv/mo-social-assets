@@ -1,71 +1,96 @@
-# OG / Newsletter-Card Composition Standard
+# OG / Share Card Standard v3
 
-**Owner:** Growth (brand/design) · **Producer:** `00_Command_Center/thumbnail_builder.py` `compose_og()` · **Surface:** dark-asset (navy #0a0e17 + mint #64ffda, Montserrat ExtraBold / Space Mono / DM Sans) · **Registered:** 2026-07-11 (CR Control -> Growth OG design, layout **B — centred**, Al-approved).
+**Owner:** Design · **Mode:** light, mode C · **Lane:** house (`MASTERING OBSERVABILITY`) · **Tokens:** 3.5.0 · **Last updated:** 2026-10-16
 
-The 1200x630 OG / social share / newsletter card carries the episode with no portrait. It had been art-directed by eye across many iterations and never settled; this standard fixes the composition as a system so `compose_og` renders it correctly every time instead of being nudged per request.
+The share card is what a link to one of our pages shows when it is posted or unfurled, and the same card when it is posted as an image. It has two cuts:
+
+| Cut | Canvas key | Size | Built by |
+|---|---|---|---|
+| Wide | `og_card` | 1200×630 | a hand instance of `07_Website/Pages/brand/og_cards/og_book.html` (or a sibling in that folder) |
+| TikTok | `og_card_tiktok` | 1080×1920 | `producers/mo_share_card.js` |
+
+**This rewrite replaces the v1 standard in full.** v1 described a dark navy card from `00_Command_Center/thumbnail_builder.py` `compose_og()`, with a mint palette and a vertical divider, registered 2026-07-11. That card was retired when share cards moved to mode C. It survives only in git history. Nothing below inherits from it.
 
 ---
 
-## The problem this fixes
+## 1. The wide card, 1200×630
 
-The old OG left-aligned a narrow "Allan's Hard Stop" block high in a wide right column, with the title block pinned to a fixed top on the left. The two halves did not relate, the right column floated, and the vertical space was used poorly. Every fix was a manual nudge against a fresh render.
+**Source:** the templates in `07_Website/Pages/brand/og_cards/`. `og_book.html` is the one with a cover. `og_home.html` is the same design without one. A new card is a copy of the nearest template with the copy and image swapped. Nothing else changes.
 
-## The layout system (one optical axis, two anchored columns)
+**Anatomy, as built:**
 
-One grid, 60px margins. Three horizontal zones:
+- **Surround:** tint, with an inset panel (ground, a hairline border, radius 6) and one radial wash at top right.
+- **Kicker:** a 70px rule in teal, then Space Mono 700 22px, letter-spaced 6, upper case, in teal-deep.
+- **Headline:** Montserrat, 78px, line height 1.04. Two parts. The second part is set `display:block` in teal-deep, so the card reads as two lines.
+- **Sub line:** DM Sans 28px, muted, at most 46 characters wide.
+- **Cover** (with-cover variant): top right, 310px tall, radius 4, with the shadow `0 18 40` in navy at 22 per cent.
+- **Footer:** a rule, `MASTERING OBSERVABILITY` left in soft, the domain and the ring mark right in teal-deep.
 
-1. **Top band** — the lockup (lens mark + `METRICS & MAYHEM` wordmark) and the format badge, top-left. Standard §19.6 lockup.
-2. **Content band** — `y = 140..500`. Everything lives here and is centred on the band's **midpoint (y = 320)**.
-3. **Bottom band** — full-width footer rule + `EPISODE n • ALLAN MANN • MASTERINGOBSERVABILITY.COM` left, `MASTERINGOBSERVABILITY.COM` right, watermark lens bottom-right.
+**Rendering:** in a browser at 1200×630, then saved as PNG. Every card in the folder carries a `_1200x630.png` beside its HTML.
 
-Inside the content band:
+**Known deviation, recorded rather than fixed:** these templates set the headline at weight 900. The tokens have said 800 since 3.1.1. Correcting the templates would change every wide card's pixels, including the two ebook cards whose hashes are pinned. It is left until the wide cards are next re-rendered for another reason.
 
-- **Left column = the episode title (the hero).** White (`ink`), Montserrat ExtraBold, uppercased, `/`-broken or soft-wrapped at 13 chars, sized by line count (92/84/76/64 for 1-4 lines) and stepped down to fit a 600px column. A mint accent tick (64x4) sits directly under it. The **whole title block is vertically centred on the band midpoint** — it never pins to a fixed top.
-- **Vertical divider at x = 700 (~58%)** — a 1px mint rule at 32% opacity running the height of the band. This is the anchor: it makes the two columns read as one composition instead of two floating elements. It is the single most important element the old card lacked.
-- **Right column = "Allan's Hard Stop" (the payoff).** A tracked teal (`teal_mid`) kicker `ALLAN'S HARD STOP`, a short centred tick beneath it, then the Hard Stop pull-quote in mint (DM Sans Bold, 32px, wrapped ~17 chars, sentence case as written). The **whole block is centred in its column (cx = 933) AND vertically centred on the same band midpoint** as the title, so the two columns sit on one optical axis and neither floats.
+## 2. The TikTok cut, 1080×1920
 
-**Alignment decision (layout B, Al 2026-07-11):** the Hard Stop is **centred** in its column (kicker, tick, and quote all centred on cx). Layout A (left-aligned to the divider) was the alternative; B was chosen for symmetry.
-
-## Hierarchy
-
-White heavy title (hero) -> mint accent tick -> tracked teal kicker -> mint quote (payoff) -> teal footer. Two brand fonts do the work: Montserrat ExtraBold for the title, Space Mono for lockup/badge/kicker/footer, DM Sans for the quote. No third weight, no decorative effects.
-
-## Canonical parameters
-
-All live in `CONFIG["og"]` in `thumbnail_builder.py` (single source of layout truth — there are no magic numbers in the drawing code). Key values:
+**Producer:** `06_Brand_Assets/Design_Standards/producers/mo_share_card.js`
 
 ```
-band            top 140, bottom 500  (midpoint 320 = the shared optical axis)
-title           max_width 600; size_by_lines {1:92, 2:84, 3:76, 4:64}; colour ink
-accent_line     64 x 4, 22px below the title
-divider         x 700, y 150..500, mint @ 32% opacity, 1px
-quote_block     cx 933; kicker "ALLAN'S HARD STOP" Space Mono 14, teal_mid, tracked 3;
-                tick 34 x 3, 17px below kicker; quote DM Sans Bold 32, mint, wrap 17, line-height 1.3
-watermark       88px lens, 45% opacity, bottom-right above the footer
+node producers/mo_share_card.js build <spec.json> --out <dir> [--proof]
+node producers/mo_share_card.js check <spec.json>
 ```
 
-Any change to these requires a `thumbnail_builder.py` edit in this file's lane (Growth proposes, Control edits the code) and a re-render QA.
+**In:** one spec JSON. `slug`, `kicker`, `head`, optional `head_em`, `sub`, `cover` (a path relative to the spec), and `alt`, which must end with "Link in bio."
 
-## Where this sits in the MO brand
+**Out:** `<slug>_1080x1920.png` and `<slug>_1080x1920_manifest.json`, which records the alt text, the gate results, and the cover and ring sizes. With `--proof`, it also writes `proof/<slug>_1080x1920_proof.png`, showing the card under a mock of TikTok's interface.
 
-This is the **dark visual-asset surface** (navy + mint + Montserrat/Space Mono), the same surface as `Blog_Thumbnail_Standard`, the YouTube thumbnail, the square episode art, and social visuals — distinct from the v2.0 web/email token surface (`Brand_Design_System_v2.md`: Montserrat + teal #2F9E8D on a light background). Both share DM Sans + Space Mono so they read as one identity. See `Diagram_Standard.md` "two surfaces, one identity".
+**It extends the wide card. It does not fork it.** `og_book.html` is not touched. The 9:16 card keeps:
 
-## QA gate (mandatory, two passes — codex §19.6)
+- the type roles: mono kicker with its rule, two-tone display headline with the second part in teal-deep, muted sub;
+- the cover treatment: radius and shadow scaled from the 310px cover;
+- the house wordmark.
 
-Rendering is not shipping. Before an OG is used:
+**Where it departs, and why (Design, 2026-10-16):**
 
-1. Render at full size and eyeball: title fits its column with no overflow; the Hard Stop clears the divider on both sides; the kicker tick reads as a separator, not an underline; both columns sit level on the band axis; footer and watermark clear.
-2. Fresh-eyes second pass at the same size (a real second look, not the same glance). Only a pass that finds nothing ships.
+- **Chrome follows the TikTok carousel's** (Al, 15 Oct). There's no counter, and the ring mark and wordmark sit at the top of the safe box.
+- **The domain line is dropped.** On the wide card it sits at the bottom edge, which is TikTok's caption zone, and the post caption already says "Link in bio".
+- **One `LINK IN BIO` line**, in the carousel CTA's link-line treatment.
+- **The ground is the feed ground** that `mo_social.js` draws (panel plus one wash), not a tint surround with an inset panel. There are two reasons:
+  - the contrast gate measures against the ground it draws;
+  - an inset panel would spend width that the 810px safe column does not have.
 
-First clean render: Ep 23 "The Curiosity You Stop Needing", 2026-07-11 (two passes).
+  It also matches the TikTok carousels these cards post beside.
 
-## Producer discipline — the render loop (added 2026-08-06 after a stale-builder incident)
+**Layout is computed, not placed:**
 
-The OG is produced ONLY by the canonical `00_Command_Center/thumbnail_builder.py` `compose_og()`. On 2026-08-06 the Ep 26 OG was rendered wrong **twice**, both from not using the canonical builder: (1) a hand-built preview replica (`og_layoutb.py`) forced the quote into Montserrat instead of DM Sans and lost the spec; (2) a **stale sandbox copy** of the builder (v1.3.0, before the v1.3.2 footer fix) **doubled the footer domain and dropped the vertical divider**. Fix + loop:
+- **Words:** one block, with the link line sitting 20px above the safe floor.
+- **Headline:** set at the largest size, from 104px down, at which each part stays on one line, as the wide card sets it.
+- **Cover:** takes the space between the brand row and the words, capped at 860px tall, and centred in it. So a longer sub shrinks the cover, never the type.
+- **Too long:** if the words leave the cover smaller on a phone than it already is on the wide card (143px seen), the producer throws. That copy goes back to Content.
 
-1. **No replicas, ever.** Never render an OG from a hand-rolled or "preview" script. Canonical builder only. (The retired replicas `og_layoutb.py` / `terminal_og.py` were deleted from the sandbox.)
-2. **Sync before render.** In any sandbox session, sync the sandbox `thumbnail_builder.py` from the canonical G: copy FIRST, and confirm they match (`BUILDER_VERSION` + line count). The sandbox mount can serve a stale file — the exact hazard the builder's own header warns about (2026-06-08 watcher incident). Rendering from a stale copy is what caused this.
-3. **Fonts + root.** `MO_FONTS` → `mo-social-assets/fonts/` (the sandbox-reachable brand-font home; G: fonts are unreadable by the Linux render sandbox). `MM_PROJECT_ROOT` → a root holding `06_Brand_Assets/{fonts, logo-on-dark.svg}`.
-4. **Two-pass QA every render** (the gate above): pass 1 eyeball against this spec, pass 2 fresh-eyes. Explicitly check: footer shows the domain ONCE (left credit `EPISODE n • ALLAN MANN`, right stamp `MASTERINGOBSERVABILITY.COM`), the vertical divider is present, the quote is DM Sans Bold.
+**Ring mark:** 88px, which is 31px on a 375px phone. That is under `marks.ring_mark.crossover_px` (40), so this producer uses the small variant: it picks by **displayed** size (`marks.ring_mark.display_rule`).
 
-Re-render clean from canonical v1.3.2: Ep 26 "You Don't See the Foundation", 2026-08-06 (two passes).
+**Gates** (every one throws, listing each failure):
+
+- **text fit:** every string within its measured box;
+- **phone floors:** `canvas.floors.og_card_tiktok`, the carousel floors, because the card is full width at 375px;
+- **contrast:** 4.5:1 against the real ground under each string;
+- **safe box:** every string, the ring mark and the cover wholly inside `safe_areas.tiktok_photo.box` [120, 200, 930, 1520];
+- **render:** `assertNoRetired` on the source, `assertRenderClean` on the SVG, and PNG byte 25 must be 2 or 6;
+- **copy rules:** no em dash, no double space, and an alt line that ends "Link in bio."
+
+## 3. Files
+
+Cards for a campaign live together, as in `cards/2026-10-16_ebook_launch/`:
+
+- the wide card's `.html` and its `_1200x630.png`;
+- the TikTok cut's spec, `_1080x1920.json`, and its `_1080x1920.png`;
+- `alt.json`, holding the alt text for every PNG in the folder.
+
+## 4. QA, two passes
+
+1. **Look at the render at full size.** Check:
+   - the headline breaks where the copy means it to;
+   - the cover is not cropped;
+   - nothing crowds the brand row;
+   - the link line is the last thing read.
+2. **Look at the proof**, then take a second, fresh look at the card itself. Only a pass that finds nothing ships.

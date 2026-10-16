@@ -1,0 +1,46 @@
+{
+  "producer": "mo_share_card.js 1.0.0",
+  "kit": "mo_social.js 1.1.0",
+  "tokens": "3.5.0",
+  "slug": "og_ebook_signal-audit",
+  "surface": "og_card_tiktok",
+  "size": [
+    1080,
+    1920
+  ],
+  "safe_box": [
+    120,
+    200,
+    930,
+    1520
+  ],
+  "file": "og_ebook_signal-audit_1080x1920.png",
+  "alt": "Mastering Observability card: free workbook, The Signal Audit. One incident, yours. Five short audits of your own last incident, and the ninety-day plan that comes out of them. The cover of The Signal Audit by Allan Mann. Link in bio.",
+  "check": {
+    "strings": 8,
+    "min_contrast": 5.86,
+    "safe": {
+      "box": [
+        120,
+        200,
+        930,
+        1520
+      ],
+      "items": 10
+    }
+  },
+  "cover": {
+    "x": 348,
+    "y": 344,
+    "w": 355,
+    "h": 502,
+    "shown_px": 174
+  },
+  "ring": {
+    "px": 88,
+    "shown_px": 30.6,
+    "variant": "small_on_light"
+  },
+  "head_px": 104,
+  "proof": "proof/"
+}

@@ -1,4 +1,4 @@
-// mo_social.js v1.0.0 (2026-10-12)
+// mo_social.js v1.1.0 (2026-10-16)
 // Shared kit for the FEED surfaces: producers/mo_carousel.js and
 // producers/mo_quote_card.js require it. Declares no colour: every value comes
 // from design-tokens.json through mo-tokens.js, and text is measured with the
@@ -11,6 +11,15 @@
 //             real background under it (ground plus the radial wash).
 //   render()  SVG to truecolour PNG. Throws if byte 25 is not 2 or 6.
 //   pdf()     LinkedIn document PDF from rendered PNGs, no extra dependency.
+//
+// v1.1.0 (2026-10-16) moves the TikTok safe-box gate and the overlay-proof mock
+// here from mo_carousel.js, so the carousel and the 9:16 share card
+// (mo_share_card.js) run ONE copy of each. Additive: nothing that existed in
+// 1.0.0 changes behaviour, so every 1.0.0 output is unchanged (tested).
+//   assertSafe()   every ledger string and every recorded mark wholly inside a box.
+//   tiktokChrome() a mock of TikTok's photo-post interface, for proofs only.
+//   proofSvg()     a composed SVG with the mock and the box drawn over it.
+//   ringMark(..., { displayScale }) picks the variant by DISPLAYED size.
 "use strict";
 const fs = require("fs");
 const path = require("path");
@@ -21,7 +30,7 @@ const Dm = require(path.join(__dirname, "mo_diagram.js"));
 if (!Dm.METRICS || !Dm.MO_DIAGRAM_VERSION) throw new Error(
   "mo_social: needs producers/mo_diagram.js 2.0.0 or later (measured text widths). Deploy it first.");
 T.assertNoRetired(fs.readFileSync(__filename, "utf8"), "mo_social.js");
-const VERSION = "1.0.0";
+const VERSION = "1.1.0";
 
 const FONT = Dm.FONT, DW = Dm.DISPLAY_WEIGHT;
 const C = {
@@ -145,8 +154,13 @@ function gate(s, label) {
   return { strings: s.items.length, min_contrast: +minC.toFixed(2) };
 }
 
-function ringMark(x, y, px) {
-  const v = px < T.raw.marks.ring_mark.crossover_px ? "small_on_light" : "on_light";
+/* The crossover is about the mark as SEEN. Pass displayScale (displayed width
+ * / canvas width, e.g. 375 / 1080 for a full-width phone card) and the variant
+ * is chosen by px * displayScale. Without it the authored px is used, which is
+ * the 1.0.0 behaviour and is kept so existing renders do not move. */
+function ringMark(x, y, px, { displayScale } = {}) {
+  const shown = displayScale ? px * displayScale : px;
+  const v = shown < T.raw.marks.ring_mark.crossover_px ? "small_on_light" : "on_light";
   const href = "data:image/svg+xml;base64," + fs.readFileSync(T.mark("ring_mark", v)).toString("base64");
   return `<image href="${href}" x="${x}" y="${y}" width="${px}" height="${px}"/>`;
 }
@@ -217,6 +231,59 @@ function pdfBytes(pages, { title = "", author = "" } = {}) {
   return Buffer.concat(parts);
 }
 
+// ---- TikTok 9:16: the safe-box gate and the overlay proof ---------------------
+/* The text box every gate uses: measured width, cap line at 0.78 of the size
+ * above the baseline, descender at 0.24 below. */
+function textBox(s, it) {
+  const wpx = s.width(it.str, it.role, it.size, it.ls);
+  const x0 = it.anchor === "middle" ? it.x - wpx / 2 : it.anchor === "end" ? it.x - wpx : it.x;
+  return { x0, x1: x0 + wpx, y0: it.y - it.size * 0.78, y1: it.y + it.size * 0.24 };
+}
+/* Every string on the ledger, and every mark recorded on s.marks (ring mark,
+ * cover), must sit wholly inside box [x0, y0, x1, y1]. Throws listing every
+ * offender. `label` prefixes the message so the caller is named. */
+function assertSafe(s, box, label) {
+  const [x0, y0, x1, y1] = box, bad = [];
+  const boxes = s.items.map((it) => Object.assign(textBox(s, it), { what: it.what, str: it.str }))
+    .concat((s.marks || []).map((m) => Object.assign({ str: "" }, m)));
+  for (const b of boxes) {
+    if (b.x0 < x0 - 0.5 || b.x1 > x1 + 0.5 || b.y0 < y0 - 0.5 || b.y1 > y1 + 0.5)
+      bad.push(`${b.what} "${b.str}" spans x${Math.round(b.x0)}-${Math.round(b.x1)}, y${Math.round(b.y0)}-${Math.round(b.y1)}`);
+  }
+  if (bad.length) throw new Error(label + " has " + bad.length + " item(s) outside the safe box x" + x0 + "-" + x1 +
+    ", y" + y0 + "-" + y1 + " (safe_areas.tiktok_photo):\n  " + bad.join("\n  "));
+  return { box: [x0, y0, x1, y1], items: boxes.length };
+}
+/* A MOCK of TikTok's photo-post interface, for the overlay proof only. Never
+ * part of a shipped asset. Geometry is the stricter published figure on each
+ * edge: tabs to y131, the action column 150px wide on the right from y700,
+ * the caption block from the bottom up to y1553, photo dots at y1580. Black
+ * and white only, because it stands for the platform, not the brand. */
+function tiktokChrome(w, h) {
+  const col = w - 150;
+  let m = `<g opacity="0.55"><rect x="0" y="0" width="${w}" height="131" fill="#000000"/>` +
+    `<rect x="${col}" y="700" width="150" height="800" fill="#000000"/>` +
+    `<rect x="0" y="1553" width="${w}" height="${h - 1553}" fill="#000000"/></g>`;
+  m += `<g fill="#FFFFFF" font-family="sans-serif" font-weight="700">` +
+    `<text x="${w / 2 - 60}" y="86" font-size="34" text-anchor="end">Following</text><text x="${w / 2 + 60}" y="86" font-size="34">For You</text>`;
+  for (let i = 0; i < 5; i++) m += `<circle cx="${col + 75}" cy="${790 + i * 150}" r="40" fill="none" stroke="#FFFFFF" stroke-width="6"/>`;
+  m += `<text x="40" y="1640" font-size="36">@masteringobservability</text>` +
+    `<text x="40" y="1700" font-size="30" font-weight="400">Caption text runs here, two lines, then more...</text>` +
+    `<text x="40" y="1760" font-size="28" font-weight="400">Original sound</text></g>`;
+  for (let i = 0; i < 6; i++) m += `<circle cx="${w / 2 - 75 + i * 30}" cy="1580" r="7" fill="#FFFFFF" opacity="${i === 0 ? 1 : 0.5}"/>`;
+  return m;
+}
+function proofSvg(svg, box, w, h) {
+  const [x0, y0, x1, y1] = box;
+  return svg.replace(/<\/svg>$/, tiktokChrome(w, h) +
+    `<rect x="${x0}" y="${y0}" width="${x1 - x0}" height="${y1 - y0}" fill="none" stroke="#FF0000" stroke-width="3" stroke-dasharray="14 10"/></svg>`);
+}
+/* The rectangles the mock draws, for the automatic overlay check. */
+const TIKTOK_CHROME_RECTS = [
+  { n: "tabs", x0: 0, y0: 0, x1: 1080, y1: 131 }, { n: "action column", x0: 930, y0: 700, x1: 1080, y1: 1500 },
+  { n: "caption block", x0: 0, y0: 1553, x1: 1080, y1: 1920 }, { n: "photo dots", x0: 450, y0: 1573, x1: 630, y1: 1587 },
+];
+
 function args(argv) {
   const o = { _: [] };
   for (let i = 0; i < argv.length; i++) {
@@ -231,4 +298,5 @@ function assertSlug(slug) {
 }
 
 module.exports = { VERSION, T, Dm, C, TONE, ROLE, WASH, contrast, blend, groundUnder, lum,
-  assertCopy, sentence, plain, sheet, gate, ringMark, kicker, assertTruecolour, render, pdf, pdfBytes, args, assertSlug };
+  assertCopy, sentence, plain, sheet, gate, ringMark, kicker, assertTruecolour, render, pdf, pdfBytes, args, assertSlug,
+  textBox, assertSafe, tiktokChrome, proofSvg, TIKTOK_CHROME_RECTS };

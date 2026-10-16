@@ -194,6 +194,26 @@ Diagrams clear the fourteen-point gate, carried verbatim in both diagram standar
 
 ## 10. Changelog
 
+### tokens 3.5.0, 2026-10-16, Design for Content
+**The 9:16 share card.** New canvas `og_card_tiktok` (1080×1920), house lane, light, carrying the carousel floors. New producer `producers/mo_share_card.js` 1.0.0 builds the TikTok cut of the share card from a spec. It extends the `og_book.html` card (type roles, cover treatment) onto the TikTok carousel chrome, drops the domain line, and adds one `LINK IN BIO`. It is gated like the carousel, including the safe box. First use: the two ebook launch cards in `cards/2026-10-16_ebook_launch/`. `OG_Card_Standard.md` is rewritten onto v3; the v1 dark `compose_og()` card it described was already retired.
+
+**Shared kit.** `mo_social.js` 1.1.0 now holds the safe-box gate and the TikTok mock, so the carousel and the card run one copy. `mo_carousel.js` 1.1.1 delegates to it. Its output for all three variants is byte-identical to 1.1.0.
+
+**Ring-mark rule.** The 40px crossover applies to the mark as displayed, not as authored (`marks.ring_mark.display_rule`). **Open, for Al:** the carousel's 88px mark and the quote card's 72px mark choose by authored size. Both show at 31px and 25px on a phone, under the crossover, so both still use the full mark. Fixing it changes every carousel and quote card PNG, so it waits for a ruling.
+
+No colour value changed.
+
+### tokens 3.4.0, 2026-10-15, Design for Content
+**The TikTok carousel cut.** New canvas `carousel_tiktok` (1080×1920), and `safe_areas.tiktok_photo` with its box [120, 200, 930, 1520]. Al ruled four things:
+- TikTok stills are light (`mode.tiktok_still_mode`): a photo post fills the screen, so the §2 test says light;
+- the box is Content's, with the top at y 200;
+- there's no `n / N` counter;
+- the wordmark goes at the top, beside the ring mark.
+
+`mo_carousel.js` 1.1.0 renders the cut as a second geometry through the same slide functions. It adds `--variant tiktok|all` and `--proof`, and it throws if anything that must be read leaves the box. `Carousel_Standard.md` v3.1. The 4:5 output is unchanged. C1, C2 and C3 were rebuilt at 9:16, 16 slides, and are posted.
+
+No colour value changed.
+
 ### tokens 3.3.8, 2026-10-12, Design for Content
 **Carousel and quote card producers.** `producers/mo_carousel.js` and `producers/mo_quote_card.js`, sharing `producers/mo_social.js`, replace the two retired templates and the two September stopgaps. Quote cards ruled light only (the tokens contradicted themselves; §2 decides). Every carousel ruled house lane. Portrait and Pinterest canvases and two floor sets added to the tokens. Every string is gated for fit, floor at phone width and 4.5:1 contrast against the ground under it.
 

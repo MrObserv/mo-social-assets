@@ -1,0 +1,46 @@
+{
+  "producer": "mo_share_card.js 1.0.0",
+  "kit": "mo_social.js 1.1.0",
+  "tokens": "3.5.0",
+  "slug": "og_ebook_outcome-question",
+  "surface": "og_card_tiktok",
+  "size": [
+    1080,
+    1920
+  ],
+  "safe_box": [
+    120,
+    200,
+    930,
+    1520
+  ],
+  "file": "og_ebook_outcome-question_1080x1920.png",
+  "alt": "Mastering Observability card: free ebook, The Outcome Question. Can your team explain why? One question, a twenty-minute test, and what to do on Monday. The cover of The Outcome Question by Allan Mann. Link in bio.",
+  "check": {
+    "strings": 7,
+    "min_contrast": 5.92,
+    "safe": {
+      "box": [
+        120,
+        200,
+        930,
+        1520
+      ],
+      "items": 9
+    }
+  },
+  "cover": {
+    "x": 324,
+    "y": 344,
+    "w": 403,
+    "h": 570,
+    "shown_px": 198
+  },
+  "ring": {
+    "px": 88,
+    "shown_px": 30.6,
+    "variant": "small_on_light"
+  },
+  "head_px": 100,
+  "proof": "proof/"
+}
