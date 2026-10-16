@@ -1,13 +1,13 @@
 {
   "$schema": "mo-design-tokens/1",
-  "version": "3.3.8",
+  "version": "3.4.0",
   "status": "ratified",
-  "updated": "2026-10-12",
+  "updated": "2026-10-15",
   "owner": "Growth",
-  "note": "Generated from the MO Design System page. Never hand-edit a producer palette; read this file. 3.3.0 adds ONE rule and ONE required producer flag: The Signal carries its issue number, and blogthumb requires --issue for surface the_signal. See copy.eyebrow_vocabulary.newsletter_issue. NO colour value changed. 3.2.1 was a POINTER-CORRECTION release: consumers.status keys now name the real producer paths, marks.commit_order no longer instructs a commit of two deleted files, and Diagram_Standard.md is repointed - it had told the next person to add hexes to mo_diagram.js, which is now a defect. NO colour value changed and no new token added. 3.3.7 (2026-10-09, Greg via Al, four lane items): canvas.diagram_inbody and canvas.floors added; in-body is the default canvas for light diagrams; producers/mo_deck_master.js registered. 3.3.8 (2026-10-12, Design for Content): quote cards ruled LIGHT ONLY and mode.rule made to say so; carousels ruled house lane always; canvas.quote_card_portrait and quote_card_pinterest added; canvas.floors.carousel and quote_card added; producers/mo_social.js, mo_carousel.js and mo_quote_card.js registered; templates/render_carousel.py and templates/mo_quote_card.js retired (they now refuse to run).",
+  "note": "Generated from the MO Design System page. Never hand-edit a producer palette; read this file. 3.3.0 adds ONE rule and ONE required producer flag: The Signal carries its issue number, and blogthumb requires --issue for surface the_signal. See copy.eyebrow_vocabulary.newsletter_issue. NO colour value changed. 3.2.1 was a POINTER-CORRECTION release: consumers.status keys now name the real producer paths, marks.commit_order no longer instructs a commit of two deleted files, and Diagram_Standard.md is repointed - it had told the next person to add hexes to mo_diagram.js, which is now a defect. NO colour value changed and no new token added. 3.3.7 (2026-10-09, Greg via Al, four lane items): canvas.diagram_inbody and canvas.floors added; in-body is the default canvas for light diagrams; producers/mo_deck_master.js registered. 3.3.8 (2026-10-12, Design for Content): quote cards ruled LIGHT ONLY and mode.rule made to say so; carousels ruled house lane always; canvas.quote_card_portrait and quote_card_pinterest added; canvas.floors.carousel and quote_card added; producers/mo_social.js, mo_carousel.js and mo_quote_card.js registered; templates/render_carousel.py and templates/mo_quote_card.js retired (they now refuse to run). Changed in 3.4.0 (MINOR: new canvas and safe area): canvas.carousel_tiktok 1080x1920, safe_areas.tiktok_photo, mode.tiktok_still_mode, carousel_tiktok in house_lane. NO colour value changed.",
   "mode": {
     "default": "light",
-    "rule": "Writing renders light. A blog, article, newsletter or any card fronting written material uses the website palette, because it is the same reading surface. Feed cards that are words (carousels and quote cards) also render light: they sit in a light feed, not a dark player, and Brand v3 §2 lists both on the light side. Dark is for assets that live inside someone else's dark chrome: podcast, YouTube, episode art, short-form video, the deck's opener, dividers and closer, ebook covers.",
+    "rule": "Writing renders light. A blog, article, newsletter or any card fronting written material uses the website palette, because it is the same reading surface. Feed cards that are words (carousels and quote cards) also render light: they sit in a light feed, not a dark player, and Brand v3 §2 lists both on the light side. That includes their 9:16 TikTok stills, which fill the screen rather than sit inside a dark player (Al, 2026-10-15; mode.tiktok_still_mode). Dark is for assets that live inside someone else's dark chrome: podcast, YouTube, episode art, short-form video, the deck's opener, dividers and closer, ebook covers.",
     "dark_surfaces": [
       "youtube_thumbnail",
       "episode_square",
@@ -38,7 +38,8 @@
     "the_signal_dark_retired": "RETIRED by Al 2026-09-18. The dark masthead is not a variant and not a permitted exception: it is withdrawn. Five issues shipped dark (101 to 105) and are not re-rendered, consistent with how shipped assets have been treated elsewhere in this system. The token reader already refused dark on this surface, so nothing in the resolution chain changes; what changes is that the dark mockup is deleted from the MO Design System page and compose_signal() is rebuilt light rather than kept as a dark composer.",
     "the_signal_mode": "LIGHT, and light ONLY. Confirmed by Al 2026-09-18: light is the website standard for anything that is writing, and The Signal is writing. modeFor('the_signal') already returned light and the surface is deliberately absent from dual_mode, so --mode dark throws. TWO ARTEFACTS CONTRADICT THIS AND ARE THE DRIFT, not the rule: the masthead mockup on the MO Design System page rendered dark, and thumbnail_builder.py compose_signal() renders dark on the RETIRED palette. The token system was right before either was fixed.",
     "writing_surfaces_note": "blog_og is dual-mode (light default, dark for an OG fronting a non-writing asset). byte_size and monthly_digest are NOT dual-mode and render light only, so --mode dark throws on them. That is deliberate: a byte-size is writing.",
-    "quote_card_mode": "LIGHT ONLY. Ruled by Design 2026-10-12 for Content (GR-2026-09-26-04 item 4). The tokens disagreed with themselves: mode.rule said \"feed cards for non-writing assets render dark\" while dark_surfaces omitted quote_card, so modeFor returned light; Quote_Card_Standard.md v1.0 said dark and Brand v3 §2 said light. The §2 test decides it: a quote card does not render inside someone else's dark UI. quote_card is deliberately absent from dual_mode, so a dark request has no variant to resolve. The 2026-09-26 Stoic set shipped dark and is not re-rendered."
+    "quote_card_mode": "LIGHT ONLY. Ruled by Design 2026-10-12 for Content (GR-2026-09-26-04 item 4). The tokens disagreed with themselves: mode.rule said \"feed cards for non-writing assets render dark\" while dark_surfaces omitted quote_card, so modeFor returned light; Quote_Card_Standard.md v1.0 said dark and Brand v3 §2 said light. The §2 test decides it: a quote card does not render inside someone else's dark UI. quote_card is deliberately absent from dual_mode, so a dark request has no variant to resolve. The 2026-09-26 Stoic set shipped dark and is not re-rendered.",
+    "tiktok_still_mode": "LIGHT. Ruled by Al 2026-10-15. TikTok is dark chrome for VIDEO, which is why bookend_9x16 is dark. A 9:16 photo post is different: the image fills the whole screen, so nothing dark surrounds it, and the Brand v3 §2 test (does the asset render inside someone else's dark UI?) says light. carousel_tiktok is therefore absent from dark_surfaces, and the TikTok cut has the same look as the LinkedIn and Instagram cuts of the same carousel."
   },
   "colour": {
     "light": {
@@ -359,7 +360,11 @@
         "judged_at_px": 375,
         "rule": "Judged at a 375px phone feed for all three sizes. The quote auto-fits from the size maximum down to 56px and throws below it. Attribution name at least 32px, source 32px, labels 26px."
       }
-    }
+    },
+    "carousel_tiktok": [
+      1080,
+      1920
+    ]
   },
   "lockup": {
     "rule": "Mastering Observability is the MASTER BRAND. Metrics & Mayhem sits UNDERNEATH it — parent and child, not siblings. Tech Tuesday and Signal Drop sit under Metrics & Mayhem. The Signal, byte-size, the Digest and blogs sit under Mastering Observability. Ruled by Al 2026-09-14, restating what The_Signal_Card_Standard.md already said and what v3.1.0 lost: §6 of the standard, §5 of the marks standard and this rule all described two parallel equal lanes with no parent. The file that declares itself canonical was the one that dropped the hierarchy.",
@@ -389,7 +394,8 @@
       "linkedin_company_banner",
       "byte_size",
       "monthly_digest",
-      "og_card"
+      "og_card",
+      "carousel_tiktok"
     ],
     "name_trap": "the_signal is the NEWSLETTER and is house lane. signal_drop is the PODCAST and is podcast lane. One word apart, opposite wordmarks. Al's 2026-09-14 ruling on the Digest, The Signal and byte-size covers the newsletter only.",
     "prohibition": "Metrics & Mayhem must NOT appear on a house asset. That name is reserved for the book and the podcast.",
@@ -547,7 +553,7 @@
       "templates/mo_quote_card.js": "RETIRED 2026-10-12. Was on the retired palette. Now throws on load with a pointer to producers/mo_quote_card.js, so nothing renders off-brand by accident.",
       "templates/render_carousel.py": "RETIRED 2026-10-12. Was on the retired palette and never registered here. Now exits 1 with a pointer to producers/mo_carousel.js.",
       "producers/mo_social.js": "ADDED 2026-10-12. Shared kit for the feed surfaces: sheet with a ledger of every placed string, text-fit, floor and AA contrast gates against the real ground under each string, truecolour PNG render (byte 25 gate), LinkedIn PDF writer. Declares no colour. Requires mo_diagram.js 2.0.0.",
-      "producers/mo_carousel.js": "ADDED 2026-10-12. THE carousel producer. JSON in; PNGs, LinkedIn PDF and manifest with alt text out. Light, house lane. Replaces the 2026-09-27 Conway stopgap.",
+      "producers/mo_carousel.js": "v1.1.0, 2026-10-15. THE carousel producer. JSON in; PNGs, LinkedIn PDF and manifest with alt text out. Light, house lane. v1.1.0 adds the TikTok cut (carousel_tiktok, 1080x1920) as a second geometry through the same slide functions: --variant tiktok|all, safe-box gate, --proof overlay renders. 4:5 output is byte-identical SVG to v1.0.0 (tested 2026-10-15).",
       "producers/mo_quote_card.js": "ADDED 2026-10-12. THE quote card producer. Single or set (n / N), square, portrait and Pinterest. Light only, house lane. Replaces the 2026-09-26 Stoic stopgap."
     },
     "single_home": "Producers live at Design_Standards/producers/ and nowhere else: mo-tokens.js, mo_visual_kit.js, mo_diagram.js, mo_deck_master.js, mo_social.js, mo_carousel.js, mo_quote_card.js, normalise_font_names.py. Two copies of a producer is the same defect class as two canonical trees. Three instances have now been resolved: two diverged visual kits (09-14); a duplicate normalise_font_names.py whose copy checked only name ID 1 and so passed fonts the real one flags as DRIFT (09-16); and mo_diagram.js living in templates/ away from the loader it needs (09-16).",
@@ -688,6 +694,23 @@
       ],
       "anchor": "centre",
       "note": "On mobile this is the entire visible asset. Centre the composition; the rest is TV bleed."
+    },
+    "tiktok_photo": {
+      "box": [
+        120,
+        200,
+        930,
+        1520
+      ],
+      "size": [
+        810,
+        1320
+      ],
+      "canvas": "carousel_tiktok, and any 1080x1920 still posted to TikTok",
+      "ruled": "Al 2026-10-15. Everything that must be read sits inside x 120-930, y 200-1520. Producers THROW otherwise (mo_carousel.js assertSafe).",
+      "derivation": "The published guides disagree: one gives 131px top, 367px bottom and 120px each side; another about 100px top, about 300px bottom and about 150px on the right for the action column. Content proposed the stricter figure on every edge with the top at 160. Al took Content's box with the top moved to 200, for room under TikTok's Following / For You tabs. Bottom 1520 clears the caption, handle and sound block (367px from the foot is y1553) with a 33px margin. Right 930 clears the 150px action column. Left 120 is composition, not overlay: nothing on TikTok covers the left edge.",
+      "not_the_video_rule": "Brand v3 §7's middle 60 per cent (y384-1536) is for vertical VIDEO, where the player's chrome is heavier and moves. It does not govern stills. Recorded so the two are not confused.",
+      "verify": "Checked by geometry in the producer and by eye on the --proof renders. Al to confirm once on a real phone in TikTok's own preview; until then the box is ruled but not phone-verified."
     }
   },
   "print": {

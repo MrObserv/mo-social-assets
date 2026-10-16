@@ -1,8 +1,10 @@
-# Carousel Standard v3.0 (LinkedIn + Instagram)
+# Carousel Standard v3.1 (LinkedIn + Instagram + TikTok)
 
 **v3.0, 2026-10-12.** Rebuilt on the v3 system. The producer is `producers/mo_carousel.js`. `templates/render_carousel.py` is retired and refuses to run. The palette is `design-tokens.json`, read through `mo-tokens.js`: this file names colours by role and never by value, because `assertNoRetired` scans prose too.
 
-**What it is:** a swipeable multi-slide post at 1080x1350 (4:5). One build serves both surfaces: a LinkedIn document (PDF) and an Instagram carousel (images). LinkedIn is primary.
+**What it is:** a swipeable multi-slide post. One spec serves three surfaces: a LinkedIn document (PDF) and an Instagram carousel at 1080x1350 (4:5), and a TikTok photo post at 1080x1920 (9:16). LinkedIn is primary.
+
+**v3.1, 2026-10-15:** adds the TikTok cut. It is a second geometry run through the same slide functions in `mo_carousel.js` 1.1.0, not a fork and never a crop. The 4:5 output is unchanged: byte-identical SVG to 1.0.0 for C1, C2, C3 and the sample, which was tested rather than assumed.
 
 ---
 
@@ -11,6 +13,18 @@
 - **Mode: light.** `modeFor("carousel")` returns light and the producer throws if it ever stops. Brand v3 §2 lists carousels on the light side.
 - **Lane: house, always.** Every carousel carries MASTERING OBSERVABILITY from `T.lockupFor("carousel")`, including an episode carousel such as a Signal Drop Hard Stop. Name the show in the cover eyebrow, which is copy, not a lockup. One template, one wordmark.
 - **Attribution.** A point that draws on somebody else's work carries a `source` line: a short rule in the point's accent, then the line in DM Sans 32px, muted, under the body. The template places and sizes it; the copy supplies the words, literally (no "Source:" prefix is added on the slide; the alt text adds one unless the point gives its own `alt`).
+
+## TikTok cut (v3.1, rulings by Al 2026-10-15)
+
+- **Surface `carousel_tiktok`, canvas 1080x1920.** House lane, light. Not in `mode.dark_surfaces`. TikTok is dark chrome for *video*, but a 9:16 photo post fills the whole screen, so nothing dark surrounds it and the Brand v3 §2 test says light (`mode.tiktok_still_mode`). The cut looks the same as the LinkedIn and Instagram cuts.
+- **Safe box: x 120 to 930, y 200 to 1520** (`safe_areas.tiktok_photo`). Everything that must be read sits inside it, **and the producer throws otherwise.** Top 200 clears TikTok's Following / For You tabs. Right 930 clears the 150px action column. Bottom 1520 clears the caption, handle and sound block. Left 120 is composition; nothing covers the left edge. Brand v3 §7's middle 60 per cent is the *video* rule and does not govern stills.
+- **No `n / N` counter.** TikTok draws its own photo dots.
+- **Wordmark at the top, beside the ring mark, on every slide.** The 4:5 footer position is TikTok's caption zone. The ring mark sits top right of the safe box at 88px; the wordmark is right-aligned 24px to its left.
+- **Grammar is unchanged.** Same sizes, same floors (`canvas.floors.carousel`, because the card is full width at 375px, the same 0.347 scale), same line limits. None of C1, C2 or C3 needs a line more in the narrower 810px column. A line that will not fit throws and goes back to Content; it is never cut or shrunk.
+- **Cover and CTA content is centred vertically** in the space under the eyebrow, as point slides already are. Without this, a tall screen left the lower half empty.
+- **CTA link line: `LINK IN BIO`**, as on Instagram.
+- **Overlay proof:** `--proof` writes each TikTok slide under a mock of TikTok's interface, with the safe box drawn, to `<out>/proof/`.
+- **Phone check owed:** the box is ruled and checked by geometry. Al confirms it once on a real phone in TikTok's own preview.
 
 ## Scope: what we carousel (5 buckets)
 
@@ -49,16 +63,17 @@ Two carousels a week, LinkedIn first, cross-posted to Instagram (Al, 2026-07-06)
 - **Length:** head, body, hook and source line counts as above; point groups must fit the band between counter and footer.
 - **Copy:** no em dashes, no double spaces, no empty fields.
 - **Render:** `assertNoRetired` on the producer sources, `assertRenderClean` on every SVG, PNG byte 25 must be 2 or 6.
+- **Safe box (TikTok):** every string and the ring mark wholly inside `safe_areas.tiktok_photo.box`, or the producer throws listing each one.
 
 ## Production
 
 ```
-node 06_Brand_Assets/Design_Standards/producers/mo_carousel.js build <spec.json> --out <dir> [--variant both|linkedin|instagram]
-node 06_Brand_Assets/Design_Standards/producers/mo_carousel.js check <spec.json>
+node 06_Brand_Assets/Design_Standards/producers/mo_carousel.js build <spec.json> --out <dir> [--variant both|linkedin|instagram|tiktok|all] [--proof]
+node 06_Brand_Assets/Design_Standards/producers/mo_carousel.js check <spec.json> [--variant ...]
 node 06_Brand_Assets/Design_Standards/producers/mo_carousel.js sample --out <dir>
 ```
 
-`check` runs every gate and writes nothing, so copy can be tested before a render.
+`check` runs every gate and writes nothing, so copy can be tested before a render. It defaults to `all`, so the TikTok safe-box gate runs too. `both` is still LinkedIn plus Instagram, the 1.0.0 default for `build`.
 
 ```json
 {
@@ -73,7 +88,7 @@ node 06_Brand_Assets/Design_Standards/producers/mo_carousel.js sample --out <dir
 }
 ```
 
-**Out:** `<slug>_<n>_<name>_1080x1350.png` per slide, both CTA renders, `<slug>_linkedin_1080x1350.pdf` (cover, points, LinkedIn CTA), and `<slug>_manifest.json` with the alt text and gate results per slide, per variant.
+**Out:** `<slug>_<n>_<name>_1080x1350.png` per slide, both CTA renders, with `--variant tiktok|all` also `<slug>_<n>_<name>_1080x1920.png` per slide (CTA `cta-tiktok`), `<slug>_linkedin_1080x1350.pdf` (cover, points, LinkedIn CTA), and `<slug>_manifest.json` with the alt text and gate results per slide, per variant. The `tiktok` entry also carries `size`, `surface` and `safe_box`, and each slide's `check.safe`.
 
 - **Output location:** the piece's own folder, for example `04_Newsletter_and_Blog/<date>_<slug>/carousel/`. Never a shared dump.
 - **Specs** live beside the output, not in the repo. The repo holds only `producers/samples/carousel_sample.json`, which is neutral placeholder copy.
@@ -88,6 +103,7 @@ node 06_Brand_Assets/Design_Standards/producers/mo_carousel.js sample --out <dir
 
 - **Host path:** slides and PDF go in `mo-social-assets/Carousels/`. Claude stages, Al pushes; delete any stale `*.lock` first. After the push, fetch-test each raw URL before staging Buffer.
 - **LinkedIn (document):** `schedulingType: automatic`. One `document` asset: `url` the PDF, `title`, `thumbnailUrl` slide 1. Al pastes the first comment.
+- **TikTok (photo post):** the `1080x1920` PNGs in order, each with `altText` from the manifest's `tiktok` entry. Staged as drafts.
 - **Instagram (carousel):** N images in order, each with `altText` from the manifest; `metadata.instagram = {type:"post", shouldShareToFeed:true}`.
 - Both stage `saveToDraft: true`.
 
@@ -102,4 +118,4 @@ The gates catch fit, floor, contrast and structure. What they cannot judge is st
 
 ---
 
-**Last updated:** 2026-10-12, v3.0. v2 (2026-07-04, dark surface, `render_carousel.py`) is superseded; its scope, cadence, upload route and QA discipline carry over unchanged.
+**Last updated:** 2026-10-15, v3.1 (TikTok cut). v3.0 2026-10-12. v2 (2026-07-04, dark surface, `render_carousel.py`) is superseded; its scope, cadence, upload route and QA discipline carry over unchanged.

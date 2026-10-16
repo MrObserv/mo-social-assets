@@ -1,0 +1,218 @@
+{
+  "producer": "mo_carousel.js 1.1.0",
+  "kit": "mo_social.js 1.0.0",
+  "tokens": "3.4.0",
+  "slug": "2026-10-12_carousel_just-flaky",
+  "slides": 5,
+  "size": [
+    1080,
+    1350
+  ],
+  "variants": {
+    "linkedin": {
+      "slides": [
+        {
+          "n": 1,
+          "file": "2026-10-12_carousel_just-flaky_1_cover_1080x1350.png",
+          "alt": "Cover. High performance, applied. “That service is just flaky.” A label makes a problem permanent. Behaviour can be fixed. Swipe.",
+          "check": {
+            "strings": 7,
+            "min_contrast": 6.26
+          }
+        },
+        {
+          "n": 2,
+          "file": "2026-10-12_carousel_just-flaky_2_people_1080x1350.png",
+          "alt": "01, people. Labels describe character. Call someone disrespectful and you’ve judged them. Say their lateness makes you feel disrespected, and they can fix it. Example from The High Performance Podcast.",
+          "check": {
+            "strings": 10,
+            "min_contrast": 5.02
+          }
+        },
+        {
+          "n": 3,
+          "file": "2026-10-12_carousel_just-flaky_3_reviews_1080x1350.png",
+          "alt": "02, reviews. Blame is a label too. “The engineer was careless” ends the review. “The deploy skipped the canary” starts the fix.",
+          "check": {
+            "strings": 8,
+            "min_contrast": 4.96
+          }
+        },
+        {
+          "n": 4,
+          "file": "2026-10-12_carousel_just-flaky_4_systems_1080x1350.png",
+          "alt": "03, systems. Describe how it fails. Call a service flaky and you’ve given it a personality. Say it fails on a cold cache and you’ve given someone a ticket.",
+          "check": {
+            "strings": 9,
+            "min_contrast": 4.89
+          }
+        },
+        {
+          "n": 5,
+          "file": "2026-10-12_carousel_just-flaky_5_cta-linkedin_1080x1350.png",
+          "alt": "Free chapter. Who Owns What When It Breaks. Read it free. Link in comments.",
+          "check": {
+            "strings": 8,
+            "min_contrast": 5.32
+          }
+        }
+      ],
+      "pdf": "2026-10-12_carousel_just-flaky_linkedin_1080x1350.pdf"
+    },
+    "instagram": {
+      "slides": [
+        {
+          "n": 1,
+          "file": "2026-10-12_carousel_just-flaky_1_cover_1080x1350.png",
+          "alt": "Cover. High performance, applied. “That service is just flaky.” A label makes a problem permanent. Behaviour can be fixed. Swipe.",
+          "check": {
+            "strings": 7,
+            "min_contrast": 6.26
+          }
+        },
+        {
+          "n": 2,
+          "file": "2026-10-12_carousel_just-flaky_2_people_1080x1350.png",
+          "alt": "01, people. Labels describe character. Call someone disrespectful and you’ve judged them. Say their lateness makes you feel disrespected, and they can fix it. Example from The High Performance Podcast.",
+          "check": {
+            "strings": 10,
+            "min_contrast": 5.02
+          }
+        },
+        {
+          "n": 3,
+          "file": "2026-10-12_carousel_just-flaky_3_reviews_1080x1350.png",
+          "alt": "02, reviews. Blame is a label too. “The engineer was careless” ends the review. “The deploy skipped the canary” starts the fix.",
+          "check": {
+            "strings": 8,
+            "min_contrast": 4.96
+          }
+        },
+        {
+          "n": 4,
+          "file": "2026-10-12_carousel_just-flaky_4_systems_1080x1350.png",
+          "alt": "03, systems. Describe how it fails. Call a service flaky and you’ve given it a personality. Say it fails on a cold cache and you’ve given someone a ticket.",
+          "check": {
+            "strings": 9,
+            "min_contrast": 4.89
+          }
+        },
+        {
+          "n": 5,
+          "file": "2026-10-12_carousel_just-flaky_5_cta-instagram_1080x1350.png",
+          "alt": "Free chapter. Who Owns What When It Breaks. Read it free. Link in bio.",
+          "check": {
+            "strings": 8,
+            "min_contrast": 5.32
+          }
+        }
+      ]
+    },
+    "tiktok": {
+      "slides": [
+        {
+          "n": 1,
+          "file": "2026-10-12_carousel_just-flaky_1_cover_1080x1920.png",
+          "alt": "Cover. High performance, applied. “That service is just flaky.” A label makes a problem permanent. Behaviour can be fixed. Swipe.",
+          "check": {
+            "strings": 7,
+            "min_contrast": 6.11,
+            "safe": {
+              "box": [
+                120,
+                200,
+                930,
+                1520
+              ],
+              "items": 8
+            }
+          }
+        },
+        {
+          "n": 2,
+          "file": "2026-10-12_carousel_just-flaky_2_people_1080x1920.png",
+          "alt": "01, people. Labels describe character. Call someone disrespectful and you’ve judged them. Say their lateness makes you feel disrespected, and they can fix it. Example from The High Performance Podcast.",
+          "check": {
+            "strings": 10,
+            "min_contrast": 4.91,
+            "safe": {
+              "box": [
+                120,
+                200,
+                930,
+                1520
+              ],
+              "items": 11
+            }
+          }
+        },
+        {
+          "n": 3,
+          "file": "2026-10-12_carousel_just-flaky_3_reviews_1080x1920.png",
+          "alt": "02, reviews. Blame is a label too. “The engineer was careless” ends the review. “The deploy skipped the canary” starts the fix.",
+          "check": {
+            "strings": 8,
+            "min_contrast": 4.9,
+            "safe": {
+              "box": [
+                120,
+                200,
+                930,
+                1520
+              ],
+              "items": 9
+            }
+          }
+        },
+        {
+          "n": 4,
+          "file": "2026-10-12_carousel_just-flaky_4_systems_1080x1920.png",
+          "alt": "03, systems. Describe how it fails. Call a service flaky and you’ve given it a personality. Say it fails on a cold cache and you’ve given someone a ticket.",
+          "check": {
+            "strings": 9,
+            "min_contrast": 4.83,
+            "safe": {
+              "box": [
+                120,
+                200,
+                930,
+                1520
+              ],
+              "items": 10
+            }
+          }
+        },
+        {
+          "n": 5,
+          "file": "2026-10-12_carousel_just-flaky_5_cta-tiktok_1080x1920.png",
+          "alt": "Free chapter. Who Owns What When It Breaks. Read it free. Link in bio.",
+          "check": {
+            "strings": 7,
+            "min_contrast": 6.12,
+            "safe": {
+              "box": [
+                120,
+                200,
+                930,
+                1520
+              ],
+              "items": 8
+            }
+          }
+        }
+      ],
+      "size": [
+        1080,
+        1920
+      ],
+      "surface": "carousel_tiktok",
+      "safe_box": [
+        120,
+        200,
+        930,
+        1520
+      ],
+      "proof": "proof/"
+    }
+  }
+}

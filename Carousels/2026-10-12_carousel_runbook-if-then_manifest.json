@@ -1,0 +1,254 @@
+{
+  "producer": "mo_carousel.js 1.1.0",
+  "kit": "mo_social.js 1.0.0",
+  "tokens": "3.4.0",
+  "slug": "2026-10-12_carousel_runbook-if-then",
+  "slides": 6,
+  "size": [
+    1080,
+    1350
+  ],
+  "variants": {
+    "linkedin": {
+      "slides": [
+        {
+          "n": 1,
+          "file": "2026-10-12_carousel_runbook-if-then_1_cover_1080x1350.png",
+          "alt": "Cover. High performance, applied. Wanting to improve isn’t a plan. Two behaviour studies, applied to runbooks. Swipe.",
+          "check": {
+            "strings": 8,
+            "min_contrast": 6.26
+          }
+        },
+        {
+          "n": 2,
+          "file": "2026-10-12_carousel_runbook-if-then_2_follow-through_1080x1350.png",
+          "alt": "01, follow-through. Setting the challenge isn’t enough. 377 students, 15 weeks. Those who chose challenges and didn’t complete them changed in the opposite direction to the one they wanted. Source: Hudson and colleagues, Journal of Personality and Social Psychology.",
+          "check": {
+            "strings": 13,
+            "min_contrast": 4.96
+          }
+        },
+        {
+          "n": 3,
+          "file": "2026-10-12_carousel_runbook-if-then_3_if-then_1080x1350.png",
+          "alt": "02, if-then. Decide the trigger in advance. Students owed a report about their Christmas Eve, due within two days. With an if-then plan, 71% delivered. Without, 32%. Source: Gollwitzer and Brandstätter, 1997; 36 students.",
+          "check": {
+            "strings": 10,
+            "min_contrast": 5.32
+          }
+        },
+        {
+          "n": 4,
+          "file": "2026-10-12_carousel_runbook-if-then_4_runbooks_1080x1350.png",
+          "alt": "03, runbooks. A runbook is an if-then. If this alert fires, this person does this first. Anything vaguer is a wish, written down.",
+          "check": {
+            "strings": 8,
+            "min_contrast": 4.94
+          }
+        },
+        {
+          "n": 5,
+          "file": "2026-10-12_carousel_runbook-if-then_5_the-cab_1080x1350.png",
+          "alt": "04, the cab. Find the cab. Tharp’s ritual was never the workout. It was hailing the cab. In an incident, the cab is declaring it. Source: Twyla Tharp, The Creative Habit.",
+          "check": {
+            "strings": 9,
+            "min_contrast": 4.94
+          }
+        },
+        {
+          "n": 6,
+          "file": "2026-10-12_carousel_runbook-if-then_6_cta-linkedin_1080x1350.png",
+          "alt": "Free chapter. Who Owns What When It Breaks. Read it free. Link in comments.",
+          "check": {
+            "strings": 8,
+            "min_contrast": 5.32
+          }
+        }
+      ],
+      "pdf": "2026-10-12_carousel_runbook-if-then_linkedin_1080x1350.pdf"
+    },
+    "instagram": {
+      "slides": [
+        {
+          "n": 1,
+          "file": "2026-10-12_carousel_runbook-if-then_1_cover_1080x1350.png",
+          "alt": "Cover. High performance, applied. Wanting to improve isn’t a plan. Two behaviour studies, applied to runbooks. Swipe.",
+          "check": {
+            "strings": 8,
+            "min_contrast": 6.26
+          }
+        },
+        {
+          "n": 2,
+          "file": "2026-10-12_carousel_runbook-if-then_2_follow-through_1080x1350.png",
+          "alt": "01, follow-through. Setting the challenge isn’t enough. 377 students, 15 weeks. Those who chose challenges and didn’t complete them changed in the opposite direction to the one they wanted. Source: Hudson and colleagues, Journal of Personality and Social Psychology.",
+          "check": {
+            "strings": 13,
+            "min_contrast": 4.96
+          }
+        },
+        {
+          "n": 3,
+          "file": "2026-10-12_carousel_runbook-if-then_3_if-then_1080x1350.png",
+          "alt": "02, if-then. Decide the trigger in advance. Students owed a report about their Christmas Eve, due within two days. With an if-then plan, 71% delivered. Without, 32%. Source: Gollwitzer and Brandstätter, 1997; 36 students.",
+          "check": {
+            "strings": 10,
+            "min_contrast": 5.32
+          }
+        },
+        {
+          "n": 4,
+          "file": "2026-10-12_carousel_runbook-if-then_4_runbooks_1080x1350.png",
+          "alt": "03, runbooks. A runbook is an if-then. If this alert fires, this person does this first. Anything vaguer is a wish, written down.",
+          "check": {
+            "strings": 8,
+            "min_contrast": 4.94
+          }
+        },
+        {
+          "n": 5,
+          "file": "2026-10-12_carousel_runbook-if-then_5_the-cab_1080x1350.png",
+          "alt": "04, the cab. Find the cab. Tharp’s ritual was never the workout. It was hailing the cab. In an incident, the cab is declaring it. Source: Twyla Tharp, The Creative Habit.",
+          "check": {
+            "strings": 9,
+            "min_contrast": 4.94
+          }
+        },
+        {
+          "n": 6,
+          "file": "2026-10-12_carousel_runbook-if-then_6_cta-instagram_1080x1350.png",
+          "alt": "Free chapter. Who Owns What When It Breaks. Read it free. Link in bio.",
+          "check": {
+            "strings": 8,
+            "min_contrast": 5.32
+          }
+        }
+      ]
+    },
+    "tiktok": {
+      "slides": [
+        {
+          "n": 1,
+          "file": "2026-10-12_carousel_runbook-if-then_1_cover_1080x1920.png",
+          "alt": "Cover. High performance, applied. Wanting to improve isn’t a plan. Two behaviour studies, applied to runbooks. Swipe.",
+          "check": {
+            "strings": 8,
+            "min_contrast": 6.11,
+            "safe": {
+              "box": [
+                120,
+                200,
+                930,
+                1520
+              ],
+              "items": 9
+            }
+          }
+        },
+        {
+          "n": 2,
+          "file": "2026-10-12_carousel_runbook-if-then_2_follow-through_1080x1920.png",
+          "alt": "01, follow-through. Setting the challenge isn’t enough. 377 students, 15 weeks. Those who chose challenges and didn’t complete them changed in the opposite direction to the one they wanted. Source: Hudson and colleagues, Journal of Personality and Social Psychology.",
+          "check": {
+            "strings": 13,
+            "min_contrast": 4.9,
+            "safe": {
+              "box": [
+                120,
+                200,
+                930,
+                1520
+              ],
+              "items": 14
+            }
+          }
+        },
+        {
+          "n": 3,
+          "file": "2026-10-12_carousel_runbook-if-then_3_if-then_1080x1920.png",
+          "alt": "02, if-then. Decide the trigger in advance. Students owed a report about their Christmas Eve, due within two days. With an if-then plan, 71% delivered. Without, 32%. Source: Gollwitzer and Brandstätter, 1997; 36 students.",
+          "check": {
+            "strings": 10,
+            "min_contrast": 5.99,
+            "safe": {
+              "box": [
+                120,
+                200,
+                930,
+                1520
+              ],
+              "items": 11
+            }
+          }
+        },
+        {
+          "n": 4,
+          "file": "2026-10-12_carousel_runbook-if-then_4_runbooks_1080x1920.png",
+          "alt": "03, runbooks. A runbook is an if-then. If this alert fires, this person does this first. Anything vaguer is a wish, written down.",
+          "check": {
+            "strings": 8,
+            "min_contrast": 4.88,
+            "safe": {
+              "box": [
+                120,
+                200,
+                930,
+                1520
+              ],
+              "items": 9
+            }
+          }
+        },
+        {
+          "n": 5,
+          "file": "2026-10-12_carousel_runbook-if-then_5_the-cab_1080x1920.png",
+          "alt": "04, the cab. Find the cab. Tharp’s ritual was never the workout. It was hailing the cab. In an incident, the cab is declaring it. Source: Twyla Tharp, The Creative Habit.",
+          "check": {
+            "strings": 8,
+            "min_contrast": 4.85,
+            "safe": {
+              "box": [
+                120,
+                200,
+                930,
+                1520
+              ],
+              "items": 9
+            }
+          }
+        },
+        {
+          "n": 6,
+          "file": "2026-10-12_carousel_runbook-if-then_6_cta-tiktok_1080x1920.png",
+          "alt": "Free chapter. Who Owns What When It Breaks. Read it free. Link in bio.",
+          "check": {
+            "strings": 7,
+            "min_contrast": 6.12,
+            "safe": {
+              "box": [
+                120,
+                200,
+                930,
+                1520
+              ],
+              "items": 8
+            }
+          }
+        }
+      ],
+      "size": [
+        1080,
+        1920
+      ],
+      "surface": "carousel_tiktok",
+      "safe_box": [
+        120,
+        200,
+        930,
+        1520
+      ],
+      "proof": "proof/"
+    }
+  }
+}

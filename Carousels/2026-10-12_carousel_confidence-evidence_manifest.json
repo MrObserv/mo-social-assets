@@ -1,0 +1,218 @@
+{
+  "producer": "mo_carousel.js 1.1.0",
+  "kit": "mo_social.js 1.0.0",
+  "tokens": "3.4.0",
+  "slug": "2026-10-12_carousel_confidence-evidence",
+  "slides": 5,
+  "size": [
+    1080,
+    1350
+  ],
+  "variants": {
+    "linkedin": {
+      "slides": [
+        {
+          "n": 1,
+          "file": "2026-10-12_carousel_confidence-evidence_1_cover_1080x1350.png",
+          "alt": "Cover. Observability leadership stream. “Confidence is built on evidence.” A line from The High Performance Podcast. It holds for your systems too. Swipe.",
+          "check": {
+            "strings": 8,
+            "min_contrast": 6.26
+          }
+        },
+        {
+          "n": 2,
+          "file": "2026-10-12_carousel_confidence-evidence_2_the-trap_1080x1350.png",
+          "alt": "01, the trap. Waiting to feel ready. We’ll test failover once the platform settles. We’ll instrument it after the migration. Readiness keeps moving.",
+          "check": {
+            "strings": 9,
+            "min_contrast": 5
+          }
+        },
+        {
+          "n": 3,
+          "file": "2026-10-12_carousel_confidence-evidence_3_the-bank_1080x1350.png",
+          "alt": "02, the bank. Every drill is a deposit. Each failover you have actually run is evidence. Each one you have only planned is a promise.",
+          "check": {
+            "strings": 9,
+            "min_contrast": 5.32
+          }
+        },
+        {
+          "n": 4,
+          "file": "2026-10-12_carousel_confidence-evidence_4_the-move_1080x1350.png",
+          "alt": "03, the move. Book it before you feel ready. Put the game day in the diary first. Then the team works towards it, not around it.",
+          "check": {
+            "strings": 8,
+            "min_contrast": 4.89
+          }
+        },
+        {
+          "n": 5,
+          "file": "2026-10-12_carousel_confidence-evidence_5_cta-linkedin_1080x1350.png",
+          "alt": "On the blog. Proof of Control, or Proof Nothing Broke Yet. Read it. Link in comments.",
+          "check": {
+            "strings": 9,
+            "min_contrast": 5.32
+          }
+        }
+      ],
+      "pdf": "2026-10-12_carousel_confidence-evidence_linkedin_1080x1350.pdf"
+    },
+    "instagram": {
+      "slides": [
+        {
+          "n": 1,
+          "file": "2026-10-12_carousel_confidence-evidence_1_cover_1080x1350.png",
+          "alt": "Cover. Observability leadership stream. “Confidence is built on evidence.” A line from The High Performance Podcast. It holds for your systems too. Swipe.",
+          "check": {
+            "strings": 8,
+            "min_contrast": 6.26
+          }
+        },
+        {
+          "n": 2,
+          "file": "2026-10-12_carousel_confidence-evidence_2_the-trap_1080x1350.png",
+          "alt": "01, the trap. Waiting to feel ready. We’ll test failover once the platform settles. We’ll instrument it after the migration. Readiness keeps moving.",
+          "check": {
+            "strings": 9,
+            "min_contrast": 5
+          }
+        },
+        {
+          "n": 3,
+          "file": "2026-10-12_carousel_confidence-evidence_3_the-bank_1080x1350.png",
+          "alt": "02, the bank. Every drill is a deposit. Each failover you have actually run is evidence. Each one you have only planned is a promise.",
+          "check": {
+            "strings": 9,
+            "min_contrast": 5.32
+          }
+        },
+        {
+          "n": 4,
+          "file": "2026-10-12_carousel_confidence-evidence_4_the-move_1080x1350.png",
+          "alt": "03, the move. Book it before you feel ready. Put the game day in the diary first. Then the team works towards it, not around it.",
+          "check": {
+            "strings": 8,
+            "min_contrast": 4.89
+          }
+        },
+        {
+          "n": 5,
+          "file": "2026-10-12_carousel_confidence-evidence_5_cta-instagram_1080x1350.png",
+          "alt": "On the blog. Proof of Control, or Proof Nothing Broke Yet. Read it. Link in bio.",
+          "check": {
+            "strings": 9,
+            "min_contrast": 5.32
+          }
+        }
+      ]
+    },
+    "tiktok": {
+      "slides": [
+        {
+          "n": 1,
+          "file": "2026-10-12_carousel_confidence-evidence_1_cover_1080x1920.png",
+          "alt": "Cover. Observability leadership stream. “Confidence is built on evidence.” A line from The High Performance Podcast. It holds for your systems too. Swipe.",
+          "check": {
+            "strings": 8,
+            "min_contrast": 6.11,
+            "safe": {
+              "box": [
+                120,
+                200,
+                930,
+                1520
+              ],
+              "items": 9
+            }
+          }
+        },
+        {
+          "n": 2,
+          "file": "2026-10-12_carousel_confidence-evidence_2_the-trap_1080x1920.png",
+          "alt": "01, the trap. Waiting to feel ready. We’ll test failover once the platform settles. We’ll instrument it after the migration. Readiness keeps moving.",
+          "check": {
+            "strings": 8,
+            "min_contrast": 4.9,
+            "safe": {
+              "box": [
+                120,
+                200,
+                930,
+                1520
+              ],
+              "items": 9
+            }
+          }
+        },
+        {
+          "n": 3,
+          "file": "2026-10-12_carousel_confidence-evidence_3_the-bank_1080x1920.png",
+          "alt": "02, the bank. Every drill is a deposit. Each failover you have actually run is evidence. Each one you have only planned is a promise.",
+          "check": {
+            "strings": 8,
+            "min_contrast": 5.87,
+            "safe": {
+              "box": [
+                120,
+                200,
+                930,
+                1520
+              ],
+              "items": 9
+            }
+          }
+        },
+        {
+          "n": 4,
+          "file": "2026-10-12_carousel_confidence-evidence_4_the-move_1080x1920.png",
+          "alt": "03, the move. Book it before you feel ready. Put the game day in the diary first. Then the team works towards it, not around it.",
+          "check": {
+            "strings": 8,
+            "min_contrast": 4.79,
+            "safe": {
+              "box": [
+                120,
+                200,
+                930,
+                1520
+              ],
+              "items": 9
+            }
+          }
+        },
+        {
+          "n": 5,
+          "file": "2026-10-12_carousel_confidence-evidence_5_cta-tiktok_1080x1920.png",
+          "alt": "On the blog. Proof of Control, or Proof Nothing Broke Yet. Read it. Link in bio.",
+          "check": {
+            "strings": 8,
+            "min_contrast": 6.13,
+            "safe": {
+              "box": [
+                120,
+                200,
+                930,
+                1520
+              ],
+              "items": 9
+            }
+          }
+        }
+      ],
+      "size": [
+        1080,
+        1920
+      ],
+      "surface": "carousel_tiktok",
+      "safe_box": [
+        120,
+        200,
+        930,
+        1520
+      ],
+      "proof": "proof/"
+    }
+  }
+}
