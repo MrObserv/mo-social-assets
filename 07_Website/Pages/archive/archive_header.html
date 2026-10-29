@@ -44,6 +44,18 @@
       font-size: clamp(16px, 1.35vw, 19px); line-height: 1.6
     }
 
+    /* Free guides: one line of explanation and one button, on Al's word of 28 Oct 2026. */
+    .mm-arc .guides { margin-top: 22px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px }
+    .mm-arc .guides p { margin-top: 0; max-width: 60ch; font-size: 15px; color: #3B5257 }
+    .mm-arc .guides b { color: #16282D; font-weight: 700 }
+    .mm-arc .btn {
+      display: inline-block; background: #17695C; color: #FFFFFF;
+      font-family: 'DM Sans', system-ui, sans-serif; font-weight: 700; font-size: 15px; line-height: 1.2;
+      padding: 11px 20px; border: 1px solid transparent; border-radius: 4px; text-decoration: none;
+      white-space: nowrap; transition: background-color .18s ease
+    }
+    .mm-arc .btn:hover { background: color-mix(in srgb, #17695C 84%, #F6F8F7) }
+
     /* Site nav on this page: a teal gradient line in place of the nav's grey hairline.
        Page-wide on purpose; .navbar-list is beehiiv's own class on the nav bar. */
     nav .navbar-list {
@@ -76,5 +88,9 @@
     <div class="eyebrow">The archive</div>
     <h1>Everything, <span>in public.</span></h1>
     <p>Every piece, newest first: The Signal, the Observability Digest, deep dives and byte-size explainers.</p>
+    <div class="guides">
+      <p><b>Three free guides:</b> an ebook, a workbook and a sample observability strategy.</p>
+      <a class="btn" href="https://www.masteringobservability.com/ebooks" target="_top">See the free guides</a>
+    </div>
   </div>
 </div>
