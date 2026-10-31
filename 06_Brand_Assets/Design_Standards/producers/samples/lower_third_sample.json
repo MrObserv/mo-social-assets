@@ -1,0 +1,10 @@
+{
+  "episode": "sample",
+  "cards": [
+    { "slug": "01_host", "kind": "host", "name": "Host Name", "line": "Mastering Observability" },
+    { "slug": "02_guest", "kind": "guest", "name": "Guest Name", "line": "Head of Platform · Company" },
+    { "slug": "03_term", "kind": "term", "name": "Wide events", "line": "One rich event per unit of work" },
+    { "slug": "04_host_left", "kind": "host", "panel": "left", "name": "Host Name", "line": "Mastering Observability" },
+    { "slug": "05_guest_right", "kind": "guest", "panel": "right", "name": "Guest Name", "line": "Head of Platform · Company" }
+  ]
+}

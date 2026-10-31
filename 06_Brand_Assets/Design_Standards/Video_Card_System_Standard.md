@@ -1,42 +1,66 @@
 # Video Card System Standard
 
-**Status: AMENDED v2.0 by Al's ruling 2026-09-15/20** (was REGISTERED by Control 2026-08-20, PI-2026-08-13-02). **One card type survives: LOWER THIRD, automated.** FULL CARD, FULL DIAGRAM HOLD and CORNER INSERT are retired.
+**Status: v3.0, 2026-10-31.** Design, on Al's ruling of 31 Oct: the lower third is the **4b signal line**, in four uses. Replaces v2.0's strip. The rest of v2.0 stands: one card type, automated; the full card, the diagram hold and the corner insert stay retired; full-frame beats are deck slides.
 
-**Why the system shrank, recorded because the reason is the lesson.** The four-type standard was ratified on 20 August and **never used once — Al added cards by hand in the editor instead, because the four-type process was too slow.** A standard that exists and is not followed is worse than none: the process looks covered when it is not. The replacement keeps only the part where automation genuinely beats the editor — name and term labels, which are repetitive and mechanical.
+**This document names tokens, never hexes.** For a value, read `design-tokens.json`.
 
-**Where the retired types went.** Under the live-deck format (Al, 2026-09-15), the teaching runs from a **live 16:9 deck presented on camera**, so what FULL CARD and FULL DIAGRAM HOLD did — cut to a full-frame card or diagram for a beat — is now **a slide, captured in the recording, zero post-production**. CORNER INSERT is retired outright, unused. The deck master is specced separately (one master, built to the worst case, not three variants).
+## Producer
 
-**This document names tokens, never hexes.** The v1 standard was specified on three retired values from the pre-v3 dark palette, which is part of why it was rewritten rather than patched. For a value, read `design-tokens.json`.
+`producers/mo_lower_third.js` 1.0.0. It reads every colour from `mo-tokens.js`, measures text with `mo_diagram.js` 2.0.0, renders through `mo_social.js`, and runs `assertNoRetired` on its own source.
 
-## The one card type: LOWER THIRD
+```
+node mo_lower_third.js check <spec.json>
+node mo_lower_third.js build <spec.json> --out <dir> [--frames]
+```
 
-A strip across the lower third of frame, over the live video: speaker/label, the term being introduced, or a one-line reinforcement.
+The build writes `<episode>_lower_third_<slug>.png` (1920x1080 RGBA, transparent except the scrim and the card) and a manifest, `<episode>_lower_thirds.json`. `--frames` also writes the 0.5s draw-in as 15 PNGs and records in the manifest the ffmpeg line that makes a ProRes 4444 clip with alpha.
 
-- **Surface:** dark tokens — `dark-ground` strip (or `dark-panel` where the video behind is dark), `teal-bright` accent, `teal` structural rule, `on-dark-body` text. The ring mark per `Logo_and_Marks_Standard.md`, resolved by name from the marks manifest, never by filename. The strip is video furniture, not writing, so it renders dark; the light rule applies to surfaces fronting written material.
-- **Format:** 1920×1080 PNG, transparent everywhere except the strip.
-- **Automated.** Built by the agent/PIL producer lane. The producer must consume `design-tokens.json` (via `mo_tokens.py`) and run `assert_no_retired` on its own source per `consumers.build_check` — the v1 card producer predates that rule.
-- **Type:** Montserrat ExtraBold for the term/name, Space Mono for the kicker/label, DM Sans for the one-liner. Minimum rendered size on frame: nothing below 24px at 1920×1080.
+Spec:
 
-## Timing (unchanged, locked)
+```json
+{ "episode": "tt05",
+  "cards": [ { "slug": "01_name", "kind": "host", "name": "…", "line": "…" },
+             { "slug": "02_guest", "kind": "guest", "panel": "right", "name": "…", "line": "Role · Company" } ] }
+```
 
-- **`[CARD]` script cue** marks each lower third inline at the line it fires on (Codex §25.5.1). The cue now carries one type only; a `[CARD]` cue naming a retired type is a script error, not a render request.
-- **ON at the line, OFF ~1.5s after** the line ends, burned via ffmpeg from the episode SRT.
-- The Visual/Card Plan brief section survives, listing each lower third (content, trigger line). Full-frame beats now live in the deck's slide plan instead.
+`kind` is `host`, `guest` or `term`. `panel` is `single` (default), `left` or `right`. A term card is full frame only.
 
-## What is explicitly out of scope
+## The card
 
-- **Full-frame cards and diagram holds** — deck slides now. See the deck master spec.
-- **Hero face-from-video thumbnail** — still the §19.6 builder + matting path (`Hero_Thumbnail_Standard.md`). Unchanged by this amendment.
-- **Terminal / OG packaging assets** — the agent/PIL lane blessing from PI-2026-08-13-02 stands, but those are covered by their own standards, not this one.
+Three rows, bottom-left: the name, the signal trace, then a label row. The label row holds a Space Mono label (HOST, GUEST or TERM) followed by the line.
 
-## QA gate (mandatory, two passes)
+- **Type:** the name in the display face at the display weight; the label in Space Mono Bold, tracked; the line in DM Sans Bold. Nothing under 24px at 1920x1080.
+- **Colour:** `dark.on-dark-body` for the name and the line, `dark.teal-bright` for the label and the trace.
+- **The ring mark** heads the name on HOST only. The ring marks the house, so guests and terms don't carry it.
+- **Scrim:** `dark.dark-ground`, transparent at y 620, rising to 90 per cent at y 780 and holding to the bottom of the frame. Every string and the ring start below y 780.
+- **Placement:** full frame, x 144. Two-shot, 96px inside its own panel (left panel x 0 to 956, right panel x 964 to 1920), so a card never crosses the seam. The lowest ink sits at y 930 or above, clear of YouTube's captions and player controls.
+- **Length:** the line is capped at 760px full frame and 560px in a two-shot, which is about 34 characters at full frame. Too long fails the build; never shrink the type to fit.
 
-Open every lower third at full size against a video frame: strip legible over motion, nothing clips, correct tokens and fonts, ring mark not the retired eye mark, burns on at the right timecode and clears per the timing rule, §5 clean on all copy. Fresh-eyes second pass; only a pass that finds nothing ships.
+## Gates (the build throws, listing every failure)
+
+Fit in its box · the 24px floor · the 90px safe margin · the y 930 bottom line · start below the full scrim · AA 4.5:1 against the scrim over **white** footage, the worst case · no em dash · valid, unique slugs · a known kind and panel.
+
+## Timing
+
+- **HOST** once, in the first minute. **GUEST** the first time each guest speaks. **TERM** at the line it names, from the `[CARD]` cue (Codex §25.5.1).
+- **Draw-in** 0.5s, ease-out: the trace grows left to right as the text fades up. **Hold** 4s. **Off** in 0.3s.
+- In a two-shot, both cards come on together at the first two-shot and are not repeated.
+
+## Guests
+
+At booking, ask each guest for their name as they want it shown and a role with company of 34 characters or fewer. Get their approval of both before the burn.
+
+## QA gate (two passes)
+
+Look at every card full size over a real frame from the episode, including its brightest shot. Check the trace and text read over motion, nothing clips, the ring is not the retired eye mark, and timing matches the cues. A fresh-eyes second pass follows; only a pass that finds nothing ships.
 
 ## Changelog
 
-### v2.0 — 2026-09-21 (ruling 2026-09-15/20)
-Shrunk to LOWER THIRD only; FULL CARD and FULL DIAGRAM HOLD absorbed by the live deck, CORNER INSERT retired unused. Repointed off three retired hexes onto named tokens. Reason recorded: the four-type system was never used because it was too slow.
+### v3.0, 2026-10-31
+Card redesigned as the 4b signal line, with HOST, GUEST, TERM and two-shot uses. Producer `mo_lower_third.js` 1.0.0 added. Scrim, placement, bottom line, length cap and the white-footage contrast gate written down. Replaces the v2.0 strip, which was never automated: TT05's two cards came from a one-off script.
 
-### v1.0 — 2026-08-20
-Four-type system registered from the TT04 hand-build.
+### v2.0, 2026-09-21
+Shrunk to the lower third only.
+
+### v1.0, 2026-08-20
+Four-type system.
