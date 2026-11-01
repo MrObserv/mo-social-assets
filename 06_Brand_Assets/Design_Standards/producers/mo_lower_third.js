@@ -1,4 +1,4 @@
-// mo_lower_third.js v1.0.0 (2026-10-31)
+// mo_lower_third.js v1.1.0 (2026-10-31)
 // The one video card type (Video_Card_System_Standard.md v3.0): the 4b signal
 // line lower third. Four uses, one structure: HOST, GUEST, TERM, and either
 // of the first two inside a two-shot panel.
@@ -21,7 +21,7 @@ const S = require(path.join(__dirname, "mo_social.js"));
 if (!Dm.METRICS || !Dm.MO_DIAGRAM_VERSION) throw new Error(
   "mo_lower_third: needs producers/mo_diagram.js 2.0.0 or later (measured text widths).");
 T.assertNoRetired(fs.readFileSync(__filename, "utf8"), "mo_lower_third.js");
-const VERSION = "1.0.0";
+const VERSION = "1.1.0";
 
 const W = 1920, H = 1080;
 // Geometry from the standard, not from tokens: these are layout rules.
@@ -76,7 +76,7 @@ function layout(card) {
   const yTrace = yLine - Math.round(row * 0.78) - P.gap - P.dot / 2;
   const yName = yTrace - P.dot / 2 - P.gap - Math.ceil(P.name * 0.24);
   const nameX = ring ? P.x + indent : P.x;
-  const labelX = P.x + indent;
+  const labelX = ring ? P.x + indent : P.x;   // 1.1.0: no ring, no indent
   const labelW = Dm.wpx(KINDS[kind], P.label, Object.assign({ ls: LABEL_LS }, F.label));
   const lineX = labelX + labelW + 18;
 

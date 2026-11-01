@@ -64,7 +64,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageEnhance, ImageFont
 from PIL.PngImagePlugin import PngInfo
 
-BUILDER_VERSION = "1.6.2"
+BUILDER_VERSION = "1.7.0"
 
 # GAZE / EXPRESSION CAPTURE IS A HUMAN PROCESS HABIT, NOT CODE (ID-2026-07-03-03,
 # codex 24.15): capture a look-left / look-right gaze-still and a calm-direct
@@ -1455,18 +1455,15 @@ def main():
             args.art_title = default_art_title(args.title, CONFIG["art"]["art_title_max_chars"])
         yt = compose_youtube(args, portrait_side)
         og = compose_og(args)
-        art = compose_art(args)
         yt_path = os.path.join(dest, "%d_thumbnail_youtube.png" % n)
         og_path = os.path.join(dest, "%d_thumbnail_og.png" % n)
-        art_path = os.path.join(dest, "%d_episode_art.jpg" % n)
         qa_path = os.path.join(dest, "%d_thumbnail_qa.png" % n)
         s1 = save_png(yt, yt_path)
         s2 = save_png(og, og_path)
-        s3 = save_jpg(art, art_path)
-        qa_sheet(yt, og, art, qa_path)
+        qa_sheet(yt, og, None, qa_path)   # 1.7.0: no square art; qa_sheet handles None
         print("  yt:  %s (%.0fKB)" % (yt_path, s1 / 1024))
         print("  og:  %s (%.0fKB)" % (og_path, s2 / 1024))
-        print("  art: %s (%.0fKB, title %r)" % (art_path, s3 / 1024, args.art_title))
+        print("  art: retired in 1.7.0. Build squares with 06_Brand_Assets/Design_Standards/producers/mo_episode_square.js")
         print("  qa:  %s" % qa_path)
 
     # Vertical clip bookends (section 19.7). Always emitted: one command keeps
