@@ -1,0 +1,20 @@
+{
+  "producer": "mo_quote_card.js 1.0.0",
+  "kit": "mo_social.js 1.1.0",
+  "tokens": "3.5.1",
+  "slug": "2026-11-02_quote_own-line_own-the-signal",
+  "cards": [
+    {
+      "n": 1,
+      "size": "portrait",
+      "file": "2026-11-02_quote_own-line_own-the-signal_portrait_1080x1350.png",
+      "alt": "Own your data. Rent the tool. Never the other way round. Allan Mann.",
+      "quote_px": 104,
+      "lines": 4,
+      "check": {
+        "strings": 6,
+        "min_contrast": 6.54
+      }
+    }
+  ]
+}

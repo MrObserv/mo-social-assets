@@ -1,0 +1,20 @@
+{
+  "producer": "mo_quote_card.js 1.0.0",
+  "kit": "mo_social.js 1.1.0",
+  "tokens": "3.5.1",
+  "slug": "2026-11-02_quote_own-line_ownership-arguments",
+  "cards": [
+    {
+      "n": 1,
+      "size": "portrait",
+      "file": "2026-11-02_quote_own-line_ownership-arguments_portrait_1080x1350.png",
+      "alt": "Most observability arguments are ownership arguments wearing technical clothes. Allan Mann.",
+      "quote_px": 96,
+      "lines": 7,
+      "check": {
+        "strings": 9,
+        "min_contrast": 6.54
+      }
+    }
+  ]
+}

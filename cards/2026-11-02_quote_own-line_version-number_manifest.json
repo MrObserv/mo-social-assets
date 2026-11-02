@@ -1,0 +1,20 @@
+{
+  "producer": "mo_quote_card.js 1.0.0",
+  "kit": "mo_social.js 1.1.0",
+  "tokens": "3.5.1",
+  "slug": "2026-11-02_quote_own-line_version-number",
+  "cards": [
+    {
+      "n": 1,
+      "size": "portrait",
+      "file": "2026-11-02_quote_own-line_version-number_portrait_1080x1350.png",
+      "alt": "The version number that matters is not on the tool, it is on your practice. Allan Mann.",
+      "quote_px": 104,
+      "lines": 6,
+      "check": {
+        "strings": 8,
+        "min_contrast": 6.54
+      }
+    }
+  ]
+}

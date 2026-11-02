@@ -1,0 +1,78 @@
+{
+  "surface": "youtube_channel_art",
+  "canvas": [
+    2560,
+    1440
+  ],
+  "mode": "dark",
+  "lockup": "METRICS & MAYHEM",
+  "claim": "C01",
+  "text": "It was never the tooling.",
+  "safe": [
+    507.0,
+    508.5,
+    2053.0,
+    931.5
+  ],
+  "wash": 0.2,
+  "rings": {
+    "outer": 880,
+    "inner": 813,
+    "centre": [
+      1280.0,
+      720.0
+    ]
+  },
+  "type": {
+    "kicker": [
+      30,
+      10
+    ],
+    "title": [
+      120,
+      -4
+    ],
+    "claim": 42,
+    "lockup": [
+      26,
+      6
+    ]
+  },
+  "ink": {
+    "title": [
+      561,
+      631,
+      2000,
+      750
+    ],
+    "kicker": [
+      1067,
+      550,
+      1493,
+      570
+    ],
+    "claim": [
+      1057,
+      783,
+      1503,
+      824
+    ],
+    "lockup": [
+      1108,
+      860,
+      1451,
+      877
+    ]
+  },
+  "avatar": {
+    "size": 800,
+    "mark_px": 512,
+    "variant": "small_on_dark"
+  },
+  "fonts": {
+    "display": "Montserrat-ExtraBold.ttf",
+    "label": "SpaceMono-Bold.ttf",
+    "body": "DMSans-Regular.ttf"
+  },
+  "tokens_version": "3.5.1"
+}

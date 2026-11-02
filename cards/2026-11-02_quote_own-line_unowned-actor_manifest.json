@@ -1,0 +1,20 @@
+{
+  "producer": "mo_quote_card.js 1.0.0",
+  "kit": "mo_social.js 1.1.0",
+  "tokens": "3.5.1",
+  "slug": "2026-11-02_quote_own-line_unowned-actor",
+  "cards": [
+    {
+      "n": 1,
+      "size": "portrait",
+      "file": "2026-11-02_quote_own-line_unowned-actor_portrait_1080x1350.png",
+      "alt": "An unobserved agent is an unowned actor. Allan Mann.",
+      "quote_px": 104,
+      "lines": 3,
+      "check": {
+        "strings": 5,
+        "min_contrast": 6.54
+      }
+    }
+  ]
+}
