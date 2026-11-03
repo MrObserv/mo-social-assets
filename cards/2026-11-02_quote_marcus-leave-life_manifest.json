@@ -1,0 +1,20 @@
+{
+  "producer": "mo_quote_card.js 1.0.0",
+  "kit": "mo_social.js 1.1.0",
+  "tokens": "3.5.1",
+  "slug": "2026-11-02_quote_marcus-leave-life",
+  "cards": [
+    {
+      "n": 1,
+      "size": "portrait",
+      "file": "2026-11-02_quote_marcus-leave-life_portrait_1080x1350.png",
+      "alt": "\"You could leave life right now. Let that determine what you do and say and think.\" Marcus Aurelius, Meditations 2.11.",
+      "quote_px": 104,
+      "lines": 6,
+      "check": {
+        "strings": 9,
+        "min_contrast": 6.54
+      }
+    }
+  ]
+}
