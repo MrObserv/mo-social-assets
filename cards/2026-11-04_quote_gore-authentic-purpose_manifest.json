@@ -1,0 +1,20 @@
+{
+  "producer": "mo_quote_card.js 1.0.0",
+  "kit": "mo_social.js 1.1.0",
+  "tokens": "3.5.1",
+  "slug": "2026-11-04_quote_gore-authentic-purpose",
+  "cards": [
+    {
+      "n": 1,
+      "size": "portrait",
+      "file": "2026-11-04_quote_gore-authentic-purpose_portrait_1080x1350.png",
+      "alt": "\"Impact without an authentic purpose is hollow.\" Adrian Gore, The High Performance Podcast.",
+      "quote_px": 104,
+      "lines": 5,
+      "check": {
+        "strings": 8,
+        "min_contrast": 6.54
+      }
+    }
+  ]
+}
