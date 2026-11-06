@@ -1,7 +1,7 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "status": "draft for ratification",
-  "date": "2026-09-14",
+  "date": "2026-11-06",
   "owner": "Voice Codex (copy) + Growth (application)",
   "purpose": "Every asset spec in the design system says \"one claim, twelve words or fewer\" and then leaves the producer to invent one. This is the file that stops that. A claim on a thumbnail is brand voice at its most compressed and least reviewed, so it gets a bank, a version and a changelog like everything else.",
   "rules": {
@@ -22,7 +22,8 @@
         "blog",
         "carousel cover",
         "banner",
-        "deck opener"
+        "deck opener",
+        "event screen"
       ],
       "status": "approved",
       "runs": 0
@@ -309,6 +310,11 @@
       "version": "1.0.0",
       "date": "2026-09-14",
       "change": "Bank created. Twenty-two claims lifted from shipped posts, the advisory page, the deck masters and the book, so every line has already survived a Codex pass in context. Nothing here is newly invented copy."
+    },
+    {
+      "version": "1.1.0",
+      "date": "2026-11-06",
+      "change": "Event screen added as a permitted surface for C01 (the laptop wallpaper, lock screen and screensaver shown at in-person events), on Al's ruling at the 19 Oct Monday clear (CTL-2026-10-19-01, from GR-2026-10-13-03). C01 only; C02 was the other candidate and was not chosen. Applied by the Voice Codex lane, which owns the copy in this bank."
     }
   ]
 }
