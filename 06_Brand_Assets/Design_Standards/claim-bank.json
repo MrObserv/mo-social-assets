@@ -8,7 +8,7 @@
     "use": "Pick from the bank. A new claim is a CR, not a production decision.",
     "gate": "Every claim passes the Codex: no em dashes, UK English, frustration at systems never people, no vendor numbers, \"gets the call\" never \"paged\".",
     "length": "Twelve words maximum. Under eight is better. A claim that needs a comma is usually two claims.",
-    "repetition": "A claim may be reused across surfaces but not twice in the same week on the same channel. The bank is large enough that it does not need to be.",
+    "repetition": "A claim may be reused across surfaces but not twice in the same week on the same channel. The bank is large enough that it does not need to be. Standing surfaces (event screen, business card) are different: they log one run per deployment, and one event is one deployment, but those runs do not count toward the four-run rest, because each event is a new audience and the rest exists to stop a feed audience seeing a line too often. A claim on a standing surface is reviewed once a quarter instead.",
     "pairing": "A claim carries one hinge. If the asset needs two ideas, it is the wrong asset.",
     "retire": "A claim that has run four times moves to resting for a quarter. Overuse is how a line becomes a slogan, and a slogan is the opposite of a practitioner talking."
   },
@@ -298,7 +298,8 @@
       "surfaces": [
         "business card",
         "advisory",
-        "banner"
+        "banner",
+        "event screen"
       ],
       "status": "approved",
       "runs": 1
@@ -314,7 +315,7 @@
     {
       "version": "1.1.0",
       "date": "2026-11-06",
-      "change": "Event screen added as a permitted surface for C01 (the laptop wallpaper, lock screen and screensaver shown at in-person events), on Al's ruling at the 19 Oct Monday clear (CTL-2026-10-19-01, from GR-2026-10-13-03). C01 only; C02 was the other candidate and was not chosen. Applied by the Voice Codex lane, which owns the copy in this bank."
+      "change": "Event screen added as a permitted surface for C01 (the lock screen line, Al's pick at the 19 Oct Monday clear, CTL-2026-10-19-01) and C22 (screensaver frame 04, Design's pick, signed off by Voice Codex 2026-11-10 under CR-2026-10-13-EVENT). Repetition rule extended for standing surfaces: one event is one run, logged, but not counted toward the four-run rest; reviewed quarterly instead. No claim text changed, no claim added. Applied by the Voice Codex lane, which owns the copy in this bank. Version 1.1.0 rather than the 1.0.1 the CR proposed, because adding permitted surfaces is additive."
     }
   ]
 }

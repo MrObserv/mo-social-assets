@@ -1,0 +1,797 @@
+{
+  "producer": "mo_event_screen.js 1.0.0",
+  "qr": "mo_qr.js 1.0.0",
+  "kit": "mo_social.js 1.1.0",
+  "tokens": "3.6.0",
+  "claim_bank": "1.1.0",
+  "slug": "event-screen-kit",
+  "built": "2026-11-10T12:12:47.349Z",
+  "draft": false,
+  "effective_height_dip": 900,
+  "safe_areas_status": "ESTIMATED from Windows 11 defaults. NOT measured on Al's laptop. Al gave 2880x1800; display scaling not yet given.",
+  "fonts": {
+    "verified": "fontconfig",
+    "queried": 5
+  },
+  "font_probe": {
+    "probed": 5,
+    "faces": [
+      "Montserrat ExtraBold",
+      "DM Sans Regular",
+      "DM Sans Bold",
+      "Space Mono Regular",
+      "Space Mono Bold"
+    ],
+    "unproven": []
+  },
+  "frames": [
+    {
+      "surface": "event_wallpaper",
+      "size": "3840x2160",
+      "file": "wallpaper/event-wallpaper_3840x2160.png",
+      "check": {
+        "strings": 2,
+        "min_contrast": 4.88
+      },
+      "safe": {
+        "boxes": 3,
+        "soft": []
+      },
+      "qr": null,
+      "display_px": null,
+      "alt": "MASTERING OBSERVABILITY, masteringobservability.com",
+      "png_colour_type": 6,
+      "bytes": 206282
+    },
+    {
+      "surface": "event_lock_screen",
+      "size": "3840x2160",
+      "file": "lock_screen/event-lock_3840x2160.png",
+      "check": {
+        "strings": 5,
+        "min_contrast": 5.31
+      },
+      "safe": {
+        "boxes": 8,
+        "soft": [
+          "headline \"It was never\"",
+          "headline \"the tooling.\""
+        ]
+      },
+      "qr": {
+        "url": "https://www.masteringobservability.com/subscribe",
+        "version": 4,
+        "ecl": "M",
+        "mask": 5,
+        "bytes": 48,
+        "capacity": 62,
+        "module_px": 18,
+        "side_px": 738,
+        "side_mm_on_14in": null,
+        "module_mm_on_14in": null
+      },
+      "display_px": 248,
+      "claim": "C01",
+      "alt": "It was never the tooling.",
+      "png_colour_type": 6,
+      "bytes": 262908
+    },
+    {
+      "surface": "event_screensaver",
+      "size": "3840x2160",
+      "file": "screensaver/3840x2160/01_newsletter.png",
+      "check": {
+        "strings": 6,
+        "min_contrast": 5.32
+      },
+      "safe": {
+        "boxes": 8,
+        "soft": [
+          "headline \"The Signal,\"",
+          "headline \"every Friday.\"",
+          "sub \"Tell us your role and we send you the right things.\""
+        ]
+      },
+      "qr": {
+        "url": "https://www.masteringobservability.com/subscribe",
+        "version": 4,
+        "ecl": "M",
+        "mask": 5,
+        "bytes": 48,
+        "capacity": 62,
+        "module_px": 18,
+        "side_px": 738,
+        "side_mm_on_14in": null,
+        "module_mm_on_14in": null
+      },
+      "display_px": 248,
+      "kind": "newsletter",
+      "claim": null,
+      "alt": "The Signal, every Friday. Tell us your role and we send you the right things.",
+      "png_colour_type": 6,
+      "bytes": 296734
+    },
+    {
+      "surface": "event_screensaver",
+      "size": "3840x2160",
+      "file": "screensaver/3840x2160/02_book.png",
+      "check": {
+        "strings": 7,
+        "min_contrast": 5.33
+      },
+      "safe": {
+        "boxes": 10,
+        "soft": [
+          "eyebrow \"METRICS & MAYHEM · THE BOOK\"",
+          "book cover"
+        ]
+      },
+      "qr": {
+        "url": "https://www.masteringobservability.com/metrics-and-mayhem/free-chapter",
+        "version": 5,
+        "ecl": "M",
+        "mask": 2,
+        "bytes": 70,
+        "capacity": 84,
+        "module_px": 17,
+        "side_px": 765,
+        "side_mm_on_14in": null,
+        "module_mm_on_14in": null
+      },
+      "display_px": 224,
+      "kind": "book",
+      "claim": null,
+      "alt": "METRICS & MAYHEM · THE BOOK. Chapter 4 is free. It stands on its own.",
+      "png_colour_type": 6,
+      "bytes": 428482
+    },
+    {
+      "surface": "event_screensaver",
+      "size": "3840x2160",
+      "file": "screensaver/3840x2160/03_podcast.png",
+      "check": {
+        "strings": 6,
+        "min_contrast": 5.32
+      },
+      "safe": {
+        "boxes": 8,
+        "soft": [
+          "eyebrow \"METRICS & MAYHEM · THE PODCAST\"",
+          "headline \"On Spotify and\"",
+          "headline \"Apple Podcasts.\""
+        ]
+      },
+      "qr": {
+        "url": "https://www.masteringobservability.com/metrics-and-mayhem/podcast",
+        "version": 5,
+        "ecl": "M",
+        "mask": 3,
+        "bytes": 65,
+        "capacity": 84,
+        "module_px": 17,
+        "side_px": 765,
+        "side_mm_on_14in": null,
+        "module_mm_on_14in": null
+      },
+      "display_px": 248,
+      "kind": "podcast",
+      "claim": null,
+      "alt": "METRICS & MAYHEM · THE PODCAST. On Spotify and Apple Podcasts.",
+      "png_colour_type": 6,
+      "bytes": 297218
+    },
+    {
+      "surface": "event_screensaver",
+      "size": "3840x2160",
+      "file": "screensaver/3840x2160/04_claim.png",
+      "check": {
+        "strings": 6,
+        "min_contrast": 5.33
+      },
+      "safe": {
+        "boxes": 9,
+        "soft": [
+          "headline \"Observability\"",
+          "headline \"that survives\"",
+          "headline \"the bridge call.\""
+        ]
+      },
+      "qr": {
+        "url": "https://www.masteringobservability.com/advisory",
+        "version": 4,
+        "ecl": "M",
+        "mask": 2,
+        "bytes": 47,
+        "capacity": 62,
+        "module_px": 18,
+        "side_px": 738,
+        "side_mm_on_14in": null,
+        "module_mm_on_14in": null
+      },
+      "display_px": 218,
+      "kind": "claim",
+      "claim": "C22",
+      "alt": "Observability that survives the bridge call.",
+      "png_colour_type": 6,
+      "bytes": 292549
+    },
+    {
+      "surface": "event_wallpaper",
+      "size": "1920x1080",
+      "file": "wallpaper/event-wallpaper_1920x1080.png",
+      "check": {
+        "strings": 2,
+        "min_contrast": 4.88
+      },
+      "safe": {
+        "boxes": 3,
+        "soft": []
+      },
+      "qr": null,
+      "display_px": null,
+      "alt": "MASTERING OBSERVABILITY, masteringobservability.com",
+      "png_colour_type": 6,
+      "bytes": 75516
+    },
+    {
+      "surface": "event_lock_screen",
+      "size": "1920x1080",
+      "file": "lock_screen/event-lock_1920x1080.png",
+      "check": {
+        "strings": 5,
+        "min_contrast": 5.31
+      },
+      "safe": {
+        "boxes": 8,
+        "soft": [
+          "headline \"It was never\"",
+          "headline \"the tooling.\""
+        ]
+      },
+      "qr": {
+        "url": "https://www.masteringobservability.com/subscribe",
+        "version": 4,
+        "ecl": "M",
+        "mask": 5,
+        "bytes": 48,
+        "capacity": 62,
+        "module_px": 9,
+        "side_px": 369,
+        "side_mm_on_14in": null,
+        "module_mm_on_14in": null
+      },
+      "display_px": 124,
+      "claim": "C01",
+      "alt": "It was never the tooling.",
+      "png_colour_type": 6,
+      "bytes": 100791
+    },
+    {
+      "surface": "event_screensaver",
+      "size": "1920x1080",
+      "file": "screensaver/1920x1080/01_newsletter.png",
+      "check": {
+        "strings": 6,
+        "min_contrast": 5.32
+      },
+      "safe": {
+        "boxes": 8,
+        "soft": [
+          "headline \"The Signal,\"",
+          "headline \"every Friday.\"",
+          "sub \"Tell us your role and we send you the right things.\""
+        ]
+      },
+      "qr": {
+        "url": "https://www.masteringobservability.com/subscribe",
+        "version": 4,
+        "ecl": "M",
+        "mask": 5,
+        "bytes": 48,
+        "capacity": 62,
+        "module_px": 9,
+        "side_px": 369,
+        "side_mm_on_14in": null,
+        "module_mm_on_14in": null
+      },
+      "display_px": 124,
+      "kind": "newsletter",
+      "claim": null,
+      "alt": "The Signal, every Friday. Tell us your role and we send you the right things.",
+      "png_colour_type": 6,
+      "bytes": 116552
+    },
+    {
+      "surface": "event_screensaver",
+      "size": "1920x1080",
+      "file": "screensaver/1920x1080/02_book.png",
+      "check": {
+        "strings": 7,
+        "min_contrast": 5.33
+      },
+      "safe": {
+        "boxes": 10,
+        "soft": [
+          "eyebrow \"METRICS & MAYHEM · THE BOOK\"",
+          "book cover"
+        ]
+      },
+      "qr": {
+        "url": "https://www.masteringobservability.com/metrics-and-mayhem/free-chapter",
+        "version": 5,
+        "ecl": "M",
+        "mask": 2,
+        "bytes": 70,
+        "capacity": 84,
+        "module_px": 9,
+        "side_px": 405,
+        "side_mm_on_14in": null,
+        "module_mm_on_14in": null
+      },
+      "display_px": 112,
+      "kind": "book",
+      "claim": null,
+      "alt": "METRICS & MAYHEM · THE BOOK. Chapter 4 is free. It stands on its own.",
+      "png_colour_type": 6,
+      "bytes": 148350
+    },
+    {
+      "surface": "event_screensaver",
+      "size": "1920x1080",
+      "file": "screensaver/1920x1080/03_podcast.png",
+      "check": {
+        "strings": 6,
+        "min_contrast": 5.32
+      },
+      "safe": {
+        "boxes": 8,
+        "soft": [
+          "eyebrow \"METRICS & MAYHEM · THE PODCAST\"",
+          "headline \"On Spotify and\"",
+          "headline \"Apple Podcasts.\""
+        ]
+      },
+      "qr": {
+        "url": "https://www.masteringobservability.com/metrics-and-mayhem/podcast",
+        "version": 5,
+        "ecl": "M",
+        "mask": 3,
+        "bytes": 65,
+        "capacity": 84,
+        "module_px": 9,
+        "side_px": 405,
+        "side_mm_on_14in": null,
+        "module_mm_on_14in": null
+      },
+      "display_px": 124,
+      "kind": "podcast",
+      "claim": null,
+      "alt": "METRICS & MAYHEM · THE PODCAST. On Spotify and Apple Podcasts.",
+      "png_colour_type": 6,
+      "bytes": 116342
+    },
+    {
+      "surface": "event_screensaver",
+      "size": "1920x1080",
+      "file": "screensaver/1920x1080/04_claim.png",
+      "check": {
+        "strings": 6,
+        "min_contrast": 5.33
+      },
+      "safe": {
+        "boxes": 9,
+        "soft": [
+          "headline \"Observability\"",
+          "headline \"that survives\"",
+          "headline \"the bridge call.\""
+        ]
+      },
+      "qr": {
+        "url": "https://www.masteringobservability.com/advisory",
+        "version": 4,
+        "ecl": "M",
+        "mask": 2,
+        "bytes": 47,
+        "capacity": 62,
+        "module_px": 9,
+        "side_px": 369,
+        "side_mm_on_14in": null,
+        "module_mm_on_14in": null
+      },
+      "display_px": 108,
+      "kind": "claim",
+      "claim": "C22",
+      "alt": "Observability that survives the bridge call.",
+      "png_colour_type": 6,
+      "bytes": 113775
+    },
+    {
+      "surface": "event_wallpaper",
+      "size": "2560x1600",
+      "file": "wallpaper/event-wallpaper_2560x1600.png",
+      "check": {
+        "strings": 2,
+        "min_contrast": 4.88
+      },
+      "safe": {
+        "boxes": 3,
+        "soft": []
+      },
+      "qr": null,
+      "display_px": null,
+      "alt": "MASTERING OBSERVABILITY, masteringobservability.com",
+      "png_colour_type": 6,
+      "bytes": 128574
+    },
+    {
+      "surface": "event_lock_screen",
+      "size": "2560x1600",
+      "file": "lock_screen/event-lock_2560x1600.png",
+      "check": {
+        "strings": 5,
+        "min_contrast": 5.25
+      },
+      "safe": {
+        "boxes": 8,
+        "soft": [
+          "headline \"It was never\"",
+          "headline \"the tooling.\"",
+          "wordmark \"MASTERING OBSERVABILITY\""
+        ]
+      },
+      "qr": {
+        "url": "https://www.masteringobservability.com/subscribe",
+        "version": 4,
+        "ecl": "M",
+        "mask": 5,
+        "bytes": 48,
+        "capacity": 62,
+        "module_px": 14,
+        "side_px": 574,
+        "side_mm_on_14in": 67.4,
+        "module_mm_on_14in": 1.65
+      },
+      "display_px": 184,
+      "claim": "C01",
+      "alt": "It was never the tooling.",
+      "png_colour_type": 6,
+      "bytes": 165074
+    },
+    {
+      "surface": "event_screensaver",
+      "size": "2560x1600",
+      "file": "screensaver/2560x1600/01_newsletter.png",
+      "check": {
+        "strings": 6,
+        "min_contrast": 5.25
+      },
+      "safe": {
+        "boxes": 8,
+        "soft": [
+          "headline \"The Signal,\"",
+          "headline \"every Friday.\"",
+          "sub \"Tell us your role and we send you the right things.\"",
+          "wordmark \"MASTERING OBSERVABILITY\""
+        ]
+      },
+      "qr": {
+        "url": "https://www.masteringobservability.com/subscribe",
+        "version": 4,
+        "ecl": "M",
+        "mask": 5,
+        "bytes": 48,
+        "capacity": 62,
+        "module_px": 14,
+        "side_px": 574,
+        "side_mm_on_14in": 67.4,
+        "module_mm_on_14in": 1.65
+      },
+      "display_px": 184,
+      "kind": "newsletter",
+      "claim": null,
+      "alt": "The Signal, every Friday. Tell us your role and we send you the right things.",
+      "png_colour_type": 6,
+      "bytes": 192299
+    },
+    {
+      "surface": "event_screensaver",
+      "size": "2560x1600",
+      "file": "screensaver/2560x1600/02_book.png",
+      "check": {
+        "strings": 7,
+        "min_contrast": 5.27
+      },
+      "safe": {
+        "boxes": 10,
+        "soft": [
+          "eyebrow \"METRICS & MAYHEM · THE BOOK\"",
+          "headline \"Chapter 4\"",
+          "book cover"
+        ]
+      },
+      "qr": {
+        "url": "https://www.masteringobservability.com/metrics-and-mayhem/free-chapter",
+        "version": 5,
+        "ecl": "M",
+        "mask": 2,
+        "bytes": 70,
+        "capacity": 84,
+        "module_px": 12,
+        "side_px": 540,
+        "side_mm_on_14in": 63.5,
+        "module_mm_on_14in": 1.41
+      },
+      "display_px": 166,
+      "kind": "book",
+      "claim": null,
+      "alt": "METRICS & MAYHEM · THE BOOK. Chapter 4 is free. It stands on its own.",
+      "png_colour_type": 6,
+      "bytes": 263119
+    },
+    {
+      "surface": "event_screensaver",
+      "size": "2560x1600",
+      "file": "screensaver/2560x1600/03_podcast.png",
+      "check": {
+        "strings": 6,
+        "min_contrast": 5.25
+      },
+      "safe": {
+        "boxes": 8,
+        "soft": [
+          "eyebrow \"METRICS & MAYHEM · THE PODCAST\"",
+          "headline \"On Spotify and\"",
+          "headline \"Apple Podcasts.\"",
+          "wordmark \"MASTERING OBSERVABILITY\""
+        ]
+      },
+      "qr": {
+        "url": "https://www.masteringobservability.com/metrics-and-mayhem/podcast",
+        "version": 5,
+        "ecl": "M",
+        "mask": 3,
+        "bytes": 65,
+        "capacity": 84,
+        "module_px": 12,
+        "side_px": 540,
+        "side_mm_on_14in": 63.5,
+        "module_mm_on_14in": 1.41
+      },
+      "display_px": 184,
+      "kind": "podcast",
+      "claim": null,
+      "alt": "METRICS & MAYHEM · THE PODCAST. On Spotify and Apple Podcasts.",
+      "png_colour_type": 6,
+      "bytes": 191348
+    },
+    {
+      "surface": "event_screensaver",
+      "size": "2560x1600",
+      "file": "screensaver/2560x1600/04_claim.png",
+      "check": {
+        "strings": 6,
+        "min_contrast": 5.27
+      },
+      "safe": {
+        "boxes": 9,
+        "soft": [
+          "headline \"Observability\"",
+          "headline \"that survives\"",
+          "headline \"the bridge call.\""
+        ]
+      },
+      "qr": {
+        "url": "https://www.masteringobservability.com/advisory",
+        "version": 4,
+        "ecl": "M",
+        "mask": 2,
+        "bytes": 47,
+        "capacity": 62,
+        "module_px": 14,
+        "side_px": 574,
+        "side_mm_on_14in": 67.4,
+        "module_mm_on_14in": 1.65
+      },
+      "display_px": 162,
+      "kind": "claim",
+      "claim": "C22",
+      "alt": "Observability that survives the bridge call.",
+      "png_colour_type": 6,
+      "bytes": 187931
+    },
+    {
+      "surface": "event_wallpaper",
+      "size": "2880x1800",
+      "file": "wallpaper/event-wallpaper_2880x1800.png",
+      "check": {
+        "strings": 2,
+        "min_contrast": 4.88
+      },
+      "safe": {
+        "boxes": 3,
+        "soft": []
+      },
+      "qr": null,
+      "display_px": null,
+      "alt": "MASTERING OBSERVABILITY, masteringobservability.com",
+      "png_colour_type": 6,
+      "bytes": 158284
+    },
+    {
+      "surface": "event_lock_screen",
+      "size": "2880x1800",
+      "file": "lock_screen/event-lock_2880x1800.png",
+      "check": {
+        "strings": 5,
+        "min_contrast": 5.25
+      },
+      "safe": {
+        "boxes": 8,
+        "soft": [
+          "headline \"It was never\"",
+          "headline \"the tooling.\"",
+          "wordmark \"MASTERING OBSERVABILITY\""
+        ]
+      },
+      "qr": {
+        "url": "https://www.masteringobservability.com/subscribe",
+        "version": 4,
+        "ecl": "M",
+        "mask": 5,
+        "bytes": 48,
+        "capacity": 62,
+        "module_px": 15,
+        "side_px": 615,
+        "side_mm_on_14in": 64.2,
+        "module_mm_on_14in": 1.57
+      },
+      "display_px": 207,
+      "claim": "C01",
+      "alt": "It was never the tooling.",
+      "png_colour_type": 6,
+      "bytes": 200151
+    },
+    {
+      "surface": "event_screensaver",
+      "size": "2880x1800",
+      "file": "screensaver/2880x1800/01_newsletter.png",
+      "check": {
+        "strings": 6,
+        "min_contrast": 5.26
+      },
+      "safe": {
+        "boxes": 8,
+        "soft": [
+          "headline \"The Signal,\"",
+          "headline \"every Friday.\"",
+          "sub \"Tell us your role and we send you the right things.\"",
+          "wordmark \"MASTERING OBSERVABILITY\""
+        ]
+      },
+      "qr": {
+        "url": "https://www.masteringobservability.com/subscribe",
+        "version": 4,
+        "ecl": "M",
+        "mask": 5,
+        "bytes": 48,
+        "capacity": 62,
+        "module_px": 15,
+        "side_px": 615,
+        "side_mm_on_14in": 64.2,
+        "module_mm_on_14in": 1.57
+      },
+      "display_px": 207,
+      "kind": "newsletter",
+      "claim": null,
+      "alt": "The Signal, every Friday. Tell us your role and we send you the right things.",
+      "png_colour_type": 6,
+      "bytes": 230636
+    },
+    {
+      "surface": "event_screensaver",
+      "size": "2880x1800",
+      "file": "screensaver/2880x1800/02_book.png",
+      "check": {
+        "strings": 7,
+        "min_contrast": 5.31
+      },
+      "safe": {
+        "boxes": 10,
+        "soft": [
+          "eyebrow \"METRICS & MAYHEM · THE BOOK\"",
+          "headline \"Chapter 4\"",
+          "book cover"
+        ]
+      },
+      "qr": {
+        "url": "https://www.masteringobservability.com/metrics-and-mayhem/free-chapter",
+        "version": 5,
+        "ecl": "M",
+        "mask": 2,
+        "bytes": 70,
+        "capacity": 84,
+        "module_px": 14,
+        "side_px": 630,
+        "side_mm_on_14in": 65.8,
+        "module_mm_on_14in": 1.46
+      },
+      "display_px": 187,
+      "kind": "book",
+      "claim": null,
+      "alt": "METRICS & MAYHEM · THE BOOK. Chapter 4 is free. It stands on its own.",
+      "png_colour_type": 6,
+      "bytes": 317725
+    },
+    {
+      "surface": "event_screensaver",
+      "size": "2880x1800",
+      "file": "screensaver/2880x1800/03_podcast.png",
+      "check": {
+        "strings": 6,
+        "min_contrast": 5.26
+      },
+      "safe": {
+        "boxes": 8,
+        "soft": [
+          "eyebrow \"METRICS & MAYHEM · THE PODCAST\"",
+          "headline \"On Spotify and\"",
+          "headline \"Apple Podcasts.\"",
+          "wordmark \"MASTERING OBSERVABILITY\""
+        ]
+      },
+      "qr": {
+        "url": "https://www.masteringobservability.com/metrics-and-mayhem/podcast",
+        "version": 5,
+        "ecl": "M",
+        "mask": 3,
+        "bytes": 65,
+        "capacity": 84,
+        "module_px": 14,
+        "side_px": 630,
+        "side_mm_on_14in": 65.8,
+        "module_mm_on_14in": 1.46
+      },
+      "display_px": 207,
+      "kind": "podcast",
+      "claim": null,
+      "alt": "METRICS & MAYHEM · THE PODCAST. On Spotify and Apple Podcasts.",
+      "png_colour_type": 6,
+      "bytes": 227879
+    },
+    {
+      "surface": "event_screensaver",
+      "size": "2880x1800",
+      "file": "screensaver/2880x1800/04_claim.png",
+      "check": {
+        "strings": 6,
+        "min_contrast": 5.31
+      },
+      "safe": {
+        "boxes": 9,
+        "soft": [
+          "headline \"Observability\"",
+          "headline \"that survives\"",
+          "headline \"the bridge call.\""
+        ]
+      },
+      "qr": {
+        "url": "https://www.masteringobservability.com/advisory",
+        "version": 4,
+        "ecl": "M",
+        "mask": 2,
+        "bytes": 47,
+        "capacity": 62,
+        "module_px": 15,
+        "side_px": 615,
+        "side_mm_on_14in": 64.2,
+        "module_mm_on_14in": 1.57
+      },
+      "display_px": 183,
+      "kind": "claim",
+      "claim": "C22",
+      "alt": "Observability that survives the bridge call.",
+      "png_colour_type": 6,
+      "bytes": 225200
+    }
+  ]
+}

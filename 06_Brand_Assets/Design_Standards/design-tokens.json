@@ -1,10 +1,10 @@
 {
   "$schema": "mo-design-tokens/1",
-  "version": "3.5.1",
+  "version": "3.6.0",
   "status": "ratified",
-  "updated": "2026-10-31",
+  "updated": "2026-11-10",
   "owner": "Growth",
-  "note": "Generated from the MO Design System page. Never hand-edit a producer palette; read this file. 3.3.0 adds ONE rule and ONE required producer flag: The Signal carries its issue number, and blogthumb requires --issue for surface the_signal. See copy.eyebrow_vocabulary.newsletter_issue. NO colour value changed. 3.2.1 was a POINTER-CORRECTION release: consumers.status keys now name the real producer paths, marks.commit_order no longer instructs a commit of two deleted files, and Diagram_Standard.md is repointed - it had told the next person to add hexes to mo_diagram.js, which is now a defect. NO colour value changed and no new token added. 3.3.7 (2026-10-09, Greg via Al, four lane items): canvas.diagram_inbody and canvas.floors added; in-body is the default canvas for light diagrams; producers/mo_deck_master.js registered. 3.3.8 (2026-10-12, Design for Content): quote cards ruled LIGHT ONLY and mode.rule made to say so; carousels ruled house lane always; canvas.quote_card_portrait and quote_card_pinterest added; canvas.floors.carousel and quote_card added; producers/mo_social.js, mo_carousel.js and mo_quote_card.js registered; templates/render_carousel.py and templates/mo_quote_card.js retired (they now refuse to run). Changed in 3.4.0 (MINOR: new canvas and safe area): canvas.carousel_tiktok 1080x1920, safe_areas.tiktok_photo, mode.tiktok_still_mode, carousel_tiktok in house_lane. NO colour value changed. Changed in 3.5.0 (MINOR: new canvas): canvas.og_card_tiktok 1080x1920 and its floors, og_card_tiktok in house_lane, safe_areas.tiktok_photo names it, marks.ring_mark.display_rule, and an OPEN finding on the carousel and quote-card mark variant. NO colour value changed.",
+  "note": "Generated from the MO Design System page. Never hand-edit a producer palette; read this file. 3.3.0 adds ONE rule and ONE required producer flag: The Signal carries its issue number, and blogthumb requires --issue for surface the_signal. See copy.eyebrow_vocabulary.newsletter_issue. NO colour value changed. 3.2.1 was a POINTER-CORRECTION release: consumers.status keys now name the real producer paths, marks.commit_order no longer instructs a commit of two deleted files, and Diagram_Standard.md is repointed - it had told the next person to add hexes to mo_diagram.js, which is now a defect. NO colour value changed and no new token added. 3.3.7 (2026-10-09, Greg via Al, four lane items): canvas.diagram_inbody and canvas.floors added; in-body is the default canvas for light diagrams; producers/mo_deck_master.js registered. 3.3.8 (2026-10-12, Design for Content): quote cards ruled LIGHT ONLY and mode.rule made to say so; carousels ruled house lane always; canvas.quote_card_portrait and quote_card_pinterest added; canvas.floors.carousel and quote_card added; producers/mo_social.js, mo_carousel.js and mo_quote_card.js registered; templates/render_carousel.py and templates/mo_quote_card.js retired (they now refuse to run). Changed in 3.4.0 (MINOR: new canvas and safe area): canvas.carousel_tiktok 1080x1920, safe_areas.tiktok_photo, mode.tiktok_still_mode, carousel_tiktok in house_lane. NO colour value changed. Changed in 3.5.0 (MINOR: new canvas): canvas.og_card_tiktok 1080x1920 and its floors, og_card_tiktok in house_lane, safe_areas.tiktok_photo names it, marks.ring_mark.display_rule, and an OPEN finding on the carousel and quote-card mark variant. NO colour value changed. Changed in 3.6.0 (MINOR: new surfaces and a new safe-area model): the event screen kit, built by Design for Content on 2026-10-13 and staged then as 3.4.0 against 3.3.8, rebased onto 3.5.1 on 2026-11-10 because 3.4.0 and 3.5.x had since shipped the TikTok work. Three house surfaces (event_wallpaper, event_lock_screen, event_screensaver), four canvases, canvas.floors.event_screen and safe_areas.event_screen added; mode.event_screen_mode and lockup.event_screen_lane record the rulings; producers/mo_event_screen.js and producers/mo_qr.js registered. NO colour value changed and no colour token added.",
   "mode": {
     "default": "light",
     "rule": "Writing renders light. A blog, article, newsletter or any card fronting written material uses the website palette, because it is the same reading surface. Feed cards that are words (carousels and quote cards) also render light: they sit in a light feed, not a dark player, and Brand v3 §2 lists both on the light side. That includes their 9:16 TikTok stills, which fill the screen rather than sit inside a dark player (Al, 2026-10-15; mode.tiktok_still_mode). Dark is for assets that live inside someone else's dark chrome: podcast, YouTube, episode art, short-form video, the deck's opener, dividers and closer, ebook covers.",
@@ -39,7 +39,8 @@
     "the_signal_mode": "LIGHT, and light ONLY. Confirmed by Al 2026-09-18: light is the website standard for anything that is writing, and The Signal is writing. modeFor('the_signal') already returned light and the surface is deliberately absent from dual_mode, so --mode dark throws. TWO ARTEFACTS CONTRADICT THIS AND ARE THE DRIFT, not the rule: the masthead mockup on the MO Design System page rendered dark, and thumbnail_builder.py compose_signal() renders dark on the RETIRED palette. The token system was right before either was fixed.",
     "writing_surfaces_note": "blog_og is dual-mode (light default, dark for an OG fronting a non-writing asset). byte_size and monthly_digest are NOT dual-mode and render light only, so --mode dark throws on them. That is deliberate: a byte-size is writing.",
     "quote_card_mode": "LIGHT ONLY. Ruled by Design 2026-10-12 for Content (GR-2026-09-26-04 item 4). The tokens disagreed with themselves: mode.rule said \"feed cards for non-writing assets render dark\" while dark_surfaces omitted quote_card, so modeFor returned light; Quote_Card_Standard.md v1.0 said dark and Brand v3 §2 said light. The §2 test decides it: a quote card does not render inside someone else's dark UI. quote_card is deliberately absent from dual_mode, so a dark request has no variant to resolve. The 2026-09-26 Stoic set shipped dark and is not re-rendered.",
-    "tiktok_still_mode": "LIGHT. Ruled by Al 2026-10-15. TikTok is dark chrome for VIDEO, which is why bookend_9x16 is dark. A 9:16 photo post is different: the image fills the whole screen, so nothing dark surrounds it, and the Brand v3 §2 test (does the asset render inside someone else's dark UI?) says light. carousel_tiktok is therefore absent from dark_surfaces, and the TikTok cut has the same look as the LinkedIn and Instagram cuts of the same carousel."
+    "tiktok_still_mode": "LIGHT. Ruled by Al 2026-10-15. TikTok is dark chrome for VIDEO, which is why bookend_9x16 is dark. A 9:16 photo post is different: the image fills the whole screen, so nothing dark surrounds it, and the Brand v3 §2 test (does the asset render inside someone else's dark UI?) says light. carousel_tiktok is therefore absent from dark_surfaces, and the TikTok cut has the same look as the LinkedIn and Instagram cuts of the same carousel.",
+    "event_screen_mode": "LIGHT ONLY, ruled by Al 2026-10-13. The lock screen and screensaver are read across a table in bright venue light, and a light ground lets the QR codes run dark on light without testing an inverted code. The three event surfaces are absent from dark_surfaces and dual_mode on purpose."
   },
   "colour": {
     "light": {
@@ -367,6 +368,19 @@
         "label_px": 26,
         "judged_at_px": 375,
         "rule": "The 9:16 share card is full width on a 375px phone, 0.347 of the canvas, the same as a carousel, so it carries the carousel floors. Enforced by mo_social.js gate() on every string mo_share_card.js places."
+      },
+      "event_screen": {
+        "judged_at_height_px": 1080,
+        "display_px": 96,
+        "text_px": 40,
+        "small_px": 34,
+        "label_px": 28,
+        "qr_side_fraction": 0.36,
+        "qr_module_min_fraction": 0.0075,
+        "qr_ecl": "M",
+        "qr_quiet_modules": 4,
+        "scale": "Floors are stated at a 1080px-tall canvas and scale with canvas height, because every file is shown full-screen: a 2160 file carries floors twice these.",
+        "rule": "Read from across a table. On a 14in 16:10 panel (screen height 188mm) the 96px display floor is a 67px cap height at 1080, about 11.7mm on screen: legible at two metres with margin (signage rule of thumb about 6mm per metre for legibility). The QR plate is 36 per cent of screen height (about 68mm on the laptop) and a module may not fall below 0.75 per cent of height (about 1.4mm), which caps a code at version 5-M, 84 bytes. COMPUTED, NOT OBSERVED: the two-metre read and the one-metre scan are Content's on-device acceptance test."
       }
     },
     "carousel_tiktok": [
@@ -376,7 +390,24 @@
     "og_card_tiktok": [
       1080,
       1920
-    ]
+    ],
+    "event_screen_uhd": [
+      3840,
+      2160
+    ],
+    "event_screen_fhd": [
+      1920,
+      1080
+    ],
+    "event_screen_wqxga": [
+      2560,
+      1600
+    ],
+    "event_screen_3k": [
+      2880,
+      1800
+    ],
+    "event_screen_note": "ADDED 3.4.0. One canvas set shared by the three event surfaces. 16:9 for an external screen or a stand, 16:10 for the laptop. event_screen_3k is Al's native panel (2880x1800, given 2026-10-13); event_screen_wqxga is the same composition at 2560x1600. Windows FILLS the screen, so a 16:9 file on a 16:10 panel loses its sides: set the 16:10 files on the laptop. Each size is re-laid by the producer from the safe areas, never cropped from another size."
   },
   "lockup": {
     "rule": "Mastering Observability is the MASTER BRAND. Metrics & Mayhem sits UNDERNEATH it — parent and child, not siblings. Tech Tuesday and Signal Drop sit under Metrics & Mayhem. The Signal, byte-size, the Digest and blogs sit under Mastering Observability. Ruled by Al 2026-09-14, restating what The_Signal_Card_Standard.md already said and what v3.1.0 lost: §6 of the standard, §5 of the marks standard and this rule all described two parallel equal lanes with no parent. The file that declares itself canonical was the one that dropped the hierarchy.",
@@ -408,7 +439,10 @@
       "monthly_digest",
       "og_card",
       "carousel_tiktok",
-      "og_card_tiktok"
+      "og_card_tiktok",
+      "event_wallpaper",
+      "event_lock_screen",
+      "event_screensaver"
     ],
     "name_trap": "the_signal is the NEWSLETTER and is house lane. signal_drop is the PODCAST and is podcast lane. One word apart, opposite wordmarks. Al's 2026-09-14 ruling on the Digest, The Signal and byte-size covers the newsletter only.",
     "prohibition": "Metrics & Mayhem must NOT appear on a house asset. That name is reserved for the book and the podcast.",
@@ -433,7 +467,8 @@
       "why_youtube_only": "YouTube is where a cold viewer meets the podcast with no other context, so the parent brand has work to do. An episode square appears inside a feed the listener has already chosen, where the endorsement is noise. That is the distinction Al drew."
     },
     "endorsement_ruling": "CLOSED 2026-09-16. The question was: should the hierarchy stay purely organisational, or should podcast assets carry an endorsement? Al ruled PER SURFACE — YouTube yes, episode squares no. See lockup.endorsement. Previously recorded here as open, with the note that it changes every thumbnail, square, title card, bookend and video card; in the event it changes one of them.",
-    "carousel_lane": "RULED 2026-10-12 (Design, for Content): EVERY carousel is house lane and carries MASTERING OBSERVABILITY, including an episode carousel such as a Signal Drop Hard Stop. One template, one wordmark. The show is named in the cover eyebrow, which is copy, not a lockup. lockupFor(\"carousel\") already returned house; this records that it is meant."
+    "carousel_lane": "RULED 2026-10-12 (Design, for Content): EVERY carousel is house lane and carries MASTERING OBSERVABILITY, including an episode carousel such as a Signal Drop Hard Stop. One template, one wordmark. The show is named in the cover eyebrow, which is copy, not a lockup. lockupFor(\"carousel\") already returned house; this records that it is meant.",
+    "event_screen_lane": "RULED 2026-10-13 by Al: the event screen kit is HOUSE lane and LIGHT. Every frame carries MASTERING OBSERVABILITY. The podcast frame follows carousel_lane: one house wordmark, the show named in the eyebrow as copy. The book frame is the one exception to lockup.prohibition on these surfaces: it shows the book cover as the product image, on the og_book_1200x630_v3 precedent, and names the book in its eyebrow. The house wordmark is never replaced. mo_event_screen.js refuses METRICS & MAYHEM in the copy of any other frame."
   },
   "marks": {
     "rule": "Resolve a mark by NAME from this manifest. Never by searching the tree — a search finds logo-master.svg and favicon.svg, which predate the ring mark. If a mark is not listed here it does not exist yet.",
@@ -573,9 +608,11 @@
       "producers/mo_lower_third.js": "v1.1.0, 2026-10-31. THE lower third (Video_Card_System v3.0, the 4b signal line). HOST, GUEST, TERM, two-shot. 1920x1080 RGBA PNG plus --frames ProRes 4444 draw-in. 1.1.0 starts the label row at the margin on cards with no ring.",
       "producers/mo_episode_square.js": "v1.0.0, 2026-10-31. THE square episode art producer, to the spec Al approved 31 Oct. Signal Drop waveform + FRI, Tech Tuesday terminal + TUE. 3000 JPEG plus 1400 beehiiv. Replaces the square path in tools/thumbnail_builder.py, retired in 1.7.0.",
       "tools/thumbnail_builder.py": "v1.7.0, 2026-10-31. YouTube, OG and The Signal only. Square art retired: an episode run no longer writes NN_episode_art.jpg and prints a pointer to producers/mo_episode_square.js.",
-      "producers/mo_share_card.js": "v1.0.0, 2026-10-16. The 9:16 share card, surface og_card_tiktok. Extends the og_book.html share card (type roles, cover treatment) onto the TikTok carousel chrome. Gated: fit, floors, 4.5:1, safe box, render clean. The 1200x630 cards remain hand instances of og_book.html and are unchanged."
+      "producers/mo_share_card.js": "v1.0.0, 2026-10-16. The 9:16 share card, surface og_card_tiktok. Extends the og_book.html share card (type roles, cover treatment) onto the TikTok carousel chrome. Gated: fit, floors, 4.5:1, safe box, render clean. The 1200x630 cards remain hand instances of og_book.html and are unchanged.",
+      "producers/mo_event_screen.js": "ADDED 2026-10-13. THE event screen producer: desktop wallpaper, lock screen and a screensaver set at four sizes. Light, house lane. Declares no colour. Claims by ID from claim-bank.json; refuses a claim whose surfaces lack \"event screen\". Gates: assertFonts and assertFontsProbe before first render, assertNoRetired on its own source, assertFilesClean on the book cover, mo_social gate() (fit, floors, AA) and assertRenderClean on every frame, a safe-area gate against safe_areas.event_screen, a QR module floor, and PNG byte 25.",
+      "producers/mo_qr.js": "ADDED 2026-10-13. QR encoder, no dependency: byte mode, versions 1 to 10, L/M/Q/H, eight masks scored. Declares no colour. Verified by decoding its own output with an independent decoder at every version and level at full capacity."
     },
-    "single_home": "Producers live at Design_Standards/producers/ and nowhere else: mo-tokens.js, mo_visual_kit.js, mo_diagram.js, mo_deck_master.js, mo_social.js, mo_carousel.js, mo_quote_card.js, normalise_font_names.py. Two copies of a producer is the same defect class as two canonical trees. Three instances have now been resolved: two diverged visual kits (09-14); a duplicate normalise_font_names.py whose copy checked only name ID 1 and so passed fonts the real one flags as DRIFT (09-16); and mo_diagram.js living in templates/ away from the loader it needs (09-16).",
+    "single_home": "Producers live at Design_Standards/producers/ and nowhere else: mo-tokens.js, mo_visual_kit.js, mo_diagram.js, mo_deck_master.js, mo_social.js, mo_carousel.js, mo_quote_card.js, mo_event_screen.js, mo_qr.js, normalise_font_names.py. Two copies of a producer is the same defect class as two canonical trees. Three instances have now been resolved: two diverged visual kits (09-14); a duplicate normalise_font_names.py whose copy checked only name ID 1 and so passed fonts the real one flags as DRIFT (09-16); and mo_diagram.js living in templates/ away from the loader it needs (09-16).",
     "token_resolution": "mo-tokens.js walks UP from its own directory to find this file (5 levels, MO_TOKENS still wins when set). The earlier version looked only beside itself, so every producer run needed MO_TOKENS set by hand.",
     "producer_contract": "blogthumb requires --surface AND --eyebrow. Neither is defaulted. It previously called lockupFor(\"blog_og\") literally, so every card returned MASTERING OBSERVABILITY whatever it was — the right answer for the wrong reason, routing around the throw that exists to stop a surface defaulting into a wordmark. --eyebrow defaulted to THE OBSERVABILITY DIGEST, correct for one surface and wrong for four. A silent default that is right once and wrong four times is the same failure class as the font fallback that produced the blank card.",
     "mo_diagram_scope": {
@@ -730,6 +767,36 @@
       "derivation": "The published guides disagree: one gives 131px top, 367px bottom and 120px each side; another about 100px top, about 300px bottom and about 150px on the right for the action column. Content proposed the stricter figure on every edge with the top at 160. Al took Content's box with the top moved to 200, for room under TikTok's Following / For You tabs. Bottom 1520 clears the caption, handle and sound block (367px from the foot is y1553) with a 33px margin. Right 930 clears the 150px action column. Left 120 is composition, not overlay: nothing on TikTok covers the left edge.",
       "not_the_video_rule": "Brand v3 §7's middle 60 per cent (y384-1536) is for vertical VIDEO, where the player's chrome is heavier and moves. It does not govern stills. Recorded so the two are not confused.",
       "verify": "Checked by geometry in the producer and by eye on the --proof renders. Al to confirm once on a real phone in TikTok's own preview; until then the box is ruled but not phone-verified."
+    },
+    "event_screen": {
+      "status": "ESTIMATED from Windows 11 defaults. NOT measured on Al's laptop. Al gave 2880x1800; display scaling not yet given.",
+      "unit": "dip (Windows effective pixels). A zone in image pixels = dip x canvas height / design_effective_height_dip.",
+      "design_effective_height_dip": 900,
+      "basis": "2880x1800 at 200 per cent, Windows' recommended scaling for a 14in panel at that resolution. ASSUMED. If Al runs 175 per cent, pass --effective-height 1029 (zones shrink, the layout still holds). At 225 or 250 per cent (800 or 720) the clock and the bottom strip leave too little band and the producer refuses rather than overlaps.",
+      "desktop": {
+        "icons_left_dip": 200,
+        "taskbar_bottom_dip": 48,
+        "clearance_dip": 24,
+        "note": "Two columns of medium desktop icons plus padding. Taskbar 48 at 100 per cent, scaled like everything else."
+      },
+      "lock": {
+        "clock": {
+          "anchor": "top-centre",
+          "w_dip": 640,
+          "h_dip": 300,
+          "note": "Windows 11 time and date."
+        },
+        "bottom_strip_dip": 120,
+        "bottom_strip_note": "Lock screen widgets (bottom left and centre) and the network, accessibility and power icons bottom right. Full width, because the widget position moves between Windows builds.",
+        "signin_soft": {
+          "anchor": "centre",
+          "w_dip": 420,
+          "h_dip": 460,
+          "note": "SOFT zone. The sign-in prompt only appears once someone touches the machine, and Windows blurs the image behind it. Meaning may sit under it; nothing may need it to be read. Reported in the manifest, never thrown."
+        }
+      },
+      "screensaver": "Uses the LOCK zones, so every frame is valid in Lock screen > Slideshow as well as the Photos screensaver. When Al locks the laptop Windows shows the lock screen, not the screensaver, so the slideshow route is the one expected to be used.",
+      "confirm": "Content confirms the clock, widget and icon positions on Al's machine and returns the scaling. A change is an edit here and a re-run; no producer edit."
     }
   },
   "print": {
@@ -860,6 +927,7 @@
     ],
     "preflight": "node mo_visual_kit.js preflight — runs every gate, writes nothing."
   },
+  "amended_3_6_0": "2026-10-13 by Design for Content (Sam), Al's rulings of the same day: light everywhere; house lane; book frame shows the cover; podcast frame names the show in the eyebrow; lock screen claim C01; wallpaper carries no claim; a fourth screensaver frame carries a claim; MP4 loop dropped. NO colour value changed and no colour token added. Rebased onto 3.5.1 as 3.6.0 on 2026-11-10; claim bank 1.1.0 (CR-2026-10-13-EVENT, signed off by Voice Codex 2026-11-10) permits C01 and C22 on event screen.",
   "amended_3_3_1": "2026-09-21 by Al's rulings of 09-15/20 — the video estate. NO colour value changed and no token added: the near-misses in build_deck.js mapped onto EXISTING tokens rather than earning new ones. Consumer register corrected: mo_slide_template.js was superseded, not pending; build_deck.js added as the live deck producer. Video_Card_System_Standard.md amended to LOWER THIRD only (deck absorbs full-frame types; corner insert retired unused). templates/mo_diagram.js — the 14-retired-hit DUPLICATE of the clean producers/mo_diagram.js — filed for git rm, the same duplicate class deleted for mo_visual_kit.js on 09-14.",
   "amended_3_3_0": "2026-09-18 by Al — The Signal carries its issue number. The newsletter eyebrow became a template, blogthumb gained a required --issue for surface the_signal, and eyebrowFor() throws below the 101 anchor so a restart at 01 fails the render. NO colour value changed and no new colour token added. Two items recorded as owed, not fixed: the masthead producer is still off-palette, and ISSUE NNN vs NO. NNN is an unruled divergence.",
   "amended": "2026-09-17 by Al — 3.2.x as recorded; 3.2.2 favicon treatment documented in the marks manifest, retired eye favicon deleted, .ico and webmanifest added. NO colour value changed and no producer touched.",

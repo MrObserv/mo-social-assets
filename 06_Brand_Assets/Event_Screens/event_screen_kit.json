@@ -1,0 +1,28 @@
+{
+  "slug": "event-screen-kit",
+  "qr": {
+    "newsletter": "https://www.masteringobservability.com/subscribe",
+    "book": "https://www.masteringobservability.com/metrics-and-mayhem/free-chapter",
+    "podcast": "https://www.masteringobservability.com/metrics-and-mayhem/podcast",
+    "advisory": "https://www.masteringobservability.com/advisory"
+  },
+  "lock": { "claim": "C01", "qr": "newsletter", "caption": "SCAN FOR THE SIGNAL" },
+  "screensaver": [
+    { "id": "01_newsletter", "kind": "newsletter",
+      "headline": "The Signal, every Friday.",
+      "sub": "Tell us your role and we send you the right things.",
+      "qr": "newsletter", "caption": "SCAN TO SUBSCRIBE" },
+    { "id": "02_book", "kind": "book",
+      "eyebrow": "METRICS & MAYHEM · THE BOOK",
+      "headline": "Chapter 4 is free.",
+      "sub": "It stands on its own.",
+      "cover": "source/book_cover.png",
+      "qr": "book", "caption": "SCAN FOR CHAPTER 4" },
+    { "id": "03_podcast", "kind": "podcast",
+      "eyebrow": "METRICS & MAYHEM · THE PODCAST",
+      "headline": "On Spotify and Apple Podcasts.",
+      "qr": "podcast", "caption": "SCAN TO LISTEN" },
+    { "id": "04_claim", "kind": "claim", "claim": "C22",
+      "qr": "advisory", "caption": "SCAN FOR ADVISORY" }
+  ]
+}
