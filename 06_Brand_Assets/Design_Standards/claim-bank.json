@@ -1,7 +1,7 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "status": "draft for ratification",
-  "date": "2026-11-06",
+  "date": "2026-11-17",
   "owner": "Voice Codex (copy) + Growth (application)",
   "purpose": "Every asset spec in the design system says \"one claim, twelve words or fewer\" and then leaves the producer to invent one. This is the file that stops that. A claim on a thumbnail is brand voice at its most compressed and least reviewed, so it gets a bank, a version and a changelog like everything else.",
   "rules": {
@@ -299,7 +299,8 @@
         "business card",
         "advisory",
         "banner",
-        "event screen"
+        "event screen",
+        "Instagram"
       ],
       "status": "approved",
       "runs": 1
@@ -316,6 +317,11 @@
       "version": "1.1.0",
       "date": "2026-11-06",
       "change": "Event screen added as a permitted surface for C01 (the lock screen line, Al's pick at the 19 Oct Monday clear, CTL-2026-10-19-01) and C22 (screensaver frame 04, Design's pick, signed off by Voice Codex 2026-11-10 under CR-2026-10-13-EVENT). Repetition rule extended for standing surfaces: one event is one run, logged, but not counted toward the four-run rest; reviewed quarterly instead. No claim text changed, no claim added. Applied by the Voice Codex lane, which owns the copy in this bank. Version 1.1.0 rather than the 1.0.1 the CR proposed, because adding permitted surfaces is additive."
+    },
+    {
+      "version": "1.2.0",
+      "date": "2026-11-17",
+      "change": "Instagram added as a permitted surface for C22, so IG5 can run: Sat 28 Nov 17:00, a photo of event-screen frame 04 with the claim line opening the caption (GR-2026-11-10-01). Al's ruling of 16 Nov in the Voice Codex chat. An Instagram post is a feed surface, not a standing one, so IG5 counts toward the four-run rest; Growth logs the run once it airs, taking C22 from 1 run to 2. No claim text changed, no claim added. Applied by the Voice Codex lane, which owns the copy in this bank."
     }
   ]
 }
